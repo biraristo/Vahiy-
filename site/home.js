@@ -114,14 +114,14 @@ async function home() {
     <div class="sayaclar" id="sayaclar"></div><div id="seritler" aria-hidden="true"></div></section>
 
 <div class="ayrac" aria-hidden="true"><svg viewBox="0 0 240 24"><path d="M0 12H96M144 12H240" /><path d="M120 2l3.5 6.5L130 12l-6.5 3.5L120 22l-3.5-6.5L110 12l6.5-3.5z"/><rect x="113" y="5" width="14" height="14" transform="rotate(45 120 12)"/><circle cx="104" cy="12" r="1.6"/><circle cx="136" cy="12" r="1.6"/></svg></div>
-  <section class="bolum isnad"><p class="isnad-ana" data-t="Z.n">Sitedeki her kayıt, kaynak zinciriyle birlikte sunulur: eser ve müellif, neşir ve tahkik, cilt ve sayfa, veri kaynağı ve işleme yöntemi açıkça belirtilir.</p><div class="zincir"><div>
+  <section class="bolum isnad"><p class="isnad-baslik" data-t="Z.n">Her bilgi kaynağına bir isnadla bağlıdır: eser, neşir, cilt ve sayfa, veri kümesi ve işleme betiği, her pasajın yanında açıkça gösterilir.</p><div class="zincir"><div>
     <ol class="halka"><li><b>Pasaj</b><span>Cilt 5, sayfa 386</span></li><li><b>Eser</b><span>Taberî (ö. 310), Câmiu'l-beyân</span></li><li><b>Neşir</b><span>thk. Ahmed Şâkir, Müessesetü'r-Risâle, 1420</span></li><li><b>Veri</b><span>Quranpedia dökümü</span></li><li><b>İşleme</b><span>Ayet ayet ayrıştırma betiği, açık kaynak</span></li></ol></div>
     <div class="pasaj"><p class="ar" lang="ar">القول في تأويل قوله تعالى: ﴿اللَّهُ لا إِلَهَ إِلا هُوَ الْحَيُّ الْقَيُّومُ﴾</p><p class="kim">Taberî, Câmiu'l-beyân, 5/386</p></div></div></section>
 
 <div class="ayrac" aria-hidden="true"><svg viewBox="0 0 240 24"><path d="M0 12H96M144 12H240" /><path d="M120 2l3.5 6.5L130 12l-6.5 3.5L120 22l-3.5-6.5L110 12l6.5-3.5z"/><rect x="113" y="5" width="14" height="14" transform="rotate(45 120 12)"/><circle cx="104" cy="12" r="1.6"/><circle cx="136" cy="12" r="1.6"/></svg></div>
   <section class="bolum" aria-labelledby="atlas-b"><h2 id="atlas-b" data-t="atlas">Nüzul şeması</h2>
     <p class="not" data-t="atlas.not">Sahabe mushaflarından bugüne, âlimlerin sureleri hangi sırayla dizdiği. Bir tertip seçin; sureler yerini değiştirir, renkler o tertibin kendi Mekkî–Medenî ayrımını gösterir.</p>
-    <div class="ana-atlas"><div class="siralar" id="siralar" role="group" aria-label="Sıralama"></div><div class="dosem" id="dosem"></div>
+    <div class="ana-atlas"><div class="kap-s"><div class="siralar" id="siralar" role="group" aria-label="Sıralama"></div></div><div class="dosem" id="dosem"></div>
       <div class="ipucu"><span id="lejant"></span><span class="secili" id="secili"></span></div>
       <div class="sira-kaynak" id="siraKaynak"></div></div></section>
 
@@ -224,7 +224,7 @@ async function home() {
   $('#siralar').onclick = e => { const b = e.target.closest('button'); if (b) tertipSec(+b.dataset.i); };
   tertipSec(SL.findIndex(x => x.id === 'misir'), true);
   dos.querySelector('a[data-n="96"]').onmouseenter();
-  requestAnimationFrame(() => { const sc = $('#siralar'); sc.scrollLeft = sc.scrollWidth; });
+  requestAnimationFrame(() => { const sc = $('#siralar'); sc.scrollLeft = 0; kaydirIpucu(sc); });
 
   /* ---- A: sayaçlar ve şeritler ---- */
   const SY = [[sy.alinti, 'kez bir ayet, bir kitapta alıntılanmış', 'buyuk'], [sy.rivayet, 'selef rivayeti, isnadıyla'], [sy.makale, 'akademik makale'], [sy.eser, 'eserde ayetlerin izi sürüldü'], [sy.yazma, 'el yazması Kur\'an nüshası'], [sy.tefsir, 'tefsir, ayet ayet'], [sy.ravi, 'râvinin hayatı, ricâl kitaplarından'], [sy.lugat, 'klasik Arapça lügat']];
@@ -256,11 +256,11 @@ async function home() {
       x += ADIM;
     });
     $('#eski').innerHTML = `<div class="ek-ust"><button type="button" class="ok" id="ekGeri" aria-label="Geriye kaydır">‹</button><span class="ek-ip">${fmt(L.length)} nüsha · eskiden yeniye · kaydırın</span><button type="button" class="ok" id="ekIleri" aria-label="İleriye kaydır">›</button></div>
-      <div class="ek-sahne" id="ekSahne" tabindex="0" aria-label="En eski yazmalar zaman çizelgesi; ok tuşlarıyla kaydırın"><div class="ek-iz" style="width:${x + KART}px"><div class="ek-cizgi"></div>${html}</div></div>
+      <div class="kap-s"><div class="ek-sahne" id="ekSahne" tabindex="0" aria-label="En eski yazmalar zaman çizelgesi; ok tuşlarıyla kaydırın"><div class="ek-iz" style="width:${x + KART}px"><div class="ek-cizgi"></div>${html}</div></div></div>
       <p class="dkaynak">${esc(E.kaynak)} · ${fmt(E.toplam_tarihli)} tarihli nüshadan en eski ${L.length}'ı. ${esc(E.not)} ${chain([{ r: 'Kaynak', t: E.kaynak, u: 'https://corpuscoranicum.de/de/manuscripts', k: 'cc' }, { r: 'İşleme', t: 'En eski yazmalar listesi', b: 'eskiyazma' }])}</p>`;
     const sh = $('#ekSahne'), kay = d => sh.scrollBy({ left: d * sh.clientWidth * .8, behavior: azHareket ? 'auto' : 'smooth' });
     const durum = () => { $('#ekGeri').disabled = sh.scrollLeft < 5; $('#ekIleri').disabled = sh.scrollLeft + sh.clientWidth > sh.scrollWidth - 5; };
-    $('#ekGeri').onclick = () => kay(-1); $('#ekIleri').onclick = () => kay(1); sh.addEventListener('scroll', durum, { passive: true }); durum();
+    $('#ekGeri').onclick = () => kay(-1); $('#ekIleri').onclick = () => kay(1); sh.addEventListener('scroll', durum, { passive: true }); durum(); kaydirIpucu(sh);
     sh.addEventListener('keydown', e => { if (e.key === 'ArrowRight') { e.preventDefault(); kay(1); } if (e.key === 'ArrowLeft') { e.preventDefault(); kay(-1); } });
   }).catch(() => { $('#eyb').hidden = true; });
 
@@ -276,6 +276,17 @@ async function home() {
     return `<defs><pattern id="${id}" width="${w}" height="${h}" patternUnits="userSpaceOnUse">${P[tp]}</pattern></defs><rect width="100%" height="100%" fill="${c}"/><rect width="100%" height="100%" fill="url(#${id})"/>`;
   };
   $('#kaynaklar').innerHTML = KD.map((k, i) => `<a class="kay" href="#/kutuphane"><svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 220 150" aria-hidden="true">${motif(k[3], k[2], i)}</svg><b>${k[0]}</b><span>${k[1]}</span></a>`).join('');
+}
+
+/* yatay kaydırılan alanlar için hareketli ipucu; kullanıcı kaydırınca kaybolur */
+function kaydirIpucu(el) {
+  if (!el || el.scrollWidth <= el.clientWidth + 8) return;
+  const kap = el.parentElement; kap.classList.add('ipucu-kap');
+  const ip = document.createElement('div'); ip.className = 'kay-ipucu'; ip.setAttribute('aria-hidden', 'true');
+  ip.innerHTML = '<span>kaydır</span><i></i><i></i><i></i>';
+  kap.appendChild(ip);
+  const gizle = () => { ip.classList.add('gitti'); el.removeEventListener('scroll', gizle); setTimeout(() => ip.remove(), 600); };
+  el.addEventListener('scroll', gizle, { passive: true });
 }
 
 /* sayfa değişince açılışın kaydırma işlerini durdur, okuma sayfalarında zemini sakinleştir */
