@@ -172,3 +172,11 @@ table.t { width: 100%; border-collapse: collapse; font-family: var(--sans); font
 .more { margin: 1rem 0; font-family: var(--sans); padding: .5rem 1rem; border: 1px solid var(--line); background: var(--sheet); border-radius: 6px; cursor: pointer; }
 .table-wrap { overflow-x: auto; }
 @media (max-width: 640px) { body { font-size: 17px; } .works .hide-sm { display: none; } }
+
+.k1h { font-size: .98rem; font-weight: 500; margin: 1rem 0 .4rem; }
+.k1h:first-child { margin-top: 0; }
+.links a { font-family: var(--sans); font-size: .9rem; display: inline-block; margin: 0 .55rem .2rem 0; }
+.topic { border-bottom: 1px solid var(--line); padding: .35rem 0; }
+.topic > summary { cursor: pointer; font-size: 1.05rem; }
+.topic .links { margin: .4rem 0 .2rem; }
+.srcs { font-family: var(--sans); font-size: .8rem; color: var(--muted); }

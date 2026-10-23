@@ -11,11 +11,10 @@ const store = { get(k, d) { try { return localStorage.getItem(k) ?? d; } catch {
 const RAVI = { 'ورش': 'Verş', 'قالون': 'Kālûn', 'البزي': 'Bezzî', 'قنبل': 'Kunbul', 'الدوري': 'Dûrî', 'السوسي': 'Sûsî', 'شعبة': "Şu'be", 'حفص': 'Hafs' };
 const SAYIM = { 'الكوفي': 'Kûfî', 'المدني الأول': 'Medenî-i evvel', 'المدني الأخير': 'Medenî-i âhir', 'المكي': 'Mekkî', 'البصري': 'Basrî', 'الشامي': 'Şâmî' };
 const LAYERS = [
-  ['Kur\'an iskeleti', true], ['Kur\'an içi ağ', false], ['Ayet ayet kaynaklar (tefsir, kıraat, esbâb)', false], ['Külliyat alıntı indeksi', false],
+  ['Kur\'an iskeleti', true], ['Kur\'an içi ağ', true], ['Ayet ayet kaynaklar (tefsir, kıraat, esbâb)', false], ['Külliyat alıntı indeksi', false],
   ['Aktarım, hadis, ricâl', false], ['Kavramlar', false], ['Karşılaştırmalı metinler', false], ['Görüş ve ihtilaf', false], ['Literatür ve masa', false],
 ];
 const LATER = [
-  [1, 'Kur\'an içi ilişkiler', 'Benzer ayetler, müteşâbihler, ortak kök ve konu'],
   [2, 'Tefsirler', '~200 tefsirin bu ayete dair pasajları, dönemlere göre'],
   [2, 'Esbâb-ı nüzûl ve nâsih-mensûh', 'Nüzul sebebi rivayetleri ve nesih tartışmaları'],
   [3, 'Hadis ve rivayet', 'Hadis kitaplarında bu ayetin geçtiği yerler'],
@@ -144,7 +143,12 @@ async function ayah(s, a) {
       <div class="body"><p style="font-family:var(--sans);margin:0">${A.cc_kiraat && A.cc_kiraat.okuyus ? `Corpus Coranicum bu ayet için ${A.cc_kiraat.okuyus} okuyuş kaydediyor (${A.cc_kiraat.kaynak_eser} kaynak eserden). Okuyuşların listesi, okuyanları ve kaynak eserleri Katman 2 ile bu bölümde açılacak.` : 'Corpus Coranicum veri tabanında bu ayet için kıraat kaydı yok. Bu, ayette kıraat farkı olmadığı anlamına gelmez; yalnızca o veri tabanının kapsamını gösterir.'}</p></div>
     </details>
 
-    ${LATER.map(([L, title, d], i) => `<details class="sec later"><summary><span class="num">${i + 5}</span><span class="t">${esc(title)}</span><span class="d">Katman ${L} ile gelecek</span></summary></details>`).join('')}
+    <details class="sec" id="k1" open>
+      <summary><span class="num">5</span><span class="t">Kur'an içi ilişkiler</span><span class="d" id="k1d">Katman 1</span></summary>
+      <div class="body" id="k1body">Yükleniyor…</div>
+    </details>
+
+    ${LATER.map(([L, title, d], i) => `<details class="sec later"><summary><span class="num">${i + 6}</span><span class="t">${esc(title)}</span><span class="d">Katman ${L} ile gelecek</span></summary></details>`).join('')}
   </section>
 
   <aside class="right">
@@ -218,6 +222,33 @@ async function ayah(s, a) {
         ayahs.slice(0, 40).map(x => `<a href="#/${x.replace(':', '/')}">${x}</a>`).join('') + (ayahs.length > 40 ? ` <span class="tag">+${ayahs.length - 40}</span>` : '');
     }
   }));
+
+  // Katman 1
+  (async () => {
+    const id = `${s}:${a}`;
+    const L = ((await load(`/data/k1/${s}.json`)).ayetler || {})[id] || {};
+    const al = (x) => `<a href="#/${x.replace(':', '/')}">${x}</a>`;
+    const parts = [];
+    let n = 0;
+    if (L.benzer_ifade && L.benzer_ifade.length) {
+      n += L.benzer_ifade.length;
+      parts.push(`<h4 class="k1h">Benzer ifadeler <span class="tag v">kaynaklı · Quranpedia</span></h4><table class="t"><tbody>${L.benzer_ifade.map(g => `<tr><td class="ar" style="font-size:1.05rem;width:45%">${esc(g.not)}</td><td class="links">${g.ayetler.map(al).join(' ')}</td></tr>`).join('')}</tbody></table>`);
+    }
+    if (L.ortak_ifade && L.ortak_ifade.length) {
+      n += L.ortak_ifade_toplam;
+      parts.push(`<h4 class="k1h">Ortak ifade (lemma düzeyinde) <span class="tag">mekanik</span></h4><table class="t"><tbody>${L.ortak_ifade.map(o => `<tr><td class="ar" style="font-size:1.15rem;width:42%">${esc(o.ifade)} <span class="tag" dir="ltr">${o.uzunluk} kelime</span></td><td class="links">${o.ayetler.map(al).join(' ')}</td></tr>`).join('')}</tbody></table>${L.ortak_ifade_grup > L.ortak_ifade.length ? `<p class="srcs" style="padding:0">En uzun ${L.ortak_ifade.length} ifade gösteriliyor (toplam ${L.ortak_ifade_grup} ifade, ${L.ortak_ifade_toplam} ayet bağı).</p>` : ''}<p class="srcs" style="padding:0">Lemma düzeyinde: kelimelerin sözlük biçimleri aynı; çekim, zamir ve ilgi zamiri biçimleri farklı olabilir.</p>`);
+    }
+    if (L.konu && L.konu.length) {
+      const K = (await load('/data/k1/konular.json')).konular;
+      n += L.konu.length;
+      parts.push(`<h4 class="k1h">Konular <span class="tag v">kaynaklı · Quranpedia konu dizini</span></h4><div class="topics">${L.konu.map(t => { const k = K[t]; return k ? `<details class="topic"><summary><span class="ar">${esc(k.ad)}</span>${k.ust ? ` <span class="tag ar">${esc(k.ust)}</span>` : ''} <span class="tag" dir="ltr">${k.ayetler.length} ayet</span></summary><p class="links">${k.ayetler.filter(x => x !== id).map(al).join(' ')}</p></details>` : ''; }).join('')}</div>`);
+    }
+    if (L.ayni_bolum) {
+      parts.push(`<h4 class="k1h">Aynı bölümdeki ayetler <span class="tag v">kaynaklı · Corpus Coranicum</span></h4><p class="links">${L.ayni_bolum.ayetler.filter(x => x !== id).map(al).join(' ')}</p>`);
+    }
+    $('#k1d').textContent = n ? `${n} bağ · Katman 1` : 'Katman 1';
+    $('#k1body').innerHTML = parts.length ? parts.join('') : '<p style="font-family:var(--sans);margin:0">Bu ayet için Katman 1 kaynaklarında bağ bulunmadı. Tefsirlerdeki ayetler arası atıflar Katman 2 ile eklenecek.</p>';
+  })().catch(e => { $('#k1body').textContent = e.message; });
 
   $('#riv').addEventListener('toggle', async (e) => {
     if (!e.target.open || e.target.dataset.loaded) return;
