@@ -17,7 +17,7 @@ const ARAYUZ_DIL = {
   tr: {},
   en: { 'nav.atlas': "Qur'an atlas", 'nav.kutuphane': 'Library', 'h1': 'From text to meaning, from meaning to history.',
     'alt': 'Read a verse alongside {tefsir} tafsirs, {rivayet} early reports, {lugat} lexicons and its traces in {eser} books. Every item is linked to its source.',
-    'gir': 'Enter the verse', 'ipucu': 'Turn the outer ring to choose a surah and the inner ring to choose a verse.', 'ayet': 'Verse',
+    'gir': 'Go to verse', 'ipucu': 'Turn the outer ring to choose a surah and the inner ring to choose a verse.', 'ayet': 'Verse',
     'atlas': 'Order of revelation', 'atlas.not': 'From the Companions’ codices to today: how scholars ordered the surahs. Choose an ordering; the surahs move and the colours show that source’s own Meccan–Medinan division.',
     'A.b': 'Khizānat al-kutub', 'A.n': 'Our library: works, quotations, reports and manuscripts linked to the verses. Every number was counted separately.',
     'B.b': 'The library around a verse', 'C.b': 'Fifteen centuries of conversation', 'C.n': 'As you scroll, each Hijri century fills with the number of books in the system by authors who died in it.',
@@ -26,7 +26,7 @@ const ARAYUZ_DIL = {
     'son': 'vahiy++ is a personal research project. Every record carries its source chain.' },
   ar: { 'nav.atlas': 'أطلس القرآن', 'nav.kutuphane': 'المكتبة', 'h1': 'من النصّ إلى المعنى، ومن المعنى إلى التاريخ.',
     'alt': 'اقرأ الآية مع {tefsir} تفسيرًا و{rivayet} رواية عن السلف و{lugat} معجمًا، وآثارها في {eser} كتابًا؛ كلّ معلومة موصولة بمصدرها.',
-    'gir': 'ادخل الآية', 'ipucu': 'أدِر الحلقة الخارجية لاختيار السورة، والداخلية لاختيار الآية.', 'ayet': 'الآية',
+    'gir': 'اذهب إلى الآية', 'ipucu': 'أدِر الحلقة الخارجية لاختيار السورة، والداخلية لاختيار الآية.', 'ayet': 'الآية',
     'atlas': 'مخطط النزول', 'atlas.not': 'من مصاحف الصحابة إلى اليوم: كيف رتّب العلماء السور. اختر ترتيبًا فتنتقل السور، وتدلّ الألوان على تقسيم ذلك المصدر للمكي والمدني.',
     'A.b': 'خزانة الكتب', 'A.n': 'مكتبتنا: الكتب والاقتباسات والروايات والمخطوطات المرتبطة بالآيات، وكل رقم معدود على حدة.', 'B.b': 'المكتبة حول آية', 'C.b': 'حوار خمسة عشر قرنًا',
     'C.n': 'كلما نزلت امتلأ كل قرن هجري بعدد كتب المؤلفين المتوفين فيه.', 'D.b': 'عمّ تتحدث السورة', 'D.n': 'اختر سورة: لكل موضوع مسار، وكل علامة آية؛ اضغط العلامة لفتح الآية.',
@@ -89,23 +89,28 @@ async function home() {
     <h1 data-t="h1">Metinden manaya, manadan tarihe.</h1>
     <p class="alt" data-t="alt" data-tr="Bir ayeti {tefsir} tefsir, {rivayet} selef rivayeti, {lugat} lügat ve {eser} kitaptaki izleriyle birlikte okuyun. Her bilgi kaynağına bağlı."></p>
     <div class="usturlap">
-      <svg id="ust" viewBox="-290 -296 580 304" role="group" aria-label="Sure ve ayet seçici; sağ ve sol ok tuşları sureyi, yukarı ve aşağı ok tuşları ayeti değiştirir" tabindex="0">
+      <div class="cark">
+      <svg id="ust" viewBox="-292 -318 584 614" role="group" aria-label="Sure ve ayet seçici; sağ ve sol ok tuşları sureyi, yukarı ve aşağı ok tuşları ayeti değiştirir" tabindex="0">
         <defs><radialGradient id="ustg"><stop offset="0" stop-color="var(--sheet)"/><stop offset="1" stop-color="var(--sheet)" stop-opacity="0"/></radialGradient></defs>
         <circle r="262" fill="url(#ustg)"/>
         <circle r="268" class="hl"/><circle r="232" class="hl ince"/><circle r="200" class="hl"/><circle r="166" class="hl ince"/><circle r="140" class="hl"/>
-        <g id="tik"></g><g id="halka1"></g><g id="halka2"></g>
+        <g id="mstar"></g><g id="tik"></g><g id="halka1"></g><g id="halka2"></g>
         <path class="gosterge" d="M0 -293 L7 -284 L0 -275 L-7 -284 Z"/><path class="gosterge" d="M0 -222 L6 -215 L0 -208 L-6 -215 Z"/>
-        <line x1="0" y1="-140" x2="0" y2="-118" stroke="var(--zer)" stroke-width="1.2"/>
-        <g id="mstar"></g>
+        <g id="cevir" aria-hidden="true"><g class="cv-don"><path class="cv-yay" d="M171.6 -217.4 A277 277 0 0 1 240 -138.5"/><path class="cv-uc" d="M229 -147 L240 -138.5 L244 -152"/>
+          <path class="cv-yay" d="M-171.6 -217.4 A277 277 0 0 0 -240 -138.5"/><path class="cv-uc" d="M-229 -147 L-240 -138.5 L-244 -152"/></g>
+          <text class="cv-yazi" x="0" y="-302" text-anchor="middle">çevir</text></g>
       </svg>
       <div class="ust-orta">
         <div class="ust-sure" id="usAr" lang="ar"></div>
         <div class="ust-bilgi" id="usBilgi"></div>
         <div class="ust-ayet"><button class="ok" id="ayGeri" aria-label="Önceki ayet">‹</button><span><span data-t="ayet">Ayet</span> <b id="usAy">1</b></span><button class="ok" id="ayIleri" aria-label="Sonraki ayet">›</button></div>
-        <div class="ust-onizleme" id="usOn" lang="ar"></div>
-        <button class="gir" id="gir"><span data-t="gir">Ayete gir</span></button>
       </div>
-      <p class="ust-ipucu" data-t="ipucu">Dış halkayı çevirerek sureyi, iç halkayı çevirerek ayeti seçin.</p>
+      </div>
+      <div class="ust-alt">
+        <div class="ust-onizleme" id="usOn" lang="ar"></div>
+        <button class="gir" id="gir"><span data-t="gir">Ayete git</span></button>
+        <p class="ust-ipucu" data-t="ipucu">Dış halkayı çevirerek sureyi, iç halkayı çevirerek ayeti seçin.</p>
+      </div>
     </div>
   </div></section>
 
@@ -119,6 +124,9 @@ async function home() {
     <div class="pasaj"><p class="ar" lang="ar">القول في تأويل قوله تعالى: ﴿اللَّهُ لا إِلَهَ إِلا هُوَ الْحَيُّ الْقَيُّومُ﴾</p><p class="kim">Taberî, Câmiu'l-beyân, 5/386</p></div></div></section>
 
 <div class="ayrac" aria-hidden="true"><svg viewBox="0 0 240 24"><path d="M0 12H96M144 12H240" /><path d="M120 2l3.5 6.5L130 12l-6.5 3.5L120 22l-3.5-6.5L110 12l6.5-3.5z"/><rect x="113" y="5" width="14" height="14" transform="rotate(45 120 12)"/><circle cx="104" cy="12" r="1.6"/><circle cx="136" cy="12" r="1.6"/></svg></div>
+  <section class="bolum"><h2 data-t="K.b">Kaynak dünyası</h2><p class="not" data-t="K.n">Ayetlere bağlanan kitaplar, ilim dallarına göre.</p><div class="kaynaklar" id="kaynaklar"></div></section>
+
+<div class="ayrac" aria-hidden="true"><svg viewBox="0 0 240 24"><path d="M0 12H96M144 12H240" /><path d="M120 2l3.5 6.5L130 12l-6.5 3.5L120 22l-3.5-6.5L110 12l6.5-3.5z"/><rect x="113" y="5" width="14" height="14" transform="rotate(45 120 12)"/><circle cx="104" cy="12" r="1.6"/><circle cx="136" cy="12" r="1.6"/></svg></div>
   <section class="bolum" aria-labelledby="atlas-b"><h2 id="atlas-b" data-t="atlas">Nüzul şeması</h2>
     <p class="not" data-t="atlas.not">Sahabe mushaflarından bugüne, âlimlerin sureleri hangi sırayla dizdiği. Bir tertip seçin; sureler yerini değiştirir, renkler o tertibin kendi Mekkî–Medenî ayrımını gösterir.</p>
     <div class="ana-atlas"><div class="kap-s"><div class="siralar" id="siralar" role="group" aria-label="Sıralama"></div></div><div class="dosem" id="dosem"></div>
@@ -130,8 +138,6 @@ async function home() {
     <p class="not" data-t="E.n">Bugüne ulaşan en eski Kur'an nüshaları, tahminî yazılış tarihleriyle. Zaman çizelgesini sağa sola kaydırın; bir nüshaya dokununca sayfası açılır.</p>
     <div id="eski"></div></section>
 
-<div class="ayrac" aria-hidden="true"><svg viewBox="0 0 240 24"><path d="M0 12H96M144 12H240" /><path d="M120 2l3.5 6.5L130 12l-6.5 3.5L120 22l-3.5-6.5L110 12l6.5-3.5z"/><rect x="113" y="5" width="14" height="14" transform="rotate(45 120 12)"/><circle cx="104" cy="12" r="1.6"/><circle cx="136" cy="12" r="1.6"/></svg></div>
-  <section class="bolum"><h2 data-t="K.b">Kaynak dünyası</h2><p class="not" data-t="K.n">Ayetlere bağlanan kitaplar, ilim dallarına göre.</p><div class="kaynaklar" id="kaynaklar"></div></section>
 
   <p class="ana-son" data-t="son">vahiy++ kişisel bir araştırma çalışmasıdır. Her kaydın kaynağı zincirinde yazılıdır.</p>
 </div>`;
@@ -182,6 +188,8 @@ async function home() {
   svg.addEventListener('pointerup', () => { if (!drag) return; const d = drag; drag = null; if (!d.moved && d.t.dataset?.i) { const i = +d.t.dataset.i; d.t.parentNode === h1 ? sureSec(i) : ayetSec(i); return; } d.hk === 's' ? sureSec(Math.round(U.ps)) : ayetSec(Math.round(U.pa)); });
   svg.addEventListener('wheel', e => { const p = nokta(e), r = Math.hypot(p.x, p.y); if (r < 150) return; e.preventDefault(); const y = Math.sign(e.deltaY); r > 216 ? sureSec(U.s - 1 + y) : ayetSec(U.a - 1 + y); }, { passive: false });
   svg.addEventListener('keydown', e => { const k = { ArrowLeft: () => sureSec(U.s - 2), ArrowRight: () => sureSec(U.s), ArrowUp: () => ayetSec(U.a), ArrowDown: () => ayetSec(U.a - 2), Enter: () => $('#gir').click() }[e.key]; if (k) { e.preventDefault(); k(); } });
+  const cevirGizle = () => $('#cevir')?.classList.add('gitti');
+  ['pointerdown', 'wheel', 'keydown'].forEach(ev => svg.addEventListener(ev, cevirGizle, { once: true }));
   ustCiz(); bilgi();
   ilkYukle.then(bilgi);
   setTimeout(() => { const son = store.get('son', ''); const hs = son ? +son.split(':')[0] : [2, 18, 36, 55, 67, 96][Math.floor(Math.random() * 6)]; U.s = hs; U.a = 1; anim('ps', hs - 1, 1600); bilgi(); }, 400);
@@ -222,7 +230,7 @@ async function home() {
     const sb = $('#siralar button[aria-pressed="true"]'); if (sb && !ilkSefer) sb.scrollIntoView({ block: 'nearest', inline: 'center', behavior: azHareket ? 'auto' : 'smooth' });
   };
   $('#siralar').onclick = e => { const b = e.target.closest('button'); if (b) tertipSec(+b.dataset.i); };
-  tertipSec(SL.findIndex(x => x.id === 'misir'), true);
+  tertipSec(0, true);
   dos.querySelector('a[data-n="96"]').onmouseenter();
   requestAnimationFrame(() => { const sc = $('#siralar'); sc.scrollLeft = 0; kaydirIpucu(sc); });
 
@@ -286,7 +294,12 @@ function kaydirIpucu(el) {
   ip.innerHTML = '<span>kaydır</span><i></i><i></i><i></i>';
   kap.appendChild(ip);
   const gizle = () => { ip.classList.add('gitti'); el.removeEventListener('scroll', gizle); setTimeout(() => ip.remove(), 600); };
-  el.addEventListener('scroll', gizle, { passive: true });
+  let gosterildi = false;
+  new IntersectionObserver((es, o) => {
+    if (!es[0].isIntersecting || gosterildi || azHareket) return; gosterildi = true; o.disconnect();
+    el.removeEventListener('scroll', gizle);
+    setTimeout(() => { el.scrollTo({ left: 90, behavior: 'smooth' }); setTimeout(() => { el.scrollTo({ left: 0, behavior: 'smooth' }); setTimeout(() => el.addEventListener('scroll', gizle, { passive: true }), 700); }, 700); }, 500);
+  }, { threshold: .6 }).observe(el);
 }
 
 /* sayfa değişince açılışın kaydırma işlerini durdur, okuma sayfalarında zemini sakinleştir */

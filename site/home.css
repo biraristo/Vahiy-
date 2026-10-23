@@ -294,3 +294,29 @@ main.ana-main { max-width: none; padding: 0; }
 @keyframes ipucu-ok { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
 .ek-sahne + .kay-ipucu, .ipucu-kap > .kay-ipucu { top: 50%; }
 @media (prefers-reduced-motion: reduce) { .kay-ipucu, .kay-ipucu i { animation: none; } .kay-ipucu i { opacity: 1; } }
+
+/* ---- 00:10: ilk ekran yalnız başlık ve çark; çark merkezli; altın metin; çevir ipucu ---- */
+:root { --altin: #B8913A; } :root[data-theme="dark"] { --altin: #E2BC63; }
+.ana .hero { min-height: calc(100svh - 60px); display: flex; flex-direction: column; justify-content: center; padding: 2.2rem 0 1.2rem; }
+.ana h1 { font-size: clamp(1.75rem, 6.8vw, 3.4rem); margin-bottom: .4rem; }
+.ana .alt { font-size: .98rem; line-height: 1.5; margin-bottom: .2rem; }
+.cark { position: relative; width: min(100%, 560px); margin: 0 auto; }
+#ust { width: 100%; margin: 0; }
+.ust-orta { position: absolute; left: 50%; top: 51.8%; transform: translate(-50%, -50%); width: 46%; margin: 0; text-align: center; pointer-events: none; }
+.ust-orta button { pointer-events: auto; }
+.ust-sure { color: var(--altin); font-size: clamp(2rem, 9vw, 3rem); margin-top: 0; }
+.ust-bilgi { color: var(--altin); opacity: .85; font-size: .82rem; }
+.ust-ayet { color: var(--altin); font-size: .95rem; } .ust-ayet b { color: var(--altin); }
+.ust-ayet .ok { width: 28px; height: 28px; border-color: color-mix(in srgb, var(--altin) 45%, var(--line)); color: var(--altin); background: transparent; }
+#mstar path { stroke: var(--firuze); opacity: .16; stroke-width: 1; }
+.ust-alt { text-align: center; margin-top: .6rem; }
+.ust-alt .ust-onizleme { margin: 0 0 .7rem; font-size: 1.2rem; }
+.gir { padding: .75rem 2rem; }
+#cevir { pointer-events: none; transition: opacity .5s; }
+#cevir.gitti { opacity: 0; }
+#cevir .cv-don { animation: cv-don 2.4s ease-in-out infinite; transform-origin: 0 0; }
+#cevir .cv-yay, #cevir .cv-uc { fill: none; stroke: var(--altin); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+#cevir .cv-yazi { font: 600 15px var(--sans); fill: var(--altin); letter-spacing: .08em; animation: cv-nabiz 2.4s ease-in-out infinite; }
+@keyframes cv-don { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(6deg); } }
+@keyframes cv-nabiz { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { #cevir .cv-don, #cevir .cv-yazi { animation: none; } }
