@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fâtiha 1:7 · önizleme · vahiy++</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/app.css">
+<style>
+  .crumb { font-family: var(--sans); font-size: .95rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: .4rem 1rem; align-items: baseline; padding-bottom: .9rem; border-bottom: 1px solid var(--line); margin-bottom: 1.5rem; }
+  .crumb b { color: var(--ink); font-weight: 500; }
+  .crumb .pill { border: 1px solid var(--line); border-radius: 999px; padding: .05rem .6rem; background: var(--sheet); }
+  .preview-note { font-family: var(--sans); font-size: .9rem; background: var(--lapis-soft); color: var(--ink); border-radius: 6px; padding: .6rem .9rem; margin-bottom: 1.5rem; }
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 2.5rem; align-items: start; }
+  @media (max-width: 980px) { .layout { grid-template-columns: 1fr; } }
+  .ayah { font-family: var(--arabic); font-size: clamp(1.9rem, 4vw, 2.6rem); line-height: 2.1; direction: rtl; text-align: right; margin: 0 0 .5rem; }
+  .ayah .no { font-size: 1.2rem; color: var(--gold); }
+  .meal { color: var(--muted); margin: 0 0 1.25rem; }
+  .words { display: flex; flex-wrap: wrap; gap: .4rem; direction: rtl; margin-bottom: 2.25rem; }
+  .w { border: 1px solid var(--line); background: var(--sheet); border-radius: 6px; padding: .35rem .55rem; text-align: center; min-width: 74px; }
+  .w .a { font-family: var(--arabic); font-size: 1.25rem; display: block; line-height: 1.6; }
+  .w .m { font-family: var(--sans); font-size: .72rem; color: var(--muted); display: block; direction: ltr; line-height: 1.3; }
+  .w .r { font-family: var(--arabic); font-size: .85rem; color: var(--lapis); display: block; }
+  .w.on { border-color: var(--gold); background: var(--gold-soft); }
+  h2 { font-size: 1.35rem; font-weight: 500; margin: 2.25rem 0 .75rem; }
+  .q { border-top: 1px solid var(--line); padding: .9rem 0; }
+  .q > summary { cursor: pointer; font-weight: 500; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+  .q > summary::-webkit-details-marker { display: none; }
+  .q .cnt { font-family: var(--sans); font-size: .85rem; color: var(--muted); white-space: nowrap; }
+  table.op { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: .92rem; margin-top: .75rem; }
+  .op th { text-align: left; font-weight: 500; color: var(--muted); border-bottom: 1px solid var(--ink); padding: .35rem .5rem .35rem 0; }
+  .op td { border-bottom: 1px solid var(--line); padding: .5rem .5rem .5rem 0; vertical-align: top; }
+  .tag { display: inline-block; font-family: var(--sans); font-size: .76rem; padding: .05rem .45rem; border-radius: 4px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; margin: 0 .2rem .2rem 0; }
+  .tag.v { border-color: var(--gold); background: var(--gold-soft); color: var(--ink); }
+  .tag.m { border-color: var(--lapis); color: var(--lapis); }
+  .tag.x { border-style: dashed; }
+  .vr { display: grid; grid-template-columns: 140px 1fr; gap: .25rem 1rem; font-family: var(--sans); font-size: .92rem; border-top: 1px solid var(--line); padding: .6rem 0; }
+  .vr .k { font-family: var(--arabic); font-size: 1.2rem; direction: rtl; text-align: right; }
+  .vr .src { color: var(--muted); font-size: .85rem; }
+  .rel { border-left: 3px solid var(--gold); padding: .2rem 0 .2rem .9rem; margin: .9rem 0; }
+  .rel.m { border-color: var(--lapis); }
+  .rel p { margin: .2rem 0; }
+  aside.panel { position: sticky; top: 1rem; background: var(--sheet); border: 1px solid var(--line); border-radius: 8px; padding: 1.1rem 1.2rem; }
+  .panel h3 { font-size: 1rem; font-weight: 500; margin: 0 0 .25rem; }
+  .panel .sub { font-family: var(--sans); font-size: .85rem; color: var(--muted); margin: 0 0 .9rem; }
+  .ev { border-top: 1px solid var(--line); padding: .75rem 0; }
+  .ev .who { font-family: var(--sans); font-size: .85rem; color: var(--muted); }
+  .ev blockquote { font-family: var(--arabic); font-size: 1.15rem; line-height: 1.9; direction: rtl; text-align: right; margin: .35rem 0; }
+  .ev .loc { font-family: var(--sans); font-size: .78rem; color: var(--muted); }
+  .cover { font-family: var(--sans); font-size: .9rem; color: var(--muted); border-top: 1px solid var(--line); margin-top: 2.5rem; padding-top: 1rem; }
+  .bar2 { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; margin: .4rem 0 .6rem; max-width: 420px; }
+  .bar2 i { display: block; height: 100%; width: 4.5%; background: var(--gold); }
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="mark" href="/#/">vahiy<span>++</span></a>
+  <nav><a href="/#/" aria-current="page">Atlas</a><a href="/#/kutuphane">Kütüphane</a></nav>
+</header>
+<main>
+  <p class="preview-note">Önizleme: Bu sayfa elimizdeki gerçek verilerle elle hazırlandı; sistemin her ayet için üreteceği sayfanın taslağıdır. Alıntıların tamamı kaynak metinlerde kodla aranıp birebir bulundu.</p>
+
+  <div class="crumb">
+    <span><a href="/#/">Kur'an</a> › <a href="/#/sure/1">1. Fâtiha</a> › <b>7. ayet</b></span>
+    <span class="pill">Metin: Hafs ʿan ʿÂsım (Medine mushafı)</span>
+    <span class="pill">Sayım: Kûfî</span>
+    <span class="pill">Mekkî · nüzul sırası 5</span>
+  </div>
+
+  <div class="layout">
+  <div>
+    <p class="ayah" lang="ar">صِرَٰطَ ٱلَّذِينَ أَنۡعَمۡتَ عَلَيۡهِمۡ غَيۡرِ ٱلۡمَغۡضُوبِ عَلَيۡهِمۡ وَلَا ٱلضَّآلِّينَ <span class="no">﴿٧﴾</span></p>
+    <p class="meal">Nimete erdirdiğin kimselerin yoluna; gazaba uğrayanların, ya da sapıtanların yoluna değil. <span class="tag">Meal: Diyanet (Quran.com)</span></p>
+
+    <div class="words" aria-label="Kelime çözümlemesi">
+      <span class="w"><span class="a">صِرَاطَ</span><span class="r">صرط</span><span class="m">isim · mansûb</span></span>
+      <span class="w"><span class="a">الَّذِينَ</span><span class="r">—</span><span class="m">ism-i mevsûl</span></span>
+      <span class="w"><span class="a">أَنْعَمْتَ</span><span class="r">نعم</span><span class="m">mâzî fiil · IV. bâb</span></span>
+      <span class="w"><span class="a">عَلَيْهِمْ</span><span class="r">—</span><span class="m">harf-i cer + zamir</span></span>
+      <span class="w on"><span class="a">غَيْرِ</span><span class="r">غير</span><span class="m">isim · mecrûr</span></span>
+      <span class="w"><span class="a">الْمَغْضُوبِ</span><span class="r">غضب</span><span class="m">ism-i mef'ûl</span></span>
+      <span class="w"><span class="a">عَلَيْهِمْ</span><span class="r">—</span><span class="m">harf-i cer + zamir</span></span>
+      <span class="w"><span class="a">وَلَا</span><span class="r">—</span><span class="m">nefy harfi</span></span>
+      <span class="w"><span class="a">الضَّالِّينَ</span><span class="r">ضلل</span><span class="m">ism-i fâil · mecrûr</span></span>
+    </div>
+
+    <h2>Bu ayette tartışılan meseleler</h2>
+
+    <details class="q" open>
+      <summary><span>1. "Kendilerine nimet verilenler" kimlerdir?</span><span class="cnt">6 görüş · 4 eser</span></summary>
+      <table class="op">
+        <thead><tr><th>Görüş</th><th>Sahibi (nispet türü)</th><th>Geçtiği eserler</th><th>Durum</th></tr></thead>
+        <tbody>
+          <tr><td>Melekler, nebîler, sıddîklar, şehidler, sâlihler (Nisâ 4/69'a göre)</td><td>İbn Abbâs <span class="tag">rivayet: Dahhâk tarikı</span></td><td>Taberî · İbn Kesîr</td><td><span class="tag v">metinsel doğrulandı</span></td></tr>
+          <tr><td>Nebîler</td><td>Rebî' b. Enes <span class="tag">rivayet</span></td><td>Taberî · Mâverdî · İbn Kesîr</td><td><span class="tag v">metinsel doğrulandı</span></td></tr>
+          <tr><td>Mü'minler</td><td>İbn Abbâs (İbn Cüreyc) · Zemahşerî <span class="tag">müellifin kendi görüşü</span></td><td>Taberî · Keşşâf · İbn Kesîr</td><td><span class="tag v">metinsel doğrulandı</span></td></tr>
+          <tr><td>Müslümanlar</td><td>Vekî' <span class="tag">rivayet</span></td><td>Taberî · Mâverdî · İbn Kesîr</td><td><span class="tag v">metinsel doğrulandı</span></td></tr>
+          <tr><td>Hz. Peygamber ve beraberindekiler</td><td>Abdurrahman b. Zeyd <span class="tag">rivayet</span></td><td>Taberî · Mâverdî · İbn Kesîr</td><td><span class="tag v">metinsel doğrulandı</span></td></tr>
+          <tr><td>Hz. Mûsâ'nın ashabı (değiştirmeden önce)</td><td>İbn Abbâs'a nispet <span class="tag">nakil, isnadsız</span></td><td>Keşşâf</td><td><span class="tag v">metinsel doğrulandı</span></td></tr>
+        </tbody>
+      </table>
+      <p class="sub" style="font-family:var(--sans);font-size:.85rem;color:var(--muted);margin:.6rem 0 0">Tercih: Taberî ilk görüşü esas alıyor; İbn Kesîr İbn Abbâs rivayetini "daha kapsamlı" buluyor. <span class="tag m">makine yorumu</span></p>
+    </details>
+
+    <details class="q">
+      <summary><span>2. "Gazaba uğrayanlar" ve "sapanlar" kimlerdir?</span><span class="cnt">4 görüş · 5 eser</span></summary>
+    </details>
+    <details class="q">
+      <summary><span>3. غَيْر kelimesinin i'râbı nedir? (sıfat · bedel · hâl · istisnâ)</span><span class="cnt">4 görüş · 6 eser</span></summary>
+    </details>
+    <details class="q">
+      <summary><span>4. وَلَا'daki "lâ"nın işlevi nedir?</span><span class="cnt">3 görüş · 3 eser · 1 nispet sorunu</span></summary>
+    </details>
+    <details class="q">
+      <summary><span>5. Allah'a nispet edilen "gazab"ın anlamı nedir? (kelâmî)</span><span class="cnt">4 görüş · 4 eser</span></summary>
+    </details>
+    <details class="q">
+      <summary><span>6. "Âmîn" (fıkhî): Fâtiha'nın sonunda söylenir mi, sesli mi?</span><span class="cnt">3 görüş · 2 eser</span></summary>
+    </details>
+
+    <h2>Kıraat farkları</h2>
+    <div class="vr"><span class="k">صِرَاطَ</span><span>Sâd ile: Âsım, Ebû Amr, İbn Âmir, Nâfi', Kisâî · Sîn ile: İbn Kesîr (Kunbul) · Zâ işmâmı ile: Hamza, Halef<br><span class="src">Kaynak eserler: İbn Mücâhid, <i>es-Seb'a</i> · Dânî, <i>et-Teysîr</i> · Bennâ, <i>İthâf</i></span></span></div>
+    <div class="vr"><span class="k">عَلَيْهِمْ</span><span>Mîm sılası (ʿaleyhimû): İbn Kesîr, Kālûn (ihtiyârî), Ebû Ca'fer · Hâ ötreli (ʿaleyhum): Hamza, Ya'kūb · Ayrıca 6 şâz okuyuş<br><span class="src">Kaynak eserler: İbn Mücâhid · Dânî · Nehhâs, <i>İ'râb</i> · İbn Cinnî, <i>el-Muhteseb</i> · Ebû Hayyân</span></span></div>
+    <div class="vr"><span class="k">غَيْرِ</span><span>Mecrûr (cumhur) · Mansûb (ğayra): İbn Kesîr'den rivayet; Hz. Peygamber ve Hz. Ömer'e nispet <span class="tag">şâz</span><br><span class="src">Kaynak eserler: Taberî · İbn Hâleveyh, <i>Muhtasar</i> · Ahfeş, <i>Meânî</i></span></span></div>
+    <div class="vr"><span class="k">وَلَا ٱلضَّالِّينَ</span><span>"ve ğayri'd-dâllîn": Hz. Ömer, Übey b. Ka'b · "ed-da'allîn" (hemzeli): Eyyûb es-Sahtiyânî <span class="tag">şâz</span><br><span class="src">Kaynak eserler: Ebû Ubeyd, <i>Fezâil</i> · Zemahşerî · Kurtubî</span></span></div>
+    <p class="sub" style="font-family:var(--sans);font-size:.85rem;color:var(--muted)">74 kıraat kaydı · 16 kaynak eser · Corpus Coranicum (CC BY 4.0)</p>
+
+    <h2>Kaynaklar arası ilişkiler</h2>
+    <div class="rel">
+      <p><b>İbn Kesîr → Zemahşerî</b> · <span class="tag v">açık kaynak zikri</span><span class="tag v">doğrudan alıntı</span></p>
+      <p style="font-family:var(--sans);font-size:.92rem;color:var(--muted)">İbn Kesîr, nasb kıraatine dair cümleyi "قال الزمخشري" diyerek Keşşâf'tan aynen aktarıyor; iki metin harfi harfine örtüşüyor.</p>
+    </div>
+    <div class="rel m">
+      <p><b>Kurtubî → Taberî</b> · <span class="tag m">makine yorumu</span><span class="tag x">inceleme önerisi</span></p>
+      <p style="font-family:var(--sans);font-size:.92rem;color:var(--muted)">Kurtubî, "lâ"nın zâide olduğu görüşünü Taberî'ye nispet ediyor. Taberî'nin metninde ise bu görüş "Basralılardan biri"ne (muhakkik notuna göre Ebû Ubeyde) nispet edilip reddediliyor. Olası bir nispet hatası; kaynağa bakarak doğrulayın.</p>
+    </div>
+
+    <h2>Akademik literatür</h2>
+    <p class="sub" style="font-family:var(--sans);color:var(--muted)">Makale künyeleri toplanıyor. Bu ayete atıf yapan makaleler burada başlık, yazar, dergi ve kısa özetle listelenecek; tıklayınca makalenin sayfası açılacak.</p>
+
+    <div class="cover">
+      <b style="color:var(--ink);font-weight:500">Kapsam</b>
+      <div class="bar2"><i></i></div>
+      Bu sayfa 9 tefsirden (Taberî, Mâverdî, Zemahşerî, Kurtubî, Beyzâvî, İbn Kesîr ve diğerleri), Corpus Coranicum kıraat verisinden ve QAC morfolojisinden üretildi. Kütüphanede bu ayet için ~200 tefsir daha var; henüz işlenmedi. Görüşü bulunmayan bir eser "görüş yok" değil, "işlenmedi" olarak sayılır.
+    </div>
+  </div>
+
+  <aside class="panel" aria-label="Kanıt paneli">
+    <h3>Kanıt paneli</h3>
+    <p class="sub">Seçili: Kurtubî → Taberî nispeti</p>
+    <div class="ev">
+      <span class="who">Kurtubî, <i>el-Câmi' li-ahkâmi'l-Kur'ân</i> · Fâtiha, 35. mesele</span>
+      <blockquote lang="ar">فَقِيلَ هِيَ زَائِدَةٌ، قَالَهُ الطَّبَرِيُّ</blockquote>
+      <span class="tag v">metinsel doğrulandı</span><span class="loc">QUL dijital metni · neşir/sayfa: doğrulanamadı</span>
+    </div>
+    <div class="ev">
+      <span class="who">Taberî, <i>Câmi'u'l-beyân</i> · 1:7, "ولا الضالين" bahsi</span>
+      <blockquote lang="ar">كان بعض أهل البصرة يزعم أن "لا" مع "الضالين" أدخلت تتميما للكلام</blockquote>
+      <blockquote lang="ar">وهذا القول الآخر أولى بالصواب من الأول</blockquote>
+      <span class="tag v">metinsel doğrulandı</span><span class="loc">QUL dijital metni (Şâkir tahkiki) · neşir/sayfa: doğrulanamadı</span>
+    </div>
+    <div class="ev">
+      <span class="who">Muhakkik notu (Şâkir neşri), Taberî metni içinde</span>
+      <p style="font-family:var(--sans);font-size:.88rem;margin:.3rem 0">"Zâide diyen Basralı Ebû Ubeyde'dir" bilgisini muhakkik veriyor, Taberî değil.</p>
+      <span class="tag">nispet: muhakkik</span>
+    </div>
+    <p class="sub" style="margin-top:.75rem">Durum: <span class="tag m">makine yorumu</span> Sizin onayınızı bekliyor.</p>
+  </aside>
+  </div>
+</main>
+</body>
+</html>
