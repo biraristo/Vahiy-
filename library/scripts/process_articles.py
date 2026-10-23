@@ -10,7 +10,7 @@ import gzip, json, re, html, unicodedata, os, collections
 RAW = '/home/claude/lib/raw/articles/crossref_raw.json.gz'
 OUT = '/home/claude/vahiy-/library/articles'
 os.makedirs(OUT, exist_ok=True)
-S = json.load(open('/home/claude/vahiy-/site/data/surahs.json'))['surahs']
+S = [{'n': i + 1, 'tr': t, 'ayas': x['ayet']} for i, (t, x) in enumerate(zip(json.load(open('/home/claude/vahiy-/data/k0/sure_adlari_tr.json')), json.load(open('/home/claude/vahiy-/data/k0/surahs.json'))['sureler']))]
 AYAS = {s['n']: s['ayas'] for s in S}
 
 

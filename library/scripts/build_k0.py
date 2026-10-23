@@ -122,7 +122,7 @@ check('Mısır nüzul tertibi: Tanzil = Quranpedia', not egypt_qp_diff, f'farkl�
 type_diff = [s for s in range(1, 115) if (qp_surah[s].get('surah_type') or {}).get('value', '').strip() not in (('مكية',) if sura_meta[s]['type'] == 'Mekkî' else ('مدنية',))]
 check('Mekkî/Medenî: Tanzil = Quranpedia', not type_diff, f'farklı sureler: {type_diff}', 'kaynak_farki')
 
-TR = [x['tr'] for x in json.load(open(f'{REPO}/site/data/surahs.json'))['surahs']]
+TR = json.load(open(f'{REPO}/data/k0/sure_adlari_tr.json'))
 
 # ---------------- Sure ve ayet kayıtları ----------------
 ayah_rows = []
