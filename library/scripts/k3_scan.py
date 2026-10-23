@@ -21,6 +21,8 @@ TMP = '/home/claude/lib/k3tmp'
 os.makedirs(TMP, exist_ok=True)
 PART, NPART = int(sys.argv[1]), int(sys.argv[2])
 SKIP_GENRE = {'tefsir', 'mushaf', 'meal'}  # ayet sıralı eserler K2'de
+ONLY_SKIPPED = os.environ.get('K3_TEFSIR') == '1'  # ikinci geçiş: yalnız OpenITI tefsirleri
+SFX = 't' if ONLY_SKIPPED else ''
 
 DEL = dict.fromkeys(list(range(0x064B, 0x0660)) + [0x0670, 0x0640] + list(range(0x06D6, 0x06EE)) + [0x0627, 0x0623, 0x0625, 0x0622, 0x0671, 0x0621, 0x0672, 0x0673])
 DEL.update({0x0649: 0x064A, 0x0629: 0x0647, 0x0624: 0x0648, 0x0626: 0x064A, 0x06CC: 0x064A, 0x06A9: 0x0643})
@@ -127,7 +129,7 @@ def openiti_jobs():
     names = {}
     for i in z.infolist():
         key = re.sub(r'\.(mARkdown|completed|inProgress)$', '', i.filename)
-        if cat.get(key) in SKIP_GENRE:
+        if (cat.get(key) in SKIP_GENRE) != ONLY_SKIPPED:
             continue
         if key not in names or i.filename.endswith(('.mARkdown', '.completed')):
             names[key] = (i.filename, i.file_size)
@@ -146,9 +148,9 @@ def test(fn):
 
 
 def main():
-    donef = f'{TMP}/done-{PART}.txt'
+    donef = f'{TMP}/done{SFX}-{PART}.txt'
     done = set(open(donef).read().split('\n')) if os.path.exists(donef) else set()
-    hf = f'{TMP}/hits-{PART}.tsv'
+    hf = f'{TMP}/hits{SFX}-{PART}.tsv'
     if os.path.exists(hf):  # yarım kalmış kitabın satırlarını at
         with open(hf, encoding='utf8') as f, open(hf + '.tmp', 'w', encoding='utf8') as g:
             for line in f:
@@ -178,6 +180,8 @@ def main():
         out.flush(); dlog.write('oi:' + key + '\n'); dlog.flush()
         if k % 200 == 0:
             print(PART, k, len(jobs), round(time.time() - t0), flush=True)
+    if ONLY_SKIPPED:
+        print(PART, 'bitti', flush=True); return
     # Quranpedia kitapları
     qfs = sorted(os.listdir(f'{RAW}/qp_books'))
     qfs = [f for n, f in enumerate(qfs) if n % NPART == PART]

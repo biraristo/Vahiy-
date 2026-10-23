@@ -230,3 +230,30 @@ table.t { width: 100%; border-collapse: collapse; font-family: var(--sans); font
 #masat { width: 100%; box-sizing: border-box; font: inherit; border: 1px solid var(--line); border-radius: 8px; padding: .6rem; background: var(--paper); color: var(--ink); }
 .masabar { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: .4rem 0; }
 .masabar .srcs { flex: 1; }
+
+/* Kaynak zinciri */
+.chain { display: inline-block; position: relative; font-family: var(--sans); font-size: .82rem; direction: ltr; text-align: left; }
+.chain > summary { list-style: none; cursor: pointer; display: inline-block; padding: 0 .3rem; border-radius: 6px; filter: grayscale(1); opacity: .7; }
+.chain > summary::-webkit-details-marker { display: none; }
+.chain > summary:hover, .chain[open] > summary { opacity: 1; filter: none; background: var(--paper); }
+.chain > summary:focus-visible { outline: 2px solid var(--gold); }
+.chain ol { position: absolute; z-index: 20; top: 1.6rem; left: 0; width: min(560px, 86vw); margin: 0; padding: .6rem .8rem .6rem 1.8rem; background: var(--sheet); border: 1px solid var(--gold); border-radius: 10px; box-shadow: 0 8px 28px rgba(0,0,0,.15); color: var(--ink); line-height: 1.45; font-weight: 400; }
+.chain li { margin: .25rem 0; }
+.chain li::marker { color: var(--gold); }
+.chain .cr { color: var(--muted); font-size: .76rem; }
+.chain .lic { color: var(--muted); font-size: .76rem; }
+@media (max-width: 640px) { .chain ol { position: fixed; left: 4vw !important; right: 4vw !important; top: auto; bottom: 1rem; width: auto; max-height: 60vh; overflow: auto; } }
+
+/* Sure sayfası */
+.sure { max-width: 980px; margin: 0 auto; }
+.sure .sh h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: .2rem 0; display: flex; flex-wrap: wrap; gap: .2rem 1rem; align-items: baseline; }
+.sure .sh h1 .ar { font-size: 1.3em; color: var(--lapis); }
+.sec2 { border-top: 1px solid var(--line); padding: 1rem 0 .4rem; }
+.sec2 h2 { font-size: 1.2rem; margin: 0 0 .6rem; display: flex; gap: .5rem; align-items: baseline; flex-wrap: wrap; }
+.themes { margin: 0 0 .5rem; padding-left: 1.2rem; }
+.themes li { margin: .2rem 0; }
+.ayl { columns: 2 260px; padding-left: 2.2rem; }
+.ayl li { break-inside: avoid; margin: .15rem 0; }
+.ayl a { text-decoration: none; color: var(--ink); }
+.ayl a:hover .ar { color: var(--lapis); }
+.ayl .ar { font-size: 1.15rem; }

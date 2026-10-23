@@ -55,7 +55,7 @@ def book(bid):
 def k3_split():
     fs = {s: open(f'{TMP}/{s}.tsv', 'w', encoding='utf8') for s in range(1, 115)}
     seen = set()
-    for f in sorted(glob.glob('/home/claude/lib/k3tmp/hits-*.tsv')):
+    for f in sorted(glob.glob('/home/claude/lib/k3tmp/hits*.tsv')):
         for line in open(f, encoding='utf8'):
             p = line.rstrip('\n').split('\t')
             if len(p) < 9:
@@ -77,8 +77,8 @@ def k3_split():
         f.close()
 
 GROUP = {'hadis': 'hadis', 'fikih': 'fikih', 'akaid': 'kelam', 'felsefe': 'kelam', 'tasavvuf': 'tasavvuf', 'tarih': 'tarih', 'ricâl': 'tarih',
-         'dil': 'dil', 'edebiyat': 'dil', 'ulum': 'ulum', 'kiraat': 'ulum', 'tefsir': 'ulum', 'modern': 'cagdas', 'farsca': 'cagdas', 'diger': 'cagdas', 'belirsiz': 'cagdas', 'meal': 'cagdas', 'mushaf': 'ulum'}
-MAXSN_BOOK, MAXSN_AYAH = 3, 700
+         'dil': 'dil', 'edebiyat': 'dil', 'ulum': 'ulum', 'kiraat': 'ulum', 'tefsir': 'tefsir', 'modern': 'cagdas', 'farsca': 'cagdas', 'diger': 'cagdas', 'belirsiz': 'cagdas', 'meal': 'tefsir', 'mushaf': 'tefsir'}
+MAXSN_BOOK, MAXSN_AYAH = 3, 400  # grup başına
 
 def k3_surah(s):
     by = collections.defaultdict(lambda: collections.defaultdict(list))
@@ -89,14 +89,15 @@ def k3_surah(s):
             by[int(a)][int(nb)].append((vol, pg, int(ln), typ, full == '1', sn))
     res = {}
     for a, books in by.items():
-        groups = collections.defaultdict(list); nsn = 0
+        groups = collections.defaultdict(list); nsn = collections.Counter()
         order = sorted(books.items(), key=lambda kv: (BOOKS[kv[0]].get('vefat') or 9999))
         for nb, hits in order:
             hits.sort(key=lambda h: (-h[2]))
             keep = []
+            g = GROUP.get(BOOKS[nb]['tur'], 'cagdas')
             for h in hits[:MAXSN_BOOK]:
-                if nsn < MAXSN_AYAH:
-                    keep.append([h[0], h[1], h[2], h[3], h[5]]); nsn += 1
+                if nsn[g] < MAXSN_AYAH:
+                    keep.append([h[0], h[1], h[2], h[3], h[5]]); nsn[g] += 1
                 else:
                     keep.append([h[0], h[1], h[2], h[3], ''])
             groups[GROUP.get(BOOKS[nb]['tur'], 'cagdas')].append([nb, len(hits), keep])

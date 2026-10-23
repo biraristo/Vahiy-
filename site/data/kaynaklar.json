@@ -1,0 +1,26 @@
+{
+ "version": "kaynak-2026.10.23",
+ "aciklama": "Kaynak zinciri: sitedeki her bilgi bu kayıtlardan birine ve oradan asıl kaynağına bağlanır. 'ham' alanı, verinin bu projede saklanan ham kopyasını; 'betik' alanı onu işleyen programı gösterir.",
+ "depo": "https://github.com/biraristo/Vahiy-",
+ "kaynaklar": {
+  "quranpedia": {"ad": "Quranpedia veri dökümü", "kurum": "Quranpedia.net", "surum": "2026-10-17", "alindi": "2026-10-23", "url": "https://quranpedia.net", "lisans": "Uygulama içi serbest; veri seti olarak yeniden yayında atıf ve sürüm gerekir", "ham": "https://github.com/biraristo/Vahiy-/tree/kutuphane/quranpedia"},
+  "quranpedia_pdf": {"ad": "Quranpedia kitap ekleri (PDF/DOC)", "kurum": "Quranpedia.net", "surum": "2026-10-23", "alindi": "2026-10-23", "url": "https://files.quranpedia.net", "lisans": "Her eser kendi telif durumuna tabidir", "betik": "library/scripts/fetch_qp_pdf.py"},
+  "mevsua": {"ad": "Mevsûatü't-tefsîri'l-me'sûr", "kurum": "Merkezü Tefsîr li'd-dirâsâti'l-Kur'âniyye (Riyad)", "url": "https://quranpedia.net", "ust": "quranpedia", "not": "Sahâbe ve tâbiûn rivayetleri, tahrîc notlarıyla; Quranpedia 'sayings' verisi"},
+  "qul": {"ad": "QUL / tafsir_api ayet-bölümlü tefsirler", "kurum": "Tarteel QUL; paketleyen spa5k/tafsir_api", "url": "https://github.com/spa5k/tafsir_api", "lisans": "MIT (paketleme); içerik QUL/quran.com", "ham": "https://github.com/biraristo/Vahiy-/tree/kutuphane/tafsir_api"},
+  "tanzil": {"ad": "Tanzil Kur'an metni ve mealleri", "kurum": "Tanzil Project", "surum": "1.1", "url": "https://tanzil.net", "lisans": "CC BY 3.0 (metin değiştirilemez)", "ham": "https://github.com/biraristo/Vahiy-/tree/kutuphane/tanzil"},
+  "qurancom": {"ad": "Quran.com API v4", "kurum": "Quran.com", "url": "https://quran.com", "lisans": "Kaynak başına", "ham": "https://github.com/biraristo/Vahiy-/tree/kutuphane/qurancom"},
+  "qac": {"ad": "Quranic Arabic Corpus morfolojisi", "kurum": "Kais Dukes, Univ. of Leeds; düzelten mustafa0x/quran-morphology", "url": "https://corpus.quran.com", "lisans": "GNU GPL", "surum": "git 8f38b39"},
+  "cc": {"ad": "Corpus Coranicum", "kurum": "Berlin-Brandenburgische Akademie der Wissenschaften", "url": "https://corpuscoranicum.de", "lisans": "CC BY 4.0", "surum": "API 2026-10-23; TEI git 57cb2b7"},
+  "openiti": {"ad": "OpenITI külliyatı", "kurum": "Open Islamicate Texts Initiative", "surum": "2025.1.9 (pri)", "url": "https://openiti.org", "doi": "10.5281/zenodo.18613982", "lisans": "CC BY-NC-SA 4.0"},
+  "sefaria": {"ad": "Sefaria", "kurum": "Sefaria.org", "url": "https://www.sefaria.org", "lisans": "Metin başına (JPS: CC BY-NC)", "ham": "https://github.com/biraristo/Vahiy-/tree/kutuphane/sefaria"},
+  "crossref": {"ad": "Crossref makale künyeleri", "kurum": "Crossref", "url": "https://www.crossref.org", "lisans": "Künye verisi serbest; özetler yayıncılarındır"},
+  "wikipedia": {"ad": "İngilizce Vikipedi — List of chapters in the Quran", "url": "https://en.wikipedia.org/wiki/List_of_chapters_in_the_Quran", "alindi": "2026-10-23", "lisans": "CC BY-SA 4.0"},
+  "robinson": {"ad": "Neal Robinson, Discovering the Qur'an (2003), s. 25–97", "not": "Nöldeke–Schwally sırası bu ikincil aktarımdan; birincil kaynakla karşılaştırılmadı", "ust": "wikipedia"},
+  "claude": {"ad": "Makine işlemi (Claude)", "not": "Özet ve çeviriler makineyle üretildi; dayandığı kaynaklar her maddede yazılıdır. Doğrulanmadan alıntılanmamalı."}
+ },
+ "betikler": {
+  "k0": "library/scripts/build_k0.py", "k1": "library/scripts/build_k1.py", "k2": "library/scripts/build_k2.py", "k2_temizlik": "library/scripts/k2_clean.py",
+  "k3": "library/scripts/k3_scan.py", "paket": "library/scripts/build_bundle.py", "k4_ravi": "library/scripts/build_k4_ravi.py", "k5": "library/scripts/build_k5.py",
+  "k6": "library/scripts/build_k6.py", "k7": "library/scripts/build_k7_ihtilaf.py", "k8": "library/scripts/build_k8.py", "meal": "library/scripts/build_meals.py", "sure": "library/scripts/build_sure.py", "kontrol": "library/scripts/gate.py"
+ }
+}
