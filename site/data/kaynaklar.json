@@ -167,6 +167,8 @@
   "yazma": "library/scripts/build_yazma.py",
   "pdf": "library/scripts/fetch_qp_pdf.py",
   "hadeethenc": "library/scripts/build_hadeethenc.py",
-  "shamela": "library/scripts/build_shamela.py"
+  "shamela": "library/scripts/build_shamela.py",
+  "siralama": "library/scripts/build_chron.py",
+  "vitrin": "library/scripts/build_vitrin.py"
  }
 }

@@ -4,20 +4,34 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>vahiy++</title>
+<meta name="description" content="Bir ayeti tefsirleri, rivayetleri, lügatleri ve binlerce kitaptaki izleriyle birlikte okuyun; her bilgi kaynağına bağlı.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/app.css">
+<link rel="stylesheet" href="/home.css">
 </head>
 <body>
+<div id="zemin" aria-hidden="true"><svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <defs><pattern id="hatem" width="120" height="120" patternUnits="userSpaceOnUse"><g fill="none" stroke="var(--firuze)" stroke-width="1.1">
+    <path d="M60 18 L72 48 L102 60 L72 72 L60 102 L48 72 L18 60 L48 48 Z"/><rect x="35" y="35" width="50" height="50"/><rect x="35" y="35" width="50" height="50" transform="rotate(45 60 60)"/>
+    <path d="M0 0 L18 18 M120 0 L102 18 M0 120 L18 102 M120 120 L102 102 M60 0 L60 18 M60 102 L60 120 M0 60 L18 60 M102 60 L120 60"/></g></pattern></defs>
+  <g id="desen" style="opacity:var(--zop)"><rect x="-400" y="-400" width="2400" height="2000" fill="url(#hatem)"/></g>
+  <g id="gul" fill="none" style="opacity:var(--gop)"></g>
+</svg></div>
 <header class="bar">
-  <a class="mark" href="#/">vahiy<span>++</span></a>
+  <a class="mark" href="#/" aria-label="vahiy++ açılış"><svg viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="9" width="22" height="22"/><rect x="9" y="9" width="22" height="22" transform="rotate(45 20 20)"/><circle cx="20" cy="20" r="5"/></g></svg>vahiy<span>++</span></a>
   <nav>
-    <a href="#/atlas" data-nav="atlas">Atlas</a>
-    <a href="#/kutuphane" data-nav="kutuphane">Kütüphane</a>
+    <a href="#/atlas" data-nav="atlas" data-t="nav.atlas">Kur'an atlası</a>
+    <a href="#/kutuphane" data-nav="kutuphane" data-t="nav.kutuphane">Kütüphane</a>
   </nav>
+  <div class="araclar">
+    <div class="dil" role="group" aria-label="Dil"><button type="button" data-l="tr" aria-pressed="true">TR</button><button type="button" data-l="ar" aria-pressed="false" lang="ar">ع</button><button type="button" data-l="en" aria-pressed="false">EN</button></div>
+    <button type="button" class="tema" id="tema" aria-label="Aydınlık ya da koyu tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3l2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5z"/><circle cx="12" cy="12" r="2.5"/></svg></button>
+  </div>
 </header>
 <main id="view" tabindex="-1"></main>
 <script src="/app.js"></script>
+<script src="/home.js"></script>
 </body>
 </html>

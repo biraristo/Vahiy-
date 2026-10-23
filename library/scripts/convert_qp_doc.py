@@ -13,7 +13,10 @@ files = sorted(glob.glob(f'{D}/*'), key=os.path.getsize)
 st = open(f'{O}/durum.jsonl', 'a'); c = collections.Counter()
 for i in range(0, len(files), 50):
     grp = files[i:i + 50]
-    subprocess.run(['soffice', '-env:UserInstallation=file:///tmp/lo_batch', '--headless', '--convert-to', 'txt:Text (encoded):UTF8', '--outdir', T] + grp, capture_output=True, timeout=3600)
+    try:
+        subprocess.run(['soffice', '-env:UserInstallation=file:///tmp/lo_batch', '--headless', '--convert-to', 'txt:Text (encoded):UTF8', '--outdir', T] + grp, capture_output=True, timeout=900)
+    except subprocess.TimeoutExpired:
+        subprocess.run(['pkill', '-x', 'soffice.bin'])  # takılan grup: çıkan metinler alınır, kalanlar 'hata'
     for f in grp:
         key = os.path.basename(f).rsplit('.', 1)[0]
         tp = f'{T}/{key}.txt'

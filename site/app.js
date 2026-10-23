@@ -50,30 +50,7 @@ async function meta() {
 }
 const surahOptions = (S, sel) => S.sureler.map(s => `<option value="${s.n}"${s.n === sel ? ' selected' : ''}>${s.n}. ${esc(s.tr)} — ${esc(s.ar)}</option>`).join('');
 
-/* ---------------- Açılış ---------------- */
-async function home() {
-  setNav('');
-  const S = await meta();
-  const last = (store.get('son', '1:1')).split(':').map(Number);
-  view.innerHTML = `<section class="home"><div class="picker">
-      <p class="basmala" lang="ar">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
-      <form id="go" aria-label="Sure ve ayet seçimi">
-        <select id="ps" aria-label="Sure">${surahOptions(S, last[0])}</select>
-        <input id="pa" type="number" min="1" inputmode="numeric" aria-label="Ayet numarası" value="${last[1]}">
-        <button type="submit">Ayeti aç</button>
-      </form>
-      <p class="hint" id="ph"></p>
-    </div></section>`;
-  const sync = () => { const s = S.sureler[$('#ps').value - 1]; $('#pa').max = s.ayet; $('#ph').textContent = `${s.tr} suresi ${s.ayet} ayet · ${s.tur}`; };
-  $('#ps').addEventListener('change', () => { $('#pa').value = 1; sync(); });
-  sync();
-  $('#go').addEventListener('submit', e => {
-    e.preventDefault();
-    const s = +$('#ps').value, max = S.sureler[s - 1].ayet;
-    const a = Math.min(Math.max(1, +$('#pa').value || 1), max);
-    location.hash = `#/${s}/${a}`;
-  });
-}
+/* Açılış sayfası home.js içindedir. */
 
 /* ---------------- Ayet sayfası ---------------- */
 async function ayah(s, a) {
@@ -649,7 +626,7 @@ async function route() {
   view.focus({ preventScroll: true });
 }
 addEventListener('hashchange', route);
-route();
+addEventListener('DOMContentLoaded', route);
 
 /* ---------------- Esbâb ve nâsih: K2 eserleri + Mevsûa rivayetleri + uzman kitaplardaki alıntılar ---------------- */
 const ESB_BOOKS = ['0911Suyuti.LubabNuqul', '0852IbnHajarCasqalani.CujabFiBayanAsbab', '0117IbnDicamaSadusi.NasikhWaMansukh', '0224QasimIbnSallam.NasikhWaMansukh', '0246QasimRassi.NasikhWaMansukh',
