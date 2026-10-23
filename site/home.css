@@ -237,3 +237,28 @@ main.ana-main { max-width: none; padding: 0; }
 .eski-l .e-cubuk.acik { background: linear-gradient(90deg, transparent, var(--firuze) 70%); }
 .eski-l .e-bil { font: .72rem var(--sans); color: var(--muted); }
 .eski-l li a:hover .e-cubuk { background: var(--zer); }
+
+/* ---- 23:43: isnad ve yatay yazma çizelgesi ---- */
+.isnad { padding-top: 0; }
+.isnad > .not { margin-inline: auto; text-align: center; }
+#eski { padding: .8rem 0 .4rem; overflow: visible; }
+.ek-ust { display: flex; align-items: center; justify-content: space-between; gap: .6rem; padding: 0 .8rem .4rem; font: .85rem var(--sans); color: var(--muted); }
+.ek-ust .ok:disabled { opacity: .35; cursor: default; }
+.ek-sahne { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: thin; overscroll-behavior-x: contain; }
+.ek-sahne:focus-visible { outline: 2px solid var(--firuze); outline-offset: -2px; }
+.ek-iz { position: relative; height: 300px; }
+.ek-cizgi { position: absolute; left: 0; right: 0; top: 150px; height: 2px; background: linear-gradient(90deg, var(--zer), var(--firuze)); opacity: .7; }
+.ek-nokta { position: absolute; top: 145px; width: 12px; height: 12px; margin-left: -6px; transform: rotate(45deg); background: var(--sheet); border: 2px solid var(--firuze); }
+.ek-kart { position: absolute; display: flex; flex-direction: column; gap: 1px; padding: .45rem .6rem; text-decoration: none; color: var(--ink); font-family: var(--sans);
+  background: var(--sheet); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 6px 16px -12px rgba(0, 0, 0, .5); }
+.ek-kart.ust { bottom: 166px; } .ek-kart.alt { top: 166px; }
+.ek-kart::before { content: ''; position: absolute; left: 13px; width: 1px; background: var(--line); }
+.ek-kart.ust::before { top: 100%; height: 16px; } .ek-kart.alt::before { bottom: 100%; height: 16px; }
+.ek-kart b { font-size: .9rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ek-kurum, .ek-yazi { font-size: .74rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ek-tar { font: 600 .8rem var(--sans); color: var(--zer); } .ek-tar em { font-style: normal; color: var(--surh); font-size: .72rem; margin-inline-start: .3rem; }
+.ek-kart:hover, .ek-kart:focus { border-color: var(--firuze); z-index: 3; }
+.ek-olay { position: absolute; top: 0; bottom: 0; width: 44px; margin-left: -6px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-inline-start: 1px dashed var(--zer); border-inline-end: 1px dashed var(--zer); background: color-mix(in srgb, var(--zer) 8%, transparent); }
+.ek-olay b { font: 600 .75rem/1.15 var(--sans); color: var(--ink); writing-mode: vertical-rl; transform: rotate(180deg); max-height: 230px; }
+.ek-olay small { font: .68rem var(--sans); color: var(--zer); margin-top: .3rem; }
+#eski .dkaynak { padding: .4rem .8rem 0; }
