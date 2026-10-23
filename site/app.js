@@ -390,12 +390,12 @@ function k2(s, a, A) {
     const c = t => list.filter(x => t.includes(x.e.tur));
     const tf = c(['tefsir']), es = c(['esbab', 'nasih']), ir = c(['irab', 'garib']);
     $('#tefd').textContent = `${tf.length} eser · Katman 2`;
-    $('#esbd').textContent = es.length ? `${es.length} eser · Katman 2` : 'bu ayet için kayıt yok';
+    esbCount(s, a, es.length);
     $('#irbd').textContent = `${ir.length} eser · Katman 2`;
   }).catch(() => {});
 
   once('tef', () => renderWorks('tef', ['tefsir'], true));
-  once('esb', () => renderWorks('esb', ['esbab', 'nasih'], false));
+  once('esb', async () => { await renderWorks('esb', ['esbab', 'nasih'], false); await esbExtra(s, a); });
   once('irb', async () => {
     const G = (await load(`/data/k2/g/${s}.json`)).ayetler[id] || [];
     await renderWorks('irb', ['irab'], false);
@@ -542,6 +542,34 @@ async function route() {
 }
 addEventListener('hashchange', route);
 route();
+
+/* ---------------- Esbâb ve nâsih: K2 eserleri + Mevsûa rivayetleri + uzman kitaplardaki alıntılar ---------------- */
+const ESB_BOOKS = ['0911Suyuti.LubabNuqul', '0852IbnHajarCasqalani.CujabFiBayanAsbab', '0117IbnDicamaSadusi.NasikhWaMansukh', '0224QasimIbnSallam.NasikhWaMansukh', '0246QasimRassi.NasikhWaMansukh',
+  '0273AbuBakrAthram.NasikhHadith', '0310CabdAllahIbnHusaynRassi.NasikhWaMansukh', '0338AbuJacfarNahhas.NasikhWaMansukh', '0385IbnShahin.NasikhHadithWaMansukhuh', '0410IbnSalamaBaghdadi.NasikhWaMansukh',
+  '0456IbnHazm.NasikhWaMansukh', '0543IbnCarabiIshbili.NasikhWaMansukh', '0584IbnMusaHazimi.IctibarFiNasikhWaMansukh', '0597IbnJawzi.NawasikhQuran', '0738IbnCabdRahimSharafDinHamawi.NasikhQuran'];
+const esbParts = async (s, a) => {
+  const [b, K] = await Promise.all([loadGz(`/data/x/${s}/${a}.json.gz`), load('/data/x/kitaplar.json').then(d => d.kitaplar)]);
+  const riv = b.k4.filter(x => /نزول|النسخ/.test(x.tur || ''));
+  const books = Object.values(b.k3).flat().filter(([nb]) => { const r = (K[nb] || {}).ref || ''; return ESB_BOOKS.some(p => r.startsWith(p)); });
+  return { b, K, riv, books };
+};
+async function esbCount(s, a, n2) {
+  const el = $('#esbd');
+  try { const { riv, books } = await esbParts(s, a); const n = n2 + books.length; el.textContent = n || riv.length ? `${n} eser${riv.length ? ` · ${riv.length} rivayet` : ''}` : 'bu ayet için kayıt yok'; }
+  catch { el.textContent = n2 ? `${n2} eser` : 'bu ayet için kayıt yok'; }
+}
+async function esbExtra(s, a) {
+  const { K, riv, books } = await esbParts(s, a);
+  const body = $('#esbbody');
+  if (/eser pasajı yok/.test(body.textContent) && (riv.length || books.length)) body.innerHTML = '';
+  let h = '';
+  if (riv.length) h += `<h4 class="k1h">Nüzul ve nesih rivayetleri <span class="tag v">kaynaklı · Mevsûatü't-tefsîri'l-me'sûr</span></h4>${riv.map(x => `<article class="rv"><div class="pgh"><span class="tag v">${/النسخ/.test(x.tur) ? 'Nesih' : 'Nüzul'}</span>${x.hukum ? `<span class="tag ${/sahih|hasen/.test(x.hukum) ? 'v' : 'w'}">tahrîcte: ${esc(x.hukum)}</span>` : ''}</div><p class="pt ar" dir="rtl">${esc(x.metin).replace(/\n/g, '<br>')}</p>${x.tahric ? `<details class="tah"><summary>Tahrîc</summary><p class="ar" dir="rtl">${esc(x.tahric)}</p></details>` : ''}</article>`).join('')}`;
+  if (books.length) {
+    books.sort((p, q) => (K[p[0]].vefat || 9999) - (K[q[0]].vefat || 9999));
+    h += `<h4 class="k1h">Esbâb ve nâsih-mensûh kitaplarında <span class="tag">makine: ayet alıntısı</span></h4><div class="works">${books.map(([nb, n, hits]) => { const k = K[nb]; return `<details class="work"><summary><span class="who">${esc((k.muellif || '—').replace(/\s*\(المتوفى[^)]*\)/, ''))}</span><span class="wt ar">${esc(k.ad)}</span><span class="tag" dir="ltr">${k.vefat ? 'ö. ' + k.vefat : ''}</span><span class="tag" dir="ltr">${n} yer</span></summary><div class="pgs">${hits.map(x => `<div class="pg"><div class="pgh"><span class="cite">${+x[0] ? `c. ${+x[0]}, ` : ''}${x[1] !== '0' ? 's. ' + esc(x[1]) : ''}</span></div>${x[4] ? `<p class="pt ar" dir="rtl">${esc(x[4])}</p>` : ''}</div>`).join('')}<p class="srcs nesir">OpenITI · ${esc(k.ref)}</p></div></details>`; }).join('')}</div><p class="srcs" style="padding:0">Bu kitaplarda ayetin geçtiği yerler alıntı taramasıyla bulundu; pasajın tamamı için OpenITI metnine bakın.</p>`;
+  }
+  body.insertAdjacentHTML('beforeend', h);
+}
 
 /* ---------------- Katman 3–8 ---------------- */
 const GRP = { hadis: 'Hadis', fikih: 'Fıkıh ve usûl', kelam: 'Kelâm ve felsefe', tasavvuf: 'Tasavvuf', tarih: 'Tarih, siyer, ricâl', dil: 'Dil ve edebiyat', ulum: "Kur'an ilimleri ve kıraat", cagdas: 'Çağdaş ve diğer' };
