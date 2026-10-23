@@ -1,0 +1,61 @@
+{
+ "version": "k0-2026.10.23",
+ "checks": [
+  {
+   "kontrol": "Hafs metni: Quranpedia (mushaf 2) = Tanzil harf iskeleti",
+   "sonuc": "geçti",
+   "ayrinti": "6236/6236 ayet aynı",
+   "tur": "dogrulama"
+  },
+  {
+   "kontrol": "Mısır nüzul tertibi: Tanzil = Robinson/Vikipedi tablosu",
+   "sonuc": "geçti",
+   "ayrinti": "",
+   "tur": "dogrulama"
+  },
+  {
+   "kontrol": "Mısır nüzul tertibi: Tanzil = Quranpedia",
+   "sonuc": "kaynaklar ayrışıyor",
+   "ayrinti": "farklı sureler: [47, 69]",
+   "tur": "kaynak_farki"
+  },
+  {
+   "kontrol": "Mekkî/Medenî: Tanzil = Quranpedia",
+   "sonuc": "kaynaklar ayrışıyor",
+   "ayrinti": "farklı sureler: [13, 55, 76, 102]",
+   "tur": "kaynak_farki"
+  },
+  {
+   "kontrol": "Morfoloji: 6.236 ayetin kelime çözümlemesi var",
+   "sonuc": "geçti",
+   "ayrinti": "6236 ayet, 77429 kelime",
+   "tur": "dogrulama"
+  },
+  {
+   "kontrol": "Kelime meali ile morfoloji kelime sayısı uyumu",
+   "sonuc": "geçti",
+   "ayrinti": "0 ayette kelime sayısı farklı",
+   "tur": "dogrulama"
+  },
+  {
+   "kontrol": "Ayet toplamı (Hafs/Kûfî) = 6.236",
+   "sonuc": "geçti",
+   "ayrinti": "",
+   "tur": "dogrulama"
+  },
+  {
+   "kontrol": "Aynı sayım geleneğindeki rivayetlerin toplamı tutarlı",
+   "sonuc": "kaynaklar ayrışıyor",
+   "ayrinti": "{\"المدني الأخير\": [6214], \"المكي\": [6221], \"المدني الأول\": [6217, 6218], \"الكوفي\": [6236]}",
+   "tur": "kaynak_farki"
+  }
+ ],
+ "ozet": {
+  "ayet": 6236,
+  "kelime": 77429,
+  "sayim_farki_olan_ayet": 259,
+  "iskeleti_farkli_rivayet_metni": 6085,
+  "cc_kiraat_kaydi_olan_ayet": 3493,
+  "intertekst_bagli_ayet": 434
+ }
+}

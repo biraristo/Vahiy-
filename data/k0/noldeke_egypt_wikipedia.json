@@ -1,0 +1,461 @@
+{
+"source": "Wikipedia \"List of chapters in the Quran\" (2026-10-23), sütunlar Robinson 2003 Discovering the Qurʼan s.25–97'e dayanır; birincil kaynak: Nöldeke–Schwally, Geschichte des Qorāns. İkincil aktarım, birincil kaynakla karşılaştırılmadı.",
+"data": {
+"1": {
+"egypt": 5,
+"noldeke": 48
+},
+"2": {
+"egypt": 87,
+"noldeke": 91
+},
+"3": {
+"egypt": 89,
+"noldeke": 97
+},
+"4": {
+"egypt": 92,
+"noldeke": 100
+},
+"5": {
+"egypt": 112,
+"noldeke": 114
+},
+"6": {
+"egypt": 55,
+"noldeke": 89
+},
+"7": {
+"egypt": 39,
+"noldeke": 87
+},
+"8": {
+"egypt": 88,
+"noldeke": 95
+},
+"9": {
+"egypt": 113,
+"noldeke": 113
+},
+"10": {
+"egypt": 51,
+"noldeke": 84
+},
+"11": {
+"egypt": 52,
+"noldeke": 75
+},
+"12": {
+"egypt": 53,
+"noldeke": 77
+},
+"13": {
+"egypt": 96,
+"noldeke": 90
+},
+"14": {
+"egypt": 72,
+"noldeke": 76
+},
+"15": {
+"egypt": 54,
+"noldeke": 57
+},
+"16": {
+"egypt": 70,
+"noldeke": 73
+},
+"17": {
+"egypt": 50,
+"noldeke": 67
+},
+"18": {
+"egypt": 69,
+"noldeke": 69
+},
+"19": {
+"egypt": 44,
+"noldeke": 58
+},
+"20": {
+"egypt": 45,
+"noldeke": 55
+},
+"21": {
+"egypt": 73,
+"noldeke": 65
+},
+"22": {
+"egypt": 103,
+"noldeke": 107
+},
+"23": {
+"egypt": 74,
+"noldeke": 64
+},
+"24": {
+"egypt": 102,
+"noldeke": 105
+},
+"25": {
+"egypt": 42,
+"noldeke": 66
+},
+"26": {
+"egypt": 47,
+"noldeke": 56
+},
+"27": {
+"egypt": 48,
+"noldeke": 68
+},
+"28": {
+"egypt": 49,
+"noldeke": 79
+},
+"29": {
+"egypt": 85,
+"noldeke": 81
+},
+"30": {
+"egypt": 84,
+"noldeke": 74
+},
+"31": {
+"egypt": 57,
+"noldeke": 82
+},
+"32": {
+"egypt": 75,
+"noldeke": 70
+},
+"33": {
+"egypt": 90,
+"noldeke": 103
+},
+"34": {
+"egypt": 58,
+"noldeke": 85
+},
+"35": {
+"egypt": 43,
+"noldeke": 86
+},
+"36": {
+"egypt": 41,
+"noldeke": 60
+},
+"37": {
+"egypt": 56,
+"noldeke": 50
+},
+"38": {
+"egypt": 38,
+"noldeke": 59
+},
+"39": {
+"egypt": 59,
+"noldeke": 80
+},
+"40": {
+"egypt": 60,
+"noldeke": 78
+},
+"41": {
+"egypt": 61,
+"noldeke": 71
+},
+"42": {
+"egypt": 62,
+"noldeke": 83
+},
+"43": {
+"egypt": 63,
+"noldeke": 61
+},
+"44": {
+"egypt": 64,
+"noldeke": 53
+},
+"45": {
+"egypt": 65,
+"noldeke": 72
+},
+"46": {
+"egypt": 66,
+"noldeke": 88
+},
+"47": {
+"egypt": 95,
+"noldeke": 96
+},
+"48": {
+"egypt": 111,
+"noldeke": 108
+},
+"49": {
+"egypt": 106,
+"noldeke": 112
+},
+"50": {
+"egypt": 34,
+"noldeke": 54
+},
+"51": {
+"egypt": 67,
+"noldeke": 39
+},
+"52": {
+"egypt": 76,
+"noldeke": 40
+},
+"53": {
+"egypt": 23,
+"noldeke": 28
+},
+"54": {
+"egypt": 37,
+"noldeke": 49
+},
+"55": {
+"egypt": 97,
+"noldeke": 43
+},
+"56": {
+"egypt": 46,
+"noldeke": 41
+},
+"57": {
+"egypt": 94,
+"noldeke": 99
+},
+"58": {
+"egypt": 105,
+"noldeke": 106
+},
+"59": {
+"egypt": 101,
+"noldeke": 102
+},
+"60": {
+"egypt": 91,
+"noldeke": 110
+},
+"61": {
+"egypt": 109,
+"noldeke": 98
+},
+"62": {
+"egypt": 110,
+"noldeke": 94
+},
+"63": {
+"egypt": 104,
+"noldeke": 104
+},
+"64": {
+"egypt": 108,
+"noldeke": 93
+},
+"65": {
+"egypt": 99,
+"noldeke": 101
+},
+"66": {
+"egypt": 107,
+"noldeke": 109
+},
+"67": {
+"egypt": 77,
+"noldeke": 63
+},
+"68": {
+"egypt": 2,
+"noldeke": 18
+},
+"69": {
+"egypt": 78,
+"noldeke": 38
+},
+"70": {
+"egypt": 79,
+"noldeke": 42
+},
+"71": {
+"egypt": 71,
+"noldeke": 51
+},
+"72": {
+"egypt": 40,
+"noldeke": 62
+},
+"73": {
+"egypt": 3,
+"noldeke": 23
+},
+"74": {
+"egypt": 4,
+"noldeke": 2
+},
+"75": {
+"egypt": 31,
+"noldeke": 36
+},
+"76": {
+"egypt": 98,
+"noldeke": 52
+},
+"77": {
+"egypt": 33,
+"noldeke": 32
+},
+"78": {
+"egypt": 80,
+"noldeke": 33
+},
+"79": {
+"egypt": 81,
+"noldeke": 31
+},
+"80": {
+"egypt": 24,
+"noldeke": 17
+},
+"81": {
+"egypt": 7,
+"noldeke": 27
+},
+"82": {
+"egypt": 82,
+"noldeke": 26
+},
+"83": {
+"egypt": 86,
+"noldeke": 37
+},
+"84": {
+"egypt": 83,
+"noldeke": 29
+},
+"85": {
+"egypt": 27,
+"noldeke": 22
+},
+"86": {
+"egypt": 36,
+"noldeke": 15
+},
+"87": {
+"egypt": 8,
+"noldeke": 19
+},
+"88": {
+"egypt": 68,
+"noldeke": 34
+},
+"89": {
+"egypt": 10,
+"noldeke": 35
+},
+"90": {
+"egypt": 35,
+"noldeke": 11
+},
+"91": {
+"egypt": 26,
+"noldeke": 16
+},
+"92": {
+"egypt": 9,
+"noldeke": 10
+},
+"93": {
+"egypt": 11,
+"noldeke": 13
+},
+"94": {
+"egypt": 12,
+"noldeke": 12
+},
+"95": {
+"egypt": 28,
+"noldeke": 20
+},
+"96": {
+"egypt": 1,
+"noldeke": 1
+},
+"97": {
+"egypt": 25,
+"noldeke": 14
+},
+"98": {
+"egypt": 100,
+"noldeke": 92
+},
+"99": {
+"egypt": 93,
+"noldeke": 25
+},
+"100": {
+"egypt": 14,
+"noldeke": 30
+},
+"101": {
+"egypt": 30,
+"noldeke": 24
+},
+"102": {
+"egypt": 16,
+"noldeke": 8
+},
+"103": {
+"egypt": 13,
+"noldeke": 21
+},
+"104": {
+"egypt": 32,
+"noldeke": 6
+},
+"105": {
+"egypt": 19,
+"noldeke": 9
+},
+"106": {
+"egypt": 29,
+"noldeke": 4
+},
+"108": {
+"egypt": 15,
+"noldeke": 5
+},
+"109": {
+"egypt": 18,
+"noldeke": 45
+},
+"110": {
+"egypt": 114,
+"noldeke": 111
+},
+"111": {
+"egypt": 6,
+"noldeke": 3
+},
+"112": {
+"egypt": 22,
+"noldeke": 44
+},
+"113": {
+"egypt": 20,
+"noldeke": 46
+},
+"114": {
+"egypt": 21,
+"noldeke": 47
+},
+"107": {
+"egypt": 17,
+"noldeke": 7
+}
+}
+}
