@@ -1,0 +1,15 @@
+{
+ "bilgi": {
+  "ayet": 6236,
+  "k0_ayet": 6236,
+  "k0_kelime": 77429,
+  "meal": 274,
+  "k2_eser": 171,
+  "k2_tefsirsiz_ayet": 0
+ },
+ "hata": {},
+ "uyari": {
+  "meal_bos_ayet(uyari)": 23,
+  "meal_kaynakta_eksik(uyari)": 2
+ }
+}

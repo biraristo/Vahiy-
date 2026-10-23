@@ -1,0 +1,29 @@
+{
+ "version": "k2-2026.10.23",
+ "eser": 171,
+ "ture_gore": {
+  "tefsir": 157,
+  "irab": 8,
+  "esbab": 2,
+  "nasih": 1,
+  "kiraat": 2,
+  "garib": 1
+ },
+ "doneme_gore": {
+  "modern": 41,
+  "belirsiz": 19,
+  "orta": 31,
+  "klasik": 34,
+  "osmanli": 16,
+  "erken": 16
+ },
+ "sayfali_eser": 110,
+ "ikinci_nusha": 10,
+ "pasaj": 691621,
+ "tekrar_isaret": 1018341,
+ "karakter": 988377433,
+ "pasaj_olmayan_ayet": 0,
+ "cc_kiraat_kaydi": 17995,
+ "qp_kiraatli_ayet": 3455,
+ "garib_ayet": 4799
+}

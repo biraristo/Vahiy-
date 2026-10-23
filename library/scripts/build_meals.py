@@ -109,6 +109,8 @@ for t in json.load(open(f'{RAW}/qp_manifest.json'))['translation_books']:
 PRI = {'Türkçe': 0, 'Arapça': 1, 'İngilizce': 2}
 meals.sort(key=lambda r: (PRI.get(r['dil'], 9), r['dil'], r['ad']))
 default = next((m['id'] for m in meals if m['id'] in ('qc-77', 'tz-tr.diyanet')), meals[0]['id'])
+for m in meals:  # kaynakta boş gelen ayet sayısı (kapsam bilgisi)
+    m['eksik_ayet'] = sum(1 for t in json.load(open(f"{OUT}/{m['id']}.json")) if not (t or '').strip())
 json.dump({'varsayilan': default, 'mealler': meals}, open(f'{OUT}/index.json', 'w', encoding='utf8'), ensure_ascii=False)
 import collections
 print('meal', len(meals), 'dil', len({m['dil'] for m in meals}), collections.Counter(m['kaynak'] for m in meals))
