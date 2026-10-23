@@ -1,0 +1,84 @@
+/* vahiy++ — tür rafları ve kitap okuma ekranı */
+.raf-sayfa { max-width: 1180px; margin: 0 auto; }
+.yol { font: .88rem var(--sans); color: var(--muted); } .yol a { color: var(--muted); }
+.raf-h1 { display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap; margin: .2rem 0 .3rem; }
+.raf-h1 .ar { font-family: var(--quran); color: var(--altin); font-size: .8em; }
+.raf-ozet { color: var(--muted); margin: 0 0 1rem; max-width: 64ch; }
+.raf-turler { display: flex; gap: .4rem; overflow-x: auto; padding-bottom: .4rem; margin-bottom: .6rem; font-family: var(--sans); }
+.raf-turler a { flex: none; border: 1px solid var(--line); border-radius: 999px; padding: .35rem .85rem; color: var(--ink); text-decoration: none; font-size: .9rem; background: var(--sheet); }
+.raf-turler a[aria-current] { background: var(--btn); color: var(--btn-ink); border-color: var(--btn); }
+.raf-arac { display: flex; gap: .5rem; flex-wrap: wrap; margin: 0 0 1rem; font-family: var(--sans); }
+.raf-arac input { flex: 1 1 220px; min-width: 0; border: 1px solid var(--line); border-radius: 999px; padding: .55rem 1rem; font: inherit; background: var(--sheet); color: var(--ink); }
+.raf-arac select { border: 1px solid var(--line); border-radius: 999px; padding: .5rem .8rem; font: inherit; background: var(--sheet); color: var(--ink); }
+.raf-donemler { display: flex; gap: .3rem 1rem; flex-wrap: wrap; margin-bottom: 1.4rem; font-family: var(--sans); }
+.raf-donemler a { font-size: .9rem; color: var(--muted); text-decoration: none; border-bottom: 2px solid transparent; padding: .15rem 0; }
+.raf-donemler a:hover, .raf-donemler a:focus { color: var(--ink); border-color: var(--zer); }
+.donem { margin: 0 0 2.4rem; scroll-margin-top: 70px; }
+.d-bas { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: .4rem; margin-bottom: 1rem; }
+.d-bas h2 { margin: 0; font-weight: 500; font-size: 1.45rem; } .d-bas span { font: .85rem var(--sans); color: var(--muted); }
+.raf { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem .9rem; }
+@media (min-width: 720px) { .raf { grid-template-columns: repeat(5, 1fr); } } @media (min-width: 1000px) { .raf { grid-template-columns: repeat(7, 1fr); } }
+.kitap { text-decoration: none; color: var(--ink); display: flex; flex-direction: column; gap: .35rem; min-width: 0; }
+.kapak { position: relative; aspect-ratio: 2 / 3; border-radius: 3px 7px 7px 3px; overflow: hidden; box-shadow: 0 8px 18px -10px rgba(0, 0, 0, .55), inset 6px 0 0 rgba(0, 0, 0, .18);
+  display: flex; align-items: center; justify-content: center; padding: 16% 13%; text-align: center; transition: transform .2s; }
+.kapak svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.kapak .cer { position: absolute; inset: 7%; border: 1.5px solid rgba(232, 207, 140, .75); border-radius: 2px; }
+.kapak .cer::after { content: ''; position: absolute; inset: 4px; border: 1px solid rgba(232, 207, 140, .45); }
+.kapak .bas { position: relative; font-family: var(--quran); color: #F1DEA6; font-size: clamp(.8rem, 3.4vw, 1rem); line-height: 1.5; direction: rtl; text-shadow: 0 1px 0 rgba(0, 0, 0, .3); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; }
+.kapak .yil { position: absolute; bottom: 9%; left: 0; right: 0; text-align: center; font: 600 .62rem var(--sans); color: rgba(241, 222, 166, .85); letter-spacing: .06em; }
+.kapak .rozet { position: absolute; top: 9%; right: 9%; font: 600 .58rem var(--sans); color: #1B2433; background: rgba(241, 222, 166, .9); border-radius: 3px; padding: .05rem .3rem; }
+.kitap .ad { font-weight: 500; font-size: .92rem; line-height: 1.2; overflow-wrap: anywhere; }
+.kitap .yazar { font: .78rem var(--sans); color: var(--muted); line-height: 1.2; }
+.kitap:hover .kapak, .kitap:focus .kapak { transform: translateY(-3px); }
+.raf-not { font: .82rem var(--sans); color: var(--muted); display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; }
+
+/* okuma */
+.okuma { max-width: 860px; margin: -.6rem auto 0; }
+.kitapbas { position: sticky; top: 56px; z-index: 6; background: color-mix(in srgb, var(--paper) 93%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); margin: 0 -16px; padding: 0 16px .6rem; }
+.kb-ic { display: flex; gap: .7rem; align-items: center; padding: .6rem 0; }
+.mini { width: 32px; height: 46px; border-radius: 2px 4px 4px 2px; background: linear-gradient(135deg, var(--k1), var(--k2)); box-shadow: inset 3px 0 0 rgba(0, 0, 0, .2); position: relative; flex: none; }
+.mini::after { content: ''; position: absolute; inset: 4px; border: 1px solid rgba(232, 207, 140, .7); }
+.kb-ad { min-width: 0; flex: 1; } .kb-ad b { display: block; font-weight: 500; font-size: 1rem; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .kb-ad span { font: .8rem var(--sans); color: var(--muted); }
+.geri { font: .85rem var(--sans); color: var(--muted); text-decoration: none; white-space: nowrap; }
+.secici { display: flex; gap: .4rem; align-items: center; font-family: var(--sans); margin: 0; }
+.secici select { flex: 1; min-width: 0; border: 1px solid var(--line); border-radius: 999px; padding: .5rem .8rem; font: inherit; background: var(--sheet); color: var(--ink); }
+.secici .ay { display: flex; align-items: center; border: 1px solid var(--line); border-radius: 999px; background: var(--sheet); }
+.secici .ay a { width: 34px; height: 36px; display: grid; place-items: center; font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+.secici .ay a[aria-disabled="true"] { opacity: .3; pointer-events: none; }
+.secici .ay input { width: 3.4em; border: 0; background: none; text-align: center; font: 600 1rem var(--sans); color: var(--altin); -moz-appearance: textfield; }
+.secici .ay input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.ok-ayet { text-align: center; padding: 1rem .4rem 1.1rem; border-bottom: 1px solid var(--line); margin-bottom: 1.1rem; }
+.ok-ayet .q { font-family: var(--quran); font-size: clamp(1.35rem, 5.2vw, 1.9rem); line-height: 2.1; color: var(--firuze); margin: 0; direction: rtl; }
+.ok-ayet .m { color: var(--muted); font-size: .95rem; margin: .5rem auto 0; max-width: 64ch; } .ok-ayet .ref { font: .82rem var(--sans); color: var(--zer); }
+.okuma .durum { display: flex; justify-content: space-between; gap: .6rem; flex-wrap: wrap; font: .82rem var(--sans); color: var(--muted); margin-bottom: .6rem; }
+.sayfa { background: color-mix(in srgb, var(--sheet) 70%, #FFF6DE); border: 1px solid var(--line); border-radius: 4px; padding: 1.3rem 1.2rem 1rem; box-shadow: 0 10px 24px -18px rgba(0, 0, 0, .6); margin-bottom: 1rem; }
+:root[data-theme="dark"] .sayfa { background: #18263D; }
+.sayfa.gizli { display: none; }
+.sayfa .ust { display: flex; justify-content: space-between; gap: .6rem; font: .75rem var(--sans); color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: .4rem; margin-bottom: .8rem; }
+.sayfa .ust b { color: var(--altin); font-weight: 600; white-space: nowrap; }
+.sayfa .metin { font-family: var(--arabic); direction: rtl; text-align: justify; font-size: 1.18rem; line-height: 2.15; white-space: pre-line; overflow-wrap: anywhere; }
+.sayfa .metin ::selection { background: color-mix(in srgb, var(--zer) 40%, transparent); }
+.sayfa .metin .ayt { color: var(--firuze); }
+.sayfa .alt { text-align: center; font: .75rem var(--sans); color: var(--muted); margin-top: .6rem; }
+.devam { text-align: center; } .devam button { border: 1px solid var(--line); background: var(--sheet); color: var(--firuze); border-radius: 999px; padding: .55rem 1.2rem; font: 500 .92rem var(--sans); cursor: pointer; }
+.bos-ayet { text-align: center; color: var(--muted); padding: 1.2rem 0; } .bos-ayet a { color: var(--firuze); }
+.okuma .gecis { display: flex; justify-content: space-between; gap: .6rem; margin-top: 1.2rem; font-family: var(--sans); }
+.okuma .gecis a { flex: 1; text-align: center; border: 1px solid var(--line); border-radius: 999px; padding: .65rem; color: var(--ink); text-decoration: none; background: var(--sheet); }
+.okuma .gecis a.ana { background: var(--btn); color: var(--btn-ink); border-color: var(--btn); }
+details.kunye { margin-top: 1.4rem; border: 1px solid var(--line); border-radius: 10px; background: var(--sheet); padding: .7rem 1rem; font: .9rem var(--sans); }
+details.kunye summary { cursor: pointer; font-weight: 600; }
+details.kunye dl { display: grid; grid-template-columns: auto 1fr; gap: .35rem 1rem; margin: .7rem 0 0; } details.kunye dt { color: var(--muted); } details.kunye dd { margin: 0; }
+.atif-ip { font: .82rem var(--sans); color: var(--muted); text-align: center; margin: 1rem 0 0; }
+.atif-btn { position: absolute; z-index: 30; border: 0; border-radius: 999px; padding: .5rem 1rem; background: var(--btn); color: var(--btn-ink); font: 600 .9rem var(--sans); box-shadow: 0 8px 20px -8px rgba(0, 0, 0, .5); cursor: pointer; }
+.atif-panel { position: fixed; inset: 0; z-index: 40; background: rgba(10, 16, 28, .45); display: flex; align-items: flex-end; justify-content: center; }
+.atif-panel[hidden] { display: none; }
+.ap-ic { background: var(--sheet); color: var(--ink); width: min(680px, 100%); max-height: 88vh; overflow: auto; border-radius: 16px 16px 0 0; padding: 1.2rem 1.2rem 1.4rem; box-shadow: 0 -10px 40px -10px rgba(0, 0, 0, .5); }
+@media (min-width: 720px) { .atif-panel { align-items: center; } .ap-ic { border-radius: 16px; } }
+.ap-ic h3 { margin: 0 0 .5rem; font-weight: 500; } .ap-ic h4 { margin: 1rem 0 .3rem; font: 600 .9rem var(--sans); color: var(--muted); }
+.ap-atif { margin: 0; font-size: 1.02rem; line-height: 1.5; }
+.ap-ic blockquote { margin: .7rem 0 0; padding: .6rem .9rem; border-inline-start: 3px solid var(--zer); font-family: var(--arabic); font-size: 1.1rem; line-height: 1.9; background: color-mix(in srgb, var(--zer) 8%, transparent); border-radius: 6px; }
+.ap-ic .halka li { padding: .35rem 0 .35rem 2rem; } .ap-ic .halka li::before { top: .55rem; width: .8rem; height: .8rem; left: -.5rem; }
+.ap-ic .halka li span { overflow-wrap: anywhere; }
+.ap-dug { display: flex; gap: .6rem; margin-top: 1rem; } .ap-dug .gir { flex: 1; }
+.ok-dug { border: 1px solid var(--line); background: var(--sheet); color: var(--ink); border-radius: 999px; padding: .7rem 1.3rem; font: 500 1rem var(--sans); cursor: pointer; }
+.ap-nesir { margin: .3rem 0 0; font-family: var(--arabic); color: var(--muted); font-size: 1rem; text-align: right; }
