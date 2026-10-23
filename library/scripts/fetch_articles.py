@@ -10,7 +10,7 @@ def get(u):
         try: return json.load(urllib.request.urlopen(urllib.request.Request(u,headers={'User-Agent':'vahiy-plus-plus/0.1 (personal research)'}),timeout=120))
         except Exception as e: err=e; time.sleep(10*(a+1))
     raise err
-SEL='DOI,title,container-title,abstract,author,issued,URL,language,publisher,subject,type'
+SEL='DOI,title,container-title,abstract,author,issued,URL,publisher,type'
 for q in Q:
     cursor='*'; got=0
     while True:
