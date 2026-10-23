@@ -12,7 +12,7 @@ const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '
 const GENRE = {
   tefsir: 'Tefsir', ulum: "Ulûmü'l-Kur'ân", kiraat: 'Kıraat ve tecvid', dil: 'Dil', meal: 'Meal',
   mushaf: 'Mushaf', hadis: 'Hadis', fikih: 'Fıkıh', akaid: 'Akaid ve kelâm', tasavvuf: 'Tasavvuf ve ahlâk',
-  tarih: 'Siyer ve tarih', edebiyat: 'Edebiyat', diger: 'Diğer', belirsiz: 'Sınıflandırılmamış'
+  tarih: 'Siyer ve tarih', 'ricâl': 'Ricâl ve tabakât', felsefe: 'Felsefe ve mantık', modern: 'Çağdaş genel', farsca: 'Farsça', edebiyat: 'Edebiyat', diger: 'Diğer', belirsiz: 'Sınıflandırılmamış'
 };
 const TEXT = { 'ayet-bolumlu': 'Ayet ayet', 'tam-metin': 'Tam metin', pdf: 'Yalnız PDF', kunye: 'Yalnız künye', 'kelime-bolumlu': 'Kelime kelime', 'yapisal-veri': 'Yapısal veri' };
 const SOURCE = { quranpedia: 'Quranpedia', openiti: 'OpenITI', tafsir_api: 'QUL (tafsir_api)', tanzil: 'Tanzil', corpus_coranicum: 'Corpus Coranicum', 'github:mustafa0x/quran-morphology': 'QAC morfoloji' };
