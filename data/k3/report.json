@@ -1,0 +1,22 @@
+{
+ "version": "x-2026.10.23",
+ "alintili_ayet": 6236,
+ "alinti": 5653376,
+ "rivayetli_ayet": 6193,
+ "rivayet": 84421,
+ "ihtilaf": 42616,
+ "fetva": 1680,
+ "not": 53382,
+ "ilim_dalina_gore_alinti": {
+  "ulum": 3258220,
+  "cagdas": 1433366,
+  "hadis": 179961,
+  "kelam": 129176,
+  "tarih": 122258,
+  "dil": 265916,
+  "tasavvuf": 47153,
+  "fikih": 217326
+ },
+ "alinti_yapan_kitap": 8140,
+ "yontem": "k3_scan.py: normalleştirilmiş 4-gram eşleşmesi, en az 6 kelime ya da ≥5 kelimelik tam ayet; Quranpedia bölüm bağları ayrıca"
+}

@@ -207,3 +207,26 @@ table.t { width: 100%; border-collapse: collapse; font-family: var(--sans); font
 .more { font-family: var(--sans); font-size: .9rem; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--lapis); padding: .35rem .8rem; cursor: pointer; }
 .muted { color: var(--muted); }
 @media (prefers-reduced-motion: reduce) { .work > summary::before { transition: none; } }
+
+/* Katman 3–8 */
+.rv { border-left: 2px solid var(--line); padding: .2rem 0 .2rem .8rem; margin: .8rem 0; }
+.rv .pgh { flex-wrap: wrap; }
+.ravi { font: inherit; font-family: var(--arabic); font-size: .95rem; border: 1px solid var(--line); background: var(--paper); color: var(--lapis); border-radius: 999px; padding: 0 .6rem; cursor: pointer; }
+.ravi .g { font-family: var(--sans); font-size: .75rem; color: var(--muted); }
+.ravi:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.ravibox { position: sticky; bottom: .5rem; background: var(--sheet); border: 1px solid var(--gold); border-radius: 10px; padding: .6rem .9rem; margin-top: .6rem; box-shadow: 0 6px 24px rgba(0,0,0,.12); }
+.ravibox dl { display: grid; grid-template-columns: auto 1fr; gap: .1rem .8rem; font-family: var(--sans); font-size: .9rem; margin: .3rem 0; }
+.ravibox dt { color: var(--muted); }
+.ravibox dd { margin: 0; }
+.tah > summary { font-family: var(--sans); font-size: .82rem; color: var(--muted); cursor: pointer; }
+.tah p { font-size: 1rem; color: var(--muted); }
+.lx { border-top: 1px dashed var(--line); padding: .3rem 0; }
+.lx > summary { cursor: pointer; font-family: var(--sans); font-size: .9rem; }
+.k6h { font-family: var(--sans); font-size: .8rem; color: var(--muted); margin: .8rem 0 .2rem; font-weight: 600; }
+.pt.heb { font-family: "SBL Hebrew", "Ezra SIL", "Times New Roman", serif; font-size: 1.15rem; line-height: 1.9; text-align: right; }
+.ozet { border: 1px solid var(--gold); border-radius: 10px; padding: .4rem .9rem .6rem; margin-bottom: 1rem; background: var(--paper); }
+.om { margin: .6rem 0; }
+.om p { margin: .2rem 0; }
+#masat { width: 100%; box-sizing: border-box; font: inherit; border: 1px solid var(--line); border-radius: 8px; padding: .6rem; background: var(--paper); color: var(--ink); }
+.masabar { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: .4rem 0; }
+.masabar .srcs { flex: 1; }

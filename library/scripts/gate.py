@@ -80,5 +80,41 @@ if 'k2' in want:
                 if r[0] not in ids: err('k2_bilinmeyen_eser', f'{k}:{r[0]}')
                 if isinstance(r[-1], dict) and r[-1].get('ref') not in IDS: err('k2_kopuk_ref', f'{k}->{r[-1]}')
     info['k2_tefsirsiz_ayet'] = bos
-out = {'bilgi': info, 'hata': {k: [cnt[k], v] for k, v in errs.items() if v is not None}, 'uyari': {k: v for k, v in cnt.items() if 'uyari' in k}}
-print(json.dumps(out, ensure_ascii=False, indent=1))
+if 'kx' not in want:
+    out = {'bilgi': info, 'hata': {k: [cnt[k], v] for k, v in errs.items() if v is not None}, 'uyari': {k: v for k, v in cnt.items() if 'uyari' in k}}
+    print(json.dumps(out, ensure_ascii=False, indent=1))
+if 'kx' in want:
+    import glob
+    K = json.load(open(f'{R}/x/kitaplar.json'))['kitaplar']
+    RV = json.load(open(f'{R}/k4/raviler.json'))['raviler']
+    E2 = json.load(open(f'{R}/k2/eserler.json'))['eserler']
+    for s in range(1, 115):
+        for a in range(1, AY[s-1]+1):
+            p = f'{R}/x/{s}/{a}.json.gz'
+            if not os.path.exists(p): err('x_dosya_yok', f'{s}:{a}'); continue
+            d = json.load(gzip.open(p))
+            for g, L in d['k3'].items():
+                for nb, n, hits in L:
+                    if str(nb) not in K: err('k3_bilinmeyen_kitap', f'{s}:{a}:{nb}')
+                    if n < len(hits): err('k3_sayi', f'{s}:{a}')
+            for r in d['k4']:
+                for v in r['raviler']:
+                    if str(v) not in RV: err('k4_bilinmeyen_ravi', f'{s}:{a}:{v}')
+            for r in d['k7']['ihtilaf']:
+                if r[0] not in E2: err('k7_bilinmeyen_eser', f'{s}:{a}:{r[0]}')
+    I5 = json.load(open(f'{R}/k5/index.json'))
+    for r, n in I5['kokler'].items():
+        if not os.path.exists(f'{R}/k5/r/{n}.json.gz'): err('k5_dosya_yok', r)
+    for s in range(1, 115):
+        for k, L in json.load(open(f'{R}/k6/{s}.json'))['ayetler'].items():
+            if k not in IDS: err('k6_ayet', k)
+            for x in L:
+                if not os.path.exists(f"{R}/k6/m/{x['id']}.json"): err('k6_metin_yok', x['id'])
+        K8 = json.load(open(f'{R}/k8/{s}.json'))
+        for k, L in K8['ayet'].items():
+            if k not in IDS: err('k8_ayet', k)
+            for i in L:
+                if str(i) not in K8['makale']: err('k8_makale_yok', i)
+    info['k5_kok'] = len(I5['kokler'])
+    out = {'bilgi': info, 'hata': {k: [cnt[k], v] for k, v in errs.items() if v is not None}, 'uyari': {k: v for k, v in cnt.items() if 'uyari' in k}}
+    print(json.dumps(out, ensure_ascii=False, indent=1))
