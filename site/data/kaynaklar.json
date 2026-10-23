@@ -169,6 +169,8 @@
   "hadeethenc": "library/scripts/build_hadeethenc.py",
   "shamela": "library/scripts/build_shamela.py",
   "siralama": "library/scripts/build_chron.py",
-  "vitrin": "library/scripts/build_vitrin.py"
+  "vitrin": "library/scripts/build_vitrin.py",
+  "eskiyazma": "library/scripts/build_eskiyazma.py",
+  "yogunluk": "library/scripts/build_yogunluk.py"
  }
 }

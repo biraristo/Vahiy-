@@ -12,7 +12,7 @@ def ek(id_, ad, tur, kaynak, dizi, notlar='', yer='', ref=None, grup=None, donem
     if grup: r['gruplar'] = grup
     if donem: r['donemler'] = donem
     out.append(r)
-ek('mushaf', 'Mushaf', 'mushaf', 'Hz. Osman mushafı tertibi (Hafs, Kral Fahd baskısı)', list(range(1, 115)))
+ek('mushaf', 'Hz. Osman mushafı', 'mushaf', 'Hz. Osman döneminde çoğaltılan mushafın tertibi; bugünkü mushaflar (Kral Fahd baskısı, Hafs)', list(range(1, 115)))
 ek('misir', 'Nüzul (Mısır)', 'nuzul', S['kaynaklar']['nuzul_misir'], [x['n'] for x in sorted(SU, key=lambda x: x['tertip']['nuzul_misir'])],
    'Kahire 1924 (Kral Fuad) mushafındaki nüzul sırası; büyük ölçüde İbn Abbas rivayetine dayanır.')
 # klasik kaynaklar
@@ -37,9 +37,20 @@ ROD = [96, 74, 73, 93, 94, 113, 114, 1, 109, 112, 111, 108, 104, 107, 102, 92, 6
 assert sorted(ROD) == list(range(1, 115))
 ek('rodwell', 'Rodwell', 'nuzul', 'J. M. Rodwell, The Koran, Translated from the Arabic, the Suras Arranged in Chronological Order (London 1861) — içindekiler tablosu',
    ROD, 'Project Gutenberg #2800 içindekiler tablosundan iki ayrı okumayla doğrulandı.', 'gutenberg.org/ebooks/2800', 'https://www.gutenberg.org/ebooks/2800')
-# hesaplanan
-ek('ayet', 'Ayet sayısı', 'olcu', 'Hesaplama: Kûfe sayımı (Hafs)', [x['n'] for x in sorted(SU, key=lambda x: (-x['ayet'], x['n']))], 'En uzundan en kısaya.')
-ek('kelime', 'Kelime sayısı', 'olcu', 'Hesaplama: Quranic Arabic Corpus kelime sayımı', [x['n'] for x in sorted(SU, key=lambda x: (-x.get('kelime', 0), x['n']))], 'En uzundan en kısaya.')
+# kronoloji (ölüm yılı ya da yayın yılı) ve Mekke/Medine sınırı
+YIL = {'ubey': ('ö. 30?', 30), 'ibn_mesud': ('ö. 32', 32), 'mushaf': ('ö. 35', 35), 'ali': ('ö. 40', 40), 'ibn_abbas': ('ö. 68', 68), 'ibn_abbas_sehristani': ('ö. 68', 68.5),
+       'zuhri': ('ö. 124', 124), 'cafer': ('ö. 148', 148), 'ibn_nedim': ('ö. 385?', 385), 'ibn_abdulkafi': ('5. yy', 450), 'noldeke': ('1860', 1860 + 2000), 'rodwell': ('1861', 1861 + 2000),
+       'muir': ('1878', 1878 + 2000), 'misir': ('1924', 1924 + 2000)}
+for o in out:
+    o['yil'], o['_s'] = YIL[o['id']]
+    if o['tur'] == 'mushaf':
+        o['medine_bas'] = None; o['donem'] = 'Bu tertipte Mekkî/Medenî dönem ayrımı yok.'
+    else:
+        ilk_med = {'zuhri': 1, 'muir': 98}.get(o['id'], 2)  # Zührî'nin Medine listesi Fâtiha ile, Muir'in son dönemi Beyyine ile başlar
+        o['medine_bas'] = o['dizi'].index(ilk_med)
+        o['donem'] = f"İlk {o['medine_bas']} sure Mekkî, sonrakiler Medenî ({'kaynağın kendi listesi' if o['id'] not in ('misir', 'noldeke', 'rodwell', 'muir') else 'kaynağın dönemlendirmesi'})."
+out.sort(key=lambda o: o['_s'])
+for o in out: o.pop('_s')
 json.dump({'version': 'siralama-2026.10.23', 'siralamalar': out},
           open('/home/claude/vahiy-/site/data/k0/siralamalar.json', 'w', encoding='utf8'), ensure_ascii=False, separators=(',', ':'))
 for o in out: print(f"{o['id']:22} {len(o['dizi']):3}  eksik:{o['eksik']}")

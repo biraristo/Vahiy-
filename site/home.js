@@ -18,19 +18,19 @@ const ARAYUZ_DIL = {
   en: { 'nav.atlas': "Qur'an atlas", 'nav.kutuphane': 'Library', 'h1': 'From text to meaning, from meaning to history.',
     'alt': 'Read a verse alongside {tefsir} tafsirs, {rivayet} early reports, {lugat} lexicons and its traces in {eser} books. Every item is linked to its source.',
     'gir': 'Enter the verse', 'ipucu': 'Turn the outer ring to choose a surah and the inner ring to choose a verse.', 'ayet': 'Verse',
-    'atlas': "Qur'an atlas", 'atlas.not': '114 surahs. Choose an ordering and watch the surahs move; the corner number is the surah’s place in that ordering.',
-    'A.b': 'You are inside a library', 'A.n': 'Works, quotations, reports and manuscripts linked to the verses.',
+    'atlas': 'Order of revelation', 'atlas.not': 'From the Companions’ codices to today: how scholars ordered the surahs. Choose an ordering; the surahs move and the colours show that source’s own Meccan–Medinan division.',
+    'A.b': 'Khizānat al-kutub', 'A.n': 'Our library: works, quotations, reports and manuscripts linked to the verses. Every number was counted separately.',
     'B.b': 'The library around a verse', 'C.b': 'Fifteen centuries of conversation', 'C.n': 'As you scroll, each Hijri century fills with the number of books in the system by authors who died in it.',
     'D.b': 'What a surah talks about', 'D.n': 'Choose a surah: each topic is a lane and every mark is a verse. Tap a mark to open the verse.',
-    'K.b': 'World of sources', 'K.n': 'Books linked to the verses, by discipline.', 'Z.b': 'Every piece of information has an isnad', 'Z.n': 'Every passage on the site comes with a source chain showing where it came from.',
+    'I.b': 'Map of disagreement', 'I.n': 'Where the exegetes disagreed most. Darker means more disagreement per verse. Choose a surah to see it verse by verse.', 'N.b': 'Occasions of revelation', 'N.n': 'Surahs in order of revelation (Egyptian standard); each column is the number of reports on why its verses were revealed. The line marks the Hijra.', 'E.b': 'The oldest manuscripts', 'E.n': 'The oldest surviving Qur’an codices with their estimated dating (CE). Tap a bar to open the manuscript.', 'K.b': 'World of sources', 'K.n': 'Books linked to the verses, by discipline.', 'Z.b': 'Every piece of information has an isnad', 'Z.n': 'Every passage on the site comes with a source chain showing where it came from.',
     'son': 'vahiy++ is a personal research project. Every record carries its source chain.' },
   ar: { 'nav.atlas': 'أطلس القرآن', 'nav.kutuphane': 'المكتبة', 'h1': 'من النصّ إلى المعنى، ومن المعنى إلى التاريخ.',
     'alt': 'اقرأ الآية مع {tefsir} تفسيرًا و{rivayet} رواية عن السلف و{lugat} معجمًا، وآثارها في {eser} كتابًا؛ كلّ معلومة موصولة بمصدرها.',
     'gir': 'ادخل الآية', 'ipucu': 'أدِر الحلقة الخارجية لاختيار السورة، والداخلية لاختيار الآية.', 'ayet': 'الآية',
-    'atlas': 'أطلس القرآن', 'atlas.not': '١١٤ سورة. اختر ترتيبًا فتنتقل السور إلى مواضعها، والرقم في الزاوية موضعها في ذلك الترتيب.',
-    'A.b': 'أنت داخل مكتبة', 'A.n': 'الكتب والاقتباسات والروايات والمخطوطات المرتبطة بالآيات.', 'B.b': 'المكتبة حول آية', 'C.b': 'حوار خمسة عشر قرنًا',
+    'atlas': 'مخطط النزول', 'atlas.not': 'من مصاحف الصحابة إلى اليوم: كيف رتّب العلماء السور. اختر ترتيبًا فتنتقل السور، وتدلّ الألوان على تقسيم ذلك المصدر للمكي والمدني.',
+    'A.b': 'خزانة الكتب', 'A.n': 'مكتبتنا: الكتب والاقتباسات والروايات والمخطوطات المرتبطة بالآيات، وكل رقم معدود على حدة.', 'B.b': 'المكتبة حول آية', 'C.b': 'حوار خمسة عشر قرنًا',
     'C.n': 'كلما نزلت امتلأ كل قرن هجري بعدد كتب المؤلفين المتوفين فيه.', 'D.b': 'عمّ تتحدث السورة', 'D.n': 'اختر سورة: لكل موضوع مسار، وكل علامة آية؛ اضغط العلامة لفتح الآية.',
-    'K.b': 'عالم المصادر', 'K.n': 'الكتب المرتبطة بالآيات بحسب العلوم.', 'Z.b': 'لكل معلومة إسناد', 'Z.n': 'كل نص في الموقع يأتي بسلسلة مصدر تبيّن من أين جاء.',
+    'I.b': 'خريطة الخلاف', 'I.n': 'مواضع أكثر اختلاف المفسرين؛ اللون الأغمق خلاف أكثر لكل آية. اختر سورة لترى آياتها.', 'N.b': 'أسباب النزول', 'N.n': 'السور بحسب ترتيب النزول (المصحف المصري)، وكل عمود عدد روايات أسباب النزول في آياتها؛ والخط يدل على الهجرة.', 'E.b': 'أقدم المخطوطات', 'E.n': 'أقدم نسخ القرآن الباقية مع تقدير زمن كتابتها (ميلادي). اضغط على الشريط لفتح المخطوطة.', 'K.b': 'عالم المصادر', 'K.n': 'الكتب المرتبطة بالآيات بحسب العلوم.', 'Z.b': 'لكل معلومة إسناد', 'Z.n': 'كل نص في الموقع يأتي بسلسلة مصدر تبيّن من أين جاء.',
     'son': 'vahiy++ عمل بحثي شخصي، ولكل سجل سلسلة مصدره.' },
 };
 let dil = store.get('dil', 'tr');
@@ -84,11 +84,8 @@ async function home() {
   const D = S.sureler, sy = V.sayilar;
   window.__vitrinSay = { tefsir: fmt(sy.tefsir), rivayet: fmt(Math.round(sy.rivayet / 1000) * 1000).replace(/\.000$/, ' bin'), lugat: sy.lugat, eser: fmt(sy.eser) };
   if (dil !== 'tr') window.__vitrinSay.rivayet = fmt(sy.rivayet);
-  const A = V.giris[Math.floor(Math.random() * V.giris.length)];
-  const [gs, ga] = A.r.split(':');
   view.innerHTML = `<div class="ana">
   <section class="hero"><div>
-    <div class="ayetk"><p class="q" lang="ar">${esc(A.ar)}</p><p class="mt">“${esc(A.tr)}”</p><a class="yer" href="#/${gs}/${parseInt(ga)}">${esc(A.sure)} ${esc(A.r)}</a></div>
     <h1 data-t="h1">Metinden manaya, manadan tarihe.</h1>
     <p class="alt" data-t="alt" data-tr="Bir ayeti {tefsir} tefsir, {rivayet} selef rivayeti, {lugat} lügat ve {eser} kitaptaki izleriyle birlikte okuyun. Her bilgi kaynağına bağlı."></p>
     <div class="usturlap">
@@ -112,21 +109,14 @@ async function home() {
     </div>
   </div></section>
 
-  <section class="bolum" aria-labelledby="atlas-b"><h2 id="atlas-b" data-t="atlas">Kur'an atlası</h2>
-    <p class="not" data-t="atlas.not">114 sure. Bir sıralama seçin; sureler yeni yerlerine kayar, köşedeki sayı o sıralamadaki yerini gösterir.</p>
-    <div class="ana-atlas"><div class="siralar" id="siralar" role="group" aria-label="Sıralama"></div><div class="dosem" id="dosem"></div>
-      <div class="ipucu"><span><i></i>Mekkî</span><span><i class="m"></i>Medenî</span><span class="secili" id="secili"></span></div>
-      <div class="sira-kaynak" id="siraKaynak"></div></div></section>
-
-  <section class="bolum"><h2 data-t="A.b">Bir kütüphanenin içindesiniz</h2><p class="not" data-t="A.n">Ayetlere bağlanan eserler, alıntılar, rivayetler ve el yazmaları.</p>
+  <section class="bolum hazine"><p class="hz-ar" lang="ar">خزانة الكتب</p><h2 data-t="A.b">Hizânetü'l-kütüb</h2><p class="not" data-t="A.n">Kütüphanemiz: ayetlere bağlanan eserler, alıntılar, rivayetler ve el yazmaları. Her rakam ayrı ayrı sayıldı.</p>
     <div class="sayaclar" id="sayaclar"></div><div id="seritler" aria-hidden="true"></div></section>
 
-  <section class="agbolum" id="agb"><div class="agsahne">
-    <div class="agust"><div><h2 data-t="B.b">Bir ayetin etrafındaki kütüphane</h2>
-      <div class="agsec"><select id="agSure" aria-label="Sure"></select><input id="agAyet" type="number" min="1" value="114" aria-label="Ayet"><span id="agRef" style="color:var(--muted)"></span></div></div>
-      <div class="agsay"><span><b id="agn">0</b>eser</span><span><b id="agq">0</b>alıntı</span></div></div>
-    <svg id="ag" viewBox="-500 -330 1000 660" role="img" aria-label="Seçili ayete atıf yapan eserler, ilim dallarına göre"></svg>
-    <div class="agalt" id="agalt"></div></div></section>
+  <section class="bolum" aria-labelledby="atlas-b"><h2 id="atlas-b" data-t="atlas">Nüzul şeması</h2>
+    <p class="not" data-t="atlas.not">Sahabe mushaflarından bugüne, âlimlerin sureleri hangi sırayla dizdiği. Bir tertip seçin; sureler yerini değiştirir, renkler o tertibin kendi Mekkî–Medenî ayrımını gösterir.</p>
+    <div class="ana-atlas"><div class="siralar" id="siralar" role="group" aria-label="Sıralama"></div><div class="dosem" id="dosem"></div>
+      <div class="ipucu"><span id="lejant"></span><span class="secili" id="secili"></span></div>
+      <div class="sira-kaynak" id="siraKaynak"></div></div></section>
 
   <section class="zbolum" id="zb"><div class="zsahne"><h2 data-t="C.b">On beş asırlık bir sohbet</h2>
     <p class="not" style="margin:.3rem 0 0" data-t="C.n">Kaydırdıkça hicrî asırlar dolar: her asırda vefat eden müelliflerin sistemdeki eser sayısı.</p>
@@ -136,6 +126,20 @@ async function home() {
     <p class="not" data-t="D.n">Bir sure seçin: her konu bir şerit, her işaret bir ayettir. İşarete dokununca ayet açılır.</p>
     <div class="dsec"><select id="dSure" aria-label="Sure"></select></div>
     <div id="dIc"></div></section>
+
+  <section class="bolum" id="ihb"><h2 data-t="I.b">İhtilaf haritası</h2>
+    <p class="not" data-t="I.n">Müfessirlerin en çok görüş ayrılığına düştüğü yerler. Koyu renk, ayet başına daha çok ihtilaf demektir. Bir sure seçin, ayet ayet görün.</p>
+    <div class="isi" id="isi"></div><div id="isiDetay"></div></section>
+
+  <section class="bolum" id="nzb"><h2 data-t="N.b">Nüzul sebepleri</h2>
+    <p class="not" data-t="N.n">Sureler iniş sırasıyla (Mısır tertibi) soldan sağa dizili; her sütun, o surenin ayetleri hakkında nakledilen nüzul sebebi rivayetlerinin sayısı. Çizgi hicreti gösterir.</p>
+    <div class="nz-kap"><svg id="nzGraf" viewBox="0 0 1000 260" preserveAspectRatio="none" role="img" aria-label="Surelere göre nüzul sebebi rivayeti sayısı"></svg></div>
+    <div class="nz-eks"><span>İlk inen</span><span id="nzHicret">Hicret</span><span>Son inen</span></div>
+    <div id="nzDetay"></div></section>
+
+  <section class="bolum" id="eyb"><h2 data-t="E.b">En eski yazmalar</h2>
+    <p class="not" data-t="E.n">Bugüne ulaşan en eski Kur'an nüshaları, tahminî yazılış aralıklarıyla (miladî). Bir çubuğa dokunun, nüshanın sayfasına gidin.</p>
+    <div id="eski"></div></section>
 
   <section class="bolum"><h2 data-t="K.b">Kaynak dünyası</h2><p class="not" data-t="K.n">Ayetlere bağlanan kitaplar, ilim dallarına göre.</p><div class="kaynaklar" id="kaynaklar"></div></section>
 
@@ -152,7 +156,7 @@ async function home() {
   const ilkYukle = load('/data/k0/ilk.json').then(j => (ilk = j)).catch(() => ({}));
 
   /* ---- usturlap ---- */
-  const U = { s: 1, a: 1, ps: 0, pa: 0 }, ADIM1 = 13.5, ADIM2 = 9, R1 = 250, R2 = 183, h1 = $('#halka1'), h2 = $('#halka2'), svg = $('#ust');
+  const U = { s: 1, a: 1, ps: 0, pa: 0 }, ADIM1 = 16.5, ADIM2 = 9, R1 = 250, R2 = 183, h1 = $('#halka1'), h2 = $('#halka2'), svg = $('#ust');
   (() => {
     let tk = ''; for (let i = 0; i < 72; i++) { const a = i * 5 * Math.PI / 180, r1 = i % 2 ? 136 : 132; tk += `<line x1="${(Math.cos(a) * r1).toFixed(1)}" y1="${(Math.sin(a) * r1).toFixed(1)}" x2="${(Math.cos(a) * 140).toFixed(1)}" y2="${(Math.sin(a) * 140).toFixed(1)}"/>`; }
     $('#tik').innerHTML = tk;
@@ -195,39 +199,49 @@ async function home() {
   ilkYukle.then(bilgi);
   setTimeout(() => { const son = store.get('son', ''); const hs = son ? +son.split(':')[0] : [2, 18, 36, 55, 67, 96][Math.floor(Math.random() * 6)]; U.s = hs; U.a = 1; anim('ps', hs - 1, 1600); bilgi(); }, 400);
 
-  /* ---- Kur'an atlası ---- */
-  const dos = $('#dosem'), mx = Math.max(...D.map(s => s.ayet));
+  /* ---- Nüzul şeması: tertipler, eskiden yeniye ---- */
+  const dos = $('#dosem'), mx = Math.max(...D.map(s => s.ayet)), SL = SR.siralamalar;
+  let aktif = null;
   D.forEach(s => {
     const a = document.createElement('a'), y = .18 + .82 * Math.sqrt(s.ayet / mx);
-    a.style.setProperty('--y', y.toFixed(2)); a.className = (s.tur === 'Medenî' ? 'm ' : '') + (y > .72 ? 'koyu' : ''); a.dataset.n = s.n; a.href = `#/sure/${s.n}`;
+    a.style.setProperty('--y', y.toFixed(2)); a.dataset.y = y; a.dataset.n = s.n; a.href = `#/sure/${s.n}`;
     a.innerHTML = `<span class="sn"><b class="sira">${s.n}</b><span>${s.ayet}</span></span><span class="ad">${esc(s.tr)}</span>`;
-    a.title = `${s.n}. ${s.tr} — ${s.ayet} ayet, ${s.tur}`;
-    a.onmouseenter = a.onfocus = () => { dos.querySelectorAll('.sel').forEach(x => x.classList.remove('sel')); a.classList.add('sel'); $('#secili').innerHTML = `${s.n}. ${esc(s.tr)}, ${s.ayet} ayet, ${s.tur} <span class="ar" lang="ar">${esc(s.ar)}</span>`; };
+    a.onmouseenter = a.onfocus = () => {
+      dos.querySelectorAll('.sel').forEach(x => x.classList.remove('sel')); a.classList.add('sel');
+      const v = aktif && aktif.dizi.indexOf(s.n), donem = !aktif || aktif.medine_bas == null ? '' : (v < 0 ? ', bu tertipte yok' : (v >= aktif.medine_bas ? ', bu tertipte Medenî' : ', bu tertipte Mekkî'));
+      $('#secili').innerHTML = `${s.n}. ${esc(s.tr)}, ${s.ayet} ayet${v >= 0 && aktif ? `, ${v + 1}. sırada` : ''}${donem} <span class="ar" lang="ar">${esc(s.ar)}</span>`;
+    };
     dos.appendChild(a);
   });
-  dos.children[1].onmouseenter();
-  const SL = SR.siralamalar;
-  $('#siralar').innerHTML = SL.map((x, i) => `<button type="button" data-i="${i}" aria-pressed="${i === 0}">${esc(x.ad)}</button>`).join('');
+  $('#siralar').innerHTML = SL.map((x, i) => `<button type="button" data-i="${i}" aria-pressed="false">${esc(x.ad)} <small>${esc(x.yil)}</small></button>`).join('');
   const kaynakYaz = x => {
     const ch = [{ r: 'Kaynak', t: x.kaynak }, x.yer ? { r: 'Yer', t: x.yer, u: x.ref && x.ref.startsWith('oi:') ? oiUrl(x.ref.slice(3)) : (x.ref || null) } : null, x.notlar ? { r: 'Not', t: x.notlar } : null, { r: 'İşleme', t: 'Sıralama çıkarma betiği', b: 'siralama' }];
-    $('#siraKaynak').innerHTML = `<span>${esc(x.kaynak)}${x.eksik.length ? ` · Bu kaynakta ${x.eksik.length} sure yer almıyor; soluk gösterildi.` : ''}</span>${chain(ch)}`;
+    $('#siraKaynak').innerHTML = `<span>${esc(x.kaynak)}. ${esc(x.donem)}${x.eksik.length ? ` Bu kaynakta ${x.eksik.length} sure yer almıyor; sona soluk dizildi.` : ''}</span>${chain(ch)}`;
+    $('#lejant').innerHTML = x.medine_bas == null ? '<span><i class="n"></i>Dönem ayrımı yok</span>' : '<span><i></i>Mekkî</span><span><i class="m"></i>Medenî</span>';
   };
-  kaynakYaz(SL[0]);
-  $('#siralar').onclick = e => {
-    const b = e.target.closest('button'); if (!b) return;
-    $('#siralar').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    const x = SL[b.dataset.i], yer = new Map(x.dizi.map((n, i) => [n, i]));
+  const tertipSec = (k, ilkSefer) => {
+    const x = SL[k]; aktif = x;
+    $('#siralar').querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-pressed', String(i === k)));
+    const yer = new Map(x.dizi.map((n, i) => [n, i]));
     kaynakYaz(x);
     const L = [...dos.children], ilkK = new Map(L.map(c => { const r = c.getBoundingClientRect(); return [c, [r.left, r.top]]; }));
-    L.sort((p, q) => (yer.get(+p.dataset.n) ?? 999 + +p.dataset.n) - (yer.get(+q.dataset.n) ?? 999 + +q.dataset.n)).forEach((c, i) => {
-      dos.appendChild(c); const v = yer.get(+c.dataset.n); c.querySelector('.sira').textContent = v === undefined ? '–' : v + 1; c.classList.toggle('yok', v === undefined);
+    L.sort((p, q) => (yer.get(+p.dataset.n) ?? 999 + +p.dataset.n) - (yer.get(+q.dataset.n) ?? 999 + +q.dataset.n)).forEach(c => {
+      dos.appendChild(c); const v = yer.get(+c.dataset.n), y = +c.dataset.y;
+      c.querySelector('.sira').textContent = v === undefined ? '–' : v + 1;
+      c.className = (v === undefined ? 'yok ' : '') + (x.medine_bas == null ? 'n ' : (v !== undefined && v >= x.medine_bas ? 'm ' : '')) + (y > .72 ? 'koyu' : '');
+      c.title = `${c.querySelector('.ad').textContent}${v === undefined ? ' — bu tertipte yok' : ` — ${v + 1}. sırada`}`;
     });
-    if (!azHareket) L.forEach(c => { const r = c.getBoundingClientRect(), o = ilkK.get(c); c.style.transition = 'none'; c.style.transform = `translate(${o[0] - r.left}px,${o[1] - r.top}px)`; requestAnimationFrame(() => requestAnimationFrame(() => { c.style.transition = ''; c.style.transform = ''; })); });
+    if (!azHareket && !ilkSefer) L.forEach(c => { const r = c.getBoundingClientRect(), o = ilkK.get(c); c.style.transition = 'none'; c.style.transform = `translate(${o[0] - r.left}px,${o[1] - r.top}px)`; requestAnimationFrame(() => requestAnimationFrame(() => { c.style.transition = ''; c.style.transform = ''; })); });
+    const sb = $('#siralar button[aria-pressed="true"]'); if (sb && !ilkSefer) sb.scrollIntoView({ block: 'nearest', inline: 'center', behavior: azHareket ? 'auto' : 'smooth' });
   };
+  $('#siralar').onclick = e => { const b = e.target.closest('button'); if (b) tertipSec(+b.dataset.i); };
+  tertipSec(SL.findIndex(x => x.id === 'misir'), true);
+  dos.querySelector('a[data-n="96"]').onmouseenter();
+  requestAnimationFrame(() => { const sc = $('#siralar'); sc.scrollLeft = sc.scrollWidth; });
 
   /* ---- A: sayaçlar ve şeritler ---- */
-  const SY = [[sy.eser, 'eser ayetlere bağlı'], [sy.alinti, 'ayet alıntısı'], [sy.tefsir, 'tefsir'], [sy.rivayet, 'selef rivayeti'], [sy.ravi, 'râvi biyografisi'], [sy.yazma, 'el yazması']];
-  $('#sayaclar').innerHTML = SY.map(s => `<div class="sayac"><b data-v="${s[0]}">${azHareket ? fmt(s[0]) : 0}</b><span>${s[1]}</span></div>`).join('');
+  const SY = [[sy.alinti, 'kez bir ayet, bir kitapta alıntılanmış', 'buyuk'], [sy.rivayet, 'selef rivayeti, isnadıyla'], [sy.makale, 'akademik makale'], [sy.eser, 'eserde ayetlerin izi sürüldü'], [sy.yazma, 'el yazması Kur\'an nüshası'], [sy.tefsir, 'tefsir, ayet ayet'], [sy.ravi, 'râvinin hayatı, ricâl kitaplarından'], [sy.lugat, 'klasik Arapça lügat']];
+  $('#sayaclar').innerHTML = SY.map(s => `<div class="sayac${s[2] ? ' ' + s[2] : ''}"><b data-v="${s[0]}">${azHareket ? fmt(s[0]) : 0}</b><span>${s[1]}</span></div>`).join('');
   let sayildi = azHareket;
   const io = new IntersectionObserver(es => { if (es[0].isIntersecting && !sayildi) { sayildi = true; const st = performance.now(); (function f(tm) { const p = Math.min(1, (tm - st) / 1800), e = 1 - Math.pow(1 - p, 3); document.querySelectorAll('.sayac b').forEach(b => b.textContent = fmt(Math.round(b.dataset.v * e))); if (p < 1) requestAnimationFrame(f); })(st); } }, { threshold: .4 });
   io.observe($('#sayaclar'));
@@ -239,43 +253,7 @@ async function home() {
     SRT.forEach((s, i) => { const w = s.scrollWidth / 2; sx[i] += (i % 2 ? 1 : -1) * (.35 + Math.min(1.2, Math.abs(hiz) * .15)); if (sx[i] < -w) sx[i] += w; if (sx[i] > 0) sx[i] -= w; s.style.transform = `translateX(${sx[i]}px)`; });
   });
 
-  /* ---- B: yıldız ağı ---- */
-  const ag = $('#ag'), dar = innerWidth < 600; if (dar) ag.setAttribute('viewBox', '-240 -400 480 800');
-  const sel = $('#agSure'); sel.innerHTML = D.map(s => `<option value="${s.n}">${s.n}. ${esc(s.tr)}</option>`).join(''); sel.value = 20;
-  let ADLAR = null, GN = [], LN = [], AGT = { n: 0, q: 0 }, agSon = -1;
-  async function agYukle() {
-    const s = +sel.value, mxa = D[s - 1].ayet, a = Math.max(1, Math.min(mxa, +$('#agAyet').value || 1)); $('#agAyet').max = mxa; $('#agAyet').value = a;
-    ADLAR ||= await load('/data/x/adlar.json').catch(() => ({}));
-    const b = await loadGz(`/data/x/${s}/${a}.json.gz`).catch(() => ({ k3: {} }));
-    const L = [], say = {}; let q = 0;
-    for (const [g, arr] of Object.entries(b.k3 || {})) for (const e of arr) { L.push([String(e[0]), g, e[1]]); say[g] = (say[g] || 0) + 1; q += e[1]; }
-    L.sort((x, y) => y[2] - x[2]); AGT = { n: L.length, q };
-    $('#agRef').textContent = `${D[s - 1].tr} ${s}:${a}`;
-    const gs = Object.keys(say).sort((x, y) => say[y] - say[x]), w = gs.map(g => Math.sqrt(say[g])), W = w.reduce((x, y) => x + y, 0) || 1;
-    let bas = -Math.PI / 2; const dil_ = {}; gs.forEach((g, i) => { const gen = 2 * Math.PI * w[i] / W; dil_[g] = [bas, gen, 0]; bas += gen; });
-    const LIM = dar ? 260 : 360, top_ = L.length || 1, kota = {}; gs.forEach(g => kota[g] = Math.max(3, Math.round(LIM * say[g] / top_)));
-    const goster = [], al = {}; for (const e of L) if ((al[e[1]] || 0) < kota[e[1]]) { goster.push(e); al[e[1]] = (al[e[1]] || 0) + 1; }
-    const RM = dar ? 225 : 300;
-    const NOD = goster.map(([id, g, c]) => { const d = dil_[g], k = d[2]++, m = al[g], R = 82 + (RM - 82) * Math.sqrt((k + .5) / m), an = d[0] + d[1] * (.06 + .88 * ((k * .61803 + .3) % 1)); return { id, g, c, x: Math.cos(an) * R * (dar ? .98 : 1.55), y: Math.sin(an) * R * (dar ? 1.6 : .98), col: (GRUP[g] || ['', '#888'])[1] }; });
-    let H1 = '', H2 = '';
-    NOD.forEach((n, i) => {
-      const r = 3 + Math.min(8, Math.sqrt(n.c) * 1.1), ad = ADLAR[n.id] || '', lab = i < (dar ? 5 : 9);
-      H1 += `<line x2="${n.x.toFixed(1)}" y2="${n.y.toFixed(1)}" stroke="${n.col}" stroke-width=".7" opacity="0"/>`;
-      H2 += `<g opacity="0" data-x="${n.x.toFixed(1)}" data-y="${n.y.toFixed(1)}"><path d="M0 ${-r} L${r * .32} ${-r * .32} L${r} 0 L${r * .32} ${r * .32} L0 ${r} L${-r * .32} ${r * .32} L${-r} 0 L${-r * .32} ${-r * .32}Z" fill="${n.col}"/>${lab ? `<text y="${r + 14}" text-anchor="middle" font-family="Amiri" font-size="13" fill="var(--ink)" paint-order="stroke" stroke="var(--paper)" stroke-width="3">${esc(ad.slice(0, 22))}</text>` : ''}<title>${esc(ad)} — ${n.c} alıntı</title></g>`;
-    });
-    ag.innerHTML = `<g id="agcizgi">${H1}</g><g id="agnokta">${H2}</g><circle r="66" fill="var(--sheet)" stroke="var(--zer)" stroke-width="2"/><circle r="58" fill="none" stroke="var(--zer)" stroke-width=".8"/><text text-anchor="middle" y="-6" font-family="Scheherazade New" font-size="30" fill="var(--firuze)">${esc(D[s - 1].ar)}</text><text text-anchor="middle" y="24" font-family="Alegreya Sans" font-size="17" fill="var(--muted)">${s}:${a}</text>`;
-    LN = [...$('#agcizgi').children]; GN = [...$('#agnokta').children];
-    $('#agalt').innerHTML = gs.map(g => `<span><i style="background:${(GRUP[g] || ['', '#888'])[1]}"></i>${(GRUP[g] || [g])[0]} <b>${say[g]}</b></span>`).join('');
-    agSon = -1;
-  }
-  sel.onchange = () => { $('#agAyet').value = 1; agYukle(); }; $('#agAyet').onchange = agYukle;
-  agYukle();
   const ilerle = el => { const r = el.getBoundingClientRect(); return Math.max(0, Math.min(1, -r.top / (r.height - innerHeight))); };
-  hooks.push(() => {
-    const pr = azHareket ? 1 : Math.min(1, ilerle($('#agb')) * 1.2), k = Math.round(pr * GN.length);
-    if (k !== agSon) { GN.forEach((g, i) => { const on = i < k; g.setAttribute('opacity', on ? 1 : 0); g.setAttribute('transform', `translate(${on ? g.dataset.x : g.dataset.x * .3} ${on ? g.dataset.y : g.dataset.y * .3}) scale(${on ? 1 : .2})`); LN[i].setAttribute('opacity', on ? .16 : 0); }); agSon = k; }
-    $('#agn').textContent = fmt(Math.round(pr * AGT.n)); $('#agq').textContent = fmt(Math.round(pr * AGT.q));
-  });
 
   /* ---- C: zaman şeridi ---- */
   const AS = V.asir, amx = Math.max(...AS.map(a => a[1]));
@@ -308,6 +286,56 @@ async function home() {
     const k = $('#dIc .konuk'); if (k) { if (azHareket) k.classList.add('acik'); else new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { k.classList.add('acik'); o.disconnect(); } }, { threshold: .25 }).observe(k); }
   }
   ds.onchange = dCiz; dCiz();
+
+  /* ---- İhtilaf haritası ---- */
+  const Y = await load('/data/k0/yogunluk.json').catch(() => null);
+  if (Y) {
+    const yog = D.map(su => { const L = Y.ihtilaf[su.n] || []; return L.reduce((a, b) => a + b, 0) / su.ayet; });
+    const ymx = Math.max(...yog), ton = v => Math.sqrt(v / ymx);
+    $('#isi').innerHTML = D.map((su, i) => { const t = ton(yog[i]); return `<button type="button" data-n="${su.n}" style="--t:${t.toFixed(3)}" class="${t > .55 ? 'koyu' : ''}" title="${su.n}. ${esc(su.tr)}: ayet başına ${yog[i].toFixed(1)} ihtilaf"><b>${su.n}</b><span>${esc(su.tr)}</span></button>`; }).join('');
+    const isiDetay = n => {
+      const su = D[n - 1], L = Y.ihtilaf[n] || [], lm = Math.max(1, ...L), top = L.reduce((a, b) => a + b, 0);
+      const enc = L.map((v, i) => [v, i + 1]).sort((a, b) => b[0] - a[0]).slice(0, 3);
+      $('#isi').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.n === n)));
+      $('#isiDetay').innerHTML = `<div class="isi-d"><div class="dbas"><span class="ar" lang="ar">${esc(su.ar)}</span><b>${esc(su.tr)}</b><span>${fmt(top)} ihtilaf pasajı · en yoğun: ${enc.map(e => `<a href="#/${n}/${e[1]}">${n}:${e[1]}</a> (${e[0]})`).join(', ')}</span></div>
+        <div class="ayseridi">${L.map((v, i) => `<a href="#/${n}/${i + 1}" style="--t:${Math.sqrt(v / lm).toFixed(3)}" title="${n}:${i + 1} — ${v} ihtilaf"></a>`).join('')}</div>
+        <div class="keks"><span>1. ayet</span><span>${su.ayet}. ayet</span></div>
+        <p class="dkaynak">${esc(Y.kaynak.ihtilaf)}. Sayım, tefsirlerde ihtilaf bildiren pasajların ayet ayet toplamıdır.</p></div>`;
+    };
+    $('#isi').onclick = e => { const b = e.target.closest('button'); if (b) isiDetay(+b.dataset.n); };
+    isiDetay(2);
+
+    /* ---- Nüzul sebepleri ---- */
+    const sira = SL.find(x => x.id === 'misir'), NZ = sira.dizi.map(n => [n, (Y.nuzul[n] || []).reduce((a, b) => a + b, 0)]), nmx = Math.max(...NZ.map(x => x[1]));
+    const bw = 1000 / 114;
+    $('#nzGraf').innerHTML = NZ.map(([n, v], i) => `<a href="#nz-${n}" data-n="${n}"><title>${D[n - 1].tr}: ${v} nüzul rivayeti</title><rect x="${(i * bw + .8).toFixed(1)}" y="${(250 - Math.max(2, v / nmx * 240)).toFixed(1)}" width="${(bw - 1.6).toFixed(1)}" height="${Math.max(2, v / nmx * 240).toFixed(1)}" class="${i >= sira.medine_bas ? 'm' : ''}"/></a>`).join('')
+      ; $('#nzHicret').style.left = (sira.medine_bas / 114 * 100).toFixed(1) + '%';
+    $('#nzGraf').innerHTML += `<line x1="${(sira.medine_bas * bw).toFixed(1)}" x2="${(sira.medine_bas * bw).toFixed(1)}" y1="0" y2="252" class="hicret"/>`;
+    const nzDetay = async n => {
+      const su = D[n - 1], L = Y.nuzul[n] || [], ays = L.map((v, i) => [v, i + 1]).filter(x => x[0]);
+      $('#nzGraf').querySelectorAll('a').forEach(a => a.classList.toggle('on', +a.dataset.n === n));
+      $('#nzDetay').innerHTML = `<div class="isi-d"><div class="dbas"><span class="ar" lang="ar">${esc(su.ar)}</span><b>${esc(su.tr)}</b><span>${sira.dizi.indexOf(n) + 1}. inen sure · ${ays.length} ayet hakkında ${fmt(ays.reduce((a, b) => a + b[0], 0))} rivayet</span></div>
+        <div class="nz-ayetler">${ays.slice(0, 40).map(([v, a]) => `<a href="#/${n}/${a}">${n}:${a} <small>${v}</small></a>`).join('')}${ays.length > 40 ? `<span class="dkaynak">ve ${ays.length - 40} ayet daha</span>` : ''}</div><div id="nzOrnek"></div></div>`;
+      if (!ays.length) return;
+      const [, a] = ays.slice().sort((p, q) => q[0] - p[0])[0];
+      const b = await loadGz(`/data/x/${n}/${a}.json.gz`).catch(() => null);
+      const r = b && b.k4.find(x => /نزول/.test(x.tur || ''));
+      if (r) $('#nzOrnek').innerHTML = `<blockquote class="nz-rivayet"><p class="ar" lang="ar">${esc(r.metin.length > 420 ? r.metin.slice(0, 420) + '…' : r.metin)}</p><footer>${n}:${a} ayeti hakkında · <span lang="ar">${esc((r.tahric || '').slice(0, 120))}</span> ${chain([{ r: 'Rivayet', t: "Mevsûatü't-tefsîri'l-me'sûr, kayıt " + r.id, k: 'mevsua' }, { r: 'Tahric', t: r.tahric || '' }, { r: 'İşleme', t: 'Ayet paketleri', b: 'paket' }])}</footer></blockquote>`;
+    };
+    $('#nzGraf').addEventListener('click', e => { const a = e.target.closest('a'); if (a) { e.preventDefault(); nzDetay(+a.dataset.n); } });
+    nzDetay(2);
+  }
+
+  /* ---- En eski yazmalar ---- */
+  load('/data/k6/eski.json').then(E => {
+    const L = E.nushalar.slice(0, 30), x0 = 600, x1 = 1000, px = y => ((y - x0) / (x1 - x0) * 100).toFixed(2);
+    const hicri = m => Math.round((m - 622) * 33 / 32);
+    $('#eski').innerHTML = `<div class="eski-eks">${[600, 700, 800, 900, 1000].map(y => `<span style="left:${px(y)}%">${y}<small>${y >= 622 ? 'h. ' + hicri(y) : ''}</small></span>`).join('')}<i class="hicret-c" style="left:${px(622)}%" title="Hicret (622)"></i></div>
+      <ol class="eski-l">${L.map(m => { const b = m.bas || (m.son - 60), acik = !m.bas; return `<li><a href="https://corpuscoranicum.de/de/manuscript/${esc(m.id)}" target="_blank" rel="noopener">
+        <span class="e-ad">${esc(m.ad.split(',').slice(0, 2).join(','))}</span><span class="e-cubuk${acik ? ' acik' : ''}" style="left:${px(b)}%;width:${Math.max(1.2, px(m.son) - px(b)).toFixed(2)}%"></span>
+        <span class="e-bil">${acik ? 'en geç ' + m.son : m.bas + '–' + m.son} · ${esc(m.yazi || '')}</span></a></li>`; }).join('')}</ol>
+      <p class="dkaynak">${esc(E.kaynak)} · ${fmt(E.toplam_tarihli)} tarihli nüshadan en eski 30'u. ${esc(E.not)} ${chain([{ r: 'Kaynak', t: E.kaynak, u: 'https://corpuscoranicum.de/de/manuscripts', k: 'cc' }, { r: 'İşleme', t: 'En eski yazmalar listesi', b: 'eskiyazma' }])}</p>`;
+  }).catch(() => { $('#eyb').hidden = true; });
 
   /* ---- kaynak dünyası ---- */
   const KD = [['Tefsir', '514 kitap', '#1F7A80', 'y'], ['Hadis', '1.561 kitap', '#1E3A5F', 'h'], ['Fıkıh ve usûl', '921 kitap', '#5B4A2A', 'k'], ['Kelâm', '446 kitap', '#2F5D50', 'g'], ['Tasavvuf', '307 kitap', '#6B3A3A', 'u'],
