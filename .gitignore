@@ -1,0 +1,3 @@
+# Ham kütüphane dosyaları depoya girmez (boyut ve lisans); library/manifest.json'daki adreslerden yeniden indirilir.
+raw/
+*.zip

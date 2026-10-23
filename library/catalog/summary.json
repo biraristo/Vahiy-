@@ -1,0 +1,49 @@
+{
+  "kayit_toplam": 26115,
+  "kaynaga_gore": {
+    "quranpedia": 16446,
+    "openiti": 9539,
+    "tafsir_api": 60,
+    "tanzil": 63,
+    "github:mustafa0x/quran-morphology": 1,
+    "corpus_coranicum": 6
+  },
+  "ture_gore": {
+    "Sınıflandırılmamış": 7730,
+    "Ulûmü'l-Kur'ân": 4778,
+    "Tefsir": 3706,
+    "Kıraat ve tecvid": 2584,
+    "Dil (i'râb, garîb, meânî, lügat, nahiv, belâgat)": 1875,
+    "Hadis ve hadis ilimleri": 1773,
+    "Fıkıh ve usûl": 872,
+    "Siyer, tarih, terâcim ve tabakât": 762,
+    "Edebiyat ve şiir": 574,
+    "Meal ve tercüme": 420,
+    "Akaid, kelâm ve fırkalar": 407,
+    "Diğer": 321,
+    "Tasavvuf, rekâik ve ahlâk": 297,
+    "Mushaf ve Kur'an metni": 16
+  },
+  "metin_durumuna_gore": {
+    "ayet-bolumlu": 429,
+    "tam-metin": 10896,
+    "pdf": 14628,
+    "kunye": 155,
+    "kelime-bolumlu": 1,
+    "yapisal-veri": 6
+  },
+  "indirildi": {
+    "quranpedia:evet": 463,
+    "quranpedia:hayir": 15983,
+    "openiti:hayir": 9539,
+    "tafsir_api:evet": 10,
+    "tafsir_api:hayir": 50,
+    "tanzil:evet": 63,
+    "github:mustafa0x/quran-morphology:evet": 1,
+    "corpus_coranicum:evet": 6
+  },
+  "kaynaklar_arasi_esleme_grubu": 116,
+  "eslesen_kayit": 380,
+  "tekil_eser_tahmini": 25851,
+  "openiti_kelime_sayisi": 1117218563
+}
