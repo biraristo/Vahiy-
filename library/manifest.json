@@ -1,0 +1,138 @@
+{
+  "generated": "2026-10-23T14:05:10",
+  "sources": [
+    {
+      "name": "Quranpedia tam veri paketi",
+      "url": "https://quranpedia.net/dumps/complete-all.zip",
+      "version": "2026-10-23",
+      "license": "Quranpedia veri lisansı",
+      "status": "indirildi",
+      "bytes": 1068680381,
+      "sha256": "bc3d517702b48210401dafee12c3e42f6a8113676004526617eb95d36a566e8a",
+      "note": "Mushaflar (12 rivayet), 149 ayet-bölümlü tefsir, i'rab, esbâb, nâsih, hizmet dosyaları, kitap fihristi"
+    },
+    {
+      "name": "OpenITI birincil sürüm metaverisi",
+      "url": "https://zenodo.org/records/17767721/files/OpenITI_metadata_2025-1-9.tsv",
+      "version": "2025.1.9 (doi:10.5281/zenodo.17767721)",
+      "license": "CC BY-NC-SA 4.0",
+      "status": "indirildi",
+      "bytes": 12092756,
+      "sha256": "10a025fcfc1bf96d218096f0dfe1d9416f9ff277f092c42622cb012cc4da2a61",
+      "note": ""
+    },
+    {
+      "name": "OpenITI birincil sürüm külliyatı",
+      "url": "https://zenodo.org/api/records/18613982/files/OpenITI-pri-data_v9.zip/content",
+      "version": "2025.1.9 pri (zenodo 18613982)",
+      "license": "CC BY-NC-SA 4.0",
+      "status": "indirildi",
+      "bytes": 2861555297,
+      "sha256": "71cb565deb7bfbf710ffdaf0a26a8097f9292ebecb2514ff88cffa0b16080b06",
+      "note": "Kalıcı DOI arşivi; ham dosya yeniden yüklenmez, bu adresten doğrulanarak indirilir"
+    },
+    {
+      "name": "Tanzil Kur'an metni (uthmani)",
+      "url": "https://tanzil.net/pub/download/index.php?quranType=uthmani&outType=xml",
+      "version": "1.1",
+      "license": "CC BY 3.0, metin değiştirilemez",
+      "status": "indirildi",
+      "bytes": 1529912,
+      "sha256": "33f4113df84c1bab0ee2eb69616139fda619bdd56fc163a72532daaf0431bf57",
+      "note": ""
+    },
+    {
+      "name": "Tanzil Kur'an metni (simple)",
+      "url": "https://tanzil.net/pub/download/index.php?quranType=simple&outType=xml",
+      "version": "1.1",
+      "license": "CC BY 3.0, metin değiştirilemez",
+      "status": "indirildi",
+      "bytes": 1497124,
+      "sha256": "f65540c630e7c645140323881de45cc3f5aebbd2b08720eb63ec06cf757f6fe9",
+      "note": ""
+    },
+    {
+      "name": "Tanzil Kur'an metni (simple-clean)",
+      "url": "https://tanzil.net/pub/download/index.php?quranType=simple-clean&outType=xml",
+      "version": "1.1",
+      "license": "CC BY 3.0, metin değiştirilemez",
+      "status": "indirildi",
+      "bytes": 940210,
+      "sha256": "8cb1833df9cd0033fd7e014eb35bdec9737f9b942e82cfdc09d74ab7f42d2731",
+      "note": ""
+    },
+    {
+      "name": "Tanzil sure metaverisi",
+      "url": "https://tanzil.net/res/text/metadata/quran-data.xml",
+      "version": "1.0",
+      "license": "CC BY 3.0",
+      "status": "indirildi",
+      "bytes": 77234,
+      "sha256": "8867c1d88191472adec9db694b3cd9f135b1a2ef580574d32cf888dcb22c5c7a",
+      "note": ""
+    },
+    {
+      "name": "Quranpedia kitap tam metinleri",
+      "url": "https://api.quranpedia.net/books-contents/book-{id}.json",
+      "license": "Quranpedia veri lisansı; çağdaş eserlerde müellif hakları saklı",
+      "status": "indirildi",
+      "files": 1468,
+      "bytes": 1110046724
+    },
+    {
+      "name": "Quranpedia mealleri",
+      "url": "https://quranpedia.net/translation-books/{id}.json",
+      "license": "Mütercim/yayıncı hakları saklı",
+      "status": "indirildi",
+      "files": 138,
+      "bytes": 64079174
+    },
+    {
+      "name": "Tanzil mealleri",
+      "url": "https://tanzil.net/trans/?transID={id}&type=txt-2",
+      "license": "Tanzil: ticari olmayan kullanım",
+      "status": "indirildi",
+      "files": 113,
+      "bytes": 156973366
+    },
+    {
+      "name": "tafsir_api (QUL) Arapça ve Türkçe tefsirler",
+      "url": "https://raw.githubusercontent.com/spa5k/tafsir_api/main/tafsir/{slug}/{surah}.json",
+      "license": "MIT paketleme; içerik kaynağına bağlı",
+      "status": "indirildi",
+      "files": 6877,
+      "bytes": 327009993
+    },
+    {
+      "name": "Corpus Coranicum TEI",
+      "url": "https://github.com/telota/corpus-coranicum-tei",
+      "license": "CC BY 4.0",
+      "status": "indirildi",
+      "files": 3243,
+      "bytes": 318628444
+    },
+    {
+      "name": "QAC morfoloji (mustafa0x çatalı)",
+      "url": "https://github.com/mustafa0x/quran-morphology",
+      "license": "GNU GPL",
+      "status": "indirildi"
+    }
+  ],
+  "not_collected": [
+    {
+      "name": "Quranpedia PDF ekleri",
+      "records": 14628,
+      "reason": "Çoğu çağdaş ve telifli eser; toplam boyut çok büyük. Katalogda künyesi ve bağlantısı var, gerektiğinde tek tek indirilecek."
+    },
+    {
+      "name": "Şâmile (shamela.ws) külliyatı",
+      "records": "yaklaşık 8.500 kitap (kategori sayılarının toplamı)",
+      "reason": "Kullanım şartları dizinin tamamının yeniden kurulmasını yasaklıyor. Metinlerin büyük kısmı OpenITI üzerinden zaten mevcut; sayfa doğrulaması için kitap bazında kullanılacak."
+    },
+    {
+      "name": "archive.org taranmış neşirler",
+      "records": "-",
+      "reason": "Cilt/sayfa doğrulaması için ihtiyaç duyuldukça eser bazında indirilecek."
+    }
+  ]
+}

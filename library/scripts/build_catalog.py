@@ -113,6 +113,18 @@ def add(w):
 
 
 # ---------- 1) Quranpedia fihristi ----------
+qp_year = {}
+for svc in ('tafsir', 'e3rab', 'asbab', 'nasekh'):
+    try:
+        for a in json.load(gzip.open(f'{RAW}/qp/{svc}.json.gz'))['data']:
+            for bk in a.get(svc) or []:
+                if isinstance(bk, dict) and bk.get('year'):
+                    try:
+                        qp_year[bk['id']] = int(bk['year'])
+                    except (TypeError, ValueError):
+                        pass
+    except FileNotFoundError:
+        pass
 qp_books = json.load(gzip.open(f'{RAW}/qp/books.json.gz'))['data']
 manifest = json.load(open(f'{RAW}/qp_manifest.json'))
 qp_files = {f['dataset']: f for f in manifest['files']}
@@ -143,7 +155,7 @@ for b in qp_books:
         'short': b.get('short_name'),
         'author': (au.get('ar_name') or '').strip(),
         'author_full': au.get('full_name'),
-        'death_ah': None,
+        'death_ah': qp_year.get(bid),
         'genre': genre,
         'language': (b.get('language') or {}).get('code') or 'ar',
         'sources': [{
@@ -160,6 +172,10 @@ for b in qp_books:
 
 # ---------- 2) OpenITI birincil sürümler ----------
 oi = [r for r in csv.DictReader(open(f'{RAW}/openiti_meta.tsv', encoding='utf8'), delimiter='\t') if r['status'] == 'pri']
+try:
+    scan = json.load(open(f'{RAW}/openiti_scan.json'))
+except FileNotFoundError:
+    scan = {}
 for r in oi:
     tags = [x.strip() for x in r['tags'].split('::')]
     try:
@@ -176,9 +192,10 @@ for r in oi:
         'language': r['language'],
         'sources': [{
             'source': 'openiti', 'id': r['version_uri'], 'text': 'tam-metin',
-            'downloaded': False, 'tokens': int(r['tok_length'] or 0),
+            'downloaded': r['version_uri'] in scan, 'tokens': int(r['tok_length'] or 0),
             'ocr_uncorrected': r['uncorrected_OCR'] == 'True',
-            'page_markers': 'unknown', 'edition': {'info': r['ed_info']} if r['ed_info'] else {},
+            'page_markers': (scan.get(r['version_uri'], {}).get('pages', 0) > 0) if scan else 'unknown',
+            'volumes': scan.get(r['version_uri'], {}).get('vols'), 'edition': {'info': r['ed_info']} if r['ed_info'] else {},
             'license': 'CC BY-NC-SA 4.0 (OpenITI 2025.1.9)',
             'path': r['local_path'],
         }],
