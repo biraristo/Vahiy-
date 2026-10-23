@@ -22,7 +22,7 @@ const ARAYUZ_DIL = {
     'A.b': 'Khizānat al-kutub', 'A.n': 'Our library: works, quotations, reports and manuscripts linked to the verses. Every number was counted separately.',
     'B.b': 'The library around a verse', 'C.b': 'Fifteen centuries of conversation', 'C.n': 'As you scroll, each Hijri century fills with the number of books in the system by authors who died in it.',
     'D.b': 'What a surah talks about', 'D.n': 'Choose a surah: each topic is a lane and every mark is a verse. Tap a mark to open the verse.',
-    'I.b': 'Map of disagreement', 'I.n': 'Where the exegetes disagreed most. Darker means more disagreement per verse. Choose a surah to see it verse by verse.', 'N.b': 'Occasions of revelation', 'N.n': 'Surahs in order of revelation (Egyptian standard); each column is the number of reports on why its verses were revealed. The line marks the Hijra.', 'E.b': 'The oldest manuscripts', 'E.n': 'The oldest surviving Qur’an codices with their estimated dating (CE). Tap a bar to open the manuscript.', 'K.b': 'World of sources', 'K.n': 'Books linked to the verses, by discipline.', 'Z.b': 'Every piece of information has an isnad', 'Z.n': 'Every passage on the site comes with a source chain showing where it came from.',
+    'I.b': 'Map of disagreement', 'I.n': 'Where the exegetes disagreed most. Darker means more disagreement per verse. Choose a surah to see it verse by verse.', 'N.b': 'Occasions of revelation', 'N.n': 'Surahs in order of revelation (Egyptian standard); each column is the number of reports on why its verses were revealed. The line marks the Hijra.', 'E.b': 'The oldest manuscripts', 'E.n': 'The oldest surviving Qur’an codices with their estimated dating (CE). Tap a bar to open the manuscript.', 'K.b': 'World of sources', 'K.n': 'Books linked to the verses, by discipline.', 'Z.b': 'Every piece of information has an isnad', 'Z.n': 'Every record on the site comes with its source chain: work and author, edition and editor, volume and page, data source and processing method.',
     'son': 'vahiy++ is a personal research project. Every record carries its source chain.' },
   ar: { 'nav.atlas': 'أطلس القرآن', 'nav.kutuphane': 'المكتبة', 'h1': 'من النصّ إلى المعنى، ومن المعنى إلى التاريخ.',
     'alt': 'اقرأ الآية مع {tefsir} تفسيرًا و{rivayet} رواية عن السلف و{lugat} معجمًا، وآثارها في {eser} كتابًا؛ كلّ معلومة موصولة بمصدرها.',
@@ -30,7 +30,7 @@ const ARAYUZ_DIL = {
     'atlas': 'مخطط النزول', 'atlas.not': 'من مصاحف الصحابة إلى اليوم: كيف رتّب العلماء السور. اختر ترتيبًا فتنتقل السور، وتدلّ الألوان على تقسيم ذلك المصدر للمكي والمدني.',
     'A.b': 'خزانة الكتب', 'A.n': 'مكتبتنا: الكتب والاقتباسات والروايات والمخطوطات المرتبطة بالآيات، وكل رقم معدود على حدة.', 'B.b': 'المكتبة حول آية', 'C.b': 'حوار خمسة عشر قرنًا',
     'C.n': 'كلما نزلت امتلأ كل قرن هجري بعدد كتب المؤلفين المتوفين فيه.', 'D.b': 'عمّ تتحدث السورة', 'D.n': 'اختر سورة: لكل موضوع مسار، وكل علامة آية؛ اضغط العلامة لفتح الآية.',
-    'I.b': 'خريطة الخلاف', 'I.n': 'مواضع أكثر اختلاف المفسرين؛ اللون الأغمق خلاف أكثر لكل آية. اختر سورة لترى آياتها.', 'N.b': 'أسباب النزول', 'N.n': 'السور بحسب ترتيب النزول (المصحف المصري)، وكل عمود عدد روايات أسباب النزول في آياتها؛ والخط يدل على الهجرة.', 'E.b': 'أقدم المخطوطات', 'E.n': 'أقدم نسخ القرآن الباقية مع تقدير زمن كتابتها (ميلادي). اضغط على الشريط لفتح المخطوطة.', 'K.b': 'عالم المصادر', 'K.n': 'الكتب المرتبطة بالآيات بحسب العلوم.', 'Z.b': 'لكل معلومة إسناد', 'Z.n': 'كل نص في الموقع يأتي بسلسلة مصدر تبيّن من أين جاء.',
+    'I.b': 'خريطة الخلاف', 'I.n': 'مواضع أكثر اختلاف المفسرين؛ اللون الأغمق خلاف أكثر لكل آية. اختر سورة لترى آياتها.', 'N.b': 'أسباب النزول', 'N.n': 'السور بحسب ترتيب النزول (المصحف المصري)، وكل عمود عدد روايات أسباب النزول في آياتها؛ والخط يدل على الهجرة.', 'E.b': 'أقدم المخطوطات', 'E.n': 'أقدم نسخ القرآن الباقية مع تقدير زمن كتابتها (ميلادي). اضغط على الشريط لفتح المخطوطة.', 'K.b': 'عالم المصادر', 'K.n': 'الكتب المرتبطة بالآيات بحسب العلوم.', 'Z.b': 'لكل معلومة إسناد', 'Z.n': 'كل سجل في الموقع مقرون بسلسلة مصدره: الكتاب ومؤلفه، والطبعة والتحقيق، والجزء والصفحة، ومصدر البيانات وطريقة المعالجة.',
     'son': 'vahiy++ عمل بحثي شخصي، ولكل سجل سلسلة مصدره.' },
 };
 let dil = store.get('dil', 'tr');
@@ -109,23 +109,28 @@ async function home() {
     </div>
   </div></section>
 
+<div class="ayrac" aria-hidden="true"><svg viewBox="0 0 240 24"><path d="M0 12H96M144 12H240" /><path d="M120 2l3.5 6.5L130 12l-6.5 3.5L120 22l-3.5-6.5L110 12l6.5-3.5z"/><rect x="113" y="5" width="14" height="14" transform="rotate(45 120 12)"/><circle cx="104" cy="12" r="1.6"/><circle cx="136" cy="12" r="1.6"/></svg></div>
   <section class="bolum hazine"><p class="hz-ar" lang="ar">خزانة الكتب</p><h2 data-t="A.b">Hizânetü'l-kütüb</h2><p class="not" data-t="A.n">Kütüphanemiz: ayetlere bağlanan eserler, alıntılar, rivayetler ve el yazmaları. Her rakam ayrı ayrı sayıldı.</p>
     <div class="sayaclar" id="sayaclar"></div><div id="seritler" aria-hidden="true"></div></section>
 
-  <section class="bolum isnad"><p class="not" data-t="Z.n">Sitedeki her pasaj, nereden geldiğini gösteren bir kaynak zinciriyle gelir: hangi eser, hangi baskı, hangi sayfa, hangi veri, hangi işlem.</p><div class="zincir"><div>
+<div class="ayrac" aria-hidden="true"><svg viewBox="0 0 240 24"><path d="M0 12H96M144 12H240" /><path d="M120 2l3.5 6.5L130 12l-6.5 3.5L120 22l-3.5-6.5L110 12l6.5-3.5z"/><rect x="113" y="5" width="14" height="14" transform="rotate(45 120 12)"/><circle cx="104" cy="12" r="1.6"/><circle cx="136" cy="12" r="1.6"/></svg></div>
+  <section class="bolum isnad"><p class="isnad-ana" data-t="Z.n">Sitedeki her kayıt, kaynak zinciriyle birlikte sunulur: eser ve müellif, neşir ve tahkik, cilt ve sayfa, veri kaynağı ve işleme yöntemi açıkça belirtilir.</p><div class="zincir"><div>
     <ol class="halka"><li><b>Pasaj</b><span>Cilt 5, sayfa 386</span></li><li><b>Eser</b><span>Taberî (ö. 310), Câmiu'l-beyân</span></li><li><b>Neşir</b><span>thk. Ahmed Şâkir, Müessesetü'r-Risâle, 1420</span></li><li><b>Veri</b><span>Quranpedia dökümü</span></li><li><b>İşleme</b><span>Ayet ayet ayrıştırma betiği, açık kaynak</span></li></ol></div>
     <div class="pasaj"><p class="ar" lang="ar">القول في تأويل قوله تعالى: ﴿اللَّهُ لا إِلَهَ إِلا هُوَ الْحَيُّ الْقَيُّومُ﴾</p><p class="kim">Taberî, Câmiu'l-beyân, 5/386</p></div></div></section>
 
+<div class="ayrac" aria-hidden="true"><svg viewBox="0 0 240 24"><path d="M0 12H96M144 12H240" /><path d="M120 2l3.5 6.5L130 12l-6.5 3.5L120 22l-3.5-6.5L110 12l6.5-3.5z"/><rect x="113" y="5" width="14" height="14" transform="rotate(45 120 12)"/><circle cx="104" cy="12" r="1.6"/><circle cx="136" cy="12" r="1.6"/></svg></div>
   <section class="bolum" aria-labelledby="atlas-b"><h2 id="atlas-b" data-t="atlas">Nüzul şeması</h2>
     <p class="not" data-t="atlas.not">Sahabe mushaflarından bugüne, âlimlerin sureleri hangi sırayla dizdiği. Bir tertip seçin; sureler yerini değiştirir, renkler o tertibin kendi Mekkî–Medenî ayrımını gösterir.</p>
     <div class="ana-atlas"><div class="siralar" id="siralar" role="group" aria-label="Sıralama"></div><div class="dosem" id="dosem"></div>
       <div class="ipucu"><span id="lejant"></span><span class="secili" id="secili"></span></div>
       <div class="sira-kaynak" id="siraKaynak"></div></div></section>
 
+<div class="ayrac" aria-hidden="true"><svg viewBox="0 0 240 24"><path d="M0 12H96M144 12H240" /><path d="M120 2l3.5 6.5L130 12l-6.5 3.5L120 22l-3.5-6.5L110 12l6.5-3.5z"/><rect x="113" y="5" width="14" height="14" transform="rotate(45 120 12)"/><circle cx="104" cy="12" r="1.6"/><circle cx="136" cy="12" r="1.6"/></svg></div>
   <section class="bolum" id="eyb"><h2 data-t="E.b">En eski yazmalar</h2>
     <p class="not" data-t="E.n">Bugüne ulaşan en eski Kur'an nüshaları, tahminî yazılış tarihleriyle. Zaman çizelgesini sağa sola kaydırın; bir nüshaya dokununca sayfası açılır.</p>
     <div id="eski"></div></section>
 
+<div class="ayrac" aria-hidden="true"><svg viewBox="0 0 240 24"><path d="M0 12H96M144 12H240" /><path d="M120 2l3.5 6.5L130 12l-6.5 3.5L120 22l-3.5-6.5L110 12l6.5-3.5z"/><rect x="113" y="5" width="14" height="14" transform="rotate(45 120 12)"/><circle cx="104" cy="12" r="1.6"/><circle cx="136" cy="12" r="1.6"/></svg></div>
   <section class="bolum"><h2 data-t="K.b">Kaynak dünyası</h2><p class="not" data-t="K.n">Ayetlere bağlanan kitaplar, ilim dallarına göre.</p><div class="kaynaklar" id="kaynaklar"></div></section>
 
   <p class="ana-son" data-t="son">vahiy++ kişisel bir araştırma çalışmasıdır. Her kaydın kaynağı zincirinde yazılıdır.</p>
