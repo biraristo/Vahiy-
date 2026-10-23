@@ -1,0 +1,3 @@
+./quranpedia/dumps/tafsir-book-301.json.gz
+./quranpedia/dumps/tafsir-book-322.json.gz
+./quranpedia/books/book-1543.json.gz

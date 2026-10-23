@@ -1,0 +1,9 @@
+greek/canonical-greekLit https://github.com/PerseusDL/canonical-greekLit.git 0189b9c8d8d1f148133f2f0af309b4ee90ea4332
+greek/First1KGreek https://github.com/OpenGreekAndLatin/First1KGreek.git 03776b39f4047c5cff06f5296fae4b2bae4b08fb
+greek/SBLGNT https://github.com/LogosBible/SBLGNT.git c4d241a9c1c479a55b989ba35a4976c1d0b8052c
+greek/LXX-Rahlfs-1935 https://github.com/eliranwong/LXX-Rahlfs-1935.git a1b5ff1c739f93cdd18dbab4c9e3fc6b1043141c
+syriac/syriac-corpus https://github.com/srophe/syriac-corpus.git 833adc148cc356a6c70c16f81b22df9188df717a
+syriac/peshitta https://github.com/ETCBC/peshitta.git 9850f5addade26f681334aa475570bef9b0b440a
+syriac/syrnt https://github.com/ETCBC/syrnt.git dae3eb6ff62b9b272fb503646796c25d248175ce
+cc https://github.com/telota/corpus-coranicum-tei.git 57cb2b7be321ecfba100cb5f7988974f47864a14
+/tmp/qm https://github.com/mustafa0x/quran-morphology.git 8f38b39016824284f9ed16ae15069ff9102c4acf
