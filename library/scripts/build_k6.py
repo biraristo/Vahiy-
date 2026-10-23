@@ -50,6 +50,80 @@ def sefaria_en(title):
     return {'metin': '\n'.join(f'{v1 + i} {x}' for i, x in enumerate(vs))[:4000], 'kaynak': f'Sefaria — {book} {c}:{v1}' + (f'-{v2}' if v2 != v1 and v2 != 999 else '') + ' (JPS, CC BY-NC)'}
 
 
+# ---- Grekçe ve Süryanice tanıklar (LXX Rahlfs, SBLGNT, Peşitta, Süryanice Yeni Ahit)
+BMAP = {'Genesis': ('Gen', 'Genesis', None, None), 'Exodus': ('Exod', 'Exodus', None, None), 'Leviticus': ('Lev', 'Leviticus', None, None), 'Numeri': ('Num', 'Numbers', None, None),
+        'Deuteronomium': ('Deut', 'Deuteronomy', None, None), 'Richter': ('Judg', 'Judges', None, None), '1 Samuel': ('1Sam', 'Samuel_1', None, None), '2 Samuel': ('2Sam', 'Samuel_2', None, None),
+        '1 Könige': ('1Kgs', 'Kings_1', None, None), '2 Könige': ('2Kgs', 'Kings_2', None, None), '1 Chronik': ('1Chr', 'Chronicles_1', None, None), 'Esther': ('Esth', 'Esther', None, None),
+        'Hiob': ('Job', 'Job', None, None), 'Psalm': ('Ps', 'Psalms', None, None), 'Sprüche': ('Prov', 'Proverbs', None, None), 'Jesaja': ('Isa', 'Isaiah', None, None), 'Jeremia': ('Jer', 'Jeremiah', None, None),
+        'Ezechiel': ('Ezek', 'Ezekiel', None, None), 'Daniel': ('DanTh', 'Daniel', None, None), 'Jona': ('Jonah', 'Jonah', None, None), 'Zefanja': ('Zeph', 'Zephaniah', None, None), 'Sacharja': ('Zech', 'Zechariah', None, None),
+        'Matthäus': (None, None, 'Matt', 'Matthew'), 'Markus': (None, None, 'Mark', 'Mark'), 'Lukas': (None, None, 'Luke', 'Luke'), 'Johannes': (None, None, 'John', 'John'), 'Apostelgeschichte': (None, None, 'Acts', 'Acts'),
+        'Brief an die Römer': (None, None, 'Rom', 'Romans'), '1. Brief an die Korinther': (None, None, '1Cor', '1_Corinthians'), '2. Brief an die Korinther': (None, None, '2Cor', '2_Corinthians'),
+        'Brief an die Galater': (None, None, 'Gal', 'Galatians'), 'Brief an die Philipper': (None, None, 'Phil', 'Philippians'), 'Philipper': (None, None, 'Phil', 'Philippians'),
+        '1. Brief an die Thessaloniker': (None, None, '1Thess', '1_Thessalonians'), '1. Brief an Timotheus': (None, None, '1Tim', '1_Timothy'), '1. Petrusbrief': (None, None, '1Pet', '1_Peter'),
+        '2. Petrusbrief': (None, None, '2Pet', '2_Peter'), 'Offenbarung des Johannes': (None, None, 'Rev', 'Revelation')}
+LXX = None
+def lxx_verses():
+    global LXX
+    if LXX is None:
+        words = [(l.rstrip('\n').split('\t') + ['', '', ''])[2] for l in open(f'{RAW}/greek/LXX-Rahlfs-1935/01_wordlist_unicode/text_accented.csv', encoding='utf8')]
+        starts = [(l.split('\t')[0], int(l.split('\t')[1])) for l in open(f'{RAW}/greek/LXX-Rahlfs-1935/08_versification/001_verse_c_modified_KEEP.csv', encoding='utf8') if '\t' in l]
+        LXX = {}
+        for i, (ref, st) in enumerate(starts):
+            en = starts[i + 1][1] if i + 1 < len(starts) else len(words) + 1
+            LXX[ref] = ' '.join(words[st - 1:en - 1])
+    return LXX
+def ps_lxx(c):  # İbranice Mezmur numarası → LXX (yaklaşık; 9–10 ve 114–116, 147 birleşik/bölünmüş)
+    return c - 1 if 11 <= c <= 113 or 117 <= c <= 146 else c
+CH = {}
+def chapters(path, head):
+    if path not in CH:
+        cur, out = None, collections.defaultdict(dict)
+        if os.path.exists(path):
+            lastv = None
+            for line in open(path, encoding='utf8'):
+                line = line.strip()
+                m = re.match(head, line)
+                if m: cur = int(m.group(1)); lastv = None; continue
+                m = re.match(r'^(\d+)\s+(.*)$', line)
+                if cur and m: lastv = int(m.group(1)); out[cur][lastv] = m.group(2)
+                elif cur and lastv and line: out[cur][lastv] += ' ' + line
+        CH[path] = out
+    return CH[path]
+SBL = {}
+def sbl(code):
+    if code not in SBL:
+        SBL[code] = {}
+        p = f'{RAW}/greek/SBLGNT/data/sblgnt/text/{code}.txt'
+        if os.path.exists(p):
+            for line in open(p, encoding='utf8'):
+                m = re.match(r'^\S+ (\d+):(\d+)\t(.*)$', line.strip())
+                if m: SBL[code][(int(m.group(1)), int(m.group(2)))] = re.sub(r'[⸀-⸅]', '', m.group(3))
+    return SBL[code]
+def witnesses(title):
+    m = re.match(r'^(?:Hebräische Bibel, )?(.+?)\s+(\d+)(?::(\d+)(?:-(\d+))?)?', title or '')
+    if not m or m.group(1).strip() not in BMAP: return {}
+    lxx, pes, nt, syr = BMAP[m.group(1).strip()]
+    c = int(m.group(2)); v1 = int(m.group(3) or 1); v2 = int(m.group(4) or (m.group(3) or 30))
+    vs = range(v1, min(v2, v1 + 40) + 1)
+    out = {}
+    if lxx:
+        L = lxx_verses(); cc = ps_lxx(c) if lxx == 'Ps' else c
+        t = [f'{v} ' + L[f'{lxx}.{cc}.{v}'] for v in vs if f'{lxx}.{cc}.{v}' in L]
+        if t: out['lxx'] = {'metin': '\n'.join(t)[:4000], 'kaynak': f'Septuaginta (Rahlfs 1935) — {lxx} {cc}:{v1}' + (f'-{v2}' if v2 != v1 else '') + ('; Mezmur numarası LXX düzenine çevrildi' if lxx == 'Ps' and cc != c else '')}
+    if pes:
+        C = chapters(f'{RAW}/syriac/peshitta/plain/0.1/{pes}.txt', r'^Chapter (\d+)$')
+        t = [f'{v} {C[c][v]}' for v in vs if v in C.get(c, {})]
+        if t: out['pesitta'] = {'metin': '\n'.join(t)[:4000], 'kaynak': f'Peşitta (ETCBC/peshitta, Leiden metni) — {pes} {c}:{v1}-{v2}'}
+    if nt:
+        G = sbl(nt); t = [f'{v} {G[(c, v)]}' for v in vs if (c, v) in G]
+        if t: out['sblgnt'] = {'metin': '\n'.join(t)[:4000], 'kaynak': f'SBL Greek New Testament — {nt} {c}:{v1}-{v2}'}
+        import glob as _g
+        ps = _g.glob(f'{RAW}/syriac/syrnt/plain/*/{syr}.txt')
+        if ps:
+            C = chapters(ps[0], r'^\S+ (\d+)$'); t = [f'{v} {C[c][v]}' for v in vs if v in C.get(c, {})]
+            if t: out['syrnt'] = {'metin': '\n'.join(t)[:4000], 'kaynak': f'Süryanice Yeni Ahit (ETCBC/syrnt) — {syr} {c}:{v1}-{v2}'}
+    return out
+
 by_ayah = collections.defaultdict(list); rows = {}
 for f in glob.glob(f'{RAW}/cc_api/intertexts/*.json.gz'):
     d = json.load(gzip.open(f))['data']
@@ -64,6 +138,7 @@ for f in glob.glob(f'{RAW}/cc_api/intertexts/*.json.gz'):
     en = sefaria_en(d['title']) if d.get('supercategory') == 'Hebräische Bibel' else None
     if en:
         rec['sefaria'] = en
+    rec.update(witnesses(d['title']))
     ays = []
     for p in d.get('passages') or []:
         s1, v1, s2, v2 = p['start']['sura'], p['start']['verse'], p['end']['sura'], p['end']['verse']
@@ -79,4 +154,5 @@ for s in range(1, 115):
     out = {k: sorted(v, key=lambda x: x['ust'] or '') for k, v in by_ayah.items() if k.startswith(f'{s}:')}
     json.dump({'version': 'k6-2026.10.23', 'kaynak': 'Corpus Coranicum, Texte aus der Umwelt des Korans (CC BY 4.0)', 'ayetler': out},
               open(f'{OUT}/{s}.json', 'w', encoding='utf8'), ensure_ascii=False, separators=(',', ':'))
+print(sum(1 for f in glob.glob(f'{OUT}/m/*') if '"lxx"' in open(f).read()), 'LXX', sum(1 for f in glob.glob(f'{OUT}/m/*') if '"pesitta"' in open(f).read()), 'Peşitta', sum(1 for f in glob.glob(f'{OUT}/m/*') if '"sblgnt"' in open(f).read()), 'SBLGNT', sum(1 for f in glob.glob(f'{OUT}/m/*') if '"syrnt"' in open(f).read()), 'SyrNT')
 print(len(glob.glob(f'{OUT}/m/*')), 'metin', len(by_ayah), 'ayet', sum(1 for f in glob.glob(f'{OUT}/m/*') if 'sefaria' in open(f).read()), 'sefaria')

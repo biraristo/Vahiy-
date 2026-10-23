@@ -33,9 +33,14 @@ def resolve(head, mode):
     for c in cands:
         r = FORM.get(c)
         if r and len(c) >= 3:
-            strong = [x for x in rk(r) if x not in 'ويء']
-            it = iter(c)
-            if all(x in it for x in strong):
+            rr = rk(r)
+            if c[0] in 'وف' and rr[0] != c[0]:
+                continue  # 'وقال' gibi bağlaçlı biçimler madde başı değildir
+            strong = [x for x in rr if x not in 'ويء']
+            hs = [x for x in c if x not in 'ويء']
+            if hs and hs[-1] == 'ه' and len(hs) == len(strong) + 1:
+                hs = hs[:-1]
+            if hs == strong:
                 return r
     return None
 
@@ -55,6 +60,13 @@ LEX = [
     ('mufradat', '0502RaghibIsbahani.Mufradat.JK001150-ara1', 'المفردات في غريب القرآن', 'الراغب الأصفهاني', 502, r'\n# ([ء-يٱ]{2,8}) :', 'kelime'),
     ('mukhtar', '0666IbnAbiBakrZaynDinRazi.MukhtarSihah.JK000107-ara1', 'مختار الصحاح', 'زين الدين الرازي', 666, r'\n# ((?:[ء-ي] ){1,4}[ء-ي])(?= )', 'kok'),
     ('lisan', '0711IbnManzurIfriqi.LisanCarab.Shamela0001687-ara1.mARkdown', 'لسان العرب', 'ابن منظور', 711, r'\n### \$\s+([^:\n]{2,12}):', 'kelime'),
+    ('sihah', '0393IbnHammadJawhari.SihahTajLugha.Masaha000955Vols-ara1', 'الصحاح تاج اللغة', 'الجوهري', 393, r'\n# ([ء-ي]{2,6})[ \t]*(?=\n)', 'kelime'),
+    ('jamhara', '0321IbnDuraydAzdi.JamharatLugha.JK007100-ara1', 'جمهرة اللغة', 'ابن دريد', 321, r'\n# \| \( ((?:[ء-ي] ){1,4}[ء-ي]) \)', 'kok'),
+    ('asas', '0538JarAllahZamakhshari.AsasBalagha.JK007032-ara1', 'أساس البلاغة', 'الزمخشري', 538, r'\n# ([ء-ي]{2,6})[ \t]*(?=\n)', 'kelime'),
+    ('misbah', '0770IbnMuhammadFayyumiHamawi.MisbahMunir.JK001451-ara1', 'المصباح المنير', 'الفيومي', 770, r'\n# ([ء-يٱ]{2,10})[ \t]*(?=\n)', 'kelime'),
+    ('qamus', '0817MajdDinFiruzabadi.QamusMuhit.JK001437-ara1', 'القاموس المحيط', 'الفيروزآبادي', 817, r'\n# ([ء-ي]{2,10})(?: [^:\n]{0,25})? :', 'kelime'),
+    ('ayn2', '0170KhalilFarahidi.Cayn.JK000930-ara1', 'كتاب العين', 'الخليل بن أحمد', 170, r'\n# ([ء-ي]{2,4})[ \t]*(?=\n)', 'kelime'),
+    ('tahdhib', '0370AbuMansurAzhari.TahdhibLugha.JK007040-ara1', 'تهذيب اللغة', 'أبو منصور الأزهري', 370, r'\n# ([ء-ي]{2,4}) ?:', 'kelime'),
     ('basair', '0817MajdDinFiruzabadi.BasairDhawiTamyiz.Shamela0009856-ara1', 'بصائر ذوي التمييز', 'الفيروزآبادي', 817, r'\n### \| بصيرة ف[يى] ([ء-ي]{2,10})', 'kelime'),
 ]
 CAP = 20000

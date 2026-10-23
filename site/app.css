@@ -257,3 +257,8 @@ table.t { width: 100%; border-collapse: collapse; font-family: var(--sans); font
 .ayl a { text-decoration: none; color: var(--ink); }
 .ayl a:hover .ar { color: var(--lapis); }
 .ayl .ar { font-size: 1.15rem; }
+.ravibox { max-height: 75vh; overflow: auto; }
+.pt.heb { unicode-bidi: plaintext; }
+.audio-row { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin: .3rem 0 .2rem; font-family: var(--sans); font-size: .9rem; }
+.audio-row select { font: inherit; padding: .3rem .5rem; border: 1px solid var(--line); border-radius: 8px; background: var(--sheet); color: var(--ink); }
+.audio-row audio { height: 34px; max-width: 100%; }

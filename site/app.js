@@ -38,6 +38,7 @@ const LAYERS = [
   ['Aktarım, hadis, ricâl', true], ['Kavramlar', true], ['Karşılaştırmalı metinler', true], ['Görüş ve ihtilaf', true], ['Literatür ve masa', true],
 ];
 const LATER = [];
+const KARI = [['Alafasy_128kbps', 'Mişârî el-Afâsî (Hafs)'], ['Husary_128kbps', 'Mahmûd Halîl el-Husarî (Hafs)'], ['Minshawy_Murattal_128kbps', 'Muhammed Sıddîk el-Minşâvî (Hafs)'], ['Abdul_Basit_Murattal_192kbps', 'Abdülbâsıt Abdüssamed (Hafs)'], ['Abdurrahmaan_As-Sudais_192kbps', 'Abdurrahman es-Sudeys (Hafs)'], ['warsh/warsh_ibrahim_aldosary_128kbps', 'İbrâhîm ed-Devserî (Verş)']];
 
 function setNav(name) {
   document.querySelectorAll('[data-nav]').forEach(a => a.dataset.nav === name ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
@@ -119,6 +120,7 @@ async function ayah(s, a) {
         <span class="src" id="msrc"></span>
       </div>
       <p class="meal" id="mtext">…</p>
+      <div class="audio-row"><label for="kari">Tilâvet</label><select id="kari">${KARI.map(([k, n]) => `<option value="${k}"${k === store.get('kari', KARI[0][0]) ? ' selected' : ''}>${n}</option>`).join('')}</select><audio id="aud" controls preload="none" src="https://everyayah.com/data/${store.get('kari', KARI[0][0])}/${String(s).padStart(3, '0')}${String(a).padStart(3, '0')}.mp3"></audio>${chain([{ r: 'Ses', t: 'EveryAyah.com ayet ayet kayıtlar', u: 'https://everyayah.com' }])}</div>
     </header>
 
     <details class="sec" open>
@@ -142,6 +144,7 @@ async function ayah(s, a) {
       <div class="body">
         <div class="words" role="group" aria-label="Kelimeler">${A.kelimeler.map((w, i) => `<button type="button" class="w" data-i="${i}" aria-pressed="false"><span class="a" lang="ar">${esc(w.ar)}</span><span class="m">${esc(w.tr || '')}</span></button>`).join('')}</div>
         <div class="wdetail" id="wd" hidden></div>
+        <details class="work" id="sxd"><summary><span class="who">Cümle çözümlemesi</span><span class="tag">Quranic Treebank</span></summary><div class="pgs" id="sxb">Yükleniyor…</div></details>
       </div>
     </details>
 
@@ -212,6 +215,10 @@ async function ayah(s, a) {
       <summary><span class="num">18</span><span class="t">Akademik literatür</span><span class="d" id="litd">Yükleniyor…</span></summary>
       <div class="body" id="litbody">Açınca yüklenir.</div>
     </details>
+    <details class="sec" id="yzm">
+      <summary><span class="num">20</span><span class="t">El yazmalarında</span><span class="d" id="yzmd">Yükleniyor…</span></summary>
+      <div class="body" id="yzmbody">Açınca yüklenir.</div>
+    </details>
     <details class="sec" id="masa">
       <summary><span class="num">19</span><span class="t">Araştırma masası</span><span class="d" id="masad">Kişisel notlarınız</span></summary>
       <div class="body" id="masabody">Açınca yüklenir.</div>
@@ -264,9 +271,27 @@ async function ayah(s, a) {
       ctx(arr);
     } catch (e) { $('#mtext').textContent = e.message; }
   };
+  $('#kari').addEventListener('change', e => { store.set('kari', e.target.value); $('#aud').src = `https://everyayah.com/data/${e.target.value}/${String(s).padStart(3, '0')}${String(a).padStart(3, '0')}.mp3`; });
+  load(`/data/k6/y/${s}.json`).then(Y => { const L = Y.ayetler[`${s}:${a}`] || []; $('#yzmd').textContent = L.length ? `${new Set(L.map(x => x[0])).size} nüsha` : 'kayıt yok'; }).catch(() => { $('#yzmd').textContent = '—'; });
+  $('#yzm').addEventListener('toggle', async e => {
+    if (!e.target.open || e.target.dataset.done) return; e.target.dataset.done = '1';
+    const [Y, R] = await Promise.all([load(`/data/k6/y/${s}.json`), load('/data/k6/yazma.json')]);
+    const L = Y.ayetler[`${s}:${a}`] || [];
+    const by = {}; L.forEach(([m, f, p]) => (by[m] ||= []).push([f, p]));
+    const ids = Object.keys(by).sort((x, y) => (parseInt(R.nushalar[x]?.tarih) || 9999) - (parseInt(R.nushalar[y]?.tarih) || 9999));
+    $('#yzmbody').innerHTML = ids.length ? `<div class="works">${ids.map(m => { const n = R.nushalar[m] || {}; return `<details class="work"><summary><span class="who">${esc(n.ad || m)}</span>${n.tarih ? `<span class="tag" dir="ltr">${esc(n.tarih)}</span>` : ''}<span class="tag" dir="ltr">${by[m].map(x => x[0]).join(', ')}</span></summary><div class="pgs"><p class="srcs" style="padding:0">${[n.kurum, n.no, n.malzeme].filter(Boolean).map(esc).join(' · ')} ${chain([{ r: 'Nüsha', t: `${n.ad} (${n.no || ''})`, u: `https://corpuscoranicum.de/de/manuscript/${m}` }, { r: 'Yaprak', t: by[m].map(x => x[0]).join(', ') }, { r: 'Veri', k: 'cc' }, { r: 'İşleme', t: 'TEI yaprak aralıkları ayetlere açıldı:', b: 'yazma' }])}</p>${n.ozet ? `<p class="pt">${esc(n.ozet)}</p>` : ''}<p class="links">${by[m].map(([f, p]) => p ? `<a href="https://corpuscoranicum.de/de/manuscript/${m}/page/${p}" target="_blank" rel="noopener">${esc(f)} görüntüsü</a>` : esc(f)).join(' ')}</p></div></details>`; }).join('')}</div><p class="srcs" style="padding:0">Corpus Coranicum'un Manuscripta Coranica veri tabanı: bu ayetin yer aldığı yapraklar (CC BY 4.0). Tarihler kaynağın verdiği biçimde (miladi); görüntüler kurumların izniyle CC sitesinde.</p>` : '<p class="srcs" style="padding:0">Bu ayet için kayıtlı el yazması yaprağı yok.</p>';
+  });
   $('#msel').addEventListener('change', e => { store.set('meal', e.target.value); showMeal(e.target.value); });
   showMeal(mealId);
 
+  const SX = () => load(`/data/k0/sx/${s}.json`).then(d => d.ayetler[String(a)] || []);
+  const sxRows = (rows) => rows.map(([wn, wt, toks]) => toks.map((t, i) => `<tr><td>${i ? '' : wn}</td><td class="ar">${esc(t[0])}</td><td class="ar">${esc(t[1] || '')}</td><td class="ar">${esc(t[2] || '')}</td><td>${t[3] != null && t[2] ? (typeof t[3] === 'number' ? `${t[3]}. kelime <span class="ar">${esc((rows.find(r => r[0] === t[3]) || [, ''])[1])}</span>` : `ayet ${esc(t[3])}`) : ''}</td><td class="ar">${esc(t[5] || '')}</td></tr>`).join('')).join('');
+  const SXHEAD = '<tr><th>Kelime</th><th>Parça</th><th>Tür</th><th>Görev</th><th>Bağlı olduğu</th><th>Öbek</th></tr>';
+  $('#sxd').addEventListener('toggle', async e => {
+    if (!e.target.open || e.target.dataset.done) return; e.target.dataset.done = '1';
+    const rows = await SX();
+    $('#sxb').innerHTML = rows.length ? `<div class="table-wrap"><table class="t"><thead>${SXHEAD}</thead><tbody>${sxRows(rows)}</tbody></table></div><p class="srcs">${chain([{ r: 'Çözümleme', t: 'The Quranic Treebank — NoorBayan, Quranic Arabic Corpus (Kais Dukes) üzerine', u: 'https://github.com/NoorBayan/Quranic' }, { r: 'Veri', k: 'quranpedia' }, { r: 'İşleme', b: 'k0' }])} Bağımlılık (i'râb) ilişkileri: her parça hangi kelimeye bağlı ve görevi ne.</p>` : '<p class="srcs">Bu ayet için çözümleme yok.</p>';
+  });
   view.querySelectorAll('.w').forEach(b => b.addEventListener('click', async () => {
     view.querySelectorAll('.w').forEach(x => x.setAttribute('aria-pressed', x === b));
     const w = A.kelimeler[+b.dataset.i];
@@ -281,6 +306,7 @@ async function ayah(s, a) {
       <dt>Tür · i'râb</dt><dd class="ar">${esc(w.aciklama || [w.tur, w.irab].filter(Boolean).join('، '))}</dd>
     </dl><div class="occ" id="occ">${w.kok ? 'Kökün geçtiği yerler yükleniyor…' : ''}</div>
     <p class="srcs" style="margin-top:.5rem;padding:0">${chain([{ r: 'Kelime', t: `${s}:${a}:${w.n}` }, { r: 'Morfoloji', k: 'qac' }, { r: 'Kelime meali', k: 'qurancom' }, { r: 'İşleme', b: 'k0' }])} Morfoloji: Quranic Arabic Corpus${w.dogrulandi_qac ? ' (QAC elle doğrulanmış)' : ''} · Kelime meali: Quran.com</p>`;
+    SX().then(rows => { const r = rows.filter(x => x[0] === w.n); if (r.length) $('#wd').insertAdjacentHTML('beforeend', `<div class="table-wrap"><table class="t"><thead>${SXHEAD}</thead><tbody>${sxRows(r).replace(/<td>\d+\. kelime <span class="ar">/g, '<td><span class="ar">')}</tbody></table></div>`); }).catch(() => {});
     if (w.kok) {
       const Z = await load('/data/k0/dizin.json');
       const occ = Z.kok[w.kok] || [];
@@ -720,6 +746,13 @@ function kx(s, a, A) {
       const r = RV[bt.dataset.r]; const box = $('#ravibox');
       const t = r.takrib;
       box.innerHTML = `<h4 class="k1h">${esc(r.ad)} <span class="tag" dir="ltr">${r.rivayet} rivayet · ${r.ayet} ayet</span></h4>${t ? `<dl><dt>Derece</dt><dd>${esc(GRADE_TR[t.derece] || t.derece || '—')}</dd><dt>Tabaka</dt><dd>${t.tabaka || '—'}</dd><dt>Vefat</dt><dd>${t.vefat ? 'h. ' + t.vefat : '—'}</dd></dl><p class="ar" dir="rtl">${esc(t.metin)}</p><p class="srcs">Takrîbü't-Tehzîb, nr. ${t.no} · eşleşme: ${esc(r.eslesme)} ${chain([{ r: 'Madde', t: `Takrîb nr. ${t.no}` }, { r: 'Eser', t: "İbn Hacer (ö. 852), Takrîbü't-Tehzîb", u: oiUrl('0852IbnHajarCasqalani.TaqribTahdhib.JK000121-ara1') }, { r: 'Veri', k: 'openiti' }, { r: 'Eşleşme', t: r.eslesme, b: 'k4_ravi' }])}</p>` : r.adaylar ? `<p class="srcs">Takrîb'de ${r.aday_sayisi} aday var; makine tek kişiyi seçemedi:</p><ul>${r.adaylar.map(c => `<li class="ar" dir="rtl">${esc(c.ad)} — ${esc(GRADE_TR[c.derece] || c.derece || '')}${c.vefat ? ` (ö. ${c.vefat})` : ''}</li>`).join('')}</ul>` : '<p class="srcs">Takrîbü\'t-Tehzîb\'de eşleşen madde bulunamadı (râvi Kütüb-i Sitte râvisi olmayabilir).</p>'}<button type="button" class="more" id="rclose">Kapat</button>`;
+      if (r.biyografi) {
+        box.querySelector('#rclose').insertAdjacentHTML('beforebegin', '<div id="rbio" class="srcs">Biyografiler yükleniyor…</div>');
+        loadGz(`/data/k4/r/${bt.dataset.r}.json.gz`).then(d => {
+          const KM = R['ricâl_kitaplari'] || {};
+          $('#rbio').outerHTML = `<h4 class="k1h">Ricâl ve tabakât kitaplarında</h4><div class="works">${d.biyografiler.map(x => { const k = KM[x.kitap] || {}; return `<details class="work"><summary><span class="who">${esc(k.muellif || '')} (ö. ${k.vefat || '?'})</span><span class="wt">${esc(k.ad || x.kitap)}</span><span class="tag" dir="ltr">nr. ${esc(x.no)}</span><span class="tag ${x.guven === 'güçlü' ? 'v' : 'w'}">${x.guven === 'güçlü' ? 'ad tam uyuşuyor' : 'zayıf eşleşme — kontrol edin'}</span></summary><div class="pgs">${chain([{ r: 'Madde', t: `nr. ${x.no}` }, { r: 'Eser', t: `${k.muellif}, ${k.ad}`, u: oiUrl(k.openiti) }, { r: 'Veri', k: 'openiti' }, { r: 'Eşleşme', t: R['ricâl_yontem'], b: 'ricali' }])}<p class="pt ar" dir="rtl">${esc(x.metin)}</p></div></details>`; }).join('')}</div>`;
+        }).catch(e => { $('#rbio').textContent = e.message; });
+      }
       box.hidden = false; box.scrollIntoView({ block: 'nearest' });
       $('#rclose').addEventListener('click', () => { box.hidden = true; });
     }));
@@ -757,8 +790,8 @@ function kx(s, a, A) {
       if (!det.open || det.dataset.done) return; det.dataset.done = '1';
       const m = await load(`/data/k6/m/${det.dataset.m}.json`);
       const blk = (h, t, rtl) => t ? `<h5 class="k6h">${h}</h5><p class="pt${rtl ? ' heb' : ''}" dir="${rtl ? 'rtl' : 'ltr'}">${para(t)}</p>` : '';
-      det.querySelector('.pgs').innerHTML = blk(`Asıl metin (${esc(m.dil || '')})`, m.metin, m.yon === 'rtl') + blk('Transkripsiyon', m.transkripsiyon) + blk('İngilizce (Sefaria)', m.sefaria?.metin) + blk('Almanca çeviri (CC)', m.ceviri_de) + blk('İngilizce çeviri (CC)', m.ceviri_en) + blk('Açıklama (CC, Almanca)', m.not_de) +
-        chain([{ r: 'Metin', t: `${m.baslik} — ${m.kaynak || ''}` }, m.tespit && { r: 'Paralelliği tespit eden', t: m.tespit }, { r: 'Madde', t: `Corpus Coranicum TUK ${m.id}${m.madde_yazari ? ', ' + m.madde_yazari : ''}`, u: m.cc }, { r: 'Veri', k: 'cc' }, m.sefaria && { r: 'Çeviri', t: m.sefaria.kaynak, k: 'sefaria' }, { r: 'İşleme', b: 'k6' }]) +
+      det.querySelector('.pgs').innerHTML = blk(`Asıl metin (${esc(m.dil || '')})`, m.metin, m.yon === 'rtl') + blk('Transkripsiyon', m.transkripsiyon) + blk('İngilizce (Sefaria)', m.sefaria?.metin) + blk(`Grekçe — ${esc(m.lxx?.kaynak || '')}`, m.lxx?.metin) + blk(`Grekçe — ${esc(m.sblgnt?.kaynak || '')}`, m.sblgnt?.metin) + blk(`Süryanice — ${esc(m.pesitta?.kaynak || '')}`, m.pesitta?.metin, true) + blk(`Süryanice — ${esc(m.syrnt?.kaynak || '')}`, m.syrnt?.metin, true) + blk('Almanca çeviri (CC)', m.ceviri_de) + blk('İngilizce çeviri (CC)', m.ceviri_en) + blk('Açıklama (CC, Almanca)', m.not_de) +
+        chain([{ r: 'Metin', t: `${m.baslik} — ${m.kaynak || ''}` }, m.tespit && { r: 'Paralelliği tespit eden', t: m.tespit }, { r: 'Madde', t: `Corpus Coranicum TUK ${m.id}${m.madde_yazari ? ', ' + m.madde_yazari : ''}`, u: m.cc }, { r: 'Veri', k: 'cc' }, m.sefaria && { r: 'Çeviri', t: m.sefaria.kaynak, k: 'sefaria' }, m.lxx && { r: 'Grekçe tanık', t: m.lxx.kaynak, u: 'https://github.com/eliranwong/LXX-Rahlfs-1935' }, m.sblgnt && { r: 'Grekçe tanık', t: m.sblgnt.kaynak, u: 'https://github.com/LogosBible/SBLGNT' }, m.pesitta && { r: 'Süryanice tanık', t: m.pesitta.kaynak, u: 'https://github.com/ETCBC/peshitta' }, m.syrnt && { r: 'Süryanice tanık', t: m.syrnt.kaynak, u: 'https://github.com/ETCBC/syrnt' }, { r: 'İşleme', b: 'k6' }]) +
         `<p class="srcs nesir">${[m.kaynak, m.tespit && 'Tespit: ' + m.tespit, m.madde_yazari && 'Madde: ' + m.madde_yazari, m.sefaria?.kaynak].filter(Boolean).map(esc).join(' · ')} · <a href="${esc(m.cc)}" target="_blank" rel="noopener">Corpus Coranicum'da aç</a></p><p class="links">Bu metnin bağlı olduğu ayetler: ${m.ayetler.map(x => `<a href="#/${x.replace(':', '/')}">${x}</a>`).join(' ')}</p>`;
     }));
   });
