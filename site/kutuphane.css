@@ -1,21 +1,23 @@
 /* vahiy++ — tür rafları ve kitap okuma ekranı */
 .raf-sayfa { max-width: 1180px; margin: 0 auto; }
 .yol { font: .88rem var(--sans); color: var(--muted); } .yol a { color: var(--muted); }
+.raf-sayfa { padding-top: .4rem; }
 .raf-h1 { display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap; margin: .2rem 0 .3rem; }
 .raf-h1 .ar { font-family: var(--quran); color: var(--altin); font-size: .8em; }
 .raf-ozet { color: var(--muted); margin: 0 0 1rem; max-width: 64ch; }
 .raf-turler { display: flex; gap: .4rem; overflow-x: auto; padding-bottom: .4rem; margin-bottom: .6rem; font-family: var(--sans); }
 .raf-turler a { flex: none; border: 1px solid var(--line); border-radius: 999px; padding: .35rem .85rem; color: var(--ink); text-decoration: none; font-size: .9rem; background: var(--sheet); }
 .raf-turler a[aria-current] { background: var(--btn); color: var(--btn-ink); border-color: var(--btn); }
-.raf-arac { display: flex; gap: .5rem; flex-wrap: wrap; margin: 0 0 1rem; font-family: var(--sans); }
-.raf-arac input { flex: 1 1 220px; min-width: 0; border: 1px solid var(--line); border-radius: 999px; padding: .55rem 1rem; font: inherit; background: var(--sheet); color: var(--ink); }
-.raf-arac select { border: 1px solid var(--line); border-radius: 999px; padding: .5rem .8rem; font: inherit; background: var(--sheet); color: var(--ink); }
-.raf-donemler { display: flex; gap: .3rem 1rem; flex-wrap: wrap; margin-bottom: 1.4rem; font-family: var(--sans); }
-.raf-donemler a { font-size: .9rem; color: var(--muted); text-decoration: none; border-bottom: 2px solid transparent; padding: .15rem 0; }
-.raf-donemler a:hover, .raf-donemler a:focus { color: var(--ink); border-color: var(--zer); }
+.raf-arac { display: flex; gap: .5rem; flex-wrap: nowrap; margin: 0 0 1rem; font-family: var(--sans); }
+.raf-arac input { flex: 1 1 auto; min-width: 0; border: 1px solid var(--line); border-radius: 999px; padding: .55rem 1rem; font: inherit; background: var(--sheet); color: var(--ink); }
+.raf-arac select { flex: 0 0 auto; max-width: 46%; border: 1px solid var(--line); border-radius: 999px; padding: .5rem .8rem; font: inherit; background: var(--sheet); color: var(--ink); }
+.raf-donemler { display: flex; gap: .45rem; flex-wrap: wrap; margin-bottom: 1.4rem; font-family: var(--sans); }
+.raf-donemler a { font: 600 .95rem var(--sans); color: var(--ink); text-decoration: none; border: 1px solid var(--line); background: var(--sheet); border-radius: 999px; padding: .35rem .85rem; }
+.raf-donemler a small { color: var(--altin); font-weight: 600; }
+.raf-donemler a:hover, .raf-donemler a:focus { border-color: var(--zer); }
 .donem { margin: 0 0 2.4rem; scroll-margin-top: 70px; }
 .d-bas { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: .4rem; margin-bottom: 1rem; }
-.d-bas h2 { margin: 0; font-weight: 500; font-size: 1.45rem; } .d-bas span { font: .85rem var(--sans); color: var(--muted); }
+.d-bas h2 { margin: 0; font-weight: 600; font-size: 1.6rem; color: var(--ink); } .d-bas span { font: .85rem var(--sans); color: var(--muted); }
 .raf { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem .9rem; }
 @media (min-width: 720px) { .raf { grid-template-columns: repeat(5, 1fr); } } @media (min-width: 1000px) { .raf { grid-template-columns: repeat(7, 1fr); } }
 .kitap { text-decoration: none; color: var(--ink); display: flex; flex-direction: column; gap: .35rem; min-width: 0; }

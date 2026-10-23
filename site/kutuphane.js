@@ -19,19 +19,16 @@ async function turRaf(tur) {
   const T = TURLER.find(x => x[0] === tur) || [tur, tur, ''];
   const okunur = R.eserler.filter(e => e.k2.length).length;
   view.innerHTML = `<div class="raf-sayfa">
-    <div class="yol"><a href="#/kutuphane">Kütüphane</a> › ${esc(T[1])}</div>
     <h1 class="raf-h1">${esc(T[1])} <span class="ar" lang="ar">${esc(T[2])}</span></h1>
     <p class="raf-ozet">${fmt(R.eserler.length)} eser; ${fmt(okunur)} tanesi ayet ayet okunabilir, diğerlerinde ayetin geçtiği yerler gösterilir. Eserler müelliflerin vefat tarihine göre beş döneme ayrıldı. Bir kitaba dokunun, ${esc(D_ADI(ss))} ${ss}:${sa} ile açılsın.</p>
-    <div class="raf-turler"><a href="#/kutuphane/tefsir" aria-current="page">Tefsir</a><a href="#/kutuphane">Diğer türler: kütüphane listesi</a></div>
     <div class="raf-arac"><input id="rafAra" type="search" placeholder="Eser ya da müellif ara" aria-label="Eser ya da müellif ara">
-      <select id="rafSira" aria-label="Sıralama"><option value="v">Vefat yılına göre</option><option value="a">Eser adına göre</option><option value="m">Müellife göre</option></select>
-      <select id="rafSuz" aria-label="Süzgeç"><option value="">Hepsi</option><option value="k2">Ayet ayet okunabilenler</option></select></div>
+      <select id="rafSira" aria-label="Sıralama"><option value="v">Vefat yılına göre</option><option value="a">Eser adına göre</option><option value="m">Müellife göre</option></select></div>
     <nav class="raf-donemler" id="rafDn" aria-label="Dönemler"></nav>
     <div id="raflar"></div>
     <p class="raf-not">${esc(R.not)} ${chain([{ r: 'Liste', t: 'Tefsir rafı', b: 'raf' }, { r: 'Türkçe adlar', t: 'Claude transkripsiyonu', b: 'raf' }])}</p>
   </div>`;
   const ciz = () => {
-    const q = $('#rafAra').value.trim().toLocaleLowerCase('tr'), sira = $('#rafSira').value, suz = $('#rafSuz').value;
+    const q = $('#rafAra').value.trim().toLocaleLowerCase('tr'), sira = $('#rafSira').value, suz = '';
     let L = R.eserler.filter(e => (!suz || e.k2.length) && (!q || `${e.ad} ${e.muellif} ${e.ad_ar} ${e.muellif_ar || ''}`.toLocaleLowerCase('tr').includes(q)));
     const cmp = { v: (x, y) => (x.vefat || 9999) - (y.vefat || 9999) || x.ad.localeCompare(y.ad, 'tr'), a: (x, y) => x.ad.replace(/^(el|er|es|et|en|ez|eş|ed)-/, '').localeCompare(y.ad.replace(/^(el|er|es|et|en|ez|eş|ed)-/, ''), 'tr'), m: (x, y) => x.muellif.localeCompare(y.muellif, 'tr') }[sira];
     L = L.slice().sort(cmp);
@@ -41,10 +38,10 @@ async function turRaf(tur) {
       return `<section class="donem" id="raf-${k}"><div class="d-bas"><h2>${esc(ad)}</h2><span>${esc(alt)} · ${B.length} eser</span></div><div class="raf">${B.map((e, i) => `<a class="kitap" href="#/kitap/${e.id}/${ss}/${sa}">
         <div class="kapak">${kapakSvg(e, i)}<div class="cer"></div><div class="bas" lang="ar">${esc(e.ad_ar.length > 60 ? e.ad_ar.slice(0, 58) + '…' : e.ad_ar)}</div><div class="yil">${vefatYaz(e.vefat)}</div>${e.k2.length ? '' : '<span class="rozet">alıntılar</span>'}</div>
         <span class="ad">${esc(e.ad)}</span><span class="yazar">${esc(e.muellif)}</span></a>`).join('')}</div></section>`;
-    }).join('') || '<p class="raf-ozet">Aramanıza uyan eser yok. Arama kutusunu temizleyin ya da süzgeci "Hepsi" yapın.</p>';
+    }).join('') || '<p class="raf-ozet">Aramanıza uyan eser yok. Arama kutusunu temizleyin.</p>';
   };
   $('#rafDn').addEventListener('click', e => { const a = e.target.closest('a[data-d]'); if (!a) return; e.preventDefault(); document.getElementById('raf-' + a.dataset.d)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
-  ['input', 'change'].forEach(ev => { $('#rafAra').addEventListener(ev, ciz); }); $('#rafSira').addEventListener('change', ciz); $('#rafSuz').addEventListener('change', ciz);
+  ['input', 'change'].forEach(ev => { $('#rafAra').addEventListener(ev, ciz); }); $('#rafSira').addEventListener('change', ciz);
   ciz();
 }
 let D_ADI = n => String(n);
