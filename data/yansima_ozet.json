@@ -1,0 +1,19 @@
+{
+ "tarih": "2026-10-23",
+ "eser": 26168,
+ "durum": {
+  "SITEDE": 8482,
+  "BOS-ALINTIYOK": 2924,
+  "BOS-METINYOK": 14708,
+  "BOS-TARANMIS": 49,
+  "BOS-BEKLIYOR": 5
+ },
+ "aciklama": {
+  "SITEDE": "en az bir katmanda ayetlere bağlı",
+  "BOS-METINYOK": "katalogda var, metni hiçbir kaynaktan alınamadı (yalnız künye)",
+  "BOS-ARCHIVE": "metni archive.org'da; bu ortamdan indirme engelli (403)",
+  "BOS-TARANMIS": "PDF taranmış görüntü; OCR henüz yapılmadı",
+  "BOS-ALINTIYOK": "metin var ama içinde ayet alıntısı bulunamadı (konu Kur'an dışı olabilir)",
+  "BOS-BEKLIYOR": "PDF indirme sırasında"
+ }
+}

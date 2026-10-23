@@ -17,7 +17,7 @@ if os.path.exists(SP):
     for l in open(SP):
         try:
             r = json.loads(l)
-            if r.get('durum') in ('metin', 'ocr_kuyrugu') or '403' in r.get('hata', ''): done.add(r['url'])
+            if r.get('durum') in ('metin', 'ocr_kuyrugu', 'doc_kuyrugu') or '403' in r.get('hata', ''): done.add(r['url'])
         except Exception: pass
 jobs = []
 for b in sorted(books, key=lambda b: (PRI.index(b['type']) if b['type'] in PRI else 99, b['id'])):
@@ -53,24 +53,34 @@ def work():
             rec['bayt'] = os.path.getsize(fn)
             txt = ''
             if ext == 'pdf':
-                p = subprocess.run(['pdftotext', '-enc', 'UTF-8', fn, '-'], capture_output=True, timeout=900)
-                txt = p.stdout.decode('utf8', 'replace')
+                tf = fn + '.txt'
+                subprocess.run(['pdftotext', '-enc', 'UTF-8', fn, tf], capture_output=True, timeout=1800)
                 pi = subprocess.run(['pdfinfo', fn], capture_output=True, timeout=60).stdout.decode('utf8', 'replace')
                 m = re.search(r'Pages:\s+(\d+)', pi); rec['sayfa'] = int(m.group(1)) if m else None
+                ar = 0
+                if os.path.exists(tf):
+                    tmpgz = f'{OUT}/{bid}_{part}.txt.gz.part'
+                    with open(tf, encoding='utf8', errors='replace') as src, gzip.open(tmpgz, 'wt', encoding='utf8') as g:
+                        while True:
+                            chunk = src.read(1 << 22)
+                            if not chunk: break
+                            chunk = fix(chunk); ar += len(re.findall(r'[\u0621-\u064A]', chunk)); g.write(chunk)
+                    os.remove(tf)
+                    rec['arapca_harf'] = ar
+                    if ar > 500 and (not rec.get('sayfa') or ar / max(rec['sayfa'], 1) > 150):
+                        os.replace(tmpgz, f'{OUT}/{bid}_{part}.txt.gz'); rec['durum'] = 'metin'
+                    else:
+                        os.remove(tmpgz); rec['durum'] = 'ocr_kuyrugu'
+                else:
+                    rec['durum'] = 'ocr_kuyrugu'
             elif ext in ('doc', 'docx', 'rtf'):
-                subprocess.run(['soffice', f'-env:UserInstallation=file:///tmp/lo_{threading.get_ident()}', '--headless', '--convert-to', 'txt:Text (encoded):UTF8', '--outdir', TMP, fn], capture_output=True, timeout=600)
-                tp = fn.rsplit('.', 1)[0] + '.txt'
-                if os.path.exists(tp):
-                    txt = open(tp, encoding='utf8', errors='replace').read(); os.remove(tp)
-            txt = fix(txt)
-            ar = len(re.findall(r'[ء-ي]', txt))
-            rec['arapca_harf'] = ar
-            if ar > 500 and (not rec.get('sayfa') or ar / max(rec['sayfa'], 1) > 150):
-                with gzip.open(f'{OUT}/{bid}_{part}.txt.gz', 'wt', encoding='utf8') as g:
-                    g.write(txt)
-                rec['durum'] = 'metin'
+                os.makedirs(f'{RAW}/qp_doc', exist_ok=True)
+                os.replace(fn, f'{RAW}/qp_doc/{bid}_{part}.{ext}')
+                rec['durum'] = 'doc_kuyrugu'
             else:
-                rec['durum'] = 'ocr_kuyrugu' if ext == 'pdf' else 'bos'
+                rec['durum'] = 'bos'
+        except StopIteration:
+            pass
         except Exception as e:
             rec['durum'] = 'hata'; rec['hata'] = str(e)[:200]
         finally:

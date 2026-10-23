@@ -42,6 +42,15 @@ def book(bid):
         if not r.get('vefat'):
             m = re.match(r'(\d{4})', k)
             if m and int(m.group(1)) < 1450: r['vefat'] = int(m.group(1))
+    elif bid.startswith('qpf:'):
+        k = bid[4:]; b = qpb.get(k, {})
+        T = {'tafsir': 'tefsir', 'qiraat': 'kiraat', 'translations': 'meal', 'book': 'belirsiz'}
+        r = dict(cat_qp.get(k) or {})
+        r.update({'ad': r.get('ad') or b.get('name'), 'muellif': r.get('muellif') or (b.get('author') or {}).get('ar_name'), 'kaynak': 'Quranpedia PDF', 'ref': k, 'qp_tur': b.get('type')})
+        r['tur'] = r.get('tur') if r.get('tur') not in (None, 'belirsiz') else T.get(b.get('type'), 'ulum')
+        r['pdf'] = {str(a.get('part') or 1): a['url'] for a in b.get('book_attachments') or []}
+        if b.get('nasher') or b.get('edition'):
+            r['nesir'] = ' · '.join(x for x in (b.get('nasher'), b.get('edition')) if x)
     else:
         k = bid[3:]; b = qpb.get(k, {})
         r = dict(cat_qp.get(k) or {'ad': b.get('name'), 'muellif': (b.get('author') or {}).get('ar_name'), 'vefat': None, 'tur': 'belirsiz'})

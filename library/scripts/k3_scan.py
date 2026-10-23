@@ -22,7 +22,8 @@ os.makedirs(TMP, exist_ok=True)
 PART, NPART = int(sys.argv[1]), int(sys.argv[2])
 SKIP_GENRE = {'tefsir', 'mushaf', 'meal'}  # ayet sıralı eserler K2'de
 ONLY_SKIPPED = os.environ.get('K3_TEFSIR') == '1'  # ikinci geçiş: yalnız OpenITI tefsirleri
-SFX = 't' if ONLY_SKIPPED else ''
+PDF_MODE = os.environ.get('K3_PDF') == '1'  # üçüncü geçiş: Quranpedia PDF/DOC metinleri
+SFX = 'p' if PDF_MODE else ('t' if ONLY_SKIPPED else '')
 
 DEL = dict.fromkeys(list(range(0x064B, 0x0660)) + [0x0670, 0x0640] + list(range(0x06D6, 0x06EE)) + [0x0627, 0x0623, 0x0625, 0x0622, 0x0671, 0x0621, 0x0672, 0x0673])
 DEL.update({0x0649: 0x064A, 0x0629: 0x0647, 0x0624: 0x0648, 0x0626: 0x064A, 0x06CC: 0x064A, 0x06A9: 0x0643})
@@ -160,6 +161,27 @@ def main():
     out = open(hf, 'a', encoding='utf8')
     dlog = open(donef, 'a')
     t0 = time.time()
+    if PDF_MODE:
+        fs = sorted(os.listdir(f'{RAW}/qp_pdf'))
+        fs = [f for n, f in enumerate(fs) if f.endswith('.txt.gz') and n % NPART == PART]
+        for f in fs:
+            bid, part = f[:-7].split('_')
+            key = f'qpf:{bid}:{part}'
+            if key in done:
+                continue
+            raw = gzip.open(f'{RAW}/qp_pdf/{f}', 'rt', encoding='utf8').read()
+            tokens = []
+            for pi, pg in enumerate(raw.split('\f')):
+                tokens += pg.split(); tokens.append(f'PageV{int(part):02d}P{pi + 1:03d}')
+            marks = [(j, int(m.group(1)), int(m.group(2))) for j, t in enumerate(tokens) if t.startswith('PageV') for m in [PAGE.match(t)] if m]
+            mpos = [m[0] for m in marks]
+            def pagefn(j, marks=marks, mpos=mpos):
+                p = bisect.bisect_right(mpos, j)
+                return (marks[p][1], marks[p][2]) if p < len(marks) else (0, 0)
+            scan(tokens, marks, out, f'qpf:{bid}', pagefn)
+            out.flush(); dlog.write(key + '\n'); dlog.flush()
+        print(PART, 'bitti', round(time.time() - t0), flush=True)
+        return
     z, jobs = openiti_jobs()
     jobs = [j for n, j in enumerate(jobs) if n % NPART == PART]
     for k, (key, (fn, size)) in enumerate(jobs):

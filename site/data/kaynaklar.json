@@ -132,6 +132,19 @@
    "url": "https://github.com/NoorBayan/Quranic",
    "lisans": "MIT",
    "ust": "quranpedia"
+  },
+  "hadeethenc": {
+   "ad": "HadeethEnc — Hadis Ansiklopedisi",
+   "kurum": "Rowad Translation Center & Islamhouse",
+   "url": "https://hadeethenc.com",
+   "not": "Açık API; Arapça asıl, Türkçe çeviri ve şerh"
+  },
+  "shamela": {
+   "ad": "el-Mektebetü'ş-Şâmile veritabanı",
+   "kurum": "shamela.ws",
+   "surum": "1448",
+   "url": "https://shamela.ws",
+   "not": "Resmî indirme sayfasındaki veritabanı (shamela-database-1448.zip); sayfa metinleri Lucene deposundan okundu"
   }
  },
  "betikler": {
@@ -152,6 +165,8 @@
   "sozdizimi": "library/scripts/build_k0_sozdizimi.py",
   "ricali": "library/scripts/build_k4_ricali.py",
   "yazma": "library/scripts/build_yazma.py",
-  "pdf": "library/scripts/fetch_qp_pdf.py"
+  "pdf": "library/scripts/fetch_qp_pdf.py",
+  "hadeethenc": "library/scripts/build_hadeethenc.py",
+  "shamela": "library/scripts/build_shamela.py"
  }
 }
