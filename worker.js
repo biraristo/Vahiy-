@@ -7,6 +7,8 @@ export default {
     if (req.method !== 'GET' && req.method !== 'HEAD') return new Response('Yalnızca GET', { status: 405 });
     const key = decodeURIComponent(url.pathname.slice(4));
     if (!key || key.includes('..')) return new Response('Geçersiz anahtar', { status: 400 });
+    // yalnız yayımlanan kitaplar dışarı açılır; ham arşiv (ham/) ve diğer anahtarlar kapalıdır
+    if (!/^kitap\//.test(key)) return new Response('Bulunamadı', { status: 404 });
     const rh = req.headers.get('range');
     const m = rh && /^bytes=(\d+)-(\d+)$/.exec(rh);
     const range = m ? { offset: +m[1], length: +m[2] - +m[1] + 1 } : undefined;
