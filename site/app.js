@@ -91,7 +91,6 @@ async function ayah(s, a) {
   <section class="a3-blok" id="b-esbab"><div class="a3-h"><h2>Esbâb-ı nüzûl ve nâsih-mensûh</h2><span id="b-esbab-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
   <section class="a3-blok" id="b-cagdas"><div class="a3-h"><h2>Çağdaş ve diğer eserler</h2><span id="b-cagdas-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
   <section class="a3-blok" id="b-selef"><div class="a3-h"><h2>Selef rivayetleri</h2><span id="b-selef-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
-  <section class="a3-blok" id="b-rivayet"><div class="a3-h"><h2>Rivayetlere göre metin ve sayım</h2><span id="b-rivayet-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
   <section class="a3-blok" id="b-dinler"><div class="a3-h"><h2>Dinler tarihi</h2><span id="b-dinler-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
   <section class="a3-blok" id="b-yazma"><div class="a3-h"><h2>El yazmaları</h2><span id="b-yazma-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
   <section class="a3-blok" id="b-literatur"><div class="a3-h"><h2>Akademik literatür</h2><span id="b-literatur-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>

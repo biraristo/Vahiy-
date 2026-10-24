@@ -45,7 +45,7 @@ function ayetYeni(s, a, A, su, S, D, MI) {
   $('#ayMetin').addEventListener('keydown', e => { const k = e.target.closest('.kw'); if (k && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); kelSec(+k.dataset.i); } });
 
   /* ---- bloklar: görünür oldukça yüklenir ---- */
-  const BLOK = { tefsir: blokTefsir, hadis: blokHadis, dil: blokDil, fikih: blokFikih, kelam: blokKelam, esbab: blokEsbab, cagdas: blokCagdas, selef: blokSelef, rivayet: blokRivayet, dinler: blokDinler, yazma: blokYazma, literatur: blokLiteratur };
+  const BLOK = { tefsir: blokTefsir, hadis: blokHadis, dil: blokDil, fikih: blokFikih, kelam: blokKelam, esbab: blokEsbab, cagdas: blokCagdas, selef: blokSelef, dinler: blokDinler, yazma: blokYazma, literatur: blokLiteratur };
   const calistir = el => { const k = el.id.slice(2); BLOK[k](s, a, A).then(items => zcKur(el, items, k, s, a)).catch(err => { el.querySelector('.zc-govde').innerHTML = `<p class="srcs">${esc(err.message)}</p>`; }); };
   const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { io.unobserve(e.target); calistir(e.target); } }), { rootMargin: '700px 0px' }) : null;
   Object.keys(BLOK).forEach(k => { const el = $(`#b-${k}`); if (io) io.observe(el); else calistir(el); });
@@ -244,6 +244,10 @@ function zcKur(el, items, tur, s, a) {
 }
 
 /* ================= ayet metni: kelimelere bölünmüş ================= */
+/* hareke karşılaştırması için Medine ve Mağrib mushaf imlâ işaretlerini ortak biçime indir */
+const kanon = t => String(t || '').replace(/\u06E1/g, '\u0652').replace(/\u08F0/g, '\u064B').replace(/\u08F1/g, '\u064C').replace(/\u08F2/g, '\u064D').replace(/[\u06D6-\u06ED\u0670\u0640]/g, '').replace(/[ٱ]/g, 'ا');
+/* harf karşılaştırması: hareke ve hemze yazımı (mushaf imlâsına göre değişir) düşer, hançer elif harf sayılır */
+const harfler = t => String(t || '').replace(/ئ/g, 'ي').replace(/ؤ/g, 'و').replace(/[أإآ]/g, 'ا').replace(/[\u0654\u0655ء]/g, '').replace(/ى/g, 'ي').replace(/\u0670/g, 'ا').replace(/[\u064B-\u0652\u0640\u06D6-\u06ED\u08F0-\u08F2]/g, '').replace(/ٱ/g, 'ا');
 const nAr = t => String(t || '').replace(/[ً-ٰٟـۖ-ۭ]/g, '').replace(/[ٱأإآ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه').replace(/ؤ/g, 'و').replace(/ئ/g, 'ي');
 function ayetKelimeli(A) {
   const T = A.metin.split(' '), W = A.kelimeler;
@@ -280,6 +284,7 @@ async function kelimePanel(s, a, A, i) {
       <section id="kpKir"><h4>Kıraat</h4><p class="durum">Yükleniyor…</p></section>
       <section id="kpGr"><h4>Garîb sözlüklerinde</h4><p class="durum">Yükleniyor…</p></section>
       <section id="kpBag"><h4>Kur'an içi ilişkiler</h4><p class="durum">Yükleniyor…</p></section>
+      <section id="kpRiv" class="genis"><h4>Rivayetlerde</h4><p class="durum">Yükleniyor…</p></section>
       <section id="kpLug"><h4>Lügatlerde</h4><p class="durum">Yükleniyor…</p></section>
       <section id="kpTef"><h4>Tefsirlerde</h4><p class="durum">Yükleniyor…</p></section>
     </div>
@@ -315,6 +320,27 @@ async function kelimePanel(s, a, A, i) {
     const g = [...(L.benzer_ifade || []).filter(x => icer(x.not)).map(x => [x.not, x.ayetler]), ...(L.ortak_ifade || []).filter(x => icer(x.ifade)).map(x => [x.ifade, x.ayetler])];
     yaz('#kpBag', g.length ? g.map(([t, ay]) => `<div class="kp-if"><span lang="ar">${esc(t)}</span>${liste(ay, 12)}</div>`).join('') : '<p class="srcs">Bu kelimeyi içeren ortak ifade kaydı yok.</p>');
   }).catch(() => yaz('#kpBag', ''));
+  // Rivayet mushaflarında bu kelime
+  load(`/data/k0/r/${s}.json`).then(RR => {
+    const R0 = RR[id] || {};
+    const kelT = t => t.split(/\s+/).filter(x => /[\u0621-\u064A\u0671]/.test(x));
+    const isk = t => nAr(t).replace(/[اويءى]/g, '');
+    const H = kelT(A.metin), hi = H.map(isk);
+    const sat = Object.entries(R0).map(([r, v]) => {
+      const T = kelT(v.metin.join(' ')), ti = T.map(isk);
+      let en = 0, bo = 0;
+      for (let o = 0; o + H.length <= T.length + 2; o++) { let sk = 0; for (let j = 0; j < H.length; j++) if (ti[o + j] === hi[j]) sk++; if (sk > bo) { bo = sk; en = o; } }
+      const k = T[en + i] || '';
+      const hk = H[i] || w.ar;
+      const fark = !k ? 'yok' : harfler(k) === harfler(hk) ? (kanon(k) === kanon(hk) ? '' : 'yazım') : 'harf';
+      return [r, v, k, fark];
+    }).sort((x, y) => (RAVI_VEFAT[x[0]] || 999) - (RAVI_VEFAT[y[0]] || 999));
+    const sf = A.sayim_farki || [];
+    const ETK = { harf: '<span class="kp-fark h">harf farkı</span>', yazim: '', yazım: '<span class="kp-fark">hareke ya da imlâ farkı</span>', yok: '<span class="kp-fark">bulunamadı</span>', '': '<span class="kp-ayni">aynı</span>' };
+    yaz('#kpRiv', `<table class="kp-rv"><tr><th>Hafs (Âsım)</th><td lang="ar">${esc(H[i] || w.ar)}</td><td></td></tr>${sat.map(([r, v, k, f]) => `<tr${f === 'harf' ? ' class="fark"' : ''}><th>${esc(RAVI[r] || r)}${RAVI_IMAM[r] ? ` <small>(${esc(RAVI_IMAM[r])})</small>` : ''}</th><td lang="ar">${esc(k || '—')}</td><td>${ETK[f]}</td></tr>`).join('')}</table>
+      ${sf.length ? `<p class="kp-sayim"><b>Sayım:</b> ${sf.map(x => `${esc(RAVI[x.rivayet] || x.rivayet)} (${esc(SAYIM[x.sayim] || x.sayim)}) bu ayeti ${x.durum === 'bölünüyor' ? `ikiye böler (${x.ayet_no.join(' ve ')}. ayetler)` : `başka ayetle birleştirir (${x.ayet_no.join(', ')}. ayet = Hafs ${x.hafs_karsiligi.join('–')})`}`).join(' · ')}</p>` : '<p class="kp-sayim">Bu ayetin sınırı ve numarası bütün rivayetlerde aynı.</p>'}
+      <details class="kp-daha"><summary>Ayetin rivayetlere göre tam metni</summary>${sat.map(([r, v]) => `<div class="kp-tam"><b>${esc(RAVI[r] || r)}</b> <small>${esc(SAYIM[v.sayim] || v.sayim)} sayım · ${v.ayet_no.join(', ')}. ayet</small><p lang="ar" class="ar">${esc(v.metin.join(' ۝ '))}</p></div>`).join('')}</details>`);
+  }).catch(() => yaz('#kpRiv', '<p class="srcs">Rivayet mushafları açılamadı.</p>'));
   // Lügatler
   load('/data/k5/index.json').then(I => {
     const n = kok ? I.kokler[kok] : undefined;

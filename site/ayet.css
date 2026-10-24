@@ -166,3 +166,11 @@ body.se-acik { overflow: hidden; }
 .a3-masa textarea { width: 100%; border: 1px solid var(--line); border-radius: 12px; background: var(--sheet); color: var(--ink); padding: .7rem .9rem; font: 1rem/1.5 var(--serif); }
 .masa-alt { display: flex; justify-content: space-between; align-items: center; margin: .4rem 0; font: .82rem var(--sans); color: var(--muted); }
 .masa-alt button { border: 1px solid var(--line); background: var(--sheet); border-radius: 999px; padding: .25rem .8rem; font: .82rem var(--sans); color: var(--ink); cursor: pointer; }
+.kp-izgara section.genis { grid-column: 1 / -1; }
+.kp-rv { width: 100%; border-collapse: collapse; font: .88rem var(--sans); }
+.kp-rv th { text-align: start; font-weight: 500; padding: .25rem .4rem .25rem 0; white-space: nowrap; } .kp-rv th small { color: var(--muted); font-weight: 400; }
+.kp-rv td { padding: .2rem .4rem; border-bottom: 1px solid var(--line); } .kp-rv td[lang="ar"] { font-size: 1.25rem; text-align: right; }
+.kp-rv tr.fark td[lang="ar"] { color: var(--warn); }
+.kp-fark { font-size: .74rem; color: var(--muted); } .kp-fark.h { color: var(--warn); font-weight: 600; } .kp-ayni { font-size: .74rem; color: var(--muted); opacity: .7; }
+.kp-sayim { font: .85rem var(--sans); }
+.kp-tam { border-top: 1px solid var(--line); padding: .3rem 0; font: .85rem var(--sans); } .kp-tam small { color: var(--muted); }
