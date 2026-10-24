@@ -17,7 +17,7 @@ for k in K.values():
     v = k.get('vefat')
     if isinstance(v, int) and 0 < v < 1460: asr[(v - 1) // 100 + 1] += 1
 json.dump({'version': 'vitrin-2026.10.23', 'giris': giris, 'giris_meal': 'Diyanet İşleri meali (Tanzil)', 'adlar': names[:240], 'asir': sorted(asr.items()),
-           'sayilar': {'eser': len(K), 'alinti': 6195664, 'tefsir': 173, 'rivayet': 84421, 'ravi': 625, 'yazma': 2322, 'makale': 27252, 'lugat': 12}},
+           'sayilar': {}},
           open(f'{D}/vitrin.json', 'w', encoding='utf8'), ensure_ascii=False, separators=(',', ':'))
 json.dump({k: v['ad'] for k, v in K.items()}, open(f'{D}/x/adlar.json', 'w', encoding='utf8'), ensure_ascii=False, separators=(',', ':'))
 ilk = {}

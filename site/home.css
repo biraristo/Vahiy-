@@ -320,3 +320,4 @@ main.ana-main { max-width: none; padding: 0; }
 @keyframes cv-don { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(6deg); } }
 @keyframes cv-nabiz { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { #cevir .cv-don, #cevir .cv-yazi { animation: none; } }
+.hz-raf { margin: 2.2rem 0 1.4rem; }

@@ -1,6 +1,8 @@
 """Katman kontrol kapısı: python3 gate.py k0 k1 [k2]"""
 import json, gzip, os, sys, collections, re
 R = '/home/claude/vahiy-/site/data'
+# açılış sayaçları her kontrolde veriden yeniden hesaplanır (elle sayı yok)
+import subprocess; subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'build_sayilar.py')], check=True)
 errs = collections.defaultdict(list); info = {}
 def E(k, m):
     if len(errs[k]) < 8: errs[k].append(m)
