@@ -91,16 +91,12 @@ async function ayah(s, a) {
   <section class="a3-blok" id="b-esbab"><div class="a3-h"><h2>Esbâb-ı nüzûl ve nâsih-mensûh</h2><span id="b-esbab-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
   <section class="a3-blok" id="b-cagdas"><div class="a3-h"><h2>Çağdaş ve diğer eserler</h2><span id="b-cagdas-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
   <section class="a3-blok" id="b-selef"><div class="a3-h"><h2>Selef rivayetleri</h2><span id="b-selef-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
-  <section class="a3-diger"><div class="a3-h"><h2>Diğer katmanlar</h2></div>
-    ${sec('riv', 'Rivayetler ve sayım', '8 rivayette metin ve ayet numarası')}
-    ${sec('kvr', 'Kavramlar: lügat maddeleri', 'Yükleniyor…')}
-    ${sec('iht', 'Görüşler ve ihtilaflar', 'Yükleniyor…')}
-    ${sec('krs', 'Dinler tarihi: karşılaştırmalı metinler', 'Yükleniyor…')}
-    ${sec('lit', 'Akademik literatür', 'Yükleniyor…')}
-    ${sec('yzm', 'El yazmalarında', 'Yükleniyor…')}
-    ${sec('masa', 'Araştırma masası', 'Kişisel notlarınız')}
-  </section>
-  <div hidden>    <details class="sec">
+  <section class="a3-blok" id="b-rivayet"><div class="a3-h"><h2>Rivayetlere göre metin ve sayım</h2><span id="b-rivayet-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
+  <section class="a3-blok" id="b-dinler"><div class="a3-h"><h2>Dinler tarihi</h2><span id="b-dinler-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
+  <section class="a3-blok" id="b-yazma"><div class="a3-h"><h2>El yazmaları</h2><span id="b-yazma-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
+  <section class="a3-blok" id="b-literatur"><div class="a3-h"><h2>Akademik literatür</h2><span id="b-literatur-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
+  <section class="a3-blok a3-masa" id="b-masa"><div class="a3-h"><h2>Araştırma masam</h2><span>Notlarınız yalnızca bu tarayıcıda saklanır</span></div><div id="a3Masa"></div></section>
+  <div hidden>${sec('riv', '', '')}${sec('kvr', '', '')}${sec('iht', '', '')}${sec('krs', '', '')}${sec('lit', '', '')}${sec('yzm', '', '')}${sec('masa', '', '')}    <details class="sec">
       <summary><span class="t">Kelimeler</span><span class="d">${A.kelimeler.length} kelime · kök ve i'râb</span></summary>
       <div class="body">
         <div class="words" role="group" aria-label="Kelimeler">${A.kelimeler.map((w, i) => `<button type="button" class="w" data-i="${i}" aria-pressed="false"><span class="a" lang="ar">${esc(w.ar)}</span><span class="m">${esc(w.tr || '')}</span></button>`).join('')}</div>

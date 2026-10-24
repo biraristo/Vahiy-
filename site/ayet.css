@@ -95,7 +95,7 @@ body.se-acik { overflow: hidden; }
 .zc-kol { display: grid; grid-template-rows: repeat(3, auto); grid-auto-flow: column; grid-auto-columns: 168px; gap: 6px; }
 .zc-k { display: flex; flex-direction: column; align-items: flex-start; text-align: start; gap: .05rem; width: 168px; min-height: 74px; border: 1px solid var(--line); background: var(--sheet); border-radius: 10px; padding: .4rem .6rem; cursor: pointer; color: var(--ink); font: inherit; position: relative; }
 .zc-k .y { font: 600 .7rem var(--sans); color: var(--gold); }
-.zc-k b { font: 600 .88rem/1.25 var(--sans); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.zc-k b { font: 600 .88rem/1.25 var(--sans); max-width: 100%; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .zc-k b[lang="ar"] { font-family: var(--arabic); font-size: 1rem; font-weight: 700; direction: rtl; }
 .zc-k small { font: .74rem/1.3 var(--sans); color: var(--muted); max-width: 100%; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .zc-k small[lang="ar"] { font-family: var(--arabic); font-size: .85rem; direction: rtl; }
@@ -148,3 +148,21 @@ body.se-acik { overflow: hidden; }
   .zk { grid-template-columns: 1fr; } .zk section + section { border-inline-start: 0; padding-inline-start: 0; border-top: 1px solid var(--line); padding-top: 10px; }
   .zc-oku { padding: 12px 14px; }
 }
+/* kelime ipucu: her kelime ayrı tonda, noktalı alt çizgi */
+.verse .kw { text-decoration: underline dotted color-mix(in srgb, var(--gold) 70%, transparent); text-decoration-thickness: 2px; text-underline-offset: .42em; }
+.verse .kw.k2 { color: color-mix(in srgb, var(--lapis) 78%, var(--ink)); }
+:root[data-theme="dark"] .verse .kw.k2 { color: #B9CDE6; }
+.kw-ipucu { font: .85rem var(--sans); color: var(--gold); margin: -.3rem 0 .8rem; display: flex; gap: .4rem; align-items: center; }
+.kw-ipucu::before { content: '☝'; }
+.zc-giris { font: .88rem var(--sans); margin: 0 0 .6rem; color: var(--ink); }
+.zc-mozet:empty { display: none; }
+.zc-mozet { border-inline-start: 3px solid var(--gold); padding: .3rem .8rem; margin: 0 0 .7rem; font-size: .95rem; }
+.zc-mozet small { display: block; font: .72rem var(--sans); color: var(--warn); }
+.zc-mozet p { margin: .2rem 0; }
+.zo-ayet { font-family: var(--arabic); font-size: 1.5rem; line-height: 2.1; }
+.zo-cev summary { cursor: pointer; font: .85rem var(--sans); color: var(--firuze, var(--lapis)); margin-top: .5rem; }
+.zo-dl { display: grid; grid-template-columns: auto 1fr; gap: .2rem .9rem; font: .9rem var(--sans); } .zo-dl dt { color: var(--muted); } .zo-dl dd { margin: 0; }
+.zo-yap a { display: inline-block; margin: .2rem .3rem 0 0; font: .82rem var(--sans); border: 1px solid var(--line); border-radius: 999px; padding: .1rem .6rem; text-decoration: none; }
+.a3-masa textarea { width: 100%; border: 1px solid var(--line); border-radius: 12px; background: var(--sheet); color: var(--ink); padding: .7rem .9rem; font: 1rem/1.5 var(--serif); }
+.masa-alt { display: flex; justify-content: space-between; align-items: center; margin: .4rem 0; font: .82rem var(--sans); color: var(--muted); }
+.masa-alt button { border: 1px solid var(--line); background: var(--sheet); border-radius: 999px; padding: .25rem .8rem; font: .82rem var(--sans); color: var(--ink); cursor: pointer; }
