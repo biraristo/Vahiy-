@@ -174,11 +174,24 @@ async function blokCagdas(s, a) {
     yukle: async () => ({ dil: 'ar', html: b.notlar.map(n => `<div class="rv1"><span class="sy">${esc(n.yazar || '—')}${n.kategori ? ' · ' + esc(n.kategori) : ''}</span><p>${esc(n.metin)}</p></div>`).join('') }), kunye: chain([{ r: 'Notlar', t: 'Quranpedia kullanıcı notları', k: 'quranpedia' }]) });
   return L;
 }
+/* Kitaptan bir madde/kesit: <details data-kesit data-id data-b data-t> açılınca bölüm indirilir, başlıktan itibaren gösterilir */
+document.addEventListener('toggle', async ev => {
+  const dt = ev.target;
+  if (!(dt instanceof HTMLDetailsElement) || !dt.hasAttribute('data-kesit') || !dt.open || dt.dataset.y) return;
+  dt.dataset.y = 1; const m = dt.querySelector('.kesit');
+  try {
+    const D = (await dizinAl(dt.dataset.id)).b;
+    let t = (await bolumAl(dt.dataset.id, D[+dt.dataset.b])).replace(/\x01[^\x01]*\x01/g, ' ').replace(/\x04/g, ' ');
+    const bas = (dt.dataset.ara || '').replace(/[\u064B-\u0652\u0670]/g, '').replace(/^[\s\d٠-٩\[\]()\-–.]+/, '').split(/\s+/).slice(0, 3).join(' ');
+    if (bas) { const yalin = t.replace(/[\u064B-\u0652\u0670]/g, ''); const j = yalin.indexOf(bas); if (j > 0) { let say = 0, k = 0; for (; k < t.length && say < j; k++) if (!/[\u064B-\u0652\u0670]/.test(t[k])) say++; t = t.slice(Math.max(0, k - 30)); } }
+    m.innerHTML = `<p lang="ar" class="ar">${esc(tmKisa(t, +dt.dataset.n || 1500))}</p>`;
+  } catch { m.innerHTML = '<p class="srcs">Metin indirilemedi.</p>'; }
+}, true);
 /* Râvinin kütüphanedeki biyografileri (data/k4/rc/{id}.json; build_rical.py) */
 async function ricalHtml(k, RC) {
   if (!RC.ravi[k]) return '';
   const L = await load(`/data/k4/rc/${k}.json`).catch(() => []);
-  const sat = (x, tur) => { const e = RC.kitap[x.k] || ['', '', '', null]; return `<li><a href="#/eser/${x.k}/${x.m[0][0]}"><b>${esc(e[0] || e[1])}</b></a> <small>${esc(e[2] || '')}${e[3] ? ` · ö. ${e[3]}` : ''}${x.m.length > 1 ? ` · ${x.m.length} madde` : ''}${x.b.length ? ` · ${x.b.length + 1} baskı` : ''}</small><bdi class="rc-bas" lang="ar">${esc(x.m[0][1])}</bdi></li>`; };
+  const sat = x => { const e = RC.kitap[x.k] || ['', '', '', null]; return `<li>${x.m.map((m, j) => `<details data-kesit data-id="${x.k}" data-b="${m[0]}" data-t="${esc(m[1])}"><summary>${j ? '' : `<b>${esc(e[0] || e[1])}</b> <small>${esc(e[2] || '')}${e[3] ? ` · ö. ${e[3]}` : ''}${x.b.length ? ` · ${x.b.length + 1} baskı` : ''}</small>`}<bdi class="rc-bas" lang="ar">${esc(m[1])}</bdi></summary><div class="kesit"><p class="srcs">Yükleniyor…</p></div><a class="k3git" href="#/eser/${x.k}/${m[0]}">Kitapta aç</a></details>`).join('')}</li>`; };
   const bio = L.filter(x => x.tur === 'biyografi'), mus = L.filter(x => x.tur === 'musned');
   return `<div class="rc"><h5>Kütüphanedeki biyografileri <small>${bio.length} eser</small></h5><ol class="rc-l">${bio.map(sat).join('')}</ol>${mus.length ? `<details class="rc-m"><summary>Müsned ve mu'cemlerde rivayet babı (${mus.length})</summary><ol class="rc-l">${mus.map(sat).join('')}</ol></details>` : ''}<p class="srcs">Ad eşleşmesiyle bağlandı (ism, baba, gerekirse dede); aynı adı taşıyan üçten fazla madde olan kitaplarda bağ kurulmadı.</p></div>`;
 }

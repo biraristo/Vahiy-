@@ -286,3 +286,6 @@ body.se-acik { overflow: hidden; }
 .rc-l small { color: var(--muted); }
 .rc-bas { display: block; color: var(--muted); font-size: .85rem; }
 .rc-m summary { cursor: pointer; font: .9rem var(--sans); margin: .5rem 0; }
+.rc-l details summary { cursor: pointer; list-style: none; }
+.rc-l details summary::-webkit-details-marker { display: none; }
+.rc-l .kesit { margin: .4rem 0; }
