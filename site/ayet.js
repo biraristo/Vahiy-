@@ -150,7 +150,20 @@ async function blokSelef(s, a) {
     const tr = TR[k], rv = RV[k];
     const ad = tr ? tr[0] : rv ? rv.ad : k.replace(/^\?/, '') || 'Bilinmeyen';
     const turler = [...new Set(X.map(x => RTYPE(x.tur)))];
-    return { k: 'sl' + k, yil: tr ? tr[1] : (rv?.takrib?.vefat || null), ad, arAd: !tr, eser: `${X.length} rivayet${tr ? ' · ' + TAB[tr[2]] : ''}${turler.length && !(turler.length === 1 && turler[0] === 'Tefsir') ? ' · ' + turler.join(', ') : ''}`, parca: sozKisa(X[0].metin), ozet: '1', kitap: null,
+    const tk = rv?.takrib || {}, tab = tk.tabaka;
+    const kusak = tr ? tr[2] : tab === 1 ? 's' : tab && tab <= 6 ? 't' : tab && tab <= 9 ? 'e' : tab ? 'x' : (tk.metin && /صحابي|له صحبة/.test(tk.metin) ? 's' : '');
+    const KUSAK = { s: ['Sahâbî', '#9A7A2C'], t: ['Tâbiî', '#1F7A80'], e: ['Tebeu\'t-tâbiîn', '#1E3A5F'], x: ['Sonraki nesil', '#6B3A5A'], '': ['Kuşağı belirsiz', '#5E6878'] }[kusak];
+    const der = kusak === 's' ? '' : tk.derece || '';
+    const derC = /كذب|متروك|ضعيف|منكر|وضاع|يهم|ليس بشيء/.test(der) ? 'd' : /ثق|حافظ|إمام|امام|صدوق/.test(der) || kusak === 's' ? 's' : '';
+    const vef = tr ? tr[1] : tk.vefat;
+    const harf = (rv?.ad || ad).replace(/^(?:عبد|أبو|ابو)\s*/, '').trim()[0] || '؟';
+    const kart = `<span class="pr-ust"><svg class="pr-mad" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 2l8.5 11.5L55 10l-3.5 14.5L62 32l-10.5 7.5L55 54l-14.5-3.5L32 62l-8.5-11.5L9 54l3.5-14.5L2 32l10.5-7.5L9 10l14.5 3.5z"/><text x="32" y="42" text-anchor="middle">${esc(harf)}</text></svg></span>
+      <span class="pr-ic"><b${tr ? '' : ' lang="ar"'}>${esc(ad)}</b>${tr && rv ? `<span class="pr-ar" lang="ar">${esc(rv.ad)}</span>` : ''}
+      <span class="pr-cip"><i>${KUSAK[0]}${tab && kusak !== 's' ? ` · ${tab}. tabaka` : ''}</i>${vef ? `<i>ö. ${vef}</i>` : ''}${der ? `<i class="${derC}" lang="${kusak === 's' ? 'tr' : 'ar'}" title="İbn Hacer, Takrîbü't-Tehzîb">${esc(der)}</i>` : ''}</span>
+      <span class="pr-say"><span><b>${X.length}</b><small>bu ayette</small></span>${rv ? `<span><b>${fmt(rv.rivayet)}</b><small>${fmt(rv.ayet)} ayette</small></span>` : ''}</span>
+      <span class="pr-soz" lang="ar">${esc(sozKisa(X[0].metin))}</span>
+      <span class="pr-dug"><span class="a">${X.length} rivayet</span><span class="o">Biyografi · yakında</span></span></span>`;
+    return { k: 'sl' + k, kart, renk: KUSAK[1], yil: tr ? tr[1] : (rv?.takrib?.vefat || null), ad, arAd: !tr, eser: `${X.length} rivayet${tr ? ' · ' + TAB[tr[2]] : ''}${turler.length && !(turler.length === 1 && turler[0] === 'Tefsir') ? ' · ' + turler.join(', ') : ''}`, parca: sozKisa(X[0].metin), ozet: '1', kitap: null,
       yukle: async () => ({ dil: 'ar', html: X.map(x => `<div class="rv1"><span class="sy">${esc(RTYPE(x.tur))}${x.hukum ? ' · tahrîcte: ' + esc(x.hukum) : ''}</span><p>${ayetIsaret(para(x.metin))}</p>${x.tahric ? `<details class="zo-cev"><summary>Tahrîc</summary><p class="thr">${para(x.tahric)}</p></details>` : ''}</div>`).join('') + (rv && rv.takrib ? `<p class="srcs" dir="ltr">Takrîbü't-Tehzîb: ${esc(GRADE_TR[rv.takrib.derece] || rv.takrib.derece || '—')}${rv.takrib.tabaka ? `, ${rv.takrib.tabaka}. tabaka` : ''}</p>` : '') }),
       kunye: chain([{ r: 'Rivayetler', t: `Mevsûa kayıt no ${X.map(x => x.id).join(', ')}` }, { r: 'Eser', k: 'mevsua' }, { r: 'Veri', k: 'quranpedia' }, tr && { r: 'Türkçe ad ve vefat', t: T.kaynak, k: 'claude' }]) };
   });
@@ -209,7 +222,7 @@ function zcKur(el, items, tur, s, a) {
   const cizSerit = () => {
     const gr = []; items.forEach(x => { const as = ASIR(x.yil); const g = gr[gr.length - 1]; if (g && g.as === as) g.L.push(x); else gr.push({ as, L: [x] }); });
     const sl = serit.scrollLeft;
-    serit.innerHTML = gr.map(g => `<div class="zc-asir"><div class="zc-as">${g.as}<small>${g.L.length}</small></div><div class="zc-kol">${g.L.map(x => { const m = meseleOf(x.k); const sonuk = (mes >= 0 && !m) || !kelVar(x); return `<button type="button" class="zc-k${x.k === aktif ? ' sec' : ''}${sonuk ? ' sonuk' : ''}${pin.includes(x.k) ? ' pin' : ''}" data-k="${esc(x.k)}"${m ? ` style="--c:${TM_ETIKET_RENK[m.e]}"` : ''}><span class="y">${yilYaz(x.yil) || '&nbsp;'}</span><b${x.arAd ? ' lang="ar"' : ''}>${esc(x.ad)}</b><small${isArYazi(x.eser) ? ' lang="ar"' : ''}>${esc(x.eser)}</small>${x.parca ? `<span class="pc" lang="ar">${esc(x.parca)}</span>` : ''}${m ? `<i style="--c:${TM_ETIKET_RENK[m.e]}">${esc(MES[mes].etiketler?.[m.e] || '')}</i>` : x.tr ? '<i class="tr">Türkçe</i>' : x.rozet ? `<i>${esc(x.rozet)}</i>` : ''}</button>`; }).join('')}</div></div>`).join('');
+    serit.innerHTML = gr.map(g => `<div class="zc-asir"><div class="zc-as">${g.as}<small>${g.L.length}</small></div><div class="zc-kol">${g.L.map(x => { const m = meseleOf(x.k); const sonuk = (mes >= 0 && !m) || !kelVar(x); if (x.kart) return `<button type="button" class="zc-k profil${x.k === aktif ? ' sec' : ''}${sonuk ? ' sonuk' : ''}${pin.includes(x.k) ? ' pin' : ''}" data-k="${esc(x.k)}" style="--c:${x.renk}">${x.kart}</button>`; return `<button type="button" class="zc-k${x.k === aktif ? ' sec' : ''}${sonuk ? ' sonuk' : ''}${pin.includes(x.k) ? ' pin' : ''}" data-k="${esc(x.k)}"${m ? ` style="--c:${TM_ETIKET_RENK[m.e]}"` : ''}><span class="y">${yilYaz(x.yil) || '&nbsp;'}</span><b${x.arAd ? ' lang="ar"' : ''}>${esc(x.ad)}</b><small${isArYazi(x.eser) ? ' lang="ar"' : ''}>${esc(x.eser)}</small>${x.parca ? `<span class="pc" lang="ar">${esc(x.parca)}</span>` : ''}${m ? `<i style="--c:${TM_ETIKET_RENK[m.e]}">${esc(MES[mes].etiketler?.[m.e] || '')}</i>` : x.tr ? '<i class="tr">Türkçe</i>' : x.rozet ? `<i>${esc(x.rozet)}</i>` : ''}</button>`; }).join('')}</div></div>`).join('');
     serit.scrollLeft = sl;
     const mo = mes >= 0 && MES[mes].ozet ? MES[mes].ozet : null;
     let ozk = govde.querySelector('.zc-mozet'); if (!ozk) { ozk = document.createElement('div'); ozk.className = 'zc-mozet'; serit.before(ozk); }

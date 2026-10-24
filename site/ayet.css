@@ -207,3 +207,21 @@ body.se-acik { overflow: hidden; }
 .yz-bilgi { margin-top: 1rem; } .yz-bilgi summary { cursor: pointer; font: .95rem var(--sans); } .yz-ozet { font-size: .92rem; color: var(--muted); }
 .zo-metin.kisa { max-height: 15rem; overflow: hidden; -webkit-mask-image: linear-gradient(#000 65%, transparent); mask-image: linear-gradient(#000 65%, transparent); }
 .zo-devam { display: block; margin: .5rem auto 0; font: 600 .95rem var(--sans); color: var(--btx, var(--lapis)); background: none; border: 1px solid currentColor; border-radius: 999px; padding: .45rem 1.2rem; cursor: pointer; }
+/* Selef: râvi profil kartları */
+.zc-kol:has(> .profil) { grid-template-rows: auto; grid-auto-columns: 250px; gap: 12px; }
+.zc-k.profil, .a3-blok .zc-k.profil { width: 250px; padding: 0; border-radius: 16px; overflow: hidden; background: var(--sheet); border: 1px solid var(--line); color: var(--ink); gap: 0; min-height: 0; }
+.zc-k.profil .pr-ust { display: block; position: relative; width: 100%; height: 54px; background: var(--c); background-image: radial-gradient(circle at 12px 12px, rgba(255,255,255,.14) 2px, transparent 3px); background-size: 22px 22px; }
+.zc-k.profil .pr-mad { position: absolute; left: 14px; bottom: -28px; width: 58px; height: 58px; }
+.zc-k.profil .pr-mad path { fill: #fff; stroke: var(--c); stroke-width: 2.2; } .zc-k.profil .pr-mad text { font: 700 25px var(--arabic, Amiri); fill: var(--c); }
+.zc-k.profil .pr-ic { display: flex; flex-direction: column; gap: .35rem; padding: 34px 14px 14px; width: 100%; }
+.zc-k.profil .pr-ic > b { font: 700 1.12rem var(--serif); line-height: 1.2; }
+.zc-k.profil .pr-ar { font: 1rem var(--arabic, Amiri); color: var(--muted); direction: rtl; text-align: start; }
+.zc-k.profil .pr-cip { display: flex; flex-wrap: wrap; gap: 5px; } .zc-k.profil .pr-cip i { font: 600 .74rem var(--sans); font-style: normal; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, var(--c) 14%, #fff); color: var(--c); }
+.zc-k.profil .pr-cip i.d { background: #F6E1DE; color: #A0302A; } .zc-k.profil .pr-cip i.s { background: #E2EEE6; color: #2F6B45; } .zc-k.profil .pr-cip i[lang="ar"] { font: 600 .85rem var(--arabic, Amiri); }
+.zc-k.profil .pr-say { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; } .zc-k.profil .pr-say > span { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 5px 8px; display: flex; flex-direction: column; }
+.zc-k.profil .pr-say b { font: 700 1.1rem var(--serif); color: var(--c); } .zc-k.profil .pr-say small { font: .72rem var(--sans); color: var(--muted); }
+.zc-k.profil .pr-soz { font: 1rem/1.75 var(--arabic, Amiri); direction: rtl; text-align: right; border-right: 3px solid var(--c); padding-right: 8px; max-height: 3.5em; overflow: hidden; }
+.zc-k.profil .pr-dug { display: flex; gap: 6px; flex-wrap: wrap; } .zc-k.profil .pr-dug span { font: 600 .78rem var(--sans); border-radius: 999px; padding: 5px 10px; }
+.zc-k.profil .pr-dug .a { background: var(--c); color: #fff; } .zc-k.profil .pr-dug .o { color: var(--muted); border: 1px dashed var(--line); }
+.zc-k.profil.sec, .a3-blok .zc-k.profil.sec { background: var(--sheet); border-color: var(--c); box-shadow: 0 0 0 2px var(--c); color: var(--ink); }
+.zc-k.profil.sec small, .zc-k.profil.sec i { color: inherit; } .zc-k.profil.sec .pr-say small { color: var(--muted); } .zc-k.profil.sec .pr-cip i { color: var(--c); } .zc-k.profil.sec .pr-cip i.d { color: #A0302A; } .zc-k.profil.sec .pr-cip i.s { color: #2F6B45; }
