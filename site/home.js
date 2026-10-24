@@ -82,7 +82,7 @@ async function home() {
   view.classList.add('ana-main');
   const [S, V, SR] = await Promise.all([meta(), load('/data/vitrin.json'), load('/data/k0/siralamalar.json')]);
   const D = S.sureler, sy = V.sayilar;
-  window.__vitrinSay = { tefsir: fmt(sy.tefsir), rivayet: fmt(Math.round(sy.rivayet / 1000) * 1000).replace(/\.000$/, ' bin'), lugat: sy.lugat, kitap: fmt(sy.kitap) };
+  window.__vitrinSay = { tefsir: fmt(sy.tefsir_metinli || sy.tefsir), rivayet: fmt(Math.round(sy.rivayet / 1000) * 1000).replace(/\.000$/, ' bin'), lugat: sy.lugat, kitap: fmt(sy.eser_metinli) };
   if (dil !== 'tr') window.__vitrinSay.rivayet = fmt(sy.rivayet);
   view.innerHTML = `<div class="ana">
   <section class="hero"><div>
@@ -233,7 +233,7 @@ async function home() {
   requestAnimationFrame(() => { const sc = $('#siralar'); sc.scrollLeft = 0; kaydirIpucu(sc); });
 
   /* ---- A: sayaçlar ve şeritler ---- */
-  const SY = [[sy.kitap, 'eser, tam metniyle kütüphanede', 'buyuk'], [sy.alinti, `ayet alıntısı, ${fmt(sy.eser)} eserde`], [sy.rivayet, 'selef rivayeti, isnadıyla'], [sy.biyografi, `biyografi maddesi, ${fmt(sy.ricalKitap)} ricâl ve tabakat kitabında`], [sy.yazma, 'el yazması Kur\'an nüshası'], [sy.makale, 'akademik makale'], [sy.lugat, 'klasik Arapça lügat']].filter(x => x[0]);
+  const SY = [[sy.eser_metinli, 'eser, tam metniyle kütüphanede', 'buyuk'], [sy.alinti, `ayet alıntısı, ${fmt(sy.alinti_eser)} eserde`], [sy.rivayet, 'selef rivayeti, isnadıyla'], [sy.biyografi, `biyografi maddesi, ${fmt(sy.rical_kitap)} ricâl ve tabakat kitabında`], [sy.yazma, 'el yazması Kur\'an nüshası'], [sy.makale, 'akademik makale'], [sy.lugat, 'klasik Arapça lügat']].filter(x => x[0]);  /* build_sayilar.py */
   $('#sayaclar').innerHTML = SY.map(s => `<div class="sayac${s[2] ? ' ' + s[2] : ''}"><b data-v="${s[0]}">${azHareket ? fmt(s[0]) : 0}</b><span>${s[1]}</span></div>`).join('');
   let sayildi = azHareket;
   const io = new IntersectionObserver(es => { if (es[0].isIntersecting && !sayildi) { sayildi = true; const st = performance.now(); (function f(tm) { const p = Math.min(1, (tm - st) / 1800), e = 1 - Math.pow(1 - p, 3); document.querySelectorAll('.sayac b').forEach(b => b.textContent = fmt(Math.round(b.dataset.v * e))); if (p < 1) requestAnimationFrame(f); })(st); } }, { threshold: .4 });
@@ -274,7 +274,7 @@ async function home() {
   const KG = { tefsir: ['#1F7A80', 'y'], ulum: ['#1F6070', 'g'], hadis: ['#1E3A5F', 'h'], hadisusul: ['#28456B', 'k'], kelam: ['#2F5D50', 'g'], fikih: ['#5B4A2A', 'k'], usul: ['#6A5530', 'h'],
     tasavvuf: ['#6B3A3A', 'u'], tarih: ['#4A5A3A', 'h'], tabakat: ['#3F5040', 'k'], lugat: ['#3E4E6B', 'k'], edebiyat: ['#5E3F55', 'y'], felsefe: ['#4B3F5E', 'y'], farsca: ['#2F5560', 'g'], genel: ['#4A4A42', 'h'], dinler: ['#2E4A55', 'h'] };
   const RL = await load('/data/kutuphane/raflar.json').catch(() => []);
-  const KD = [...RL.map(r => [r[1], `${fmt(r[3])} kitap`, ...(KG[r[0]] || ['#444', 'h']), r[0]]), ['Dinler tarihi', '713 metin', ...KG.dinler, 'dinler']];
+  const KD = [...RL.map(r => [r[1], `${fmt(r[3])} kitap`, ...(KG[r[0]] || ['#444', 'h']), r[0]]), ['Dinler tarihi', `${fmt(sy.dinler || 0)} metin`, ...KG.dinler, 'dinler']];
   const motif = (tp, c, i) => {
     const s = 'stroke="rgba(244,242,234,.1)" fill="none" stroke-width="1.2"', id = 'kp' + i;
     const P = { h: `<rect x="10" y="10" width="20" height="20" ${s}/><rect x="10" y="10" width="20" height="20" transform="rotate(45 20 20)" ${s}/>`, k: `<path d="M4 4h12v12H8v8h16V8h8v24H4z" ${s}/>`,

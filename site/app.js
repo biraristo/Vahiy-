@@ -459,7 +459,7 @@ async function library() {
     <h1>Kütüphane</h1>
     <p class="lede">Tam metniyle okunabilen eserler, ilim dallarına göre raflarda. Bir rafa dokunun, eserlerini görün ve okuyun.</p>
     <div class="stats">
-      <div><p class="total">${fmt(SY.kitap || RL.reduce((t, r) => t + r[3], 0))}</p><p class="total-label">eser, tam metniyle kütüphanede<br>${fmt(SY.tefsir || 0)} tefsir · ${fmt(SY.lugat || 0)} lügat · ${fmt(SY.yazma || 0)} el yazması nüsha</p></div>
+      <div><p class="total">${fmt(SY.eser_metinli || 0)}</p><p class="total-label">eser, tam metniyle kütüphanede<br>${fmt(SY.tefsir_metinli || SY.tefsir || 0)} tefsir · ${fmt(SY.lugat || 0)} lügat · ${fmt(SY.yazma || 0)} el yazması nüsha</p></div>
       <div><h2>Raflar</h2><table class="kv">${RL.map(r => `<tr><td><a href="#/kutuphane/${esc(r[0])}">${esc(r[1])}</a></td><td>${fmt(r[3])}</td></tr>`).join('')}<tr><td><a href="#/kutuphane/dinler">Dinler tarihi</a></td><td></td></tr></table></div>
     </div>
     <h2 style="margin-top:2.2rem">Kaynak kataloğu</h2>

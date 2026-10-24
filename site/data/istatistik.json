@@ -1,0 +1,65 @@
+{
+ "tarih": "2026-10-24",
+ "sayilar": {
+  "eser": 12239,
+  "eser_metinli": 12107,
+  "eser_metinsiz": 132,
+  "dinler": 713,
+  "alinti": 3711264,
+  "alinti_eser": 10590,
+  "alinti_ayet": 6236,
+  "tefsir": 577,
+  "tefsir_metinli": 445,
+  "tefsir_ayet": 148,
+  "rivayet": 80950,
+  "ravi": 798,
+  "biyografi": 535823,
+  "rical_kitap": 279,
+  "yazma": 2322,
+  "yazma_tarihli": 1612,
+  "makale": 856,
+  "lugat": 32,
+  "meal": 15,
+  "hadis": 485,
+  "fihrist_konu": 8696,
+  "muellif": 5111,
+  "en_cok": [
+   [
+    "1:2",
+    [
+     2444,
+     8100
+    ]
+   ],
+   [
+    "65:2",
+    [
+     2353,
+     11925
+    ]
+   ],
+   [
+    "2:286",
+    [
+     2324,
+     11391
+    ]
+   ],
+   [
+    "4:59",
+    [
+     2175,
+     8221
+    ]
+   ],
+   [
+    "5:3",
+    [
+     2108,
+     7330
+    ]
+   ]
+  ]
+ },
+ "tanimlar": "(24.10.2026 baştan sayım):\n  eser          raflardaki eser (aynı eserin baskıları/ayet-ayet ve tam metin kayıtları tek eser)\n  eser_metinli  metni sitede okunabilen raf eseri: R2'de kitap dizini olan ya da ayet ayet metni (k2) bulunan\n  eser_metinsiz rafta kaydı olup metni sitede olmayan (yalnız alıntı kaydı bulunan) eser\n  dinler        Dinler tarihi rafındaki paralel metin (pasaj)\n  alinti        kütüphane taramasında bulunan ayet alıntısı (satır; atif/ozet)\n  alinti_eser   en az bir ayet alıntısı bulunan eser · alinti_ayet: en az bir eserde alıntılanan ayet\n  tefsir        tefsir rafındaki eser · tefsir_metinli: bunlardan metni okunabilen · tefsir_ayet: ayet ayet ayrıştırılmış tefsir (k2)\n  rivayet       ayetlere bağlı tekil selef rivayeti (Mevsûa, x/…/k4) · ravi: bu rivayetlerin râvileri (k4/raviler.json)\n  biyografi     biyografi kitaplarındaki kişi maddesi · rical_kitap: biyografi kitabı (build_rical.py)\n  yazma         el yazması Kur'an nüshası (k6/yazma.json) · yazma_tarihli: tarihi bilinen nüsha (k6/eski.json)\n  makale        ayetlere/surelere bağlanan tekil akademik makale (k8)\n  lugat         ayet sayfasındaki sözlük: kök eşleşmeli (k0/lugat.json) + ayrıştırılmış metinli (k5) olup onlarda bulunmayan\n  meal          ayet sayfasındaki Türkçe meal · hadis: ayetlere bağlı Hadis Ansiklopedisi kaydı (k4/he)\n  fihrist_konu  kütüphane fihristi konu başlığı (fh2) · muellif: raflardaki tekil müellif (Arapça adıyla)"
+}

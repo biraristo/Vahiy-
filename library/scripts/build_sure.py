@@ -49,13 +49,14 @@ inv = {k: {v: s for s, v in d.items()} for k, d in orders.items()}
 ONAME = {'mushaf': 'Mushaf tertibi', 'nuzul_misir': 'Nüzul sırası (Mısır / Kahire 1924)', 'noldeke': 'Nöldeke–Schwally'}
 
 # sayılar
+OZ_ATIF = json.load(open(f'{REPO}/site/data/y/ozet.json'))['ayetler']
 cnt = collections.defaultdict(collections.Counter)
 for s in range(1, 115):
     for a in range(1, SS[s - 1]['ayet'] + 1):
         b = json.load(gzip.open(f'{REPO}/site/data/x/{s}/{a}.json.gz'))
         c = cnt[s]
         c['rivayet'] += len(b['k4']); c['ihtilaf'] += len(b['k7']['ihtilaf']); c['fetva'] += len(b['k7']['fetva'])
-        c['alinti'] += sum(x[1] for L in b['k3'].values() for x in L)
+        c['alinti'] += (OZ_ATIF.get(f'{s}:{a}') or [0, 0])[1]  # kütüphane taraması (y/ozet.json), eski x/k3 değil
         for r in b['k4']:
             t = r.get('tur') or ''
             c['nuzul'] += 'نزول' in t; c['nesih'] += 'النسخ' in t
