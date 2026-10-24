@@ -10,7 +10,7 @@ Kullanım: python3 shamela_paket.py ayir | paketle [--yukleme-yok] [--sadece ID,
 import os, sys, re, json, gzip, sqlite3, subprocess, io, time, collections, urllib.request, concurrent.futures as cf
 SH = '/home/claude/lib/shamela/x/database'
 TMP = '/home/claude/lib/shamela/tmp/sayfa'
-KAT = '/home/claude/lib/raf/shamela_katalog.json'
+KAT = sys.argv[sys.argv.index('--kat') + 1] if '--kat' in sys.argv else '/home/claude/lib/raf/shamela_katalog.json'
 LUC = '/home/claude/lib/lucene'
 os.makedirs(TMP, exist_ok=True)
 
@@ -175,21 +175,34 @@ def paketle():
         mm = re.match(r'(\d+)\.(\d+)\.gz$', fn)
         if mm: dosyalar[mm.group(1)].append((int(mm.group(2)), f'{TMP}/{fn}'))
     kitaplar = list(m.execute('select book_id, book_name, book_category, book_date, main_author, printed, pdf_links from book'))
+    if '--ters' in sys.argv:
+        kitaplar = [k for k in reversed(kitaplar) if str(k[0]) in dosyalar]
+        # öbür süreçle buluşulan yerde dur: sayfa dosyası kalmamış kitap öbürünce yapılmıştır
+        sec = []
+        for k in kitaplar:
+            if not all(os.path.exists(p) for _, p in dosyalar[str(k[0])]): break
+            sec.append(k)
+        kitaplar = sec
     def is_(row):
         bid, ad, cat, date, main, printed, pdf = row; bid = str(bid)
         if sadece and bid not in sadece: return None
         if not sadece and bid in kat and kat[bid].get('yuklendi'): return None
+        if '--ters' in sys.argv and dosyalar.get(bid) and not all(os.path.exists(p) for _, p in dosyalar[bid]): return None
         an, ad_d = auth.get(main, (None, None))
-        secs, den = kitap_yap(bid, [p for _, p in sorted(dosyalar.get(bid, []))])
+        try: secs, den = kitap_yap(bid, [p for _, p in sorted(dosyalar.get(bid, []))])
+        except Exception as e:
+            print('HATA', bid, e, flush=True); return bid, {'ad': ad, 'hata': str(e)}
         kay = {'ad': ad, 'muellif': an, 'vefat': date if date and date < 99999 else (ad_d if ad_d and ad_d < 99999 else None), 'kategori': cats.get(cat),
                'kunye': {k: v for k, v in kunye.get(bid, {}).items() if k != 'kart'}, 'denetim': den, 'kb': 0}
         if secs and yukle:
             b, diz = paketle_bin(secs)
             ok = put(f'kitap/sh{bid}.bin', b, 'application/octet-stream') and put(f'kitap/sh{bid}.json', gzip.compress(json.dumps({'v': 1, 'b': diz}, ensure_ascii=False).encode(), 9), 'application/json', 'gzip')
             kay['kb'] = len(b) >> 10; kay['yuklendi'] = ok
+            if ok and '--sil' in sys.argv:
+                for _, fp in dosyalar.get(bid, []): os.remove(fp)
         return bid, kay
     n = 0
-    with cf.ThreadPoolExecutor(12) as ex:
+    with cf.ThreadPoolExecutor(int(os.environ.get('IS', 12))) as ex:
         for r in ex.map(is_, kitaplar):
             if not r: continue
             kat[r[0]] = r[1]; n += 1
