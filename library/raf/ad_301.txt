@@ -1,0 +1,155 @@
+6835|s|Hârûnürreşîd'e risale|Mâlik b. Enes (nisbet edilir)
+4839|s|ez-Zühd ve'r-rekāik|Abdullah b. Mübârek
+6543|s|ez-Zühd|Muâfâ b. İmrân el-Mevsılî
+6342|s|ez-Zühd|Vekî' b. Cerrâh
+2816|s|ez-Zühd|Esed b. Mûsâ
+7017|r|Kitâbü'l-İlm|Ebû Hayseme
+793|s|ez-Zühd|Ahmed b. Hanbel
+1326|s|ez-Zühd|Hennâd b. Serî
+2444|s|et-Tevehhüm|Hâris el-Muhâsibî
+2931|s|Risâletü'l-müsterşidîn|Hâris el-Muhâsibî
+6179|s|Âdâbü'n-nüfûs|Hâris el-Muhâsibî
+2108|s|el-Vera'|Ebû Bekir el-Merrûzî
+7244|k|el-Havz ve'l-Kevser|Bakī b. Mahled
+2948|s|ez-Zühd|Ebû Hâtim er-Râzî
+1848|s|Kitâbü'l-İyâl|İbn Ebü'd-Dünyâ
+1944|s|Mekârimü'l-ahlâk|İbn Ebü'd-Dünyâ
+1974|s|el-Ukūbât|İbn Ebü'd-Dünyâ
+2065|s|er-Rikka ve'l-bükâ|İbn Ebü'd-Dünyâ
+2093|k|Sıfatü'l-cenne|İbn Ebü'd-Dünyâ
+2101|s|el-Muhtadarîn|İbn Ebü'd-Dünyâ
+2277|k|el-Ehvâl|İbn Ebü'd-Dünyâ
+2298|s|el-Kubûr|İbn Ebü'd-Dünyâ
+2371|k|Sıfatü'n-nâr|İbn Ebü'd-Dünyâ
+2479|s|Mücâbü'd-da've|İbn Ebü'd-Dünyâ
+2563|s|el-Vera'|İbn Ebü'd-Dünyâ
+2602|s|el-İhvân|İbn Ebü'd-Dünyâ
+2618|s|el-Kanâa ve't-teaffüf|İbn Ebü'd-Dünyâ
+2683|s|el-Emr bi'l-ma'rûf ve'n-nehy ani'l-münker|İbn Ebü'd-Dünyâ
+2709|s|Zemmü'l-gıybe ve'n-nemîme|İbn Ebü'd-Dünyâ
+2807|s|er-Rızâ anillâh|İbn Ebü'd-Dünyâ
+2904|s|el-Hilm|İbn Ebü'd-Dünyâ
+3045|s|Zemmü'l-müskir|İbn Ebü'd-Dünyâ
+3049|s|Fezâilü Ramazân|İbn Ebü'd-Dünyâ
+3056|s|et-Tevekkül alallâh|İbn Ebü'd-Dünyâ
+3167|s|el-Yakīn|İbn Ebü'd-Dünyâ
+5819|s|ez-Zühd|İbn Ebü'd-Dünyâ
+5829|s|Zemmü'd-dünyâ|İbn Ebü'd-Dünyâ
+5915|s|es-Samt ve âdâbü'l-lisân|İbn Ebü'd-Dünyâ
+6032|s|el-İşrâf fî menâzili'l-eşrâf|İbn Ebü'd-Dünyâ
+6075|s|et-Teheccüd ve kıyâmü'l-leyl|İbn Ebü'd-Dünyâ
+6195|s|el-Menâmât|İbn Ebü'd-Dünyâ
+6261|s|Islâhu'l-mâl|İbn Ebü'd-Dünyâ
+6269|s|Kasrü'l-emel|İbn Ebü'd-Dünyâ
+6368|s|el-Hevâtif|İbn Ebü'd-Dünyâ
+6426|s|el-Cû'|İbn Ebü'd-Dünyâ
+6499|s|el-Maraz ve'l-keffârât|İbn Ebü'd-Dünyâ
+6519|s|el-Uzle ve'l-infirâd|İbn Ebü'd-Dünyâ
+6541|s|es-Sabr ve's-sevâb aleyh|İbn Ebü'd-Dünyâ
+6639|s|et-Tevbe|İbn Ebü'd-Dünyâ
+6641|s|et-Tevâzu' ve'l-humûl|İbn Ebü'd-Dünyâ
+6648|t|Maktelü Emîri'l-mü'minîn Alî|İbn Ebü'd-Dünyâ
+6659|s|el-Evliyâ|İbn Ebü'd-Dünyâ
+6665|s|Zemmü'l-melâhî|İbn Ebü'd-Dünyâ
+6674|s|eş-Şükr|İbn Ebü'd-Dünyâ
+6703|s|Hüsnü'z-zan billâh|İbn Ebü'd-Dünyâ
+6711|s|el-Matar ve'r-ra'd ve'l-berk ve'r-rîh|İbn Ebü'd-Dünyâ
+6719|s|Muhâsebetü'n-nefs|İbn Ebü'd-Dünyâ
+6722|s|el-Ferec ba'de'ş-şidde|İbn Ebü'd-Dünyâ
+6756|s|Müdârâtü'n-nâs|İbn Ebü'd-Dünyâ
+6759|s|el-Hemm ve'l-hazen|İbn Ebü'd-Dünyâ
+6793|s|el-İ'tibâr ve a'kābü's-sürûr|İbn Ebü'd-Dünyâ
+6817|s|Men âşe ba'de'l-mevt|İbn Ebü'd-Dünyâ
+6854|s|el-Mütemennîn|İbn Ebü'd-Dünyâ
+6915|s|Mekâidü'ş-şeytân|İbn Ebü'd-Dünyâ
+7008|s|Kırâ'd-dayf|İbn Ebü'd-Dünyâ
+7049|s|el-Akl ve fazluh|İbn Ebü'd-Dünyâ
+7055|s|el-Vecel ve't-tevessuk bi'l-amel|İbn Ebü'd-Dünyâ
+7107|s|el-Ömr ve'ş-şeyb|İbn Ebü'd-Dünyâ
+7154|s|et-Tevekkül alallâh|İbn Ebü'd-Dünyâ
+7159|s|Kelâmü'l-leyâlî ve'l-eyyâm|İbn Ebü'd-Dünyâ
+7182|s|Zemmü'l-bağy|İbn Ebü'd-Dünyâ
+7265|s|el-İhlâs|İbn Ebü'd-Dünyâ
+6866|s|İkrâmü'd-dayf|İbrâhim el-Harbî
+2498|s|ez-Zühd|İbn Ebû Âsım
+3182|s|el-Müzekkir ve't-tezkîr|İbn Ebû Âsım
+1243|h|Amelü'l-yevm ve'l-leyle|Nesâî
+6577|s|el-Mürûe|İbnü'l-Merzübân
+2205|s|el-A'zâ ve'n-nefs|Hakîm et-Tirmizî
+2364|s|Edebü'n-nefs|Hakîm et-Tirmizî
+2538|s|Riyâzatü'n-nefs|Hakîm et-Tirmizî
+5974|s|el-Menhiyyât|Hakîm et-Tirmizî
+6127|s|Hatmü'l-evliyâ|Hakîm et-Tirmizî
+7125|s|el-Akl ve'l-hevâ|Hakîm et-Tirmizî
+5609|s|el-Afv ve'l-i'tizâr|Ebü'l-Hasan el-Abdî
+1842|s|Mekârimü'l-ahlâk'tan seçmeler|Harâitî
+2079|r|Âdâbü'ş-Şâfiî ve menâkıbüh|İbn Ebû Hâtim
+5391|s|İ'tilâlü'l-kulûb|Harâitî
+6963|s|Fazîletü'ş-şükr|Harâitî
+6608|l|Yâkūtetü's-sırât|Ğulâm Sa'leb
+7118|s|el-Fevâid ve'z-zühd ve'r-rekāik ve'l-merâsî|Ca'fer el-Huldî
+5434|s|Ravzatü'l-ukalâ|İbn Hibbân
+2461|s|Ahlâku ehli'l-Kur'ân|Âcurrî
+2478|s|Ahlâku'l-ulemâ|Âcurrî
+6911|s|el-Gurebâ|Âcurrî
+2440|s|el-Muhâtabât|Niffer
+6134|s|el-Mevâkıf|Niffer
+2389|s|et-Tevbîh ve't-tenbîh|Ebü'ş-Şeyh el-İsbahânî
+1435|s|Bostânü'l-ârifîn|Ebü'l-Leys es-Semerkandî
+4789|s|Tenbîhü'l-ğâfilîn|Ebü'l-Leys es-Semerkandî
+4357|s|Kūtü'l-kulûb|Ebû Tâlib el-Mekkî
+6189|h|el-Câmi' fi's-sünen ve'l-âdâb|İbn Ebû Zeyd el-Kayrevânî
+2048|s|el-Uzle|Hattâbî
+6202|h|Şe'nü'd-duâ|Hattâbî
+7052|s|Uyûbü'n-nefs|Sülemî
+7332|s|Vasiyyet|Sülemî
+5703|x|Tehzîbü'l-ahlâk|Miskeveyh
+6890|x|Dürerü'l-hikem|Seâlibî
+4930|x|Resâilü'l-hikme 41–111|Dürzî müellifler
+5443|x|Resâilü'l-hikme 1–40|Dürzî müellifler
+5120|s|Edebü'd-dünyâ ve'd-dîn|Mâverdî
+6313|x|el-Emsâl ve'l-hikem|Mâverdî
+6271|s|Düstûru meâlimi'l-hikem|Kudâî
+6446|s|el-Ahlâk ve's-siyer|İbn Hazm
+6524|s|et-Telhîs li-vücûhi't-tahlîs|İbn Hazm
+1438|s|ez-Zühdü'l-kebîr|Beyhakī
+2906|s|et-Tevekkül|Kādî Ebû Ya'lâ el-Ferrâ
+4816|x|Behcetü'l-mecâlis|İbn Abdülber
+7014|s|Edebü'l-mücâlese|İbn Abdülber
+7416|l|Nahvü'l-kulûb|Kuşeyrî
+821|s|er-Risâletü'l-Kuşeyriyye|Kuşeyrî
+2916|s|en-Nasîhatü'l-velediyye|Bâcî
+6596|s|Menâzilü's-sâirîn|Herevî
+4980|s|Gurerü'l-hikem ve dürerü'l-kelim|Abdülvâhid el-Âmidî
+1408|s|ez-Zerîa ilâ mekârimi'ş-şerîa|Râğıb el-İsfahânî
+2284|s|Tafsîlü'n-neş'eteyn|Râğıb el-İsfahânî
+1427|x|Makāsıdü'l-felâsife|Gazzâlî
+1780|s|Mîzânü'l-amel|Gazzâlî
+2045|s|Sırrü'l-âlemîn|Gazzâlî (nisbet edilir)
+2367|s|Bidâyetü'l-hidâye|Gazzâlî
+4175|s|İhyâü ulûmi'd-dîn|Gazzâlî
+6591|s|el-Munkız mine'd-dalâl|Gazzâlî
+6637|s|Mişkâtü'l-envâr|Gazzâlî
+6878|s|Asnâfü'l-mağrûrîn|Gazzâlî
+7192|s|Kîmyâ-yı saâdet|Gazzâlî
+3299|s|Fusûlü'l-âdâb|İbn Akīl
+5547|s|Künûzü'l-hikme|Ahmed-i Câm (Jende Pîl)
+2809|s|Atvâku'z-zeheb|Zemahşerî
+4872|s|Mekârimü'l-ahlâk|Tabersî (Hasan b. Fazl)
+4634|s|el-Ğunye li-tâlibî tarîki'l-hak|Abdülkādir-i Geylânî
+6720|s|Ta'ziyetü'l-müslim|İbn Asâkir
+2053|s|el-Müstağîsîne billâh|İbn Beşküvâl
+5230|s|el-Âkıbe fî zikri'l-mevt|Abdülhak el-İşbîlî
+994|s|Islâhu'l-ahlâk|İbnü'l-Arîf (?)
+1350|x|el-Ezkiyâ|İbnü'l-Cevzî
+1661|s|el-Birr ve's-sıla|İbnü'l-Cevzî
+1890|s|Bahrü'd-dümû'|İbnü'l-Cevzî
+2209|s|es-Sebât inde'l-memât|İbnü'l-Cevzî
+2264|s|el-Letâif|İbnü'l-Cevzî
+2580|s|el-Muklık|İbnü'l-Cevzî
+2606|s|el-Yâkūte|İbnü'l-Cevzî
+2682|r|el-Hass alâ hıfzi'l-ilm|İbnü'l-Cevzî
+2703|s|el-Leâlî|İbnü'l-Cevzî
+2844|s|el-Mensûr|İbnü'l-Cevzî
+3096|s|Lefteü'l-kebid|İbnü'l-Cevzî
+4630|s|et-Tabsıra|İbnü'l-Cevzî

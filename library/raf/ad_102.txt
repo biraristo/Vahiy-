@@ -1,0 +1,240 @@
+4882|u|Bezlü'n-nazar fi'l-usûl|Alâeddin el-Üsmendî
+5056|f|Tarîkatü'l-hilâf|Alâeddin el-Üsmendî
+49|f|el-Beyân|İmrânî
+1008|f|el-Vesîle|İbn Hamza et-Tûsî
+4943|f|İhtilâfü'l-eimmeti'l-ulemâ|İbn Hübeyre
+5013|f|el-Furûk|Kerâbîsî en-Nîsâbûrî
+5149|u|el-Adl ve'l-insâf|Ebû Ya'kūb el-Vercelânî
+6978|f|el-Erbaûn fi'l-hass ale'l-cihâd|İbn Asâkir
+5779|h|ed-Daavât|Kutbüddin er-Râvendî
+4303|h|el-Ahkâmü'ş-şer'iyyetü'l-kübrâ|Abdülhak el-İşbîlî
+7361|k|İsbâtü'l-a'râz muhtasarı|Hasan er-Rassâs
+6076|f|Şerhu'n-Nüket|Ebû Nasr el-Attâbî
+4128|f|Bedâiu's-sanâi'|Kâsânî
+1730|f|el-Menhecü'l-meslûk fî siyâseti'l-mülûk|Abdurrahman eş-Şeyzerî
+2253|f|Nihâyetü'r-rütbe fî talebi'l-hisbe|Abdurrahman eş-Şeyzerî
+167|f|Fetâvâ Kādîhân|Kādîhân
+4727|f|Takvîmü'n-nazar|İbnü'd-Dehhân
+2664|f|Metnü Ebî Şücâ' (el-Ğâye ve't-takrîb)|Ebû Şücâ' el-İsfahânî
+4398|f|el-Hidâye|Merğînânî
+5278|f|Bidâyetü'l-mübtedî|Merğînânî
+4445|f|Bidâyetü'l-müctehid|İbn Rüşd (Hafîd)
+6238|u|ed-Darûrî fî usûli'l-fıkh|İbn Rüşd (Hafîd)
+908|x|Tehâfütü't-Tehâfüt|İbn Rüşd (Hafîd)
+5009|x|Muhtasaru acâibi'd-dünyâ|İbn Vasîf Şah
+1262|l|Nüzhetü'l-a'yüni'n-nevâzır|İbnü'l-Cevzî
+7064|f|Ta'zîmü'l-fütyâ|İbnü'l-Cevzî
+4308|f|es-Serâir|İbn İdrîs el-Hillî
+5323|r|el-Muhtasar min Kitâbi's-Siyâk|Abdülğâfir el-Fârisî
+5750|h|Umdetü'l-ahkâmi'l-kübrâ|Abdülğanî el-Makdisî
+5135|f|el-Mühezzeb fî fetâvâ'l-İmâm el-Mansûr Billâh|Mansûr Billâh Abdullah b. Hamza
+440|u|el-Mahsûl|Fahreddin er-Râzî
+1035|u|Safvetü'l-ihtiyâr|Mansûr Billâh Abdullah b. Hamza
+2257|f|el-Furûk|İbn Süneyne es-Sâmerrî
+314|f|Ikdü'l-cevâhiri's-semîne|İbn Şâs
+4110|f|el-Muhîtu'l-Burhânî|Burhâneddin İbn Mâze
+4414|u|et-Tahkīk ve'l-beyân|Ebyârî
+1274|f|Umdetü'l-hâzım|İbn Kudâme
+257|f|el-Kâfî|İbn Kudâme
+333|f|el-Mukni'|İbn Kudâme
+36|f|el-Muğnî|İbn Kudâme
+385|u|ed-Dav'ü'l-bâhir (Ravza şerhi)|İbn Kudâme (şerh)
+5324|u|Ravzatü'n-nâzır|İbn Kudâme
+6041|f|Umdetü'l-fıkh|İbn Kudâme
+4197|f|Fethu'l-azîz (eş-Şerhu'l-kebîr)|Râfiî
+4595|f|el-Udde şerhu'l-Umde|Bahâüddin el-Makdisî
+6029|f|Nihâyetü'r-rütbe fî talebi'l-hisbe|İbn Bessâm
+927|f|el-İknâ' fî mesâili'l-icmâ'|İbnü'l-Kattân el-Fâsî
+5906|f|Tehzîbü'r-riyâse|Kal'î
+4460|u|el-İhkâm fî usûli'l-ahkâm|Seyfeddin el-Âmidî
+5369|f|en-Nûr|Osman el-Esam
+153|f|Menâhicü't-tahsîl|Recrâcî
+6498|f|en-Nasîha li'r-râî ve'r-raiyye|Bedel et-Tebrîzî
+2418|f|Edebü'l-müftî ve'l-müsteftî|İbnü's-Salâh
+271|h|es-Sünen ve'l-ahkâm|Ziyâüddin el-Makdisî
+4733|f|Fetâvâ İbni's-Salâh|İbnü's-Salâh
+533|f|Şerhu müşkili'l-Vasît|İbnü's-Salâh
+4774|u|Şerhu'l-Meâlim|İbnü't-Tilimsânî
+4992|f|Câmiu'l-ümmehât|İbnü'l-Hâcib
+5024|f|el-Muharrer fi'l-fıkh|Mecdüddin İbn Teymiyye
+1543|f|Îsârü'l-insâf|Sıbt İbnü'l-Cevzî
+6012|u|Tahrîcü'l-furû' ale'l-usûl|Zencânî
+218|f|el-Ğâye fi'htisâri'n-Nihâye|İzzeddin b. Abdüsselâm
+6304|u|el-İmâm fî beyâni edilleti'l-ahkâm|İzzeddin b. Abdüsselâm
+6454|f|el-Fevâid fi'htisâri'l-Makāsıd|İzzeddin b. Abdüsselâm
+7122|f|Ahkâmü'l-cihâd ve fezâilüh|İzzeddin b. Abdüsselâm
+815|f|Kavâidü'l-ahkâm fî mesâlihi'l-enâm|İzzeddin b. Abdüsselâm
+4372|h|Şifâü'l-evâm|Hüseyin b. Bedreddin
+2190|u|el-Müemmel'in hutbesi|Ebû Şâme
+6874|u|Muhtasarü'l-Müemmel|Ebû Şâme
+2360|f|Tuhfetü'l-mülûk|Zeynüddin er-Râzî
+2702|f|el-Cevherü'n-nefîs fî siyâseti'r-reîs|İbnü'l-Haddâd
+438|f|Ravzatü'l-müstebîn|İbn Bezîze
+1179|f|Minhâcü't-tâlibîn|Nevevî
+1382|f|el-Muhtasarü'n-nâfi'|Muhakkık el-Hillî
+1628|f|el-Îzâh fî menâsiki'l-hac|Nevevî
+1769|k|el-Meslek fî usûli'd-dîn|Muhakkık el-Hillî
+1955|f|el-Mesâilü'l-mensûre (Fetâvâ)|Nevevî
+3288|f|el-Usûl ve'd-davâbıt|Nevevî
+4132|f|el-Mecmû'|Nevevî
+4163|f|Ravzatü't-tâlibîn|Nevevî
+4213|h|el-Minhâc şerhu Sahîhi Müslim|Nevevî
+4464|f|el-Mu'teber|Muhakkık el-Hillî
+4638|f|Şerâiu'l-İslâm|Muhakkık el-Hillî
+5719|l|Tahrîru elfâzi't-Tenbîh|Nevevî
+6044|u|Meâricü'l-usûl|Muhakkık el-Hillî
+6801|f|Âdâbü'l-fetvâ|Nevevî
+6888|f|Dekāiku'l-Minhâc|Nevevî
+2780|s|Keşfü'l-esrâr an hikemi't-tuyûr ve'l-ezhâr|İzzeddin b. Ğânim el-Makdisî
+1070|u|et-Tahsîl mine'l-Mahsûl|Sirâceddin el-Urmevî
+38|f|eş-Şerhu'l-kebîr|Şemseddin İbn Kudâme
+365|f|el-İhtiyâr li-ta'lîli'l-Muhtâr|Mevsılî
+136|u|Nefâisü'l-usûl|Karâfî
+2003|f|el-İhkâm fî temyîzi'l-fetâvâ ani'l-ahkâm|Karâfî
+2657|u|el-İhtimâlâtü'l-mercûha|Karâfî
+4482|f|el-Furûk|Karâfî
+4857|u|el-Ikdü'l-manzûm fi'l-husûs ve'l-umûm|Karâfî
+4878|u|Şerhu Tenkīhi'l-fusûl|Karâfî
+6601|f|el-Ümniyye fî idrâki'n-niyye|Karâfî
+67|f|ez-Zahîre|Karâfî
+6448|u|Minhâcü'l-vusûl|Beyzâvî
+820|f|el-Lübâb fi'l-cem' beyne's-sünne ve'l-kitâb|Cemâleddin el-Menbicî
+1929|f|Nüzhetü'n-nâzır|Yahyâ b. Saîd el-Hillî
+789|f|el-Câmi' li'ş-şerâi'|Yahyâ b. Saîd el-Hillî
+487|f|Keşfü'r-rumûz|Fâzıl el-Âbî
+1289|u|Bedîu'n-nizâm|İbnü's-Sââtî
+4258|f|el-Mümti' fî şerhi'l-Mukni'|İbnü'l-Müneccâ
+5679|f|Nisâbü'l-ihtisâb|Ömer es-Sünâmî
+436|f|Muhtasaru Hilâfiyyâti'l-Beyhakī|İbn Ferh el-İşbîlî
+5895|k|Kavâidü'l-merâm|İbn Meysem el-Bahrânî
+3195|k|Ucâletü'l-ma'rife|Muhammed b. Saîd er-Râvendî
+4735|f|Câmiu'l-hilâf ve'l-vifâk|Ali b. Muhammed el-Kummî
+5419|k|Meâricü'l-yakīn|Muhammed es-Sebzevârî
+649|f|Tertîbü'l-Furûk|Bakkūrî
+1218|t|el-Fahrî fi'l-âdâbi's-sultâniyye|İbnü't-Tıktakā
+5180|l|el-Mutli' alâ ebvâbi'l-fıkh|Ba'lî
+2849|u|el-Menâr|Ebü'l-Berekât en-Nesefî
+4102|f|Kifâyetü'n-nebîh|İbnü'r-Rif'a
+4434|u|el-Kâfî şerhu'l-Pezdevî|Hüsâmeddin es-Siğnâkī
+203|u|Nihâyetü'l-vusûl|Safiyyüddin el-Hindî
+4770|u|el-Fâik|Safiyyüddin el-Hindî
+4356|u|Şerhu Muhtasari'r-Ravza|Tûfî
+5187|f|el-Eşbâh ve'n-nezâir|İbnü'l-Vekîl
+5307|u|Der'ü'l-kavli'l-kabîh|Tûfî
+101|f|Müntehe'l-matlab|Allâme Hillî
+1813|f|Tabsıratü'l-müteallimîn|Allâme Hillî
+1984|k|Minhâcü'l-kerâme|Allâme Hillî
+356|f|Kavâidü'l-ahkâm|Allâme Hillî
+4177|f|Tezkiretü'l-fukahâ|Allâme Hillî
+4217|f|Muhtelefü'ş-Şîa|Allâme Hillî
+4292|f|Tahrîrü'l-ahkâm|Allâme Hillî
+461|f|Nihâyetü'l-ahkâm|Allâme Hillî
+6035|u|Tehzîbü'l-vusûl|Allâme Hillî
+6370|k|en-Nâfi' yevme'l-haşr|Allâme Hillî (şerh: Mikdâd es-Süyûrî)
+6435|k|er-Risâletü's-Sa'diyye|Allâme Hillî
+6683|u|Mebâdiü'l-vusûl|Allâme Hillî
+862|k|Keşfü'l-murâd|Allâme Hillî
+2078|f|el-Mesâilü'l-Mârdîniyye|İbn Teymiyye
+2439|f|Dârü'r-Rekâiz takdim nüshası|İbn Teymiyye
+3079|f|el-Mezâlimü'l-müşterake|İbn Teymiyye
+334|f|el-Leâli'n-neyyirât fî fetâva'l-ibâdât|İbn Teymiyye
+4145|f|Kütüb ve resâil ve fetâvâ|İbn Teymiyye
+5258|f|el-Kavâidü'n-nûrâniyye|İbn Teymiyye
+6068|f|es-Siyâsetü'ş-şer'iyye|İbn Teymiyye
+6657|f|el-İhtiyârâtü'l-fıkhiyye|İbn Teymiyye (der. Ba'lî)
+6925|f|Hicâbü'l-mer'e ve libâsühâ fi's-salât|İbn Teymiyye
+755|u|el-Müsevvede fî usûli'l-fıkh|Âl-i Teymiyye
+884|k|Câmiu'r-resâil|İbn Teymiyye
+5581|f|Meâlimü'l-kurbe|İbnü'l-Uhuvve
+4218|u|Keşfü'l-esrâr|Abdülazîz el-Buhârî
+5376|f|el-Vecîz|Hüseyin ed-Dücaylî
+6163|f|İrşâdü's-sâlik|İbn Asker
+6099|f|Tahrîrü'l-ahkâm fî tedbîri ehli'l-İslâm|Bedreddin İbn Cemâa
+869|f|Lübâbü'l-lübâb|İbn Râşid el-Kafsî
+4387|f|el-Medhal|İbnü'l-Hâc
+6775|u|Kavâidü'l-usûl|Safiyyüddin el-Bağdâdî
+1208|f|Îzâhu'd-delâil|Zerîrânî
+2369|u|Takrîbü'l-vusûl|İbn Cüzey
+856|f|el-Kavânînü'l-fıkhiyye|İbn Cüzey
+105|f|Tebyînü'l-hakāik|Fahreddin ez-Zeylaî
+6676|f|İhtiyârâtü İbn Teymiyye|İbn Abdülhâdî
+865|u|et-Tavzîh li-metni't-Tenkīh|Sadrüşşerîa
+5412|f|Miftâhu'l-hidâye|Muhammed b. Osman
+1362|t|et-Ta'rîf bi'l-mustalahi'ş-şerîf|İbn Fazlullah el-Ömerî
+186|f|el-İntisâr alâ ulemâi'l-emsâr|Müeyyed Billâh Yahyâ
+4515|u|Beyânü'l-Muhtasar|Şemseddin el-İsfahânî
+5529|f|el-Münevver fî râcihi'l-Muharrer|Takıyyüddin el-Âdemî
+4874|f|Menâsikü'l-hac|İsmâîl el-Cîtâlî
+939|f|Kavâidü'l-İslâm|İsmâîl el-Cîtâlî
+4641|s|İğâsetü'l-lehfân|İbn Kayyim el-Cevziyye
+5178|f|et-Turuku'l-hükmiyye|İbn Kayyim el-Cevziyye
+1594|f|Kazâü'l-ereb fî es'ileti Haleb|Takıyyüddin es-Sübkî
+258|f|Fetâva's-Sübkî|Takıyyüddin es-Sübkî
+4254|u|Şerhu'l-Adud alâ Muhtasari'l-Müntehâ|Adudüddin el-Îcî
+4466|u|el-İbhâc|Takıyyüddin es-Sübkî
+5385|f|Şifâü's-sekām|Takıyyüddin es-Sübkî
+6411|f|Kiliselerin tamiri meselesi|Takıyyüddin es-Sübkî
+2363|f|Tuhfetü't-Türk|Necmeddin et-Tarsûsî
+6028|f|el-Kavâid|Makkarî
+2037|u|Tahkīku'l-murâd|Alâî
+2404|f|İcmâlü'l-isâbe|Alâî
+460|f|el-Mecmûu'l-müzheb|Alâî
+2325|h|ed-Dürrü'l-manzûm|Moğultay
+4200|f|el-Furû'|İbn Müflih
+749|u|Usûlü'l-fıkh|İbn Müflih
+4150|f|et-Tavzîh|Halîl b. İshak
+5520|f|Muhtasaru Halîl|Halîl b. İshak
+1658|f|Umdetü's-sâlik|İbnü'n-Nakīb
+4206|f|Îzâhu'l-fevâid|Fahrülmuhakkıkīn
+1841|u|Miftâhu'l-vusûl|Şerîf et-Tilimsânî
+1859|s|Mu'îdü'n-ni'am|Tâceddin es-Sübkî
+264|u|Ref'u'l-hâcib|Tâceddin es-Sübkî
+478|f|el-Eşbâh ve'n-nezâir|Tâceddin es-Sübkî
+7070|u|Mesârâtü'l-ğalat|Şerîf et-Tilimsânî
+1277|u|et-Temhîd|İsnevî
+1773|u|el-Kevkebü'd-dürrî|İsnevî
+4181|f|el-Mühimmât|İsnevî
+4267|f|Şerhu'z-Zerkeşî alâ Muhtasari'l-Hırakī|Şemseddin ez-Zerkeşî
+4702|f|el-Hidâye ilâ evhâmi'l-Kifâye|İsnevî
+5657|f|Metâliu'd-dekāik|İsnevî
+573|u|Nihâyetü's-sûl|İsnevî
+4517|u|Tuhfetü'l-mes'ûl|Rehûnî
+5743|f|el-Ğurretü'l-münîfe|Ebû Hafs el-Gaznevî
+6410|f|Hüsnü's-sülûk|Mevsılî
+4779|f|Muhtasaru'l-Fetâva'l-Mısriyye|Ba'lî
+6456|f|et-Teshîl|Ba'lî
+1290|f|el-Beyân|Şehîd-i Evvel
+1631|f|el-Lüm'atü'd-Dımaşkıyye|Şehîd-i Evvel
+331|f|Zikra'ş-Şîa|Şehîd-i Evvel
+4192|f|el-İnâye|Bâbertî
+4558|u|er-Rudûd ve'n-nukūd|Bâbertî
+4589|f|ed-Durûs|Şehîd-i Evvel
+5052|f|el-Kavâid ve'l-fevâid|Şehîd-i Evvel
+7268|f|ed-Dürretü'l-bâhire|Şehîd-i Evvel
+710|t|Tahrîcü'd-delâlâti's-sem'iyye|Huzâî
+4473|u|el-Muvâfakāt|Şâtıbî
+261|u|Şerhu't-Telvîh|Teftâzânî
+450|u|et-Telvîh|Teftâzânî
+4505|f|el-Meâni'l-bedîa|Reymî
+4542|f|et-Tenbîh alâ müşkilâti'l-Hidâye|İbn Ebü'l-İz
+4813|f|el-Îzâh, 1. cilt|Âmir eş-Şemmâhî
+158|u|el-Bahrü'l-muhît|Bedreddin ez-Zerkeşî
+1994|f|Hebâya'z-zevâyâ|Bedreddin ez-Zerkeşî
+2858|f|Tashîhu'l-Umde|Bedreddin ez-Zerkeşî
+371|u|Teşnîfü'l-mesâmi'|Bedreddin ez-Zerkeşî
+538|f|el-Mensûr fi'l-kavâid|Bedreddin ez-Zerkeşî
+6118|u|Selâsilü'z-zeheb|Bedreddin ez-Zerkeşî
+6210|h|el-İcâbe|Bedreddin ez-Zerkeşî
+4688|f|el-Kavâid|İbn Receb
+7150|f|Lâ darar ve lâ dırâr kaidesi|İbn Receb
+4531|f|Tabsıratü'l-hükkâm|İbn Ferhûn
+5353|f|İrşâdü's-sâlik ilâ ef'âli'l-menâsik|İbn Ferhûn
+4366|f|el-Cevheretü'n-neyyire|Haddâdî
+1198|u|el-Kavâid ve'l-fevâidü'l-usûliyye|İbnü'l-Lehhâm
+2315|u|el-Muhtasar fî usûli'l-fıkh|İbnü'l-Lehhâm
+490|h|Mu'tasaru'l-Muhtasar|Cemâleddin el-Malatî
+57|f|el-Muhtasarü'l-fıkhî|İbn Arafe
+6837|f|el-İhtiyârâtü'l-ilmiyye|İbnü'l-Lehhâm
+183|h|el-İ'lâm bi-fevâidi Umdeti'l-ahkâm|İbnü'l-Mülakkın
+270|f|Ucâletü'l-muhtâc|İbnü'l-Mülakkın
+4763|f|el-Eşbâh ve'n-nezâir|İbnü'l-Mülakkın

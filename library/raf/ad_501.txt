@@ -1,0 +1,180 @@
+1957|t|Sîretü Ömer b. Abdülazîz|Abdullah b. Abdülhakem
+2781|t|Ahbârü'l-vâfidât mine'n-nisâ|Abbâs b. Bekkâr ed-Dabbî
+7034|t|Ahbârü'l-vâfidîn mine'r-ricâl|Abbâs b. Bekkâr ed-Dabbî
+74|r|et-Tabakātü'l-kübrâ|İbn Sa'd
+5545|r|Tabakātü fuhûli'ş-şuarâ|İbn Sellâm el-Cumahî
+5784|r|Ma'rifetü'r-ricâl (İbn Muhriz rivayeti)|Yahyâ b. Maîn
+6920|r|Aşere-i mübeşşere evladından rivayet edenler|Ali b. Medînî es-Sa'dî
+1391|r|Tabakātü Halîfe|Halîfe b. Hayyât
+2938|r|el-Esâmî ve'l-künâ|Ahmed b. Hanbel
+1126|r|et-Târîhu's-sağîr|Buhârî
+4307|r|et-Târîhu'l-kebîr|Buhârî
+6798|r|Ahvâlü'r-ricâl|Cûzcânî
+5737|r|Ma'rifetü's-sikāt|İclî
+6620|r|el-Münferidât ve'l-vühdân|Müslim
+2459|r|Sîretü'l-İmâm Ahmed b. Hanbel|Sâlih b. Ahmed b. Hanbel
+965|r|Târîhu İbn Maîn (Dûrî rivayeti)|Abbâs ed-Dûrî
+6614|r|Ricâlü'l-Berkī|Ahmed b. Muhammed el-Berkī
+5811|r|Suâlâtü'l-Âcurrî li-Ebî Dâvûd|Ebû Dâvûd
+369|r|et-Târîhu'l-kebîr|İbn Ebû Hayseme
+471|r|el-Âhâd ve'l-mesânî|İbn Ebû Âsım
+6771|t|el-Evâil|İbn Ebû Âsım
+5584|r|Târîhu Vâsıt|Bahşel
+5332|r|Tabakātü'ş-şuarâ|İbnü'l-Mu'tez
+6356|r|Adı Amr olan şairler|Muhammed b. Dâvûd el-Cerrâh
+6307|t|Fezâilü's-sahâbe|Nesâî
+4545|r|Ahbârü'l-kudât|Vekî' (Muhammed b. Halef)
+4611|r|Mu'cemü's-sahâbe|Ebü'l-Kāsım el-Beğavî
+1241|r|Kabûlü'l-ahbâr ve ma'rifetü'r-ricâl|Ebü'l-Kāsım el-Belhî (Ka'bî)
+4447|r|ed-Duafâü'l-kebîr|Ukaylî
+2177|r|Beyânü hataı'l-Buhârî|İbn Ebû Hâtim
+4195|r|el-Cerh ve't-ta'dîl|İbn Ebû Hâtim
+500|r|Ricâlü'l-Keşşî (Mîr Dâmâd ta'lîkātıyla)|Keşşî
+5381|r|el-Vüzerâ ve'l-küttâb|Cehşiyârî
+1976|r|Tabakātü ulemâi İfrîkıyye|Ebü'l-Arab et-Temîmî
+5760|r|Ahbârü Ebi'l-Kāsım ez-Zeccâcî|Zeccâcî
+5113|r|Târîhu İbn Yûnus|İbn Yûnus es-Sadefî
+1515|r|Vülâtü Mısr|Ömer el-Kindî
+806|r|Mu'cemü's-sahâbe|İbn Kāni'
+215|r|es-Sikāt|İbn Hibbân
+5781|r|Meşâhîru ulemâi'l-emsâr|İbn Hibbân
+582|r|el-Mecrûhîn|İbn Hibbân
+6942|t|Ahbârü Ömer b. Abdülazîz|Âcurrî
+7040|t|el-Evâil|Taberânî
+43|x|el-Eğânî|Ebü'l-Ferec el-İsfahânî
+4198|r|el-Kâmil fî duafâi'r-ricâl|İbn Adî
+2601|r|Ahbârü'n-nahviyyîne'l-Basriyyîn|Sîrâfî
+937|r|Tabakātü'l-muhaddisîn bi-İsbahân|Ebü'ş-Şeyh el-İsbahânî
+2630|r|Hz. Peygamber'den rivayet eden sahâbîler|Ebü'l-Feth el-Ezdî
+4488|r|el-Esâmî ve'l-künâ|Ebû Ahmed el-Hâkim
+1504|r|Tabakātü'n-nahviyyîn ve'l-lüğaviyyîn|Zübeydî
+1074|r|Mu'cemü'ş-şuarâ|Merzübânî
+524|r|el-Mü'telif ve'l-muhtelif|Dârekutnî
+5997|r|el-Mecrûhîn'e ta'lîkāt|Dârekutnî
+2279|r|el-Mübhic|İbn Cinnî
+4880|r|Fethu'l-bâb fi'l-künâ ve'l-elkāb|İbn Mende
+5160|r|Ma'rifetü's-sahâbe|İbn Mende
+1075|r|el-Hidâye ve'l-irşâd|Kelâbâzî
+6141|r|Mu'cemü'ş-şüyûh|İbn Cümey' es-Saydâvî
+6677|r|el-Mu'cem fî müştebihi esâmi'l-muhaddisîn|Ebü'l-Fazl el-Herevî
+2747|r|Tabakātü's-sûfiyye|Sülemî
+1360|x|Ahlâku'l-vezîreyn|Ebû Hayyân et-Tevhîdî
+6537|r|Târîhu ulemâi ehli Mısr|İbnü't-Tahhân
+4907|r|Ricâlü Sahîhi Müslim|İbn Mencûye
+4369|r|Yetîmetü'd-dehr|Seâlibî
+140|r|Ma'rifetü's-sahâbe|Ebû Nuaym el-İsbahânî
+4160|r|Hilyetü'l-evliyâ|Ebû Nuaym el-İsbahânî
+6849|r|ed-Duafâ|Ebû Nuaym el-İsbahânî
+1736|r|Ahbâru Ebî Hanîfe ve ashâbih|Saymerî
+2534|r|Târîhu'l-ulemâi'n-nahviyyîn|Tenûhî (Mufaddal)
+1130|r|el-İrşâd fî ma'rifeti ulemâi'l-hadîs|Halîlî
+976|r|Tuhfetü'l-ümerâ fî târîhi'l-vüzerâ|Hilâl es-Sâbî
+5152|r|Ricâlü'n-Necâşî|Necâşî
+4884|r|Cemheretü ensâbi'l-Arab|İbn Hazm
+4792|r|Menâkıbü'ş-Şâfiî|Beyhakī
+1381|r|Ricâlü't-Tûsî|Şeyh Tûsî
+4940|r|İhtiyâru ma'rifeti'r-ricâl|Şeyh Tûsî
+1037|r|el-İstiğnâ|İbn Abdülber
+4113|r|Târîhu Medîneti's-selâm (Târîhu Bağdâd)|Hatîb el-Bağdâdî
+4378|r|el-İstîâb fî ma'rifeti'l-ashâb|İbn Abdülber
+506|r|el-Müttefik ve'l-müfterik|Hatîb el-Bağdâdî
+570|r|Telhîsü'l-müteşâbih|Hatîb el-Bağdâdî
+5785|r|Tâlî Telhîsi'l-müteşâbih|Hatîb el-Bağdâdî
+5919|r|el-İntikā fî fezâili'l-eimmeti's-selâse|İbn Abdülber
+596|r|Riyâzü'n-nüfûs|Ebû Bekir el-Mâlikî
+2267|r|Zeylü Mevlidi'l-ulemâ|Abdülazîz el-Kettânî
+752|r|et-Ta'dîl ve't-tecrîh|Bâcî
+4379|r|el-İkmâl|İbn Mâkûlâ
+5604|r|Tehzîbü müstemirri'l-evhâm|İbn Mâkûlâ
+6143|r|Tabakātü'l-fukahâ|Ebû İshak eş-Şîrâzî
+5176|r|Cezvetü'l-muktebis|Humeydî
+2362|r|Takyîdü'l-mühmel|Ebû Ali el-Ğassânî
+6746|r|Elkābü's-sahâbe ve't-tâbiîn|Ebû Ali el-Ğassânî
+6003|r|el-Mü'telif ve'l-muhtelif (el-Ensâbü'l-müttefika)|İbnü'l-Kayserânî
+2731|r|Ma'rifetü esâmî erdâfi'n-Nebî|Yahyâ b. Mende
+4711|r|Tabakātü'l-Hanâbile|İbn Ebû Ya'lâ
+1050|r|Kalâidü'l-ikyân|Feth b. Hâkān
+672|r|Siyerü's-selefi's-sâlihîn|Kıvâmüssünne
+4736|r|el-Kand fî zikri ulemâi Semerkand|Necmeddin en-Nesefî
+328|r|Tertîbü'l-medârik|Kādî Iyâz
+2141|r|Menâzilü'l-eimmeti'l-erbaa|Ebû Zekeriyyâ es-Selmâsî
+534|r|Mu'cemü şüyûhi's-Sem'ânî'den seçmeler|Sem'ânî
+2159|r|Tetimmetü Sıvâni'l-hikme|İbn Funduk
+3108|r|Kitâbü'l-Esmâ|Ebû Ya'kūb el-Vercelânî
+4081|r|Târîhu medîneti Dımaşk|İbn Asâkir
+2562|r|el-Vecîz fî zikri'l-mücâz ve'l-mücîz|Ebû Tâhir es-Silefî
+5058|r|Mu'cemü's-sefer|Ebû Tâhir es-Silefî
+1621|r|Nüzhetü'l-elibbâ|Ebü'l-Berekât el-Enbârî
+5047|r|Ğavâmızu'l-esmâi'l-mübheme|İbn Beşküvâl
+701|r|es-Sıla|İbn Beşküvâl
+5195|r|Tecrîdü'l-esmâ ve'l-künâ|Kādî Ebû Ya'lâ el-Ferrâ (İbn Ebü'l-Ferrâ)
+138|r|Harîdetü'l-kasr|İmâdüddin el-Kâtib el-İsfahânî
+2189|r|Âdâbü'l-Hasani'l-Basrî|İbnü'l-Cevzî
+4429|r|Sıfatü's-safve|İbnü'l-Cevzî
+4888|r|Menâkıbü'l-İmâm Ahmed|İbnü'l-Cevzî
+840|r|Buğyetü'l-mültemis|Dabbî
+1916|r|Ahmed b. Hanbel'in mihnesi|Abdülğanî el-Makdisî
+3082|r|Hasan-ı Basrî haberlerinden|Abdülğanî el-Makdisî
+5729|r|Letâifü'z-Zahîre|Es'ad b. Memmâtî
+165|r|Mu'cemü'l-üdebâ|Yâkūt el-Hamevî
+4552|r|İkmâlü'l-İkmâl|İbn Nukta
+4979|r|et-Takyîd li-ma'rifeti ruvâti's-sünen|İbn Nukta
+103|r|Üsdü'l-ğâbe|İbnü'l-Esîr
+4784|r|el-Mu'lim bi-şüyûhi'l-Buhârî ve Müslim|İbn Halfûn
+5425|r|Matlau'l-envâr|İbn Halfûn
+5796|r|Mâlik'in şeyhlerinin isimleri|İbn Halfûn
+265|r|Zeylü Târîhi Bağdâd|İbnü'd-Dübeysî
+968|r|Târîhu Erbil|İbnü'l-Müstevfî
+5043|r|el-Müntehab min Kitâbi's-Siyâk|Sarîfînî
+1294|r|Tabakātü'l-fukahâi'ş-Şâfiiyye|İbnü's-Salâh
+1565|r|Zeylü Târîhi Bağdâd ve zeyilleri|İbnü'n-Neccâr
+579|r|Zeylü Târîhi Bağdâd|İbnü'n-Neccâr
+6912|r|Ebû Ömer el-Makdisî'nin ahvâli|Ziyâüddin el-Makdisî
+521|r|İnbâhü'r-ruvât|İbnü'l-Kıftî
+5487|r|el-Muhammedûn mine'ş-şuarâ|İbnü'l-Kıftî
+947|r|İhbârü'l-ulemâ bi-ahbâri'l-hukemâ|İbnü'l-Kıftî
+176|r|Kalâidü'l-cümân|İbnü'ş-Şa''âr
+5874|r|el-Müzâkere fî elkābi'ş-şuarâ|Neşşâbî el-İrbilî
+5297|r|el-Mu'cem fî ashâbi'l-Kādî es-Sadefî|İbnü'l-Ebbâr
+6017|r|Tuhfetü'l-kādim|İbnü'l-Ebbâr
+2199|r|el-İnsâf ve't-teharrî|İbnü'l-Adîm
+72|r|Buğyetü't-taleb fî târîhi Haleb|İbnü'l-Adîm
+412|r|Uyûnü'l-enbâ fî tabakāti'l-etıbbâ|İbn Ebû Usaybia
+5336|r|Nûru'l-kabes|Yağmûrî
+5498|r|ed-Dürrü's-semîn fî esmâi'l-musannifîn|İbnü's-Sâî
+4388|r|Tehzîbü'l-esmâ ve'l-luğât|Nevevî
+5724|r|Tekmiletü İkmâli'l-İkmâl|İbnü's-Sâbûnî
+159|r|Vefeyâtü'l-a'yân|İbn Hallikân
+2334|r|el-Ğusûnü'l-yânia|İbn Saîd el-Mağribî
+198|r|ez-Zeyl ve't-tekmile|İbn Abdülmelik el-Merrâküşî
+1557|r|Ebû Nüvâs'ın haberleri|İbn Manzûr
+4097|r|Muhtasaru Târîhi Dımaşk|İbn Manzûr
+1471|r|Unvânü'd-dirâye|Ğubrînî
+4347|r|Mecmau'l-âdâb fî mu'cemi'l-elkāb|İbnü'l-Fuvatî
+6453|r|Tuhfetü't-tâlibîn fî tercemeti'l-İmâm en-Nevevî|İbnü'l-Attâr
+5405|r|Ricâlü'l-Allâme el-Hillî|Allâme Hillî
+4487|r|es-Sülûk fî tabakāti'l-ulemâ ve'l-mülûk|Cenedî
+2741|t|Tuhfetü's-sıddîk|İbn Belbân
+1429|r|er-Ricâl|İbn Dâvûd el-Hillî
+5511|r|Şeddü'l-izâr|Muînüddin Cüneyd eş-Şîrâzî
+5627|t|Maktelü'ş-şehîd Osmân|Mâlakī
+4094|r|Tehzîbü'l-Kemâl|Mizzî
+5055|k|es-Sârimü'l-münkî|İbn Abdülhâdî
+513|r|Tabakātü ulemâi'l-hadîs|İbn Abdülhâdî
+5231|r|el-Ukūdü'd-dürriyye|İbn Abdülhâdî
+1228|r|el-Muktenâ fî serdi'l-künâ|Zehebî
+20|r|Siyeru a'lâmi'n-nübelâ|Zehebî
+2375|r|Şeyhinden sonra seksen yıl yaşayanlar|Zehebî
+2834|r|Menâkıbü'l-İmâm Ebî Hanîfe ve sâhibeyh|Zehebî
+3191|r|Menâkıbü'l-İmâm Ebî Hanîfe ve sâhibeyh (2. neşir)|Zehebî
+3235|r|Menâkıbü'l-İmâm Ebî Hanîfe ve sâhibeyh (3. neşir)|Zehebî
+340|r|Tezkiretü'l-huffâz|Zehebî
+4222|r|Tezhîbü Tehzîbi'l-Kemâl|Zehebî
+4277|r|Mîzânü'l-i'tidâl|Zehebî
+4715|r|el-Kâşif|Zehebî
+5726|r|el-Mu'cemü'l-muhtass bi'l-muhaddisîn|Zehebî
+6232|r|Zeylü'l-İber'den|Zehebî
+664|r|Mu'cemü'ş-şüyûh|Zehebî
+944|r|el-Muhtasarü'l-muhtâc ileyh|Zehebî
+975|r|Ma'rifetü'l-kurrâi'l-kibâr|Zehebî
+5335|r|Câmiu't-tahsîl|Alâî

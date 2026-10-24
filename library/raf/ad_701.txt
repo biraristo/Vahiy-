@@ -1,0 +1,210 @@
+2522|q|Müteşâbihü'l-Kur'ân|Kisâî
+2572|q|el-Vakf ve'l-ibtidâ|Ebû Ca'fer en-Nehhâs (?)
+5134|q|Îzâhu'l-vakf ve'l-ibtidâ|İbnü'l-Enbârî
+5060|q|Muhtasarü't-Tebyîn li-hicâi't-tenzîl|Ebû Dâvûd Süleyman b. Necâh
+4931|q|ed-Dürrü'n-nesîr|Mâlakī
+1261|q|el-Kenz fi'l-kırââti'l-aşr|Vâsıtî
+1723|r|Tabakātü'l-kurrâi's-seb'a|Abdülvehhâb b. Yûsuf (İbnü's-Sellâr)
+768|q|Sirâcü'l-kāri'l-mübtedî|İbnü'l-Kāsıh
+5042|q|Şerhu Tayyibeti'n-neşr|İbnü'l-Cezerî
+4480|q|Şerhu Tayyibeti'n-neşr|Nüveyrî
+5012|q|el-Mükerrer|Ömer b. Kāsım en-Neşşâr
+7059|q|Buğyetü'l-müstefîd fî ilmi't-tecvîd|İbn Belbân
+516|q|Menâru'l-hüdâ|Ahmed el-Üşmûnî
+4799|q|Ğaysü'n-nef'|Safâkusî
+6283|q|İthâfü'l-berere|Mustafa el-İzmîrî
+4908|x|Mine'n-nakl ile'l-ibdâ' 1|Hasan Hanefî
+3396|q|el-Îzâh fi'l-kırââtı|Endarâbî|500
+3398|q|Tecvid öğrenmenin fıkhî hükmü|Salâh Muhammed
+3402|q|el-Mütehaf fî ma'ne's-seb'ati ahruf|Adnân b. Ahmed
+3403|q|el-Müzekkire fî şerhi'l-Mukaddime|Süleyman b. Hâlid el-Harbî
+3405|q|el-Muizz fîme'nferede bihî Hafs|Sa'd
+3408|q|el-Vücûhü'l-müsfire|Şemseddin
+3413|q|eş-Şem'atü'l-mudıyye|Mansûr et-Tabelâvî|1014
+3414|q|Hafs rivayeti (Muaddil tarikı)|Hassân b. Sâlim
+3442|q|Ğâyetü'l-mürîd fî ilmi't-tecvîd|Atiyye Kābil Nasr
+3446|q|Ahkâmü tecvîdi'l-Kur'ân|Müellifi bilinmiyor
+3448|q|İthâfü'l-berere|Mustafa el-İzmîrî|1156
+3449|q|Kur'an kurrâlarının icâzetleri|Heyet
+3451|q|el-Envârü'l-behiyye fî halli'l-Cezeriyye|Abdülbâsıt
+3452|q|el-Basît fî ilmi't-tecvîd|Bedr Hanefî Mahmûd
+3454|q|el-Cevherü'l-meknûn fî rivâyeti Kālûn|Ali ed-Dabbâ'|1380
+3455|q|es-Sehlü'l-mufîd fî ahkâmi't-tecvîd|Seyyid İbrâhim
+3460|q|el-Maksad li-telhîsi mâ fi'l-Mürşid|Zekeriyyâ el-Ensârî|926
+3462|q|Hz. Peygamber'in kıraatleri cüzü|Hafs ed-Dûrî (?)
+3466|q|Nâfi' kıraatinde en-Nûrü's-sâtı'|Osman b. Ali
+3467|q|Semîru't-tâlibîn|Ali ed-Dabbâ'|1380
+3468|q|İbrâzü'l-meânî|Ebû Şâme|665
+3469|q|Tâliu'l-fecr|Müellifi bilinmiyor
+3472|q|Mağriplilerde Nâfi' kıraati|Abdülhâdî Hamîtû
+3473|q|Tecvid ve kıraat hakkında her şey|Müellifi bilinmiyor
+3476|q|Ma'rifetü'd-dâd mine'z-zâ|Müellifi bilinmiyor
+3477|q|Taberî ve Zemahşerî'nin mütevâtir kıraatlere tavrı|Muhammed Ârif el-Hererî
+3497|q|Mebâhis fî ilmi'l-kırâât|Muhammed İbrâhim
+3501|l|İmlâü mâ menne bihi'r-Rahmân|Ebü'l-Bekā el-Ukberî|616
+3502|q|Meâni'l-kırâât|Ezherî|370
+3547|q|Kıraat farklılıkları ışığında Kur'an manası|Ahmed el-Bezzâvî (?)
+3568|q|Kur'an lafızları ve kıraatleri ansiklopedik sözlüğü|Ahmed Muhtâr Ömer
+3574|q|Bida'u'l-kurrâ|Bekr Ebû Zeyd|1429
+3575|q|Kıraat ilimlerinden sayfalar|Abdülkayyûm es-Sindî
+3580|q|el-Unvân fi'l-kırââti's-seb'|İbn Halef|455
+3588|q|el-Muhteseb|İbn Cinnî|392
+3594|q|el-İbâne an meâni'l-kırâât|Mekkî b. Ebû Tâlib|437
+3598|q|Müncidü'l-mukriîn|İbnü'l-Cezerî|833
+3604|q|Kıraat âlimlerinde isnad|Muhammed Sîdî
+3621|q|el-Fevzü'l-kebîr|Müellifi bilinmiyor
+3623|q|Tuhfetü's-saîd|Bedr Abdülhamîd
+3624|q|Tecvid ilkelerinde 15 adım|Müellifi bilinmiyor
+3627|q|et-Tahdîd fi'l-itkān ve't-tecvîd|Ebû Amr ed-Dânî|444
+3629|q|Hafs rivayetinin dil özellikleri|Müellifi bilinmiyor
+3631|q|Kur'an'ın çağdaş okumaları|Müellifi bilinmiyor
+3632|q|el-Kavâid ve'l-işârât|İbn Ebü'r-Rızâ el-Hamevî|791
+3635|q|Ferrâ'nın kıraatleri sunuş yöntemi|Nâsır b. Muhammed
+3637|q|Kıraat ilimlerine giriş|Seyyid Rızk et-Tavîl
+3645|q|Uddetü'l-habîr|Müellifi bilinmiyor
+3647|q|el-Muizz fîme'nferede bihî Hafs (2)|Abdullah
+3649|q|el-İdâe fî beyâni usûli'l-kırâe|Ali ed-Dabbâ'|1380
+3650|q|el-Ferâidü'l-müretebe|Müellifi bilinmiyor
+3675|q|İthâfü fudalâi'l-beşer|Bennâ ed-Dimyâtî|1117
+3678|q|el-İknâ' fi'l-kırââti's-seb'|İbnü'l-Bâziş|540
+3718|q|el-Müyesser fi'l-kırââti'l-erbaa aşre|Muhammed Fehd Hârûf
+3747|q|el-Unvân fi'l-kırââti's-seb' (2)|İbn Halef|455
+3751|q|Tuhfetü'l-akrân|Müellifi bilinmiyor
+3770|q|Muallimü't-tecvîd|Hâlid el-Cüreysî
+3772|q|el-Vecîz fî hükmi tecvîdi'l-Kitâbi'l-azîz|Muhammed Sîdî
+3780|q|en-Neşr fi'l-kırââti'l-aşr|İbnü'l-Cezerî|833
+3784|q|Hidâyetü'l-kārî|Abdülfettâh el-Mirsafî|1409
+3824|q|Muhtasarü'l-ibârât|İbrâhim ed-Dûserî
+3825|q|el-Hucce li'l-kurrâi's-seb'a|Ebû Ali el-Fârisî|377
+3839|q|Câmiu'l-beyân fi'l-kırââti's-seb'|Ebû Amr ed-Dânî|444
+3842|q|Kıraat ihticâc kitaplarında ses boyutu|Müellifi bilinmiyor
+3850|q|el-Kavlü's-sedîd fî ilmi't-tecvîd|Ali Allah b. Ali
+3852|q|Kālûn rivayetiyle Kur'an nasıl okunur|Müellifi bilinmiyor
+3855|q|el-Vâfî fî şerhi'ş-Şâtıbiyye|Abdülfettâh el-Kādî|1403
+3856|q|el-Mükerrer|Ömer b. Kāsım en-Neşşâr|938
+3858|q|Menâru'l-hüdâ (Mukaddime ile)|Ahmed el-Üşmûnî
+3861|q|el-Mîzân fî ahkâmi tecvîdi'l-Kur'ân|Feryâl Zekeriyyâ
+3870|q|el-Kırâât ve eseruhâ fî ulûmi'l-Arabiyye|Muhammed Sâlim Muhaysin
+3871|q|Sirâcü'l-kāri'l-mübtedî (2)|İbnü'l-Kāsıh|801
+3872|q|Nâfi' kıraati nazmı şerhi|Abdülvâhid
+3875|q|Tahrîrü'n-Neşr|Mustafa el-İzmîrî|1156
+3879|q|Delîlü'l-hayrân|Mârğinî|1349
+3898|q|el-Vecîz fî şerhi kırââti'l-karaeti's-semâniye|Ebû Ali el-Ehvâzî|446
+3899|q|el-Amîd fî ilmi't-tecvîd|Mahmûd Ali Bessa
+3903|q|Mefâtîhu'l-eğânî|Kirmânî (Ebü'l-Alâ)|563
+3904|q|Ğaysü'n-nef'|Safâkusî|1118
+3905|q|Şerhu Tayyibeti'n-neşr|İbnü'l-Cezerî|833
+3906|q|el-Kenz fi'l-kırââti'l-aşr|Vâsıtî|741
+3907|q|Ferîdetü'd-dehr|Muhammed İbrâhim Muhammed Sâlim
+3908|q|Tecvid ve kıraate dair önemli mecmua|Heyet
+3909|q|Muhtasarü't-Tebyîn|Ebû Dâvûd Süleyman b. Necâh|496
+3915|q|el-Hâdî şerhu Tayyibeti'n-neşr|Muhammed Sâlim Muhaysin
+3927|q|el-Kat' ve'l-i'tinâf|Ebû Ca'fer en-Nehhâs|338
+3935|q|Ravzatü't-takrîr|Müellifi bilinmiyor
+3937|q|et-Teysîr fi'l-kırââti's-seb'|Ebû Amr ed-Dânî|444
+3986|q|Kur'an edâsında med olgusu|Müellifi bilinmiyor
+4004|q|et-Tuhfetü'l-anberiyye|Hasan
+4006|q|Kıraatler ve bazı nahivcilerin zorlaması|Ahmed
+4012|q|Kıraatler ile tefsir arasında 2|Ahmed Sa'd el-Hatîb
+4014|q|Tavzîhu'l-meâlim|Müellifi bilinmiyor
+4027|q|el-Muhteseb (2)|İbn Cinnî|392
+4034|q|Bida'u'l-kurrâ (2)|Bekr Ebû Zeyd|1429
+4039|q|el-Vecîz fî ilmi't-tecvîd|Mahmûd Sîbeveyh el-Bedevî
+4045|q|Şerhu'l-Cezeriyye|Muhammed el-Hasen ed-Dedev
+4047|q|İbrâzü'l-meânî (2)|Ebû Şâme|665
+4048|q|Vakf ve ibtidâda selef sözleri|Müellifi bilinmiyor
+4059|q|Tecvid, kıraat ve i'câz bahisleri|Heyet
+4062|q|el-Cezeriyye şerhi notları|Süleyman b. Hâlid el-Harbî
+4073|q|es-Seb'a fi'l-kırâât|İbn Mücâhid|324
+4077|q|Huccetü'l-kırâât|İbn Zencele|403
+4079|q|Ahkâmü't-tilâve|Âdil Nassâr
+7456|q|el-Cedvelü'l-azbü'n-nemîr|Müellifi bilinmiyor
+7458|q|Yedi harf ve kıraatlere oryantalist bakış|Müellifi bilinmiyor
+7463|q|el-Minhâc fi'l-hükm ale'l-kırâât|İbrâhim b. Saîd ed-Dûserî
+7475|q|Tahbîrü't-Teysîr|İbnü'l-Cezerî|833
+7476|q|Mağrib'de Kur'an öğretimine ilgi|Müellifi bilinmiyor
+7487|q|Takrîbü'l-menâfi'|İbn Ebü's-Sebt (?)
+7504|q|Makbul kıraatin rükünleri|Ahmed el-Bârrî (?)
+7505|q|Usûlü'l-kırâât|Ebü'r-Rızâ el-Hamevî
+7509|q|el-Cevherü'l-meknûn fî rivâyeti Kālûn (2)|Ali ed-Dabbâ'|1380
+7511|q|Mütevâtir kıraatler ve Arap diline etkisi|Müellifi bilinmiyor
+7512|q|el-Kavlü's-sedîd fî beyâni hükmi't-tecvîd|Muhammed
+7513|q|el-Medhal ilâ ilmi'l-kırâât|Muhammed b. Mahmûd Havvâ
+7515|q|Kıraat farklılıkları ışığında Kur'an manası (2)|Ahmed el-Bezzâvî (?)
+7516|q|el-Mufîd fî ilmi't-tecvîd|Avaz el-Karnî
+7517|q|el-Minhâc fi'l-hükm ale'l-kırâât (2)|İbrâhim b. Saîd ed-Dûserî
+7518|q|el-Vecîz fî tecvîdi'l-Kitâbi'l-azîz|Muhammed Sîdî
+7519|q|Teysîrü'l-emr|Müellifi bilinmiyor
+7520|q|Hafs ile Dûrî rivayetleri arasındaki farklar tablosu|Fâyiz
+7521|q|Huccetü'l-kırâât (2)|İbn Zencele|403
+7522|q|Hallü'l-müşkilât|Muhammed Abdurrahman el-Halîcî
+7524|q|Kıraatlere dair beş kitap|Osman
+7525|q|Hafs rivayeti (Fîl ve Muaddil tarikleri)|Hassân b. Sâlim
+7526|q|es-Sırrü'l-masûn şerhi|Abdülfettâh
+7529|q|Fethu'l-kebîr fi'l-istiâze ve't-tekbîr|Husarî|1401
+7530|q|İbn Mücâhid'in hatalı saydığı kıraatler|Müellifi bilinmiyor
+7531|q|el-İdâe (2)|Ali ed-Dabbâ'|1380
+7533|q|Tecvid notları|Ebü'l-Berâ el-Emîr
+7536|q|Lem'atü'z-ziyâ fî kırâeti'l-Kisâî|İbrâhim el-İzmîrî (?)
+7537|q|Hidâyetü'l-kārî (2)|Abdülfettâh el-Mirsafî|1409
+7554|q|Hırzü'l-emânî (Şâtıbiyye)|Şâtıbî|590
+7556|q|et-Temhîd fî ilmi't-tecvîd|İbnü'l-Cezerî|833
+7567|q|Ahkâmü rivâyeti Hafs|Müellifi bilinmiyor
+7568|q|İânetü'l-müstefîd|Müellifi bilinmiyor
+7676|q|Tayyibe tarikinden bütün vecihler|Müellifi bilinmiyor
+7678|q|On kıraate giriş|Müellifi bilinmiyor
+7681|q|Dâd sesinin lâm sesiyle değiştirilmesi|Müellifi bilinmiyor
+7682|q|Hafs rivayeti (Ravzatü'l-Muaddil tarikı)|Müellifi bilinmiyor
+7686|q|el-Cevherü'l-meknûn fî rivâyeti Kālûn (3)|Ali ed-Dabbâ'|1380
+7689|q|el-Kırââtü'l-müfessira|Abdülhâdî Dahhânî
+7690|q|Kur'an'ın çağdaş okumaları (2)|Müellifi bilinmiyor
+7694|q|el-Minehu'l-fikriyye|Aliyyü'l-Kārî|1014
+7699|q|es-Sehlü'l-mufîd (2)|Seyyid İbrâhim
+7704|q|Vakf ve ibtidâ ilminin fazileti|Müellifi bilinmiyor
+7707|q|Kitâbü'l-Mebânî|Âsımî (?)
+7708|q|el-İdâe (3)|Ali ed-Dabbâ'|1380
+7717|q|el-Kavâid ve'l-işârât fî usûli'l-kırâât|İbn Ebü'r-Rızâ el-Hamevî|791
+7773|q|Cemâlü'l-kurrâ|Alemüddin es-Sehâvî|643
+7784|q|Hafs rivayetine göre tecvid kaideleri|Müellifi bilinmiyor
+7826|q|el-Kavlü'l-asdak|Müellifi bilinmiyor
+7827|q|Fethu Rabbi'l-beriyye|Müellifi bilinmiyor
+7867|q|el-Müktefâ fi'l-vakf ve'l-ibtidâ|Ebû Amr ed-Dânî|444
+7876|q|el-Hucce fi'l-kırââti's-seb'|İbn Hâleveyh|370
+7881|q|el-Mebsût fi'l-kırââti'l-aşr|İbn Mihrân|381
+7884|q|Vakf ve ibtidâ ilminin fazileti (2)|Müellifi bilinmiyor
+7885|q|el-Kâmil fi'l-kırââti'l-aşr ve'l-erbaîn|Hüzelî|465
+7893|q|el-Vâfî fî keyfiyyeti tertîli'l-Kur'ân|Ahmed
+7904|q|Mütevâtir kıraatler ve resme etkisi|Müellifi bilinmiyor
+7907|q|Mebâhis fî ilmi'l-kırâât (2)|Muhammed İbrâhim
+7908|q|el-Muhtasarü'l-mufîd fî ahkâmi't-tecvîd|Müellifi bilinmiyor
+7910|q|Kıraat ilmine dair mukaddimeler|Heyet
+7919|q|Şerhu Tayyibeti'n-neşr|Nüveyrî|857
+7932|q|Verş ve Hafs rivayetleri|Müellifi bilinmiyor
+7938|q|Îzâhu'l-vakf ve'l-ibtidâ (2)|İbnü'l-Enbârî|328
+7942|q|ed-Dürrü'n-nesîr (2)|Mâlakī|705
+7943|q|er-Ravzatü'n-nediyye şerhu'l-Cezeriyye|Mahmûd b. Muhammed
+7944|q|el-Büdûrü'z-zâhire|Abdülfettâh el-Kādî|1403
+7945|q|Buğyetü'l-müstefîd (2)|İbn Belbân|1083
+7946|q|el-Vakf ve'l-ibtidâ|Muhammed (?)
+7964|r|Tabakātü'l-kurrâi's-seb'a (2)|İbnü's-Sellâr|782
+7967|q|Menâru'l-hüdâ (2)|Ahmed el-Üşmûnî
+7980|q|el-Câmi' li-ulûmi'l-İmâm Ahmed: Kıraat|Ahmed b. Hanbel (der.)
+7989|q|er-Ruteb el-aliyyât|Müellifi bilinmiyor
+8007|q|Ref'u'l-estâri'l-müsbele|Muhammed
+8009|q|Fâtiha'nın tecvidi risalesi|Muhammed b. Fevzân
+8040|r|Ma'rifetü'l-kurrâi'l-kibâr|Zehebî|748
+8049|l|İmlâü mâ menne bihi'r-Rahmân (2)|Ebü'l-Bekā el-Ukberî|616
+8063|q|Edâ ehline göre vakf ve ibtidâ|Müellifi bilinmiyor
+8064|q|Kıraatler ile tefsir arasında 1|Ahmed Sa'd el-Hatîb
+8070|q|İbrâzü'l-meânî (Bâbî el-Halebî neşri)|Ebû Şâme|665
+8071|q|el-İtkān fî ta'lîmi ahkâmi'l-Kur'ân|Muhammed
+8079|q|el-Kırââtü'l-mütevâtira|Muhammed el-Habeş
+8080|q|el-Kavâid ve'l-işârât (2)|İbn Ebü'r-Rızâ el-Hamevî|791
+8085|q|Kıraat farklılıkları ışığında Kur'an manası (3)|Ahmed el-Bezzâvî (?)
+8092|q|Tuhfetü'l-atfâl|Süleyman el-Cemzûrî|1198
+8095|q|Hatim duası rivayetleri cüzü|Bekr Ebû Zeyd|1429
+8102|q|Tenkīhu Fethi'l-kerîm şerhi|Müellifi bilinmiyor
+8105|q|Fethu'l-kebîr (2)|Husarî|1401
+8116|q|Tecvid notları|Muhammed Nebhân el-Mısrî
+8123|q|el-Ahrufü's-seb'a|Ebû Amr ed-Dânî|444
+8139|q|İhkâmü'l-ahkâm fî tecvîdi'l-Kur'ân|Seyyid Cum'a

@@ -273,8 +273,8 @@ async function home() {
   }).catch(() => { $('#eyb').hidden = true; });
 
   /* ---- kaynak dünyası ---- */
-  const KD = [['Tefsir', '357 eser', '#1F7A80', 'y'], ['Hadis', '1.561 kitap', '#1E3A5F', 'h'], ['Fıkıh ve usûl', '921 kitap', '#5B4A2A', 'k'], ['Kelâm', '446 kitap', '#2F5D50', 'g'], ['Tasavvuf', '307 kitap', '#6B3A3A', 'u'],
-    ['Lügatler', '12 lügat', '#3E4E6B', 'k'], ['Tarih ve ricâl', '777 kitap', '#4A5A3A', 'h'], ['Kıraat', '210 kitap', '#1F6070', 'y'], ['Paralel metinler', '713 metin', '#4B3F5E', 'g'], ['Makaleler', fmt(sy.makale) + ' makale', '#2E4A55', 'u']];
+  const KD = [['Tefsir', '357 eser', '#1F7A80', 'y'], ['Hadis', '1.092 kitap', '#1E3A5F', 'h'], ['Fıkıh ve usûl', '874 kitap', '#5B4A2A', 'k'], ['Kelâm', '524 kitap', '#2F5D50', 'g'], ['Tasavvuf', '319 kitap', '#6B3A3A', 'u'],
+    ['Lügatler', '352 kitap', '#3E4E6B', 'k'], ['Tarih ve ricâl', '1.020 kitap', '#4A5A3A', 'h'], ['Kıraat', '179 kitap', '#1F6070', 'y'], ['Paralel metinler', '713 metin', '#4B3F5E', 'g'], ['Makaleler', fmt(sy.makale) + ' makale', '#2E4A55', 'u']];
   const KDL = { 'Tefsir': 'tefsir', 'Hadis': 'hadis', 'Fıkıh ve usûl': 'fikih', 'Kelâm': 'kelam', 'Tasavvuf': 'tasavvuf', 'Lügatler': 'lugat', 'Tarih ve ricâl': 'tarih', 'Kıraat': 'kiraat' };
   const motif = (tp, c, i) => {
     const s = 'stroke="rgba(244,242,234,.32)" fill="none" stroke-width="1.2"', id = 'kp' + i;
