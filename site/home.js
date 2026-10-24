@@ -129,7 +129,7 @@ async function home() {
     <p class="not" data-t="atlas.not">Sahabe mushaflarından bugüne, âlimlerin sureleri hangi sırayla dizdiği. Bir tertip seçin; sureler yerini değiştirir, renkler o tertibin kendi Mekkî–Medenî ayrımını gösterir.</p>
     <div class="ana-atlas"><div class="kap-s"><div class="siralar" id="siralar" role="group" aria-label="Sıralama"></div></div><div class="dosem" id="dosem"></div>
       <div class="ipucu"><span id="lejant"></span><span class="secili" id="secili"></span></div>
-      <div class="sira-kaynak" id="siraKaynak"></div></div></section>
+      <div class="sira-kaynak kaynak-not" id="siraKaynak"></div></div></section>
 
 <div class="ayrac" aria-hidden="true"><svg viewBox="0 0 240 24"><path d="M0 12H96M144 12H240" /><path d="M120 2l3.5 6.5L130 12l-6.5 3.5L120 22l-3.5-6.5L110 12l6.5-3.5z"/><rect x="113" y="5" width="14" height="14" transform="rotate(45 120 12)"/><circle cx="104" cy="12" r="1.6"/><circle cx="136" cy="12" r="1.6"/></svg></div>
   <section class="bolum" id="eyb"><h2 data-t="E.b">En eski yazmalar</h2>
@@ -233,7 +233,7 @@ async function home() {
   requestAnimationFrame(() => { const sc = $('#siralar'); sc.scrollLeft = 0; kaydirIpucu(sc); });
 
   /* ---- A: sayaçlar ve şeritler ---- */
-  const SY = [...(sy.alinti ? [[sy.alinti, 'kez bir ayet, bir kitapta alıntılanmış', 'buyuk']] : []), ...(sy.kitap ? [[sy.kitap, 'eser, tam metniyle kütüphanede', sy.alinti ? '' : 'buyuk']] : []), [sy.rivayet, 'selef rivayeti, isnadıyla'], [sy.makale, 'akademik makale'], [sy.yazma, 'el yazması Kur\'an nüshası'], [sy.ravi, 'râvinin hayatı, ricâl kitaplarından'], [sy.lugat, 'klasik Arapça lügat']];
+  const SY = [[sy.kitap, 'eser, tam metniyle kütüphanede', 'buyuk']];  /* kullanıcı kararı 24.10.2026: yalnız eser sayısı */
   $('#sayaclar').innerHTML = SY.map(s => `<div class="sayac${s[2] ? ' ' + s[2] : ''}"><b data-v="${s[0]}">${azHareket ? fmt(s[0]) : 0}</b><span>${s[1]}</span></div>`).join('');
   let sayildi = azHareket;
   const io = new IntersectionObserver(es => { if (es[0].isIntersecting && !sayildi) { sayildi = true; const st = performance.now(); (function f(tm) { const p = Math.min(1, (tm - st) / 1800), e = 1 - Math.pow(1 - p, 3); document.querySelectorAll('.sayac b').forEach(b => b.textContent = fmt(Math.round(b.dataset.v * e))); if (p < 1) requestAnimationFrame(f); })(st); } }, { threshold: .4 });

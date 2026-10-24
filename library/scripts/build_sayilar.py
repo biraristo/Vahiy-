@@ -3,7 +3,7 @@ Elle yazılmış sayı yoktur; kütüphaneye eser ya da ayet verisi eklendikçe 
 kitap: raflardaki tam metinli eser (Dinler tarihi metinleri dahil)
 rivayet: ayetlere bağlı tekil selef rivayeti (x/…/k4) · makale: ayetlere/surelere bağlanan tekil makale (k8)
 yazma: el yazması nüsha (k6/yazma.json) · tefsir: kütüphanenin tefsir rafındaki eser · tefsir_ayet: ayet sayfasında ayet ayet okunan tefsir
-ravi: hayatı yazılan râvi (k4/raviler.json) · lugat: ayet sayfasındaki sözlükler (k0/lugat.json kök eşleşmeli + k5'in onlarda olmayanları)
+ravi: selef rivayetlerindeki râvi (k4/raviler.json) · biyografi/ricalKitap: biyografi kitaplarındaki ad maddesi ve kitap sayısı (k4/rical.json, build_rical.py) · lugat: ayet sayfasındaki sözlükler (k0/lugat.json kök eşleşmeli + k5'in onlarda olmayanları)
 alinti: ayet alıntı dizinindeki (x/…/k3) toplam alıntı · eser: ayet alıntısı taranan eser (x/kitaplar.json)"""
 import json, glob, gzip, os
 D = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'site', 'data')
@@ -27,7 +27,7 @@ KARS = {'maqayis', 'mufradat', 'sihah', 'lisan', 'ayn2', 'asas', 'mukhtar', 'mis
 T = j('kutuphane/tefsir.json')['eserler']
 S = {'kitap': kitap, 'alinti': alinti, 'eser': len(j('x/kitaplar.json')['kitaplar']), 'rivayet': len(riv), 'makale': len(mk), 'yazma': len(j('k6/yazma.json')['nushalar']),
      'tefsir': len(T), 'tefsir_ayet': sum(1 for e in T if e.get('k2')),
-     'ravi': len(j('k4/raviler.json')['raviler']), 'lugat': len(j('k0/lugat.json')['kitap']) + len(set(j('k5/index.json')['lugatler']) - KARS)}
+     'ravi': len(j('k4/raviler.json')['raviler']), 'biyografi': j('k4/rical.json')['istatistik']['madde'], 'ricalKitap': j('k4/rical.json')['istatistik']['biyografi_kitabi'], 'lugat': len(j('k0/lugat.json')['kitap']) + len(set(j('k5/index.json')['lugatler']) - KARS)}
 V = j('vitrin.json'); V['sayilar'] = S
 json.dump(V, open(os.path.join(D, 'vitrin.json'), 'w', encoding='utf8'), ensure_ascii=False, separators=(',', ':'))
 print(S)
