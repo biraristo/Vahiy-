@@ -425,16 +425,26 @@ async function kelimePanel(s, a, A, i) {
       ${sf.length ? `<p class="kp-sayim"><b>Sayım:</b> ${sf.map(x => `${esc(RAVI[x.rivayet] || x.rivayet)} (${esc(SAYIM[x.sayim] || x.sayim)}) bu ayeti ${x.durum === 'bölünüyor' ? `ikiye böler (${x.ayet_no.join(' ve ')}. ayetler)` : `başka ayetle birleştirir (${x.ayet_no.join(', ')}. ayet = Hafs ${x.hafs_karsiligi.join('–')})`}`).join(' · ')}</p>` : '<p class="kp-sayim">Bu ayetin sınırı ve numarası bütün rivayetlerde aynı.</p>'}
       <details class="kp-daha"><summary>Ayetin rivayetlere göre tam metni</summary>${sat.map(([r, v]) => `<div class="kp-tam"><b>${esc(RAVI[r] || r)}</b> <small>${esc(SAYIM[v.sayim] || v.sayim)} sayım · ${v.ayet_no.join(', ')}. ayet</small><p lang="ar" class="ar">${esc(v.metin.join(' ۝ '))}</p></div>`).join('')}</details>`);
   }).catch(() => yaz('#kpRiv', '<p class="srcs">Rivayet mushafları açılamadı.</p>'));
-  // Lügatler
-  load('/data/k5/index.json').then(I => {
-    const n = kok ? I.kokler[kok] : undefined;
-    if (n === undefined) return yaz('#kpLug', '<p class="srcs">Bu kök için ayrıştırılmış lügat maddesi yok.</p>');
-    const keys = Object.keys(I.lugatler).sort((x, y) => I.lugatler[x].vefat - I.lugatler[y].vefat);
-    yaz('#kpLug', `<p class="srcs">Yükleniyor…</p>`);
-    loadGz(`/data/k5/r/${n}.json.gz`).then(d => {
-      const K = keys.filter(k => d.lugat[k]);
-      yaz('#kpLug', K.length ? K.map((k, j) => `<details class="kp-lx"${j === 0 ? ' open' : ''}><summary>${esc(I.lugatler[k].muellif)} <small>ö. ${I.lugatler[k].vefat}</small></summary><p lang="ar" class="ar">${esc(tmKisa(d.lugat[k].metin, 700))}</p></details>`).join('') : '<p class="srcs">Madde bulunamadı.</p>');
-    });
+  // Lügatler: kütüphanemizdeki madde başlıklı sözlükler (kök → madde bölümü) + ayrıştırılmış eski lügat metinleri (kütüphanede maddesi çıkarılamayanlar)
+  Promise.all([load('/data/k0/lugat.json'), load('/data/k5/index.json').catch(() => null)]).then(async ([LG, I]) => {
+    const L = kok ? LG.kok[kok] || [] : [];
+    const var_ = new Set(L.map(r => r[0])), KARS = { maqayis: 'sh21710', mufradat: 'sh23636', sihah: 'sh23235' };
+    let eski = [];
+    const n = kok && I ? I.kokler[kok] : undefined;
+    if (n !== undefined) {
+      const d = await loadGz(`/data/k5/r/${n}.json.gz`).catch(() => null);
+      if (d) eski = Object.keys(I.lugatler).filter(k => d.lugat[k] && !var_.has(KARS[k])).map(k => ({ ...I.lugatler[k], metin: d.lugat[k].metin }));
+    }
+    if (!L.length && !eski.length) return yaz('#kpLug', kok ? '<p class="srcs">Bu kök için lügat maddesi bulunamadı.</p>' : '<p class="srcs">Bu kelimenin kökü yok (edat ya da zamir).</p>');
+    const yeni = L.map(([id, b, t]) => { const e = LG.kitap[id]; return { v: e[2] || 9999, h: `<details class="kp-lx" data-id="${id}" data-b="${b}"><summary>${esc(e[0] || e[1])} <small>${e[2] ? 'ö. ' + e[2] : ''} · <bdi lang="ar">${esc(t)}</bdi></small></summary><div class="kp-lxm"><p class="srcs">Açılınca madde yüklenir.</p></div><a class="k3git" href="#/eser/${id}/${b}">Kitapta bu maddeyi aç</a></details>` }; });
+    const ek = eski.map(x => ({ v: x.vefat || 9999, h: `<details class="kp-lx"><summary>${esc(x.ad)} <small>${esc(x.muellif)} · ö. ${x.vefat} · ayrıştırılmış metin</small></summary><p lang="ar" class="ar">${esc(tmKisa(x.metin, 900))}</p></details>` }));
+    yaz('#kpLug', `<p class="srcs">${L.length} sözlükte madde başlığı olarak${eski.length ? `, ${eski.length} sözlükte ayrıştırılmış metin olarak` : ''}.</p>` + [...yeni, ...ek].sort((p, q) => p.v - q.v).map(x => x.h).join(''));
+    box.querySelectorAll('#kpLug details[data-id]').forEach(dt => dt.addEventListener('toggle', async () => {
+      if (!dt.open || dt.dataset.y) return; dt.dataset.y = 1;
+      const m = dt.querySelector('.kp-lxm');
+      try { const D = (await dizinAl(dt.dataset.id)).b; const t = await bolumAl(dt.dataset.id, D[+dt.dataset.b]); m.innerHTML = `<p lang="ar" class="ar">${esc(tmKisa(t.replace(/\x01[^\x01]*\x01/g, ' ').replace(/\x04/g, ' '), 1400))}</p>`; }
+      catch { m.innerHTML = '<p class="srcs">Madde indirilemedi.</p>'; }
+    }));
   }).catch(() => yaz('#kpLug', ''));
   // Cümle çözümlemesi
   load(`/data/k0/sx/${s}.json`).then(d => { const r = (d.ayetler[String(a)] || []).filter(x => x[0] === w.n); if (r.length) box.querySelector('#kpSx').innerHTML = `<table class="kp-t">${r.flatMap(x => x[2]).map(t => `<tr><td lang="ar">${esc(t[0])}</td><td lang="ar">${esc(t[1] || '')}</td><td lang="ar">${esc(t[2] || '')}</td></tr>`).join('')}</table>`; }).catch(() => {});
