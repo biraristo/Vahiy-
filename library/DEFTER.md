@@ -58,3 +58,4 @@ Ortak altyapı: her kitap bölüm bölüm okunur; **bölüm başlığı + bölü
 - Yayında: Türkçe eser/müellif adları; tüm kütüphane atıf dizini (ayet blokları); lügat (28 sözlük); ricâl (685 râvi biyografisi); kütüphane fihristi (8.738 konu, 2.400 Türkçe başlık).
 - Toplu betikler R2'yi doğrudan okur (r2oku.py), sitenin /r2/ yolunu kullanmaz (Worker günlük 100k sınırı).
 - Sıradaki: fihrist çevirisi girdi_04..12 (/home/claude/lib/tr/fk, cNN.txt satır satır hizalı → fihrist_tr.py); genel kişi kaydı (tüm biyografi maddeleri, müellifler, sahâbe/tâbiûn, cerh-ta'dîl, kişi sayfası); ters bağ (kitap bölümü → ayetler, veri R2 atif/kitap.bin'de hazır, onay bekliyor).
+- 24.10 19:10 kullanıcı kararı: kütüphane atıfları (k3, ayet bloklarındaki "kütüphanede geçtiği yerler") site genelinde kapalı (ayet.js ATIF_ACIK=false); veri R2'de duruyor. Ricâl biyografileri ayet ekranından çıkarıldı; râvi adına tıklayınca #/kisi/{id} kişi sayfası açılır.

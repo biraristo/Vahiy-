@@ -300,3 +300,14 @@ body.se-acik { overflow: hidden; }
 .fk-ayl { display: flex; flex-wrap: wrap; gap: .3rem .6rem; font: .85rem var(--sans); }
 .fk-ayl small { color: var(--muted); margin-left: .15rem; font-size: .7rem; }
 .fk-ayl a.bu { font-weight: 700; }
+
+/* kişi sayfası */
+.zc-k.profil .pr-ad { cursor: pointer; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, currentColor 40%, transparent); }
+.zc-k.profil .pr-ad:hover, .zc-k.profil .pr-ad:focus-visible { text-decoration-color: currentColor; }
+.kisi { max-width: 760px; }
+.kisi h1 { margin-bottom: .2rem; }
+.kisi-ar { font-size: 1.35rem; margin: 0 0 .6rem; }
+.kisi-cip { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 1.4rem; }
+.kisi-cip span { border: 1px solid var(--line, #3a4456); border-radius: 999px; padding: .15rem .7rem; font-size: .9rem; }
+.kisi-b { margin: 1.6rem 0; }
+.kisi-b h2 { font-size: 1.15rem; margin-bottom: .6rem; }

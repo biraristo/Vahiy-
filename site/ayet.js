@@ -148,7 +148,9 @@ const k3Oge = ([id, n, hits], K, s, a) => {
     kunye: chain([{ r: 'Kitap', t: `${k[2] || ''}${k[3] ? ` (ö. ${k[3]})` : ''}, ${k[0] || k[1]}`, u: `#/eser/${id}` }, { r: 'Veri', t: 'vahiy++ kütüphanesi' }, { r: 'Bağ', t: 'makine: ayet metni eşleşmesi (en az 6 kelime ya da ayetin tamamı)', b: 'kutup_tara' }])
   };
 };
+const ATIF_ACIK = false; /* kullanıcı kararı (24.10.2026): kütüphane atıfları site genelinde şimdilik kapalı */
 const k3Gruplar = async (s, a, gruplar, suz) => {
+  if (!ATIF_ACIK) return [];
   const [b, K] = await atif(s, a);
   return gruplar.flatMap(g => (b.g[g] || []).filter(r => !suz || suz(r, K)).map(r => k3Oge(r, K, s, a)));
 };
@@ -206,6 +208,26 @@ async function ricalHtml(k, RC) {
   const bio = L.filter(x => x.tur === 'biyografi'), mus = L.filter(x => x.tur === 'musned');
   return `<div class="rc"><h5>Kütüphanedeki biyografileri <small>${bio.length} eser</small></h5><ol class="rc-l">${bio.map(sat).join('')}</ol>${mus.length ? `<details class="rc-m"><summary>Müsned ve mu'cemlerde rivayet babı (${mus.length})</summary><ol class="rc-l">${mus.map(sat).join('')}</ol></details>` : ''}<p class="srcs">Ad eşleşmesiyle bağlandı (ism, baba, gerekirse dede); aynı adı taşıyan üçten fazla madde olan kitaplarda bağ kurulmadı.</p></div>`;
 }
+/* isim tıklanınca kişi sayfası (kart bir <button> olduğundan bağlantı yerine yakalama) */
+const kisiGit = ev => { const t = ev.target.closest?.('[data-kisi]'); if (!t || (ev.type === 'keydown' && ev.key !== 'Enter')) return; const k = t.dataset.kisi; if (!/^\d+$/.test(k)) return; ev.preventDefault(); ev.stopPropagation(); location.hash = `#/kisi/${k}`; };
+document.addEventListener('click', kisiGit, true); document.addEventListener('keydown', kisiGit, true);
+/* Kişi sayfası: #/kisi/{ravi_id} — kimlik, Takrîb hükmü, rivayet sayıları ve kütüphanedeki biyografileri */
+async function kisiSayfa(k) {
+  const [R, T, RC] = await Promise.all([load('/data/k4/raviler.json'), load('/data/k4/selef_tr.json').catch(() => ({ raviler: {} })), load('/data/k4/rical.json').catch(() => ({ kitap: {}, ravi: {} }))]);
+  const rv = R.raviler[k], tr = T.raviler[k];
+  if (!rv && !tr) { view.innerHTML = '<h1>Kişi bulunamadı</h1><p class="lede">Bu kimlik numarasıyla kayıtlı bir râvi yok.</p>'; return; }
+  const ad = tr ? tr[0] : rv.ad, tk = rv?.takrib || {};
+  const KUSAK = { s: 'Sahâbî', t: 'Tâbiî', e: "Tebeu't-tâbiîn" };
+  const kusak = tr ? KUSAK[tr[2]] : tk.tabaka === 1 ? 'Sahâbî' : tk.tabaka ? `${tk.tabaka}. tabaka` : '';
+  const vef = tr ? tr[1] : tk.vefat;
+  document.title = `${ad} · vahiy++`;
+  const bio = await ricalHtml(k, RC);
+  view.innerHTML = `<article class="kisi"><p class="srcs"><a href="javascript:history.back()">← Geri</a></p>
+    <h1${tr ? '' : ' lang="ar"'}>${esc(ad)}</h1>${tr && rv ? `<p class="kisi-ar" lang="ar">${esc(rv.ad)}</p>` : ''}
+    <p class="kisi-cip">${kusak ? `<span>${esc(kusak)}</span>` : ''}${vef ? `<span>ö. ${esc(String(vef))}</span>` : ''}${rv ? `<span>${fmt(rv.rivayet)} rivayet · ${fmt(rv.ayet)} ayette</span>` : ''}</p>
+    ${tk.metin ? `<section class="kisi-b"><h2>Takrîbü't-Tehzîb</h2><p lang="ar" class="ar">${esc(tk.metin)}</p>${tk.derece ? `<p class="srcs">Hüküm: ${esc(GRADE_TR[tk.derece] || tk.derece)}</p>` : ''}</section>` : ''}
+    <section class="kisi-b">${bio || '<h2>Kütüphanedeki biyografileri</h2><p class="srcs">Bu kişi için kütüphanedeki biyografi kitaplarında güvenilir bir ad eşleşmesi kurulamadı.</p>'}</section></article>`;
+}
 async function blokSelef(s, a) {
   const [[b], R, T, RC] = await Promise.all([ayX(s, a), load('/data/k4/raviler.json'), load('/data/k4/selef_tr.json').catch(() => ({ raviler: {} })), load('/data/k4/rical.json').catch(() => ({ kitap: {}, ravi: {} }))]);
   const RV = R.raviler, TR = T.raviler;
@@ -227,13 +249,13 @@ async function blokSelef(s, a) {
     const vef = tr ? tr[1] : tk.vefat;
     const harf = (rv?.ad || ad).replace(/^(?:عبد|أبو|ابو)\s*/, '').trim()[0] || '؟';
     const kart = `<span class="pr-ust"><svg class="pr-mad" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 2l8.5 11.5L55 10l-3.5 14.5L62 32l-10.5 7.5L55 54l-14.5-3.5L32 62l-8.5-11.5L9 54l3.5-14.5L2 32l10.5-7.5L9 10l14.5 3.5z"/><text x="32" y="42" text-anchor="middle">${esc(harf)}</text></svg></span>
-      <span class="pr-ic"><b${tr ? '' : ' lang="ar"'}>${esc(ad)}</b>${tr && rv ? `<span class="pr-ar" lang="ar">${esc(rv.ad)}</span>` : ''}
+      <span class="pr-ic"><b class="pr-ad" data-kisi="${esc(k)}" role="link" tabindex="0" title="Kişi sayfasını aç"${tr ? '' : ' lang="ar"'}>${esc(ad)}</b>${tr && rv ? `<span class="pr-ar" lang="ar">${esc(rv.ad)}</span>` : ''}
       <span class="pr-cip"><i>${KUSAK[0]}${tab && kusak !== 's' ? ` · ${tab}. tabaka` : ''}</i>${vef ? `<i>ö. ${vef}</i>` : ''}${der ? `<i class="${derC}" lang="${kusak === 's' ? 'tr' : 'ar'}" title="İbn Hacer, Takrîbü't-Tehzîb">${esc(der)}</i>` : ''}</span>
       <span class="pr-say"><span><b>${X.length}</b><small>bu ayette</small></span>${rv ? `<span><b>${fmt(rv.rivayet)}</b><small>${fmt(rv.ayet)} ayette</small></span>` : ''}</span>
       <span class="pr-soz" lang="ar">${esc(sozKisa(X[0].metin))}</span>
-      <span class="pr-dug"><span class="a">${X.length} rivayet</span><span class="o">${RC.ravi[k] ? `${RC.ravi[k]} eserde biyografisi` : 'Biyografisi bağlanmadı'}</span></span></span>`;
+      <span class="pr-dug"><span class="a">${X.length} rivayet</span><span class="o">Kişi sayfası: isme dokunun</span></span></span>`;
     return { k: 'sl' + k, kart, renk: KUSAK[1], f: { kusak: KUSAK[0], hukum: derC === 'd' ? 'Cerhedilmiş' : derC === 's' ? 'Güvenilir' : 'Hükümsüz' }, yil: tr ? tr[1] : (rv?.takrib?.vefat || null), ad, arAd: !tr, eser: `${X.length} rivayet${tr ? ' · ' + TAB[tr[2]] : ''}${turler.length && !(turler.length === 1 && turler[0] === 'Tefsir') ? ' · ' + turler.join(', ') : ''}`, parca: sozKisa(X[0].metin), ozet: '1', kitap: null,
-      yukle: async () => ({ dil: 'ar', html: X.map(x => `<div class="rv1"><span class="sy">${esc(RTYPE(x.tur))}${x.hukum ? ' · tahrîcte: ' + esc(x.hukum) : ''}</span><p>${ayetIsaret(para(x.metin))}</p>${x.tahric ? `<details class="zo-cev"><summary>Tahrîc</summary><p class="thr">${para(x.tahric)}</p></details>` : ''}</div>`).join('') + (rv && rv.takrib ? `<p class="srcs" dir="ltr">Takrîbü't-Tehzîb: ${esc(GRADE_TR[rv.takrib.derece] || rv.takrib.derece || '—')}${rv.takrib.tabaka ? `, ${rv.takrib.tabaka}. tabaka` : ''}</p>` : '') + await ricalHtml(k, RC) }),
+      yukle: async () => ({ dil: 'ar', html: X.map(x => `<div class="rv1"><span class="sy">${esc(RTYPE(x.tur))}${x.hukum ? ' · tahrîcte: ' + esc(x.hukum) : ''}</span><p>${ayetIsaret(para(x.metin))}</p>${x.tahric ? `<details class="zo-cev"><summary>Tahrîc</summary><p class="thr">${para(x.tahric)}</p></details>` : ''}</div>`).join('') + (rv && rv.takrib ? `<p class="srcs" dir="ltr">Takrîbü't-Tehzîb: ${esc(GRADE_TR[rv.takrib.derece] || rv.takrib.derece || '—')}${rv.takrib.tabaka ? `, ${rv.takrib.tabaka}. tabaka` : ''}</p>` : '') + (/^\d+$/.test(k) ? `<p><a class="k3git" href="#/kisi/${k}">${esc(ad)}: kişi sayfası</a></p>` : '') }),
       kunye: chain([{ r: 'Rivayetler', t: `Mevsûa kayıt no ${X.map(x => x.id).join(', ')}` }, { r: 'Eser', k: 'mevsua' }, { r: 'Veri', k: 'quranpedia' }, tr && { r: 'Türkçe ad ve vefat', t: T.kaynak, k: 'claude' }]) };
   });
   L.birim = 'kişi'; L.onek = 'ö.'; L.suzgec = [['kusak', 'Kuşak'], ['hukum', 'Takrîb hükmü']];

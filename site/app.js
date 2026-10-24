@@ -500,6 +500,7 @@ async function route() {
   try {
     if (m) { if (m[3] && AY_SEK.some(x => x[0] === m[3])) store.set('aysek', m[3]); await ayah(+m[1], +m[2]); }
     else if (/^\/sure\/\d{1,3}$/.test(h)) await surePage(+h.split('/')[2]);
+    else if (/^\/kisi\/\d{1,7}$/.test(h)) await kisiSayfa(h.split('/')[2]);
     else if (h === '/atlas') await atlas();
     else if (h === '/kutuphane') await library();
     else if (h === '/kutuphane/dinler') await dinlerRaf();
