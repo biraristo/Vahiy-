@@ -260,3 +260,10 @@ table.t { width: 100%; border-collapse: collapse; font-family: var(--sans); font
 .audio-row { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin: .3rem 0 .2rem; font-family: var(--sans); font-size: .9rem; }
 .audio-row select { font: inherit; padding: .3rem .5rem; border: 1px solid var(--line); border-radius: 8px; background: var(--sheet); color: var(--ink); }
 .audio-row audio { height: 34px; max-width: 100%; }
+/* yatay kaydırma işareti */
+.kay-sag { -webkit-mask-image: linear-gradient(to right, #000 82%, transparent); mask-image: linear-gradient(to right, #000 82%, transparent); }
+.kay-sol { -webkit-mask-image: linear-gradient(to left, #000 82%, transparent); mask-image: linear-gradient(to left, #000 82%, transparent); }
+.kay-sag.kay-sol { -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); }
+.kay-ok { position: absolute; z-index: 5; transform: translateY(-50%); width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--sheet); color: var(--ink); font: 700 1.5rem/1 var(--sans); box-shadow: 0 2px 10px rgba(0,0,0,.18); cursor: pointer; display: grid; place-items: center; padding: 0 0 3px; }
+.kay-ok.sag { right: -4px; } .kay-ok.sol { left: -4px; } .kay-ok[hidden] { display: none; }
+.zc-sz + .kay-ok, .kay-ok { } .zc-suz .kay-ok, .raf-altlar ~ .kay-ok, .raf-turler ~ .kay-ok { width: 28px; height: 28px; font-size: 1.15rem; }

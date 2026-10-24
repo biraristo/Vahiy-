@@ -704,3 +704,25 @@ function kx(s, a, A) {
     $('#masai').addEventListener('change', async e => { const f = e.target.files[0]; if (!f) return; try { const d = JSON.parse(await f.text()); Object.entries(d.notlar || {}).forEach(([k, v]) => localStorage.setItem('masa:' + k, v)); $('#masas').textContent = `${Object.keys(d.notlar || {}).length} not içe aktarıldı`; $('#masat').value = store.get(key, ''); renderList(); } catch (err) { $('#masas').textContent = 'Dosya okunamadı: ' + err.message; } });
   });
 }
+
+/* ---------------- yatay kaydırma işareti (bütün site) ----------------
+   Taşan her yatay şeridin devam eden kenarı solar ve ok düğmesi çıkar; sona gelince kaybolur. Sağdan sola şeritler de desteklenir. */
+const KAY_SECICI = '.zc-serit, .fh-serit, .ss-ic, .siralar, .ek-sahne, .raf-turler, .raf-altlar, .zc-sz, .table-wrap, .zc-k-serit';
+function kayIsaretle(el) {
+  if (el._kay) return el._kay();
+  const kap = el.parentElement; if (getComputedStyle(kap).position === 'static') kap.style.position = 'relative';
+  const ok = yon => { const b = document.createElement('button'); b.type = 'button'; b.className = `kay-ok ${yon}`; b.setAttribute('aria-label', yon === 'sag' ? 'Sağa kaydır' : 'Sola kaydır'); b.innerHTML = yon === 'sag' ? '›' : '‹'; b.hidden = true; kap.appendChild(b); b.onclick = () => el.scrollBy({ left: (yon === 'sag' ? 1 : -1) * el.clientWidth * .8, behavior: 'smooth' }); return b; };
+  const sag = ok('sag'), sol = ok('sol');
+  const guncelle = () => {
+    const tas = el.scrollWidth - el.clientWidth, sl = Math.abs(el.scrollLeft), rtl = getComputedStyle(el).direction === 'rtl';
+    const solKalan = rtl ? tas - sl : sl, sagKalan = rtl ? sl : tas - sl;
+    const v = tas > 6; sag.hidden = !(v && sagKalan > 6); sol.hidden = !(v && solKalan > 6);
+    el.classList.toggle('kay-sag', !sag.hidden); el.classList.toggle('kay-sol', !sol.hidden);
+    const ust = el.offsetTop + Math.min(el.offsetHeight, 260) / 2; sag.style.top = sol.style.top = `${ust}px`;
+  };
+  el.addEventListener('scroll', guncelle, { passive: true }); el._kay = guncelle; guncelle();
+}
+let _kayZ = 0;
+const kayTara = () => { clearTimeout(_kayZ); _kayZ = setTimeout(() => document.querySelectorAll(KAY_SECICI).forEach(kayIsaretle), 120); };
+new MutationObserver(kayTara).observe(document.body, { childList: true, subtree: true });
+addEventListener('resize', kayTara); kayTara();

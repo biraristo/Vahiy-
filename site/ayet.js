@@ -251,7 +251,7 @@ function zcKur(el, items, tur, s, a) {
   let mes = -1, aktif = (items.find(x => x.ozet) || items[0]).k, pin = [], kel = null;
   /* süzgeç: her bölüm kendi ölçütlerini verir (items.suzgec = [[anahtar, başlık]]), yoksa dönem */
   const DONEM = y => y == null ? 'Tarihsiz' : y === 'c' || y > 1342 ? 'Modern' : y <= 310 ? 'Erken' : y <= 656 ? 'Klasik' : y <= 922 ? 'Orta' : 'Osmanlı';
-  const SUZ = (SUZ0 || (MIL ? [['asir', 'Yüzyıl']] : [['donem', 'Dönem']])).concat(!SUZ0 && items.some(x => x.tr) ? [['dil', 'Dil']] : []);
+  const SUZ = (SUZ0 || [['asir', MIL ? 'Yüzyıl' : 'Asır']]).concat(!SUZ0 && items.some(x => x.tr) ? [['dil', 'Dil']] : []);
   const deger = (x, k) => k === 'donem' ? DONEM(x.yil) : k === 'asir' ? ASIR(x.yil) : k === 'dil' ? (x.tr ? 'Türkçe' : 'Arapça') : (x.f || {})[k] || 'Diğer';
   const fs = {}; const gor = x => SUZ.every(([k]) => !fs[k] || deger(x, k) === fs[k]);
   const SIRA = ['Erken', 'Klasik', 'Orta', 'Osmanlı', 'Modern', 'Tarihsiz'];
@@ -277,7 +277,7 @@ function zcKur(el, items, tur, s, a) {
     const kutu = govde.querySelector('.zc-suz');
     kutu.innerHTML = SUZ.map(([k, ad]) => {
       const say = {}; items.filter(x => SUZ.every(([k2]) => k2 === k || !fs[k2] || deger(x, k2) === fs[k2])).forEach(x => { const d = deger(x, k); say[d] = (say[d] || 0) + 1; });
-      const D = Object.keys(say).sort((p, q) => (SIRA.indexOf(p) + 1 || 99) - (SIRA.indexOf(q) + 1 || 99) || (parseInt(p.replace(/\D/g, '')) || 0) - (parseInt(q.replace(/\D/g, '')) || 0) || p.localeCompare(q, 'tr'));
+      const D = Object.keys(say).sort((p, q) => (p === 'Tarihsiz') - (q === 'Tarihsiz') || (SIRA.indexOf(p) + 1 || 99) - (SIRA.indexOf(q) + 1 || 99) || (parseInt(p.replace(/\D/g, '')) || 0) - (parseInt(q.replace(/\D/g, '')) || 0) || p.localeCompare(q, 'tr'));
       if (D.length < 2 && !fs[k]) return '';
       return `<div class="zc-sz" role="group" aria-label="${esc(ad)}"><span>${esc(ad)}</span><button type="button" data-sk="${k}" data-sv="" aria-pressed="${!fs[k]}">Tümü</button>${D.map(d => `<button type="button" data-sk="${k}" data-sv="${esc(d)}" aria-pressed="${fs[k] === d}">${esc(d)} <small>${say[d]}</small></button>`).join('')}</div>`;
     }).join('') + `<label class="zc-git"><span>Doğrudan git</span><select aria-label="Doğrudan git">${vis.map(x => `<option value="${esc(x.k)}"${x.k === aktif ? ' selected' : ''}>${esc([yilYaz(x.yil), x.ad, x.eser && x.eser !== x.ad ? x.eser : ''].filter(Boolean).join(' · ').slice(0, 90))}</option>`).join('')}</select></label>`;
