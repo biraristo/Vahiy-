@@ -13,16 +13,11 @@ exec(_core.replace("os.makedirs(TMP, exist_ok=True)", ''))
 sys.argv = _argv
 PART, NPART = int(sys.argv[1]), int(sys.argv[2])
 OUT = '/home/claude/lib/atif'; os.makedirs(OUT, exist_ok=True)
-SITE = 'https://vahiy.bunyaminatalay07.workers.dev/r2/kitap/'
+SITE = 'kitap/'
+from r2oku import r2_al
 H = {'User-Agent': 'Mozilla/5.0 vahiy-tara'}
-def al(u):
-    for d in range(6):
-        try: return urllib.request.urlopen(urllib.request.Request(u, headers=H), timeout=180).read()
-        except urllib.error.HTTPError as e:
-            if e.code == 404: return None
-            time.sleep(3 + 5 * d)
-        except Exception: time.sleep(3 + 5 * d)
-    return None
+def al(u):  # doğrudan R2 API (sitenin /r2/ yolu Worker istek sınırını doldurur)
+    return r2_al(u)
 def snip2(tokens, i, n):
     a, b = max(0, i - 6), min(len(tokens), i + n + 6)
     return ' '.join(t for t in tokens[a:b] if not t.startswith('PageV')).replace('\t', ' ')[:300]

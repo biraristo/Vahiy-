@@ -5,7 +5,8 @@ sys.path.insert(0, os.path.dirname(__file__))
 from openiti_aday_ortak import norm, imza
 TMP = '/home/claude/lib/shamela/tmp/sayfa'
 OUT = '/home/claude/lib/raf/shamela_imza.json'
-SITE = 'https://vahiy.bunyaminatalay07.workers.dev/r2/kitap/'
+SITE = 'kitap/'
+from r2oku import r2_al
 ETIKET = re.compile(r'<[^>]+>')
 out = json.load(open(OUT)) if os.path.exists(OUT) else {}
 m = sqlite3.connect('/home/claude/lib/shamela/x/database/master.db')
@@ -14,13 +15,12 @@ yerel = {}
 for fn in os.listdir(TMP):
     mm = re.match(r'(\d+)\.1\.gz$', fn)
     if mm: yerel[mm.group(1)] = f'{TMP}/{fn}'
-def al(u, rng=None):
-    h = {'User-Agent': 'Mozilla/5.0 vahiy-imza'}
-    if rng: h['Range'] = rng
-    for d in range(5):
-        try: return urllib.request.urlopen(urllib.request.Request(u, headers=h), timeout=60).read()
-        except Exception: pass
-    return None
+_ON = {}
+def al(u, rng=None):  # doğrudan R2 API; Range desteklenmediği için nesne bir kez alınıp dilimlenir
+    if u not in _ON: _ON.clear(); _ON[u] = r2_al(u)
+    b = _ON[u]
+    if b is None or not rng: return b
+    a, z = map(int, rng[6:].split('-')); return b[a:z + 1]
 def bir(bid):
     if bid in out: return None
     ws = []

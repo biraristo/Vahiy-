@@ -62,6 +62,17 @@ function ayetYeni(s, a, A, su, S, D, MI) {
         ${ds.length ? `<p class="gk-dig">${ds.slice(0, 8).map(x => `<span><a href="#/${x}/${dig[x][0]}">${esc(TRS(x))}</a> ${dig[x].slice(0, 6).map(y => `<a href="#/${x}/${y}">${y}</a>`).join(', ')}${dig[x].length > 6 ? '…' : ''}</span>`).join(' · ')}${ds.length > 8 ? ` <button type="button" class="gk-tum" data-i="${i}">+${ds.length - 8} sure</button>` : ''}</p>` : '<p class="gk-dig">Başka surede geçmiyor.</p>'}</div>`; };
     const kk = el.querySelector('.gk-konu');
     kk.innerHTML = T.length ? `<h3>${a}. ayetin konuları</h3>${T.map(kart).join('')}` : '<p class="gk-bos">Bu ayet fihristte etiketlenmemiş.</p>';
+    /* kütüphane fihristi: bu ayetin alıntılandığı bölüm başlıkları (fh2; build_fihrist_kutup.py) */
+    Promise.all([load(`/data/fh2/a/${s}.json`).catch(() => ({})), load('/data/fh2/konu.json'), load('/data/fh2/tr.json').catch(() => ({}))]).then(([A, KN, TRK]) => {
+      const L = A[String(a)] || []; if (!L.length) return;
+      kk.insertAdjacentHTML('beforeend', `<div class="fk"><h3>Kütüphanede bu ayetin geçtiği konular</h3><p class="ss-not">Kitapların bölüm başlıkları: ayet o başlıklı bölümde en az iki ayrı eserde alıntılanmış. Sayı, eser sayısıdır.</p>
+        <div class="fk-l">${L.map(([n, c]) => `<button type="button" class="fk-k" data-n="${n}"><bdi lang="ar">${esc(KN.k[n][0])}</bdi>${TRK[n] ? `<span>${esc(TRK[n])}</span>` : ''}<small>${c}</small></button>`).join('')}</div><div class="fk-ay"></div></div>`);
+      const box = kk.querySelector('.fk-ay');
+      kk.querySelector('.fk-l').addEventListener('click', async e => { const b = e.target.closest('.fk-k'); if (!b) return; const n = +b.dataset.n;
+        kk.querySelectorAll('.fk-k').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+        const P = (await load(`/data/fh2/k/${Math.floor(n / 500)}.json`))[n] || [];
+        box.innerHTML = `<p><b lang="ar">${esc(KN.k[n][0])}</b>${TRK[n] ? ` (${esc(TRK[n])})` : ''} başlıklı bölümler ${KN.k[n][1]} eserde; en çok alıntılanan ayetler:</p><p class="fk-ayl">${P.slice(0, 60).map(([k, c]) => `<a href="#/${k.replace(':', '/')}"${k === `${s}:${a}` ? ' class="bu"' : ''}>${k}<small>${c}</small></a>`).join('')}</p>`; });
+    });
     kk.addEventListener('click', e => { const b = e.target.closest('.gk-tum'); if (!b) return; const i = +b.dataset.i, dig = {}; E[i][1].forEach(r => { const [x, y] = r.split(':').map(Number); if (x !== s) (dig[x] ||= []).push(y); });
       b.outerHTML = Object.keys(dig).slice(8).map(x => ` · <span><a href="#/${x}/${dig[x][0]}">${esc(TRS(+x))}</a> ${dig[x].map(y => `<a href="#/${x}/${y}">${y}</a>`).join(', ')}</span>`).join(''); });
   }).catch(() => {});

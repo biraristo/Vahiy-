@@ -289,3 +289,14 @@ body.se-acik { overflow: hidden; }
 .rc-l details summary { cursor: pointer; list-style: none; }
 .rc-l details summary::-webkit-details-marker { display: none; }
 .rc-l .kesit { margin: .4rem 0; }
+/* kütüphane fihristi */
+.fk { margin-top: 1.2rem; }
+.fk-l { display: flex; flex-wrap: wrap; gap: .4rem; }
+.fk-k { display: inline-flex; gap: .4rem; align-items: baseline; border: 1px solid var(--line); background: var(--paper, transparent); border-radius: 999px; padding: .25rem .7rem; cursor: pointer; font: .9rem var(--sans); color: inherit; }
+.fk-k bdi { font-size: 1rem; }
+.fk-k span { color: var(--muted); font-size: .8rem; }
+.fk-k small { color: var(--muted); font-size: .75rem; }
+.fk-k[aria-pressed="true"] { border-color: currentColor; }
+.fk-ayl { display: flex; flex-wrap: wrap; gap: .3rem .6rem; font: .85rem var(--sans); }
+.fk-ayl small { color: var(--muted); margin-left: .15rem; font-size: .7rem; }
+.fk-ayl a.bu { font-weight: 700; }

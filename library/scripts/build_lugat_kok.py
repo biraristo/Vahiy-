@@ -7,6 +7,7 @@ Metin düzeyi (METIN listesi): madde "kök:" satırıyla başlar; bölüm indeks
 Çıktı: site/data/k0/lugat.json = {"kitap": {id: [tr_ad, ar_ad, vefat]}, "kok": {kök: [[id, bölüm, başlık], ...]}}"""
 import json, re, gzip, urllib.request, collections
 from concurrent.futures import ThreadPoolExecutor
+from r2oku import r2_al  # sitenin /r2/ yolu değil: Worker istek sınırına girmez
 SITE = '/home/claude/vahiy-/site/data'
 K = json.load(open(f'{SITE}/k0/dizin.json'))['kok']
 def n(t):
@@ -30,7 +31,7 @@ def adaylar(t):
     return [k for x in c for k in KN.get(x, [])]
 def al(i):
     try:
-        j = urllib.request.urlopen(urllib.request.Request(f'https://vahiy.bunyaminatalay07.workers.dev/r2/kitap/{i}.json', headers={'User-Agent': 'Mozilla/5.0'}), timeout=120).read()
+        j = r2_al(f'kitap/{i}.json')
         try: return i, json.loads(gzip.decompress(j))['b']
         except Exception: return i, json.loads(j)['b']
     except Exception: return i, None
@@ -58,7 +59,7 @@ for i, b in D.items():
 import zlib
 METIN = ['sh1687', 'sh1682']
 def bin_al(i):
-    return urllib.request.urlopen(urllib.request.Request(f'https://vahiy.bunyaminatalay07.workers.dev/r2/kitap/{i}.bin', headers={'User-Agent': 'Mozilla/5.0'}), timeout=900).read()
+    return r2_al(f'kitap/{i}.bin')
 for i in METIN:
     b = D.get(i) or al(i)[1]
     if not b: continue

@@ -4,16 +4,16 @@ sayfa işareti sayısı paketleme denetimindeki sayıyla eşit mi; cilt içinde 
 Kullanım: python3 dogrula.py <katalog.json> <önek: sh|oi> [--hepsi]   → /home/claude/lib/raf/dogrulama_{önek}.json"""
 import sys, os, re, json, gzip, zlib, urllib.request, concurrent.futures as cf
 KAT, ONEK = sys.argv[1], sys.argv[2]
-SITE = 'https://vahiy.bunyaminatalay07.workers.dev/r2/kitap/'
+SITE = 'kitap/'
+from r2oku import r2_al
 OUT = f'/home/claude/lib/raf/dogrulama_{ONEK}.json'
 kat = json.load(open(KAT))
 sonuc = json.load(open(OUT)) if os.path.exists(OUT) and '--hepsi' not in sys.argv else {}
 atla = set(open(sys.argv[sys.argv.index('--atla') + 1]).read().split()) if '--atla' in sys.argv else set()
-def al(u):
-    for d in range(6):
-        try: return urllib.request.urlopen(urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0 vahiy-dogrula', 'Accept-Encoding': 'identity'}), timeout=120).read()
-        except Exception as e: err = e
-    raise RuntimeError(str(err))
+def al(u):  # doğrudan R2 API: depodaki nesne baytları denetlenir (site yolu Worker sınırına girer)
+    b = r2_al(u)
+    if b is None: raise RuntimeError('404 ' + u)
+    return b
 def bir(k):
     eid = f'{ONEK}{k}' if ONEK == 'sh' else k
     r = {'hata': []}
