@@ -273,9 +273,9 @@ async function home() {
   }).catch(() => { $('#eyb').hidden = true; });
 
   /* ---- kaynak dünyası ---- */
-  const KD = [['Tefsir', '357 eser', '#1F7A80', 'y'], ["Ulûmü'l-Kur'ân", '800 kitap', '#1F6070', 'g'], ['Hadis', '1.092 kitap', '#1E3A5F', 'h'], ['Fıkıh ve usûl', '874 kitap', '#5B4A2A', 'k'], ['Kelâm', '525 kitap', '#2F5D50', 'g'],
-    ['Tasavvuf', '319 kitap', '#6B3A3A', 'u'], ['Lügatler', '352 kitap', '#3E4E6B', 'k'], ['Tarih ve ricâl', '1.020 kitap', '#4A5A3A', 'h'], ['Felsefe ve mantık', '56 kitap', '#4B3F5E', 'y'], ['Dinler tarihi', '713 metin', '#2E4A55', 'u']];
-  const KDL = { 'Tefsir': 'tefsir', "Ulûmü'l-Kur'ân": 'ulum', 'Felsefe ve mantık': 'felsefe', 'Hadis': 'hadis', 'Fıkıh ve usûl': 'fikih', 'Kelâm': 'kelam', 'Tasavvuf': 'tasavvuf', 'Lügatler': 'lugat', 'Tarih ve ricâl': 'tarih' };
+  const KD = [['Tefsir', '357 eser', '#1F7A80', 'y'], ["Ulûmü'l-Kur'ân", '800 kitap', '#1F6070', 'g'], ['Hadis', '1.092 kitap', '#1E3A5F', 'h'], ['Fıkıh ve usûl', '874 kitap', '#5B4A2A', 'k'], ['Kelâm', '525 kitap', '#2F5D50', 'g'], ['Dinler tarihi', '713 metin', '#2E4A55', 'h'],
+    ['Tasavvuf', '319 kitap', '#6B3A3A', 'u'], ['Lügatler', '352 kitap', '#3E4E6B', 'k'], ['Tarih ve ricâl', '1.020 kitap', '#4A5A3A', 'h'], ['Felsefe ve mantık', '56 kitap', '#4B3F5E', 'y']];
+  const KDL = { 'Tefsir': 'tefsir', "Ulûmü'l-Kur'ân": 'ulum', 'Felsefe ve mantık': 'felsefe', 'Hadis': 'hadis', 'Fıkıh ve usûl': 'fikih', 'Kelâm': 'kelam', 'Tasavvuf': 'tasavvuf', 'Dinler tarihi': 'dinler', 'Lügatler': 'lugat', 'Tarih ve ricâl': 'tarih' };
   const motif = (tp, c, i) => {
     const s = 'stroke="rgba(244,242,234,.32)" fill="none" stroke-width="1.2"', id = 'kp' + i;
     const P = { h: `<rect x="10" y="10" width="20" height="20" ${s}/><rect x="10" y="10" width="20" height="20" transform="rotate(45 20 20)" ${s}/>`, k: `<path d="M4 4h12v12H8v8h16V8h8v24H4z" ${s}/>`,
