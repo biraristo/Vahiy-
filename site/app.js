@@ -82,7 +82,7 @@ async function ayah(s, a) {
   <div class="audio-row a3-til"><select id="kari" aria-label="Kâri">${KARI.map(([k, n]) => `<option value="${k}"${k === store.get('kari', KARI[0][0]) ? ' selected' : ''}>${n}</option>`).join('')}</select><audio id="aud" controls preload="none" src="https://everyayah.com/data/${store.get('kari', KARI[0][0])}/${String(s).padStart(3, '0')}${String(a).padStart(3, '0')}.mp3"></audio></div>
   <div class="a3-meal"><div class="meal-row"><select id="msel" aria-label="Meal">${mealOpts}</select><span class="src" id="msrc"></span></div>
     <p class="meal" id="mtext">…</p><div id="a3Mealler"></div></div>
-  <section class="a3-sure" aria-label="Suredeki yeri"><div class="a3-h"><h2>Suredeki yeri</h2><span id="a3SureNot"></span></div><div class="a3-serit" id="aySerit"></div></section>
+  <section class="a3-sure" aria-label="Ayet fihristi"><div class="a3-h"><h2>Ayet fihristi</h2><span id="a3SureNot"></span></div><div class="a3-serit" id="aySerit"></div></section>
   <section class="a3-blok" id="b-tefsir"><div class="a3-h"><h2>Tefsirler</h2><span id="b-tefsir-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
   <section class="a3-blok" id="b-esbab"><div class="a3-h"><h2>Esbâb-ı nüzûl ve nâsih-mensûh</h2><span id="b-esbab-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
   <section class="a3-blok" id="b-selef"><div class="a3-h"><h2>Selef rivayetleri</h2><span id="b-selef-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>

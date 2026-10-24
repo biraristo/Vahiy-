@@ -172,6 +172,7 @@
   "vitrin": "library/scripts/build_vitrin.py",
   "eskiyazma": "library/scripts/build_eskiyazma.py",
   "yogunluk": "library/scripts/build_yogunluk.py",
-  "raf": "library/scripts/build_raf_tefsir.py"
+  "raf": "library/scripts/build_raf_tefsir.py",
+  "fihrist": "library/scripts/build_fihrist.py"
  }
 }

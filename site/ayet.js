@@ -24,16 +24,50 @@ function ayetYeni(s, a, A, su, S, D, MI) {
     $('#a3Mealler').innerHTML = `<details class="a3-tum"><summary>Tüm mealler (${L.length})</summary><ul>${L.map(m => `<li><b>${esc(AY_MEAL_AD[m] || m)}</b><span>${esc(M.mealler[m][a - 1])}</span></li>`).join('')}</ul></details>`;
   }).catch(() => {});
 
-  /* ---- suredeki yer: her konu bölümü tek kutu, sağdan sola; kutuya basınca ayet seçme ekranı ---- */
-  load('/data/k0/konu.json').then(K => {
-    const B = K.sureler[String(s)] || [[1, su.ayet, su.tr]];
-    const bu = B.find(([x, y]) => a >= x && a <= y);
-    $('#a3SureNot').innerHTML = `${B.length} bölüm · ${su.ayet} ayet`;
+  /* ---- ayet fihristi: surenin bütün ayetleri sağdan sola bir şeritte, her ayette konu etiketleri (KuranFihristi.net) ---- */
+  Promise.all([load('/data/k0/konu.json'), load(`/data/fh/${s}.json`), load('/data/fh/etiket.json'), load('/data/k0/ilk.json').catch(() => ({}))]).then(([K, F, ET, IL]) => {
+    const B = K.sureler[String(s)] || [[1, su.ayet, su.tr]], E = ET.etiketler, ilkK = IL[String(s)] || [];
+    const bi = n => B.findIndex(([x, y]) => n >= x && n <= y);
+    const et = n => F.ayetler[String(n)] || [];
     const el = $('#aySerit');
-    el.innerHTML = `<div class="ss-ic" dir="rtl">${B.map(([x, y, ad], i) => `<button type="button" class="ss-k${bu && bu[0] === x ? ' bu' : ''}" data-i="${i}" style="--c:var(--k${i % 8})" dir="ltr"><span class="r">${x === y ? `${x}. ayet` : `${x}–${y}`}</span><span class="t">${esc(ad)}</span>${bu && bu[0] === x ? `<span class="b">${a}. ayet burada</span>` : ''}</button>`).join('')}</div><p class="ss-not">Konu bölümleri Claude tarafından klasik tefsirlerin pasaj taksimine bakılarak hazırlandı; tefsirlerle karşılaştırın. ${chain([{ r: 'Bölümleme', t: K.kaynak, k: 'claude' }])}</p>`;
-    const ic = el.querySelector('.ss-ic'), cur = el.querySelector('.ss-k.bu');
-    if (cur) { const r1 = cur.getBoundingClientRect(), r0 = ic.getBoundingClientRect(); ic.scrollLeft += (r1.left + r1.width / 2) - (r0.left + r0.width / 2); }
-    ic.addEventListener('click', e => { const k = e.target.closest('.ss-k'); if (k) ayetSec(s, a, su, D, B[+k.dataset.i], +k.dataset.i); });
+    $('#a3SureNot').innerHTML = `${su.ayet} ayet · ${B.length} bölüm`;
+    const kutu = n => { const T = et(n); return `<div class="fh-ay${n === a ? ' bu' : ''}" data-a="${n}" role="link" tabindex="0" aria-label="${n}. ayet"><span class="no">${n}</span><span class="q" lang="ar">${esc((ilkK[n - 1] || '').replace(/ …$/, ''))}</span>${T.slice(0, 3).map(i => `<button type="button" class="t" data-e="${i}">${esc(E[i][0])}</button>`).join('')}${T.length > 3 ? `<span class="t d">+${T.length - 3}</span>` : ''}</div>`; };
+    const surEt = {}; for (let n = 1; n <= su.ayet; n++) et(n).forEach(i => { surEt[i] = (surEt[i] || 0) + 1; });
+    const etSira = Object.keys(surEt).map(Number).sort((p, q) => surEt[q] - surEt[p] || E[p][0].localeCompare(E[q][0], 'tr'));
+    el.innerHTML = `<div class="fh-suz"><label><span>Bölüm</span><select data-fs="b">${B.map(([x, y, ad], j) => `<option value="${x}"${bi(a) === j ? ' selected' : ''}>${x === y ? x : `${x}–${y}`} · ${esc(ad)}</option>`).join('')}</select></label>
+      <label><span>Ayet</span><select data-fs="a">${Array.from({ length: su.ayet }, (_, k) => `<option value="${k + 1}"${k + 1 === a ? ' selected' : ''}>${k + 1}${et(k + 1).length ? ' · ' + esc(et(k + 1).slice(0, 2).map(i => E[i][0]).join(', ')) : ''}</option>`).join('')}</select></label>
+      <label><span>Etiket</span><select data-fs="e"><option value="">Bu suredeki ${etSira.length} etiket</option>${etSira.map(i => `<option value="${i}">${esc(E[i][0])} (${surEt[i]})</option>`).join('')}</select></label></div>
+      <div class="fh-serit" dir="rtl" tabindex="0" aria-label="Surenin ayetleri">${B.map(([x, y, ad], j) => `<div class="fh-bol" style="--c:var(--k${j % 8})"><span class="fh-bb" dir="ltr">${x === y ? x : `${x}–${y}`} · ${esc(ad)}</span><div class="fh-kol">${Array.from({ length: y - x + 1 }, (_, k) => kutu(x + k)).join('')}</div></div>`).join('')}</div>
+      <div class="fh-harita" dir="rtl" aria-hidden="true">${Array.from({ length: su.ayet }, (_, k) => `<i data-a="${k + 1}" class="${k + 1 === a ? 'bu' : ''}" style="--c:var(--k${bi(k + 1) % 8})"></i>`).join('')}</div>
+      <div class="fh-harita-alt"><span>${su.ayet}</span><span>şeridi kaydırın ya da haritaya dokunun</span><span>1</span></div>
+      <div class="fh-ilgili" aria-live="polite"></div>
+      <p class="ss-not">Etiketler: <a href="https://www.kuranfihristi.net/" target="_blank" rel="noopener">KuranFihristi.net</a> konu fihristi (${fmt(E.length)} konu). Bölümler Claude tarafından klasik tefsirlerin pasaj taksimine bakılarak hazırlandı. ${chain([{ r: 'Etiketler', t: ET.kaynak, u: ET.url }, { r: 'Bölümler', t: K.kaynak, k: 'claude' }, { r: 'İşleme', b: 'fihrist' }])}</p>`;
+    const ser = el.querySelector('.fh-serit');
+    const goster = n => { const t = ser.querySelector(`.fh-ay[data-a="${n}"]`); if (!t) return; const r1 = t.getBoundingClientRect(), r0 = ser.getBoundingClientRect(); ser.scrollLeft += (r1.left + r1.width / 2) - (r0.left + r0.width / 2); };
+    const ilgili = i => {
+      const [ad, L] = E[i]; const dig = L.filter(r => r !== `${s}:${a}`);
+      el.querySelector('.fh-ilgili').innerHTML = `<p><b>${esc(ad)}</b> etiketi ${L.length} ayette${L.includes(`${s}:${a}`) ? `; bu ayet dışında ${dig.length}` : ''}:</p><div class="fh-yer">${dig.slice(0, 40).map(r => `<a href="#/${r.replace(':', '/')}">${r}</a>`).join('')}${dig.length > 40 ? `<button type="button" class="fh-tum">+${dig.length - 40} ayet daha</button>` : ''}</div>`;
+      el.querySelector('.fh-tum')?.addEventListener('click', ev => { ev.target.outerHTML = dig.slice(40).map(r => `<a href="#/${r.replace(':', '/')}">${r}</a>`).join(''); });
+      el.querySelectorAll('.fh-ay .t[data-e]').forEach(b => b.classList.toggle('sec', +b.dataset.e === i));
+    };
+    ser.addEventListener('click', ev => {
+      const t = ev.target.closest('.t[data-e]'); if (t) { ev.stopPropagation(); ilgili(+t.dataset.e); return; }
+      const k = ev.target.closest('.fh-ay'); if (k && +k.dataset.a !== a) location.hash = `#/${s}/${k.dataset.a}`;
+    });
+    ser.addEventListener('keydown', ev => { const k = ev.target.closest('.fh-ay'); if (k && ev.key === 'Enter') location.hash = `#/${s}/${k.dataset.a}`; });
+    el.querySelector('.fh-suz').addEventListener('change', ev => {
+      const t = ev.target, v = t.value;
+      if (t.dataset.fs === 'b') goster(+v);
+      else if (t.dataset.fs === 'a') location.hash = `#/${s}/${v}`;
+      else if (t.dataset.fs === 'e') {
+        ser.querySelectorAll('.fh-ay').forEach(k => k.classList.toggle('isk', !!v && et(+k.dataset.a).includes(+v)));
+        el.querySelectorAll('.fh-harita i').forEach(k => k.classList.toggle('isk', !!v && et(+k.dataset.a).includes(+v)));
+        if (v) { ilgili(+v); const ilk = ser.querySelector('.fh-ay.isk'); if (ilk) goster(+ilk.dataset.a); }
+      }
+    });
+    el.querySelector('.fh-harita').addEventListener('click', ev => { const i = ev.target.closest('i'); if (i) goster(+i.dataset.a); });
+    requestAnimationFrame(() => goster(a));
+    if (et(a).length) ilgili(et(a)[0]); else el.querySelector('.fh-ilgili').innerHTML = '<p>Bu ayet için fihristte etiket yok.</p>';
   }).catch(() => {});
 
   /* ---- kelimeler: ayet metnindeki kelimeye dokununca bilgi paneli ---- */
@@ -163,11 +197,11 @@ async function blokSelef(s, a) {
       <span class="pr-say"><span><b>${X.length}</b><small>bu ayette</small></span>${rv ? `<span><b>${fmt(rv.rivayet)}</b><small>${fmt(rv.ayet)} ayette</small></span>` : ''}</span>
       <span class="pr-soz" lang="ar">${esc(sozKisa(X[0].metin))}</span>
       <span class="pr-dug"><span class="a">${X.length} rivayet</span><span class="o">Biyografi · yakında</span></span></span>`;
-    return { k: 'sl' + k, kart, renk: KUSAK[1], yil: tr ? tr[1] : (rv?.takrib?.vefat || null), ad, arAd: !tr, eser: `${X.length} rivayet${tr ? ' · ' + TAB[tr[2]] : ''}${turler.length && !(turler.length === 1 && turler[0] === 'Tefsir') ? ' · ' + turler.join(', ') : ''}`, parca: sozKisa(X[0].metin), ozet: '1', kitap: null,
+    return { k: 'sl' + k, kart, renk: KUSAK[1], f: { kusak: KUSAK[0], hukum: derC === 'd' ? 'Cerhedilmiş' : derC === 's' ? 'Güvenilir' : 'Hükümsüz' }, yil: tr ? tr[1] : (rv?.takrib?.vefat || null), ad, arAd: !tr, eser: `${X.length} rivayet${tr ? ' · ' + TAB[tr[2]] : ''}${turler.length && !(turler.length === 1 && turler[0] === 'Tefsir') ? ' · ' + turler.join(', ') : ''}`, parca: sozKisa(X[0].metin), ozet: '1', kitap: null,
       yukle: async () => ({ dil: 'ar', html: X.map(x => `<div class="rv1"><span class="sy">${esc(RTYPE(x.tur))}${x.hukum ? ' · tahrîcte: ' + esc(x.hukum) : ''}</span><p>${ayetIsaret(para(x.metin))}</p>${x.tahric ? `<details class="zo-cev"><summary>Tahrîc</summary><p class="thr">${para(x.tahric)}</p></details>` : ''}</div>`).join('') + (rv && rv.takrib ? `<p class="srcs" dir="ltr">Takrîbü't-Tehzîb: ${esc(GRADE_TR[rv.takrib.derece] || rv.takrib.derece || '—')}${rv.takrib.tabaka ? `, ${rv.takrib.tabaka}. tabaka` : ''}</p>` : '') }),
       kunye: chain([{ r: 'Rivayetler', t: `Mevsûa kayıt no ${X.map(x => x.id).join(', ')}` }, { r: 'Eser', k: 'mevsua' }, { r: 'Veri', k: 'quranpedia' }, tr && { r: 'Türkçe ad ve vefat', t: T.kaynak, k: 'claude' }]) };
   });
-  L.birim = 'kişi'; L.onek = 'ö.';
+  L.birim = 'kişi'; L.onek = 'ö.'; L.suzgec = [['kusak', 'Kuşak'], ['hukum', 'Takrîb hükmü']];
   L.giris = b.k4.length ? `<p class="zc-giris">Sahâbe ve tâbiûnun bu ayet hakkındaki sözleri: ${b.k4.length} rivayet, ${L.length} kişiden. Bir kişiye dokunun, sözleri tahrîc ve hükümleriyle açılsın.</p>` : '';
   return L;
 }
@@ -207,7 +241,7 @@ const ASIR_H = y => y == null ? 'Tarihsiz' : y === 'c' ? 'Çağdaş' : `${Math.f
 const yilYazH = (y, onek = 'ö.') => y == null ? '' : y === 'c' ? 'çağdaş' : `${onek} ${y}`;
 function zcKur(el, items, tur, s, a) {
   const govde = el.querySelector('.zc-govde'), sayEl = el.querySelector(`#b-${tur}-n`);
-  const MES = items.meseleler || [], MIL = items.takvim === 'm', BIRIM = items.birim || 'eser', GIRIS = items.giris || '';
+  const SUZ0 = items.suzgec, MES = items.meseleler || [], MIL = items.takvim === 'm', BIRIM = items.birim || 'eser', GIRIS = items.giris || '';
   const ASIR = MIL ? (y => y == null ? 'Tarihsiz' : y < 0 ? `MÖ ${Math.ceil(-y / 100)}. yüzyıl` : `MS ${Math.floor((Math.max(y, 1) - 1) / 100) + 1}. yüzyıl`) : ASIR_H;
   const yilYaz = MIL ? (y => y == null ? '' : y < 0 ? `MÖ ${-y}` : `MS ${y}`) : (y => yilYazH(y, items.onek));
   items = items.map(x => ({ ...x, yil: MIL ? x.yil : hicri(x.yil) })).sort((p, q) => (p.yil === 'c' ? 1448 : p.yil ?? 99999) - (q.yil === 'c' ? 1448 : q.yil ?? 99999));
@@ -215,12 +249,20 @@ function zcKur(el, items, tur, s, a) {
   const yillar = items.map(x => x.yil).filter(y => typeof y === 'number');
   if (sayEl) sayEl.textContent = `${items.length} ${BIRIM}${yillar.length ? ` · ${MIL ? `${yilYaz(Math.min(...yillar))}–${yilYaz(Math.max(...yillar))}` : `h. ${Math.min(...yillar)}–${Math.max(...yillar)}`}` : ''}`;
   let mes = -1, aktif = (items.find(x => x.ozet) || items[0]).k, pin = [], kel = null;
+  /* süzgeç: her bölüm kendi ölçütlerini verir (items.suzgec = [[anahtar, başlık]]), yoksa dönem */
+  const DONEM = y => y == null ? 'Tarihsiz' : y === 'c' || y > 1342 ? 'Modern' : y <= 310 ? 'Erken' : y <= 656 ? 'Klasik' : y <= 922 ? 'Orta' : 'Osmanlı';
+  const SUZ = (SUZ0 || (MIL ? [['asir', 'Yüzyıl']] : [['donem', 'Dönem']])).concat(!SUZ0 && items.some(x => x.tr) ? [['dil', 'Dil']] : []);
+  const deger = (x, k) => k === 'donem' ? DONEM(x.yil) : k === 'asir' ? ASIR(x.yil) : k === 'dil' ? (x.tr ? 'Türkçe' : 'Arapça') : (x.f || {})[k] || 'Diğer';
+  const fs = {}; const gor = x => SUZ.every(([k]) => !fs[k] || deger(x, k) === fs[k]);
+  const SIRA = ['Erken', 'Klasik', 'Orta', 'Osmanlı', 'Modern', 'Tarihsiz'];
   const kelVar = x => !kel || nAr(x.ara || '').includes(kel.k);
-  govde.innerHTML = `${GIRIS}${MES.length ? '<div class="zc-mes"></div>' : ''}<div class="zc-serit" tabindex="0" aria-label="Eserler, tarihe göre"></div><div class="zc-arac"></div><div class="zc-oku" aria-live="polite"></div>`;
+  govde.innerHTML = `${GIRIS}<div class="zc-suz"></div>${MES.length ? '<div class="zc-mes"></div>' : ''}<div class="zc-serit" tabindex="0" aria-label="Eserler, tarihe göre"></div><div class="zc-arac"></div><div class="zc-oku" aria-live="polite"></div>`;
   const serit = govde.querySelector('.zc-serit');
   const meseleOf = k => mes >= 0 ? MES[mes].eserler.find(m => m.w === k) : null;
   const cizSerit = () => {
-    const gr = []; items.forEach(x => { const as = ASIR(x.yil); const g = gr[gr.length - 1]; if (g && g.as === as) g.L.push(x); else gr.push({ as, L: [x] }); });
+    const vis = items.filter(gor); if (!vis.some(x => x.k === aktif) && vis.length) aktif = vis[0].k;
+    cizSuz(vis);
+    const gr = []; vis.forEach(x => { const as = ASIR(x.yil); const g = gr[gr.length - 1]; if (g && g.as === as) g.L.push(x); else gr.push({ as, L: [x] }); });
     const sl = serit.scrollLeft;
     serit.innerHTML = gr.map(g => `<div class="zc-asir"><div class="zc-as">${g.as}<small>${g.L.length}</small></div><div class="zc-kol">${g.L.map(x => { const m = meseleOf(x.k); const sonuk = (mes >= 0 && !m) || !kelVar(x); if (x.kart) return `<button type="button" class="zc-k profil${x.k === aktif ? ' sec' : ''}${sonuk ? ' sonuk' : ''}${pin.includes(x.k) ? ' pin' : ''}" data-k="${esc(x.k)}" style="--c:${x.renk}">${x.kart}</button>`; return `<button type="button" class="zc-k${x.k === aktif ? ' sec' : ''}${sonuk ? ' sonuk' : ''}${pin.includes(x.k) ? ' pin' : ''}" data-k="${esc(x.k)}"${m ? ` style="--c:${TM_ETIKET_RENK[m.e]}"` : ''}><span class="y">${yilYaz(x.yil) || '&nbsp;'}</span><b${x.arAd ? ' lang="ar"' : ''}>${esc(x.ad)}</b><small${isArYazi(x.eser) ? ' lang="ar"' : ''}>${esc(x.eser)}</small>${x.parca ? `<span class="pc" lang="ar">${esc(x.parca)}</span>` : ''}${m ? `<i style="--c:${TM_ETIKET_RENK[m.e]}">${esc(MES[mes].etiketler?.[m.e] || '')}</i>` : x.tr ? '<i class="tr">Türkçe</i>' : x.rozet ? `<i>${esc(x.rozet)}</i>` : ''}</button>`; }).join('')}</div></div>`).join('');
     serit.scrollLeft = sl;
@@ -231,6 +273,17 @@ function zcKur(el, items, tur, s, a) {
     const kn = kel ? items.filter(kelVar).length : 0;
     govde.querySelector('.zc-arac').innerHTML = (kel ? `<span class="zc-kel">Süzgeç: <b lang="ar">${esc(kel.ar)}</b> geçen ${kn} eser</span><button type="button" class="zc-kelx">Süzgeci kaldır</button>` : '') + (pin.length ? `<button type="button" class="zc-kars">Yan yana oku (${pin.length})</button><button type="button" class="zc-temiz">Karşılaştırmayı temizle</button>` : '');
   };
+  const cizSuz = vis => {
+    const kutu = govde.querySelector('.zc-suz');
+    kutu.innerHTML = SUZ.map(([k, ad]) => {
+      const say = {}; items.filter(x => SUZ.every(([k2]) => k2 === k || !fs[k2] || deger(x, k2) === fs[k2])).forEach(x => { const d = deger(x, k); say[d] = (say[d] || 0) + 1; });
+      const D = Object.keys(say).sort((p, q) => (SIRA.indexOf(p) + 1 || 99) - (SIRA.indexOf(q) + 1 || 99) || (parseInt(p.replace(/\D/g, '')) || 0) - (parseInt(q.replace(/\D/g, '')) || 0) || p.localeCompare(q, 'tr'));
+      if (D.length < 2 && !fs[k]) return '';
+      return `<div class="zc-sz" role="group" aria-label="${esc(ad)}"><span>${esc(ad)}</span><button type="button" data-sk="${k}" data-sv="" aria-pressed="${!fs[k]}">Tümü</button>${D.map(d => `<button type="button" data-sk="${k}" data-sv="${esc(d)}" aria-pressed="${fs[k] === d}">${esc(d)} <small>${say[d]}</small></button>`).join('')}</div>`;
+    }).join('') + `<label class="zc-git"><span>Doğrudan git</span><select aria-label="Doğrudan git">${vis.map(x => `<option value="${esc(x.k)}"${x.k === aktif ? ' selected' : ''}>${esc([yilYaz(x.yil), x.ad, x.eser && x.eser !== x.ad ? x.eser : ''].filter(Boolean).join(' · ').slice(0, 90))}</option>`).join('')}</select></label>`;
+  };
+  govde.addEventListener('click', e => { const b = e.target.closest('[data-sk]'); if (!b) return; fs[b.dataset.sk] = b.dataset.sv || undefined; cizSerit(); oku(); serit.scrollLeft = 0; });
+  govde.addEventListener('change', e => { const sl = e.target.closest('.zc-git select'); if (!sl) return; aktif = sl.value; cizSerit(); oku(); const c = serit.querySelector('.zc-k.sec'); if (c) c.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' }); });
   const bas = x => `<div><b${x.arAd ? ' lang="ar"' : ''}>${esc(x.ad)}</b><small>${x.yil ? yilYaz(x.yil) + ' · ' : ''}<span${isArYazi(x.eser) ? ' lang="ar"' : ''}>${esc(x.eser)}</span></small></div>`;
   const oku = async () => {
     const x = items.find(y => y.k === aktif); if (!x) return;
@@ -238,6 +291,7 @@ function zcKur(el, items, tur, s, a) {
     box.innerHTML = `<div class="zo-bas">${bas(x)}</div><p class="durum">Yükleniyor…</p>`;
     const r = await x.yukle(m?.vurgu || (kel && kelVar(x) ? kel.k : undefined));
     if (aktif !== x.k) return;
+    if (x.sade) { box.innerHTML = `<div class="zo-bas"><div><b>${esc(x.ad)}</b></div></div><div class="zo-metin">${r.html}</div>`; return; }
     box.innerHTML = `<div class="zo-bas">${bas(x)}
       <div class="zo-dug">${x.kitap ? `<a href="${esc(x.kitap)}"${x.disKitap ? ' target="_blank" rel="noopener"' : ''}>${esc(x.kitapAd || 'Kitaba git')}${r.yer ? ' · ' + esc(r.yer) : ''}</a>` : ''}<button type="button" data-ac="pin" aria-pressed="${pin.includes(x.k)}">${pin.includes(x.k) ? 'Karşılaştırmada' : 'Karşılaştır'}</button><button type="button" data-ac="atif">Atıf ver</button></div></div>
       ${m && m.ozet ? `<div class="zo-oz"><small>Türkçe özet · makine, metinden kontrol edin</small>${esc(m.ozet)}</div>` : ''}
@@ -433,7 +487,7 @@ async function blokYazma(s, a) {
     const t = String(n.tarih || ''); const yr = /^-/.test(t) ? +t.slice(1) - 50 : tarihYil(t);
     const ad = (n.ad || m).replace(/\s*\([^)]*[Ѐ-ӿ؀-ۿ][^)]*\)/g, '');
     const ilk = F[0][0], cc = f => `https://corpuscoranicum.de/de/manuscripts/${m}/page/${f}`;
-    return { k: 'yz' + m, yil: yr || null, ad: ad.split(',')[0], eser: ad.split(',').slice(1).join(',').trim() || ad, rozet: [n.yazi, t.replace(/^-/, '… '), `yaprak ${F.map(x => x[0]).join(', ')}`].filter(Boolean).join(' · '), ozet: '1', kitap: cc(ilk), disKitap: true, kitapAd: 'Corpus Coranicum\'da aç',
+    const yz = String(n.yazi || ''); return { k: 'yz' + m, sade: true, f: { yazi: /hi[ǧg]āz/i.test(yz) ? 'Hicâzî' : /k[ūu]f/i.test(yz) ? 'Kûfî' : yz ? 'Diğer' : 'Belirsiz' }, yil: yr || null, ad: ad.split(',')[0], eser: ad.split(',').slice(1).join(',').trim() || ad, rozet: [n.yazi, t.replace(/^-/, '… '), `yaprak ${F.map(x => x[0]).join(', ')}`].filter(Boolean).join(' · '), ozet: '1', kitap: cc(ilk), disKitap: true, kitapAd: 'Corpus Coranicum\'da aç',
       yukle: async () => {
         const sayfalar = await Promise.all(F.slice(0, 4).map(([f]) => fetch(`https://api.corpuscoranicum.de/api/data/language/de/manuscripts/${m}/pages/${f}`).then(r => r.ok ? r.json() : null).catch(() => null)));
         const yer = p => (p.passages || []).map(x => `${x.start.sura}:${x.start.verse}${x.end.sura !== x.start.sura || x.end.verse !== x.start.verse ? '–' + (x.end.sura !== x.start.sura ? x.end.sura + ':' : '') + x.end.verse : ''}`).join(', ');
@@ -443,19 +497,19 @@ async function blokYazma(s, a) {
           return `<figure class="yz-gor"><a href="${cc(f)}" target="_blank" rel="noopener"><img src="${esc(im.image_url.replace(/&dw=\d+/, '&dw=900'))}" alt="${esc(ad)}, yaprak ${esc(f)}" loading="lazy"></a><figcaption>Yaprak ${esc(f)}${yer(p) ? ` · ${esc(yer(p))}` : ''}${im.image_source ? `<small>Görüntü: ${esc(im.image_source)}</small>` : ''}</figcaption></figure>`; }).join('');
         const kunye = [['Kurum', n.kurum], ['Numara', n.no], ['Tarih (miladi)', t.replace(/^-/, '… öncesi ')], ['Yazı', n.yazi], ['Malzeme', n.malzeme]].filter(x => x[1]);
         return { dil: 'tr', html: `<div class="yz-gorler">${gor}</div>${F.length > 4 ? `<p class="zo-yap">Diğer yapraklar: ${F.slice(4).map(([f]) => `<a href="${cc(f)}" target="_blank" rel="noopener">${esc(f)}</a>`).join(' ')}</p>` : ''}
-          <details class="yz-bilgi"><summary>Nüsha bilgisi</summary><dl class="zo-dl">${kunye.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join('')}</dl>${n.ozet ? `<p class="yz-ozet">${esc(n.ozet)}</p>` : ''}</details>`, yer: F.map(x => x[0]).join(', ') };
+`, yer: F.map(x => x[0]).join(', ') };
       },
       kunye: chain([{ r: 'Nüsha', t: n.ad, u: `https://corpuscoranicum.de/de/manuscripts/${m}` }, { r: 'Görüntü', t: 'Corpus Coranicum dijital kütüphanesi (BBAW)', u: cc(ilk) }, { r: 'Veri', k: 'cc' }, { r: 'İşleme', t: 'TEI yaprak aralıkları ayetlere açıldı:', b: 'yazma' }]) }; });
-  L.takvim = 'm'; L.birim = 'nüsha';
+  L.takvim = 'm'; L.birim = 'nüsha'; L.suzgec = [['asir', 'Yüzyıl'], ['yazi', 'Yazı']];
   return L;
 }
 async function blokLiteratur(s, a) {
   const K = await load(`/data/k8/${s}.json`); const ay = K.ayet[`${s}:${a}`] || [];
   const L = [...ay, ...K.sure.filter(x => !ay.includes(x))].map(i => { const m = K.makale[i]; const au = (m.authors || '—').split(',');
-    return { k: 'mk' + i, yil: m.year ? +m.year : null, ad: au[0].trim() + (au.length > 1 ? ' vd.' : ''), eser: m.title.split(' / ')[0], rozet: ay.includes(i) ? 'bu ayet' : 'sure', ozet: '1', kitap: m.url, disKitap: true, kitapAd: 'Makaleye git',
+    return { k: 'mk' + i, f: { bag: ay.includes(i) ? 'Bu ayet' : 'Sure geneli', on: !m.year ? 'Tarihsiz' : +m.year >= 2020 ? '2020 ve sonrası' : +m.year >= 2010 ? '2010–2019' : '2010 öncesi' }, yil: m.year ? +m.year : null, ad: au[0].trim() + (au.length > 1 ? ' vd.' : ''), eser: m.title.split(' / ')[0], rozet: ay.includes(i) ? 'bu ayet' : 'sure', ozet: '1', kitap: m.url, disKitap: true, kitapAd: 'Makaleye git',
       yukle: async () => ({ dil: 'x', html: `<p><b>${esc(m.title.split(' / ')[0])}</b></p><p class="srcs">${esc(m.authors || '')}${m.journal ? ' · ' + esc(m.journal) : ''}${m.year ? ' · ' + m.year : ''}</p>${m.abstract ? `<p dir="auto">${esc(m.abstract)}</p>` : '<p class="srcs">Özet kaydı yok.</p>'}` }),
       kunye: chain([{ r: 'Makale', t: m.url, u: m.url }, { r: 'Künye ve özet', k: 'crossref' }, { r: 'Ayet bağı', t: 'makine: başlık/özetteki atıf', b: 'k8' }]) }; });
-  L.takvim = 'm'; L.birim = 'makale';
+  L.takvim = 'm'; L.birim = 'makale'; L.suzgec = [['bag', 'Bağ'], ['on', 'Yıl']];
   return L;
 }
 /* araştırma masası: ayete kişisel not */
