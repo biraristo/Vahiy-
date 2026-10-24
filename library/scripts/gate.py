@@ -3,6 +3,14 @@ import json, gzip, os, sys, collections, re
 R = '/home/claude/vahiy-/site/data'
 # açılış sayaçları her kontrolde veriden yeniden hesaplanır (elle sayı yok)
 import subprocess; subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'build_sayilar.py')], check=True)
+# önbellek kırma: index.html'deki css/js bağlantılarına içerik özeti eklenir (tarayıcı her yayında yeni dosyayı çeker)
+import hashlib
+_ix = os.path.join(R, '..', 'index.html'); _h = open(_ix, encoding='utf8').read()
+def _v(m):
+    f = os.path.join(R, '..', m.group(2).lstrip('/'))
+    return f'{m.group(1)}{m.group(2)}?v={hashlib.md5(open(f, "rb").read()).hexdigest()[:8]}"' if os.path.exists(f) else m.group(0)
+_h2 = re.sub(r'((?:src|href)=")(/[a-z0-9_-]+\.(?:js|css))(?:\?v=[0-9a-f]+)?"', _v, _h)
+if _h2 != _h: open(_ix, 'w', encoding='utf8').write(_h2)
 errs = collections.defaultdict(list); info = {}
 def E(k, m):
     if len(errs[k]) < 8: errs[k].append(m)
