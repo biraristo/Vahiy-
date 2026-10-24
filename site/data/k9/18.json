@@ -1,0 +1,12 @@
+{"version":"k9-2026.10.24","yontem":"Tefsir pasajları okunarak meseleler ve görüş etiketleri çıkarıldı; Türkçe özetler Claude tarafından yazıldı, Arapça metinden kontrol edin.","ayetler":{"18:86":[
+{"ad":"Güneş suya mı batıyor?","alt":"görünüşe göre mi, gerçekte mi","etiketler":{"g":"görünüşe göre","m":"gerçek olabilir","n":"nakil"},
+"eserler":[
+{"w":"qp542","e":"g","ozet":"Kaffâl'dan naklen: Güneşin cirmine varması kastedilmez; güneş yeryüzündeki bir gözeye sığmayacak kadar büyüktür.","vurgu":"أعظم من أن تدخل في عين"},
+{"w":"qp352","e":"g","ozet":"Mamur yerlerin bittiği yerde güneşi karanlık bir çukura batıyor gibi gördü; deniz yolcusunun güneşi denize batıyor görmesi gibi.","vurgu":"وجد الشمس كأنها تغرب في عين وهدة مظلمة"},
+{"w":"qp136","e":"g","ozet":"Güneşi kendi bakışında okyanusa batarken gördü; sahile varan herkes onu böyle görür.","vurgu":"رأى الشمس في منظره تغرب في البحر المحيط"},
+{"w":"qp272","e":"g","ozet":"Gözede batması bakanın görüşüne göredir; yoksa güneş dünyadan büyüktür.","vurgu":"وغروبها في العين في رأي العين"},
+{"w":"qp343","e":"m","ozet":"Sahilde öyle görmüş olabilir; ama Allah'ın onu okyanustan geçirip o gözeye ulaştırmasına da bir engel yoktur.","vurgu":"لا مانع من أن يمكنه الله"},
+{"w":"qp400","e":"n","ozet":"Şevkânî'nin ifadesini aynen aktarır.","vurgu":"رآها كذلك في نظره"},
+{"w":"qp27796","e":"n","ozet":"İbn Kesîr'in sözünü nakleder ve benimser.","vurgu":"رأى الشمس في منظره"},
+{"w":"qp27799","e":"g","ozet":"İfade dil bakımından mecazdır: \"Güneş denize gömüldü\" demek gibi; gerçekte gömülmez.","vurgu":"على المجاز"}]}
+]}}
