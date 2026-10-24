@@ -53,3 +53,8 @@ Ortak altyapı: her kitap bölüm bölüm okunur; **bölüm başlığı + bölü
 | Edebiyat, şiir | beyit → kullanıldığı tefsir/lügat (şevâhid) | Kelime panelinde şâhid beyitler |
 | Fihristler, câmi eserler | eser-müellif kataloğu doğrulaması | Kütüphane künyeleri |
 | Mevzûî fihrist kitapları | konu → ayet | Konu fihristi |
+
+## Durum (24.10.2026 18:55)
+- Yayında: Türkçe eser/müellif adları; tüm kütüphane atıf dizini (ayet blokları); lügat (28 sözlük); ricâl (685 râvi biyografisi); kütüphane fihristi (8.738 konu, 2.400 Türkçe başlık).
+- Toplu betikler R2'yi doğrudan okur (r2oku.py), sitenin /r2/ yolunu kullanmaz (Worker günlük 100k sınırı).
+- Sıradaki: fihrist çevirisi girdi_04..12 (/home/claude/lib/tr/fk, cNN.txt satır satır hizalı → fihrist_tr.py); genel kişi kaydı (tüm biyografi maddeleri, müellifler, sahâbe/tâbiûn, cerh-ta'dîl, kişi sayfası); ters bağ (kitap bölümü → ayetler, veri R2 atif/kitap.bin'de hazır, onay bekliyor).
