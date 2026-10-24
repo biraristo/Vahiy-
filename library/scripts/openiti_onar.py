@@ -14,6 +14,7 @@ isler = [(eid, v['v']) for eid, v in kat.items()]
 for f in glob.glob('/home/claude/lib/raf/eski_raflar/*.json'):
     for e in json.load(open(f))['eserler']:
         if e.get('kaynak') == 'OpenITI' and e['id'] not in DZ['y'] and e['id'][0] != 't': isler.append((e['id'], e['ref']))
+BASLIK_ISARET = re.compile(r'^### (?:\|+|\$+).*PageV\d+P\d+', re.M)
 UZUN = re.compile(r'^### (?:\|+|\$+)\s?(.{151,})$', re.M)
 def ham(ref):
     n = ZN.get(ref) or next((v for k, v in ZN.items() if k.endswith(ref)), None)
@@ -23,7 +24,8 @@ def bir(x):
     eid, ref = x
     g = ham(ref)
     if g is None: return eid, 'yok'
-    if not any(len(re.sub(r'\s+', ' ', PG.sub('', m)).strip()) > 150 for m in UZUN.findall(g)): return eid, None
+    uzun = any(len(re.sub(r'\s+', ' ', PG.sub('', m)).strip()) > 150 for m in UZUN.findall(g))
+    if not uzun and not BASLIK_ISARET.search(g): return eid, None
     secs = openiti(ref)
     W = lambda t: len(re.findall(r'[ء-يپچگکی]+', t))
     kaynak = W(re.sub(r'#META#[^\n]*|PageV\d+P\d+|ms\d+', ' ', g))
@@ -38,8 +40,8 @@ with cf.ThreadPoolExecutor(int(os.environ.get('IS', 3))) as ex:
         if n % 500 == 0: print(n, len(sonuc), flush=True)
 for eid, r in sonuc.items():
     if eid in kat and isinstance(r, dict):
-        kat[eid]['denetim'].update({'bolum': r['bolum'], 'metin_kelime': r['metin_kelime'], 'onarildi': True}); kat[eid]['kb'] = r['kb']; kat[eid]['yuklendi'] = r['ok']
+        kat[eid]['denetim'].update({'bolum': r['bolum'], 'metin_kelime': r['metin_kelime'], 'paket_kelime': r['metin_kelime'], 'onarildi': True}); kat[eid]['kb'] = r['kb']; kat[eid]['yuklendi'] = r['ok']
 json.dump(kat, open(KAT, 'w'), ensure_ascii=False)
-json.dump(sonuc, open('/home/claude/lib/raf/openiti_onar.json', 'w'), ensure_ascii=False)
+json.dump(sonuc, open('/home/claude/lib/raf/openiti_onar2.json', 'w'), ensure_ascii=False)
 print('bitti', len(sonuc), 'yüklenemedi', sum(1 for r in sonuc.values() if isinstance(r, dict) and not r['ok']),
       'kelime kaybı', sum(1 for r in sonuc.values() if isinstance(r, dict) and r['metin_kelime'] < r['kaynak_kelime']), flush=True)

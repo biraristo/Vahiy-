@@ -43,6 +43,21 @@ def ayir():
 
 
 # ---------------- metin ----------------
+TOCG = re.compile(r'((?:<span data-type=["\']?title["\']?\s+id=["\']?toc-\d+["\']?\s*>\s*)+)((?:<span(?![^>]*data-type=["\']?title)[^>]*>.*?</span>|[^<]|<(?!/span>))*?)</span>', re.S)
+TOCID = re.compile(r'toc-(\d+)')
+def toc_bul(body):
+    """Satır içi başlıklar; Şâmile ardışık başlıkları iç içe <span> ile yazar (toc-12 › toc-13 › toc-14 metin).
+    (başlangıç, bitiş, [kimlikler], görünen metin) döndürür."""
+    out, i = [], 0
+    while True:
+        m = TOCG.search(body, i)
+        if not m: return out
+        ids = [int(x) for x in TOCID.findall(m.group(1))]; son = m.end()
+        for _ in range(len(ids) - 1):
+            k = re.match(r'\s*</span>', body[son:])
+            if not k: break
+            son += k.end()
+        out.append((m.start(), son, ids, m.group(2))); i = son
 TOC = re.compile(r'<span data-type=["\']?title["\']?\s+id=["\']?toc-(\d+)["\']?\s*>((?:<span[^>]*>.*?</span>|.)*?)</span>', re.S)
 ETIKET = re.compile(r'<[^>]+>')
 def temiz(t):
@@ -105,12 +120,22 @@ def kitap_yap(bid, tek):
         for t in sorted(bas_sayfa.get(pid, [])):
             if t not in icerde and t not in goren: secs.append([derinlik(t), temiz(BASLIK_ADI.get(bid, {}).get(t, '')) or '—', []]); goren.add(t)
         konum = 0
-        for m in TOC.finditer(body):
-            once = body[konum:m.start()]
+        for bas, bit, ids, gorunen in toc_bul(body):
+            once = body[konum:bas]
             for s in once.split('\r'):
                 if temiz(s): secs[-1][2].append(temiz(s))
-            t = int(m.group(1)); goren.add(t)
-            secs.append([derinlik(t) if t in basliklar else 1, temiz(m.group(2)) or '—', []]); konum = m.end()
+            ad = BASLIK_ADI.get(bid, {})
+            for j, t in enumerate(ids):
+                goren.add(t)
+                son_mu = j == len(ids) - 1
+                isim = (temiz(gorunen) if son_mu else '') or temiz(ad.get(t, '')) or temiz(gorunen) or '—'
+                dz = derinlik(t) if t in basliklar else 1
+                # aynı düzeyde aynı adlı ardışık tekrar (aynı yere bağlanmış kardeş başlıklar) tek bölüm olur
+                if not son_mu:
+                    t2 = ids[j + 1]; isim2 = temiz(gorunen) if j + 1 == len(ids) - 1 else temiz(ad.get(t2, ''))
+                    if (derinlik(t2) if t2 in basliklar else 1) == dz and (isim2 or temiz(gorunen)) == isim: continue
+                secs.append([dz, isim, []])
+            konum = bit
         for s in body[konum:].split('\r'):
             if temiz(s): secs[-1][2].append(temiz(s))
         for s in foot.split('\r'):

@@ -68,7 +68,8 @@ def openiti(ref):
             if len(tb) > 150:  # başlık satırına metnin kendisi yazılmış: başlık kısaltılır, satırın tamamı metin olarak kalır
                 k = tb[:100].rsplit(' ', 1)[0]
                 secs.append([min(lvl, 9), basliktemiz(k) + '…', [ham_b]]); cur = 0; continue
-            secs.append([min(lvl, 9), basliktemiz(ham_b) or '—', []]); cur = None; continue
+            isr = PG.findall(ham_b)  # başlık satırındaki sayfa sonu işaretleri kaybolmasın: bölümün başına yazılır
+            secs.append([min(lvl, 9), basliktemiz(ham_b) or '—', [' '.join(f'PageV{x}P{y}' for x, y in isr)] if isr else []]); cur = None; continue
         if line.startswith('### '):  # başka başlık türleri: düz paragraf
             line = '# ' + line[4:]
         if line.startswith('#META#') : continue
