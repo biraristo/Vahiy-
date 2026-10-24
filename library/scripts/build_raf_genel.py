@@ -64,7 +64,11 @@ def openiti(ref):
         m = HD.match(line)
         if m:
             lvl = len(m.group(1)) if m.group(1)[0] == '|' else 9
-            secs.append([min(lvl, 9), basliktemiz(m.group(2)) or '—', []]); cur = None; continue
+            ham_b = m.group(2); tb = re.sub(r'\s+', ' ', PG.sub('', ham_b)).strip()
+            if len(tb) > 150:  # başlık satırına metnin kendisi yazılmış: başlık kısaltılır, satırın tamamı metin olarak kalır
+                k = tb[:100].rsplit(' ', 1)[0]
+                secs.append([min(lvl, 9), basliktemiz(k) + '…', [ham_b]]); cur = 0; continue
+            secs.append([min(lvl, 9), basliktemiz(ham_b) or '—', []]); cur = None; continue
         if line.startswith('### '):  # başka başlık türleri: düz paragraf
             line = '# ' + line[4:]
         if line.startswith('#META#') : continue
