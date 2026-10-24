@@ -125,6 +125,8 @@ def sh_bul(ad, vefat):
     return en[0] if en else None
 
 Y = {}; TEFSIR_ESKI = []; istat = collections.Counter()
+# metni eksik tefsir kayıtlarının kendi nüshaları (tefsir_tamamla.py: OpenITI / Quranpedia)
+TAM_EK = json.load(open('/home/claude/lib/raf/tefsir_tam.json')) if os.path.exists('/home/claude/lib/raf/tefsir_tam.json') else {}
 for f in glob.glob('/home/claude/lib/raf/eski_raflar/*.json'):
     raf0 = os.path.basename(f)[:-5]
     if raf0 in ('dinler', 'dizin') or raf0 not in {'tefsir', 'hadis', 'fikih', 'kelam', 'tasavvuf', 'tarih', 'lugat', 'ulum', 'felsefe'}: continue
@@ -134,6 +136,7 @@ for f in glob.glob('/home/claude/lib/raf/eski_raflar/*.json'):
         if raf0 == 'tefsir':
             t = sh_bul(e['ad_ar'], e.get('vefat'))
             if t: e['tam'] = t; istat['tefsir→sh'] += 1
+            elif TAM_EK.get(e['id'], {}).get('durum') in ('yüklendi', 'R2de vardı'): e['tam'] = TAM_EK[e['id']]['id']; istat['tefsir→kendi_nüshası'] += 1
             TEFSIR_ESKI.append(e); continue
         hedef = None
         if e.get('kaynak') == 'OpenITI':
