@@ -154,6 +154,13 @@ for f in glob.glob('/home/claude/lib/raf/eski_raflar/*.json'):
             e = dict(e); e['raf'] = {'u': 'ulum', 'q': 'ulum', 'r': 'tabakat' if e.get('alt') == 'r' else 'tarih'}.get(e['id'][0], raf0)
             if e.get('alt') in ('n', 'g', 'l') and raf0 == 'lugat': e['raf'] = 'lugat'
             E[e['id']] = e
+# Türkçe adlar (library/raf/tr_adlar.json: eser id → ad, "müellif|vefat" → ad)
+TRA = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'raf', 'tr_adlar.json')))
+for e in E.values():
+    if not e.get('ad'): e['ad'] = TRA['eser'].get(e['id'], '')
+    if not e.get('muellif') and e.get('muellif_ar'):
+        e['muellif'] = TRA['muellif'].get(f"{e['muellif_ar']}|{e.get('vefat') or ''}") or TRA['muellif'].get(f"{e['muellif_ar']}|", '')
+    istat['tr_ad_' + ('var' if e.get('ad') else 'yok')] += 1; istat['tr_muellif_' + ('var' if e.get('muellif') or not e.get('muellif_ar') else 'yok')] += 1
 # yazım
 ALT_ESKI = {'h': 'Hadis kitapları', 'f': 'Fıkıh', 'u': 'Usûl-i fıkıh', 'k': 'Akaid', 's': '', 't': 'Tarih', 'y': 'Siyer', 'c': 'Coğrafya ve rıhle', 'r': '', 'l': 'Dil', 'n': 'Nahiv ve sarf',
             'q': 'Kıraat ve tecvid', 'U': "Ulûmü'l-Kur'ân", 'a': "Ulûmü'l-Kur'ân", 'g': 'Garîb ve sözlükler', 'p': 'Felsefe', 'm': 'Mantık'}
