@@ -174,3 +174,5 @@ body.se-acik { overflow: hidden; }
 .kp-fark { font-size: .74rem; color: var(--muted); } .kp-fark.h { color: var(--warn); font-weight: 600; } .kp-ayni { font-size: .74rem; color: var(--muted); opacity: .7; }
 .kp-sayim { font: .85rem var(--sans); }
 .kp-tam { border-top: 1px solid var(--line); padding: .3rem 0; font: .85rem var(--sans); } .kp-tam small { color: var(--muted); }
+.zc-k .pc { font-family: var(--arabic); font-size: .92rem; line-height: 1.6; direction: rtl; text-align: right; align-self: stretch; color: var(--ink); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: .15rem; }
+.zc-k.sec .pc { color: #F3EEDD; }

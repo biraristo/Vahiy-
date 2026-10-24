@@ -138,15 +138,25 @@ async function blokCagdas(s, a) {
   return L;
 }
 async function blokSelef(s, a) {
-  const [[b], R] = await Promise.all([ayX(s, a), load('/data/k4/raviler.json')]);
-  const RV = R.raviler;
-  return b.k4.map(x => {
-    const rv = x.raviler.map(r => RV[r]).filter(Boolean); const r0 = rv[rv.length - 1] || rv[0];
-    const yil = r0?.takrib?.vefat || null;
-    return { k: 'rv' + x.id, yil, ad: r0 ? r0.ad : (x.metin.match(/^(?:قال|عن)\s+([^:،,]{3,40})/)?.[1] || 'Rivayet'), arAd: true, eser: RTYPE(x.tur), ozet: '1', kitap: null,
-      yukle: async () => ({ dil: 'ar', html: `<p>${ayetIsaret(para(x.metin))}</p>${x.hukum ? `<p class="srcs">tahrîcte: ${esc(x.hukum)}</p>` : ''}${x.tahric ? `<p class="thr">${para(x.tahric)}</p>` : ''}${rv.length ? `<p class="srcs">Râviler: ${rv.map(r => `${esc(r.ad)}${r.takrib?.derece ? ` (${esc(GRADE_TR[r.takrib.derece] || r.takrib.derece)})` : ''}`).join(' · ')}</p>` : ''}` }),
-      kunye: chain([{ r: 'Rivayet', t: `Mevsûa kayıt no ${x.id}` }, { r: 'Eser', k: 'mevsua' }, { r: 'Veri', k: 'quranpedia' }, { r: 'Râvi dereceleri', t: "Takrîbü't-Tehzîb ile makine eşleştirmesi", b: 'k4_ravi' }]) };
+  const [[b], R, T] = await Promise.all([ayX(s, a), load('/data/k4/raviler.json'), load('/data/k4/selef_tr.json').catch(() => ({ raviler: {} }))]);
+  const RV = R.raviler, TR = T.raviler;
+  const TAB = { s: 'sahâbî', t: 'tâbiî', e: 'tebeu’t-tâbiîn' };
+  /* sözün sahibi: rivayetteki râvilerden en eski olanı (Türkçe kaydı olanlar önce) */
+  const sahip = x => { const ids = x.raviler.map(String); const bil = ids.filter(i => TR[i]).sort((p, q) => TR[p][1] - TR[q][1]); return bil[0] || ids[0] || ('?' + (x.metin.match(/^(?:قال|عن)\s+([^:،,\-]{3,40})/)?.[1] || '')); };
+  const gr = new Map();
+  b.k4.forEach(x => { const k = sahip(x); if (!gr.has(k)) gr.set(k, []); gr.get(k).push(x); });
+  const sozKisa = t => tmKisa(String(t).replace(/^(?:عن|قال)[^:]{0,80}:\s*/, '').replace(/^[^«"]*[«"]/, ''), 90);
+  const L = [...gr.entries()].map(([k, X]) => {
+    const tr = TR[k], rv = RV[k];
+    const ad = tr ? tr[0] : rv ? rv.ad : k.replace(/^\?/, '') || 'Bilinmeyen';
+    const turler = [...new Set(X.map(x => RTYPE(x.tur)))];
+    return { k: 'sl' + k, yil: tr ? tr[1] : (rv?.takrib?.vefat || null), ad, arAd: !tr, eser: `${X.length} rivayet${tr ? ' · ' + TAB[tr[2]] : ''}${turler.length && !(turler.length === 1 && turler[0] === 'Tefsir') ? ' · ' + turler.join(', ') : ''}`, parca: sozKisa(X[0].metin), ozet: '1', kitap: null,
+      yukle: async () => ({ dil: 'ar', html: X.map(x => `<div class="rv1"><span class="sy">${esc(RTYPE(x.tur))}${x.hukum ? ' · tahrîcte: ' + esc(x.hukum) : ''}</span><p>${ayetIsaret(para(x.metin))}</p>${x.tahric ? `<details class="zo-cev"><summary>Tahrîc</summary><p class="thr">${para(x.tahric)}</p></details>` : ''}</div>`).join('') + (rv && rv.takrib ? `<p class="srcs" dir="ltr">Takrîbü't-Tehzîb: ${esc(GRADE_TR[rv.takrib.derece] || rv.takrib.derece || '—')}${rv.takrib.tabaka ? `, ${rv.takrib.tabaka}. tabaka` : ''}</p>` : '') }),
+      kunye: chain([{ r: 'Rivayetler', t: `Mevsûa kayıt no ${X.map(x => x.id).join(', ')}` }, { r: 'Eser', k: 'mevsua' }, { r: 'Veri', k: 'quranpedia' }, tr && { r: 'Türkçe ad ve vefat', t: T.kaynak, k: 'claude' }]) };
   });
+  L.birim = 'kişi'; L.onek = 'ö.';
+  L.giris = b.k4.length ? `<p class="zc-giris">Sahâbe ve tâbiûnun bu ayet hakkındaki sözleri: ${b.k4.length} rivayet, ${L.length} kişiden. Bir kişiye dokunun, sözleri tahrîc ve hükümleriyle açılsın.</p>` : '';
+  return L;
 }
 async function blokHadis(s, a) {
   const L = await k3Gruplar(s, a, ['hadis']);
@@ -199,7 +209,7 @@ function zcKur(el, items, tur, s, a) {
   const cizSerit = () => {
     const gr = []; items.forEach(x => { const as = ASIR(x.yil); const g = gr[gr.length - 1]; if (g && g.as === as) g.L.push(x); else gr.push({ as, L: [x] }); });
     const sl = serit.scrollLeft;
-    serit.innerHTML = gr.map(g => `<div class="zc-asir"><div class="zc-as">${g.as}<small>${g.L.length}</small></div><div class="zc-kol">${g.L.map(x => { const m = meseleOf(x.k); const sonuk = (mes >= 0 && !m) || !kelVar(x); return `<button type="button" class="zc-k${x.k === aktif ? ' sec' : ''}${sonuk ? ' sonuk' : ''}${pin.includes(x.k) ? ' pin' : ''}" data-k="${esc(x.k)}"${m ? ` style="--c:${TM_ETIKET_RENK[m.e]}"` : ''}><span class="y">${yilYaz(x.yil) || '&nbsp;'}</span><b${x.arAd ? ' lang="ar"' : ''}>${esc(x.ad)}</b><small${isArYazi(x.eser) ? ' lang="ar"' : ''}>${esc(x.eser)}</small>${m ? `<i style="--c:${TM_ETIKET_RENK[m.e]}">${esc(MES[mes].etiketler?.[m.e] || '')}</i>` : x.tr ? '<i class="tr">Türkçe</i>' : x.rozet ? `<i>${esc(x.rozet)}</i>` : ''}</button>`; }).join('')}</div></div>`).join('');
+    serit.innerHTML = gr.map(g => `<div class="zc-asir"><div class="zc-as">${g.as}<small>${g.L.length}</small></div><div class="zc-kol">${g.L.map(x => { const m = meseleOf(x.k); const sonuk = (mes >= 0 && !m) || !kelVar(x); return `<button type="button" class="zc-k${x.k === aktif ? ' sec' : ''}${sonuk ? ' sonuk' : ''}${pin.includes(x.k) ? ' pin' : ''}" data-k="${esc(x.k)}"${m ? ` style="--c:${TM_ETIKET_RENK[m.e]}"` : ''}><span class="y">${yilYaz(x.yil) || '&nbsp;'}</span><b${x.arAd ? ' lang="ar"' : ''}>${esc(x.ad)}</b><small${isArYazi(x.eser) ? ' lang="ar"' : ''}>${esc(x.eser)}</small>${x.parca ? `<span class="pc" lang="ar">${esc(x.parca)}</span>` : ''}${m ? `<i style="--c:${TM_ETIKET_RENK[m.e]}">${esc(MES[mes].etiketler?.[m.e] || '')}</i>` : x.tr ? '<i class="tr">Türkçe</i>' : x.rozet ? `<i>${esc(x.rozet)}</i>` : ''}</button>`; }).join('')}</div></div>`).join('');
     serit.scrollLeft = sl;
     const mo = mes >= 0 && MES[mes].ozet ? MES[mes].ozet : null;
     let ozk = govde.querySelector('.zc-mozet'); if (!ozk) { ozk = document.createElement('div'); ozk.className = 'zc-mozet'; serit.before(ozk); }
