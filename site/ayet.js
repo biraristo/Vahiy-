@@ -293,6 +293,7 @@ function zcKur(el, items, tur, s, a) {
       ${m && m.ozet ? `<div class="zo-oz"><small>Türkçe özet · makine, metinden kontrol edin</small>${esc(m.ozet)}</div>` : ''}
       <div class="zo-metin${r.dil === 'ar' ? ' ar' : ''}"${r.dil === 'x' ? '' : ` dir="${r.dil === 'ar' ? 'rtl' : 'ltr'}" lang="${r.dil}"`}>${r.html}</div>
       <p class="srcs zo-k">${x.kunye || ''}</p>`;
+    if (r.dil === 'ar') turkceDugme(box.querySelector('.zo-metin'), () => box.querySelector('.zo-metin').innerText);
     { const mt = box.querySelector('.zo-metin');  // uzun metin önce kısa açılır; tamamı için dokunulur
       if (!x.k.startsWith('yz') && mt.scrollHeight > 340) { mt.classList.add('kisa'); mt.insertAdjacentHTML('afterend', '<button type="button" class="zo-devam">Tamamını oku</button>');
         box.querySelector('.zo-devam').onclick = ev => { mt.classList.remove('kisa'); ev.target.remove(); }; } }

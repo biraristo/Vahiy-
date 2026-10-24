@@ -324,6 +324,7 @@ async function bolumGoster(e, D, raf, n) {
     <div class="metin${hadis ? ' hd' : ''}" lang="ar" dir="rtl">${/<p[ >]/.test(html) ? html : altBasliklar(D, n, git) || html || '<p>Bu başlığın altında metin yok.</p>'}</div></article>
     <div class="gecis">${p >= 0 ? `<a href="${git(p)}">‹ Önceki bölüm</a>` : '<span></span>'}${s < D.length ? `<a class="ana" href="${git(s)}">Sonraki bölüm ›</a>` : '<span></span>'}</div>
     <p class="atif-ip">Metinden bir bölüm seçin: kaynağıyla birlikte atıf hazırlanır.</p>`;
+  turkceDugme(ic.querySelector('.ek-metin'), () => ic.querySelector('.ek-metin .metin').innerText);
   scrollTo(0, 0);
   atifEser(e, yol.concat(b[1]), n);
 }

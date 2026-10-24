@@ -726,3 +726,36 @@ let _kayZ = 0;
 const kayTara = () => { clearTimeout(_kayZ); _kayZ = setTimeout(() => document.querySelectorAll(KAY_SECICI).forEach(kayIsaretle), 120); };
 new MutationObserver(kayTara).observe(document.body, { childList: true, subtree: true });
 addEventListener('resize', kayTara); kayTara();
+
+/* ---------------- Türkçe okuma (ücretsiz) ----------------
+   Arapça metnin altına "Türkçe oku" düğmesi: metin 2.500 harflik parçalar halinde /api/cevir'e gider (Workers AI, ücretsiz kota,
+   R2'de saklanır). Kota dolarsa ya da hata olursa Google Çeviri bağlantısı verilir. */
+const gceviri = t => `https://translate.google.com/?sl=ar&tl=tr&op=translate&text=${encodeURIComponent(t.slice(0, 1800))}`;
+function parcala(t, n = 2400) {
+  const P = t.split(/\n+/).map(x => x.trim()).filter(Boolean), L = []; let acc = '';
+  for (let p of P) { while (p.length > n) { const i = p.lastIndexOf(' ', n) > n / 2 ? p.lastIndexOf(' ', n) : n; if (acc) { L.push(acc); acc = ''; } L.push(p.slice(0, i)); p = p.slice(i).trim(); }
+    if ((acc + '\n' + p).length > n && acc) { L.push(acc); acc = p; } else acc = acc ? acc + '\n' + p : p; }
+  if (acc) L.push(acc); return L;
+}
+function turkceDugme(hedef, metinAl) {
+  if (!hedef || hedef.parentElement.querySelector(':scope > .tr-kutu')) return;
+  const k = document.createElement('div'); k.className = 'tr-kutu';
+  k.innerHTML = '<button type="button" class="tr-dug">Türkçe oku</button>';
+  hedef.after(k);
+  k.querySelector('.tr-dug').onclick = async ev => {
+    const b = ev.currentTarget, metin = metinAl().trim(); if (!metin) return;
+    const P = parcala(metin); b.disabled = true; b.textContent = `Çevriliyor… 0/${P.length}`;
+    const cikti = document.createElement('div'); cikti.className = 'tr-metin'; k.appendChild(cikti);
+    for (let i = 0; i < P.length; i++) {
+      let r; try { r = await fetch('/api/cevir', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ metin: P[i] }) }); } catch { r = null; }
+      const d = r ? await r.json().catch(() => ({})) : {};
+      if (!r || !r.ok || !d.ceviri) {
+        cikti.insertAdjacentHTML('beforeend', `<p class="tr-uyari">${esc(d.hata || 'Çeviri şu an yapılamadı.')} <a href="${gceviri(P.slice(i).join('\n'))}" target="_blank" rel="noopener">Google Çeviri'de aç</a></p>`); break; }
+      cikti.insertAdjacentHTML('beforeend', d.ceviri.split(/\n+/).map(x => `<p>${esc(x)}</p>`).join(''));
+      b.textContent = `Çevriliyor… ${i + 1}/${P.length}`;
+    }
+    b.remove();
+    cikti.insertAdjacentHTML('afterbegin', '<small class="tr-not">Makine çevirisi (Qwen3, Cloudflare Workers AI): terim ve isimleri Arapça aslından kontrol edin.</small>');
+    cikti.insertAdjacentHTML('beforeend', `<a class="tr-g" href="${gceviri(metin)}" target="_blank" rel="noopener">Google Çeviri ile karşılaştır</a>`);
+  };
+}
