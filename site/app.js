@@ -74,36 +74,24 @@ async function ayah(s, a) {
   const sayim = A.sayim_farki || [];
 
   const sec = (id, t, d, open) => `<details class="sec" id="${id}"${open ? ' open' : ''}><summary><span class="t">${t}</span><span class="d" id="${id}d">${d}</span></summary><div class="body" id="${id}body">Açınca yüklenir.</div></details>`;
-  view.innerHTML = `<div class="ay2">
-  <section class="ay-hero">
-    <div class="ay-ana">
-      <p class="where-line"><a href="#/">Kur'an</a> › <a href="#/sure/${s}">${s}. ${esc(su.tr)}</a> › <b>${a}. ayet</b> · Hafs ʿan ʿÂsım ${chain([{ r: 'Metin', t: 'Hafs ʿan ʿÂsım, Medine mushafı imlâsı', k: 'tanzil' }, { r: 'Karşılaştırma', t: 'Quranpedia Hafs mushafı ile harf iskeleti düzeyinde %100 aynı', k: 'quranpedia' }, { r: 'Konum (cüz, hizb, sayfa)', k: 'tanzil' }, { r: 'İşleme', b: 'k0' }])}</p>
-      <div class="ay-bas"><h1>${esc(su.tr)} ${a}</h1>
-        <nav class="ay-gz" aria-label="Ayetler arasında gezin"><a href="${prev ? `#/${prev[0]}/${prev[1]}` : '#'}" aria-disabled="${!prev}" aria-label="Önceki ayet">‹ ${prev ? (prev[0] === s ? prev[1] : `${prev[0]}:${prev[1]}`) : ''}</a><select id="ls" aria-label="Sure">${surahOptions(S, s)}</select><a href="${next ? `#/${next[0]}/${next[1]}` : '#'}" aria-disabled="${!next}" aria-label="Sonraki ayet">${next ? (next[0] === s ? next[1] : `${next[0]}:${next[1]}`) : ''} ›</a></nav></div>
-      <div class="ay-cip" id="ayCip"><span class="b">${esc(su.tur)}</span></div>
-      <p class="verse" lang="ar" id="ayMetin">${esc(A.metin)} <span class="no">﴿${a.toLocaleString('ar-EG')}﴾</span></p>
-      <p class="meal" id="mtext">…</p>
-      <div class="meal-row"><label for="msel">Meal</label><select id="msel">${mealOpts}</select><span class="src" id="msrc"></span></div>
-      <div class="audio-row"><label for="kari">Tilâvet</label><select id="kari">${KARI.map(([k, n]) => `<option value="${k}"${k === store.get('kari', KARI[0][0]) ? ' selected' : ''}>${n}</option>`).join('')}</select><audio id="aud" controls preload="none" src="https://everyayah.com/data/${store.get('kari', KARI[0][0])}/${String(s).padStart(3, '0')}${String(a).padStart(3, '0')}.mp3"></audio>${chain([{ r: 'Ses', t: 'EveryAyah.com ayet ayet kayıtlar', u: 'https://everyayah.com' }])}</div>
-    </div>
-    <aside class="ay-kun">
-      <h3>Ayet künyesi</h3>
-      <dl>
-        <dt>Sure</dt><dd>${esc(su.tr)} (${s}) · ${esc(su.tur)}${ihtilaf.tur ? ' <span class="tag w">ihtilaflı</span>' : ''} · ${su.ayet} ayet</dd>
-        <dt>Nüzul</dt><dd>Mısır sırasıyla ${t.nuzul_misir}. sure · Nöldeke ${t.noldeke}.</dd>
-        <dt>Konum</dt><dd>${k.cuz}. cüz · ${k.hizb}. hizb · ${k.sayfa}. sayfa · ${k.ruku}. rükû</dd>
-        ${A.cc_yapi && A.cc_yapi.length ? `<dt>Fâsıla</dt><dd>${esc([...new Set(A.cc_yapi.map(x => x.kafiye).filter(Boolean))].join(', ') || '—')}</dd>` : ''}
-        ${A.secde ? `<dt>Secde</dt><dd>Secde ayeti (${A.secde === 'obligatory' ? 'vâcib' : 'tavsiye'})</dd>` : ''}
-        ${sayim.length ? `<dt>Sayım</dt><dd>${sayim.map(x => `${esc(RAVI[x.rivayet] || x.rivayet)} ${x.durum === 'bölünüyor' ? 'ikiye böler' : 'birleştirir'}`).join(' · ')}</dd>` : ''}
-        ${A.cc_kiraat && A.cc_kiraat.okuyus ? `<dt>Kıraat</dt><dd>${A.cc_kiraat.okuyus} okuyuş · ${A.cc_kiraat.kaynak_eser} kaynak</dd>` : ''}
-      </dl>
-      <h3>Suredeki yeri</h3><div class="ay-serit" id="aySerit"></div><div class="ay-sl" id="aySl"></div>
-    </aside>
-  </section>
-  <nav class="ay-sek" role="tablist" aria-label="Ayet bölümleri">${AY_SEK.map(([k, l]) => `<button type="button" role="tab" data-p="${k}" aria-selected="false">${l}<small id="sk-${k}"></small></button>`).join('')}</nav>
-  <div class="ay-pnl" data-p="genel" role="tabpanel"><div class="ay-grid" id="ayGenel"></div></div>
-  <div class="ay-pnl" data-p="metin" role="tabpanel" hidden>
-    <details class="sec" open>
+  const ok = (p, yon) => p ? `<a class="a3-ok" href="#/${p[0]}/${p[1]}" aria-label="${yon === 'p' ? 'Önceki' : 'Sonraki'} ayet: ${esc(S.sureler[p[0] - 1].tr)} ${p[1]}">${yon === 'p' ? '‹' : ''}<span>${p[0] === s ? p[1] : `${esc(S.sureler[p[0] - 1].tr)} ${p[1]}`}</span>${yon === 'n' ? '›' : ''}</a>` : '<span class="a3-ok bos"></span>';
+  view.innerHTML = `<div class="ay3">
+  <header class="a3-bas">${ok(prev, 'p')}<h1><a href="#/sure/${s}">${esc(su.tr)}</a> ${a}<small lang="ar">${esc(su.ar)}</small></h1>${ok(next, 'n')}</header>
+  <p class="verse" lang="ar" id="ayMetin">${esc(A.metin)} <span class="no">﴿${a.toLocaleString('ar-EG')}﴾</span></p>
+  <div class="audio-row a3-til"><select id="kari" aria-label="Kâri">${KARI.map(([k, n]) => `<option value="${k}"${k === store.get('kari', KARI[0][0]) ? ' selected' : ''}>${n}</option>`).join('')}</select><audio id="aud" controls preload="none" src="https://everyayah.com/data/${store.get('kari', KARI[0][0])}/${String(s).padStart(3, '0')}${String(a).padStart(3, '0')}.mp3"></audio></div>
+  <div class="a3-meal"><div class="meal-row"><select id="msel" aria-label="Meal">${mealOpts}</select><span class="src" id="msrc"></span></div>
+    <p class="meal" id="mtext">…</p><div id="a3Mealler"></div></div>
+  <section class="a3-sure" aria-label="Suredeki yeri"><div class="a3-h"><h2>Suredeki yeri</h2><span id="a3SureNot"></span></div><div class="a3-serit" id="aySerit"></div></section>
+  <section class="a3-blok" id="b-tefsir"><div class="a3-h"><h2>Tefsirler</h2><span id="b-tefsir-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
+  <section class="a3-blok" id="b-esbab"><div class="a3-h"><h2>Esbâb-ı nüzûl ve nâsih-mensûh</h2><span id="b-esbab-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
+  <section class="a3-blok" id="b-cagdas"><div class="a3-h"><h2>Çağdaş ve diğer eserler</h2><span id="b-cagdas-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
+  <section class="a3-blok" id="b-selef"><div class="a3-h"><h2>Selef rivayetleri</h2><span id="b-selef-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
+  <section class="a3-blok" id="b-hadis"><div class="a3-h"><h2>Hadis kitapları</h2><span id="b-hadis-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
+  <section class="a3-blok" id="b-dil"><div class="a3-h"><h2>Dil, edebiyat ve Kur'an ilimleri</h2><span id="b-dil-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
+  <section class="a3-blok" id="b-fikih"><div class="a3-h"><h2>Fıkıh, usûl ve fetvalar</h2><span id="b-fikih-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
+  <section class="a3-blok" id="b-kelam"><div class="a3-h"><h2>Kelâm, tasavvuf ve tarih</h2><span id="b-kelam-n"></span></div><div class="zc-govde">Yükleniyor…</div></section>
+  <section class="a3-diger"><div class="a3-h"><h2>Diğer katmanlar</h2></div>
+    <details class="sec">
       <summary><span class="t">Kelimeler</span><span class="d">${A.kelimeler.length} kelime · kök ve i'râb</span></summary>
       <div class="body">
         <div class="words" role="group" aria-label="Kelimeler">${A.kelimeler.map((w, i) => `<button type="button" class="w" data-i="${i}" aria-pressed="false"><span class="a" lang="ar">${esc(w.ar)}</span><span class="m">${esc(w.tr || '')}</span></button>`).join('')}</div>
@@ -111,23 +99,21 @@ async function ayah(s, a) {
         <details class="work" id="sxd"><summary><span class="who">Cümle çözümlemesi</span><span class="tag">Quranic Treebank</span></summary><div class="pgs" id="sxb">Yükleniyor…</div></details>
       </div>
     </details>
-    ${sec('riv', 'Rivayetler ve sayım', '8 rivayette metin ve ayet numarası')}
     ${sec('kir', 'Kıraat', A.cc_kiraat && A.cc_kiraat.okuyus ? `${A.cc_kiraat.okuyus} okuyuş (Corpus Coranicum)` : 'Katman 2')}
+    ${sec('riv', 'Rivayetler ve sayım', '8 rivayette metin ve ayet numarası')}
+    ${sec('k1', "Kur'an içi ilişkiler", 'Katman 1')}
     ${sec('irb', "İ'râb ve garîb", 'Katman 2')}
     ${sec('kvr', 'Kavramlar: lügat maddeleri', 'Yükleniyor…')}
-  </div>
-  <div class="ay-pnl" data-p="kuran" role="tabpanel" hidden>${sec('k1', "Kur'an içi ilişkiler", 'Katman 1', true).replace('Açınca yüklenir.', 'Yükleniyor…')}</div>
-  <div class="ay-pnl" data-p="tefsir" role="tabpanel" hidden><div id="tefMasa"><p class="durum">Yükleniyor…</p></div>${sec('tef', 'Sayfa sayfa tüm pasajlar ve diğer eserlerdeki alıntılar', 'Katman 2')}</div>
-  <div class="ay-pnl" data-p="gelenek" role="tabpanel" hidden>
-    ${sec('esb', 'Esbâb-ı nüzûl ve nâsih-mensûh', 'Katman 2')}${sec('riv4', 'Selef rivayetleri', 'Yükleniyor…')}${sec('hds', 'Hadis kitaplarında', 'Yükleniyor…')}${sec('fkh', 'Fıkıh, usûl ve fetvalar', 'Yükleniyor…')}${sec('klm', 'Kelâm, tasavvuf, tarih ve ricâl', 'Yükleniyor…')}${sec('dil', "Dil, edebiyat ve Kur'an ilimleri", 'Yükleniyor…')}${sec('cgd', 'Çağdaş ve diğer eserler', 'Yükleniyor…')}${sec('iht', 'Görüşler ve ihtilaflar', 'Yükleniyor…')}
-  </div>
-  <div class="ay-pnl" data-p="karsi" role="tabpanel" hidden>${sec('krs', 'Dinler tarihi: karşılaştırmalı metinler', 'Yükleniyor…')}${sec('lit', 'Akademik literatür', 'Yükleniyor…')}</div>
-  <div class="ay-pnl" data-p="yazma" role="tabpanel" hidden>${sec('yzm', 'El yazmalarında', 'Yükleniyor…')}</div>
-  <div class="ay-pnl" data-p="masa" role="tabpanel" hidden>${sec('masa', 'Araştırma masası', 'Kişisel notlarınız')}</div>
-  <p class="srcs ay-veri">Veri sürümü: ${esc(D.version)} · ${Object.values(S.kaynaklar).length} kaynak</p>
+    ${sec('iht', 'Görüşler ve ihtilaflar', 'Yükleniyor…')}
+    ${sec('krs', 'Dinler tarihi: karşılaştırmalı metinler', 'Yükleniyor…')}
+    ${sec('lit', 'Akademik literatür', 'Yükleniyor…')}
+    ${sec('yzm', 'El yazmalarında', 'Yükleniyor…')}
+    ${sec('masa', 'Araştırma masası', 'Kişisel notlarınız')}
+  </section>
+  <div hidden>${sec('tef', '', '')}${sec('esb', '', '')}${sec('riv4', '', '')}${sec('hds', '', '')}${sec('fkh', '', '')}${sec('klm', '', '')}${sec('dil', '', '')}${sec('cgd', '', '')}</div>
+  <p class="srcs ay-veri">Veri sürümü: ${esc(D.version)} ${chain([{ r: 'Metin', t: 'Hafs ʿan ʿÂsım, Medine mushafı imlâsı', k: 'tanzil' }, { r: 'Karşılaştırma', t: 'Quranpedia Hafs mushafı ile harf iskeleti düzeyinde %100 aynı', k: 'quranpedia' }, { r: 'Ses', t: 'EveryAyah.com ayet ayet kayıtlar', u: 'https://everyayah.com' }])}</p>
   </div>`;
 
-  $('#ls').addEventListener('change', e => { location.hash = `#/${e.target.value}/1`; });
 
   const ctx = (arr) => {
     const item = (p, label) => p ? `<a href="#/${p[0]}/${p[1]}">${label}: ${esc(S.sureler[p[0] - 1].tr)} ${p[0]}:${p[1]}</a><p>${esc((arr[S._off[p[0] - 1] + p[1] - 1] || '').slice(0, 140))}…</p>` : '';

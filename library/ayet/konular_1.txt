@@ -1,0 +1,75 @@
+# Sure konu bölümleri: sure|baş-son|Türkçe başlık  (Claude; klasik tefsirlerin pasaj taksimi esas alındı)
+1|1-4|Hamd ve Allah'ın sıfatları
+1|5-7|Kulluk ve hidayet duası
+2|1-5|Kitap ve müttakîler
+2|6-7|İnkârcılar
+2|8-20|Münafıklar ve iki misal
+2|21-29|Tevhide ve kulluğa çağrı, Kur'an'ın meydan okuması
+2|30-39|Âdem'in yaratılışı ve halifelik
+2|40-74|İsrâiloğullarına verilen nimetler, buzağı ve inek kıssası
+2|75-103|Ehl-i kitabın tutumu, Hârût ve Mârût
+2|104-123|Ehl-i kitapla tartışma ve nesih
+2|124-141|İbrahim, Kâbe'nin inşası ve millet-i İbrâhîm
+2|142-152|Kıblenin değişmesi
+2|153-167|Sabır, Safâ ile Merve, tevhid delilleri
+2|168-176|Helal ve haram yiyecekler
+2|177|Birr (iyilik) nedir
+2|178-182|Kısas ve vasiyet
+2|183-187|Oruç
+2|188-195|Haksız kazanç, hilal, savaş hükümleri
+2|196-203|Hac
+2|204-214|İnsan tipleri ve imtihan
+2|215-221|İnfak, savaş, içki ve kumar, yetimler
+2|222-242|Aile hükümleri: hayız, yemin, talak, iddet, emzirme
+2|243-252|Tâlût ve Câlût kıssası
+2|253-257|Peygamberlerin dereceleri, Âyetü'l-Kürsî, dinde zorlama yok
+2|258-260|İbrahim ve diriliş delilleri
+2|261-274|Allah yolunda infak
+2|275-281|Faiz
+2|282-283|Borç ve şahitlik
+2|284-286|İman esasları ve dua
+3|1-9|Allah'ın birliği, muhkem ve müteşâbih
+3|10-32|İnkârcıların akıbeti ve Allah'a itaat
+3|33-63|İmrân ailesi, Meryem, Yahyâ ve Îsâ
+3|64-99|Ehl-i kitaba çağrı ve İbrahim'in dini
+3|100-120|Birlik, emr-i bi'l-ma'rûf
+3|121-129|Bedir'in hatırlatılması ve Uhud'a hazırlık
+3|130-148|Faiz yasağı, Uhud'un dersleri
+3|149-175|Uhud yenilgisinin sebepleri ve şehitler
+3|176-189|İnkârcılar, cimrilik ve ehl-i kitap
+3|190-200|Ülü'l-elbâbın tefekkürü ve duası
+4|1-14|Yetimler ve miras
+4|15-28|Ahlâk ve evlilik yasakları
+4|29-43|Mal, aile içi düzen, namaz ve teyemmüm
+4|44-70|Ehl-i kitap, emanet ve Allah'a itaat
+4|71-104|Savaş, münafıklar, hicret ve korku namazı
+4|105-126|Hak ile hükmetmek ve şirk
+4|127-135|Kadınlar ve yetimler, adalet
+4|136-152|Münafıklar
+4|153-175|Ehl-i kitap, Îsâ'nın durumu
+4|176|Kelâle mirası
+5|1-11|Ahde vefa, helaller, abdest
+5|12-26|İsrâiloğullarının ahdi ve Arz-ı mukaddes
+5|27-40|Âdem'in iki oğlu ve cezalar
+5|41-86|Ehl-i kitap ve Allah'ın indirdiğiyle hükmetmek
+5|87-108|Haram kılınanlar, içki, ihram, vasiyet
+5|109-120|Îsâ'ya verilen nimetler ve sofra
+6|1-32|Tevhid, inkârcıların tutumu
+6|33-73|Peygamberin tesellisi ve gaybın anahtarları
+6|74-90|İbrahim'in tevhid delili ve peygamberler
+6|91-117|Vahiy ve Allah'ın kudret delilleri
+6|118-153|Helal-haram ve on emir
+6|154-165|Kitap, din ve İslam'ın özü
+7|1-25|Kitap, Âdem ve İblis
+7|26-58|Âdemoğluna çağrı, A'râf ehli
+7|59-102|Nûh, Hûd, Sâlih, Lût ve Şuayb
+7|103-171|Mûsâ ve İsrâiloğulları
+7|172-206|Ezel bezmi, Belam, esmâ-i hüsnâ
+8|1-19|Enfâl ve Bedir
+8|20-40|İtaat, fitne ve savaş
+8|41-54|Ganimet ve Bedir'in hatırlatılması
+8|55-75|Antlaşmalar, esirler ve muhacir-ensar
+9|1-37|Müşriklerden beraat ve haram aylar
+9|38-72|Tebük seferi ve münafıklar
+9|73-110|Münafıklar, bedeviler, Dırâr mescidi
+9|111-129|Allah ile alışveriş ve geri kalan üç kişi

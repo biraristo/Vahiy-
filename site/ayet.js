@@ -1,289 +1,209 @@
 'use strict';
-/* vahiy++ — ayet ekranı: sekmeler, genel bakış kartları, suredeki yer şeridi ve tefsir masası.
-   app.js içindeki ayah() iskeleti kurar ve en sonda ayetYeni()'yi çağırır; bölüm içerikleri (k2, kx) app.js'de kalır. */
-const AY_SEK = [['genel', 'Genel bakış'], ['metin', 'Metin'], ['kuran', "Kur'an içinde"], ['tefsir', 'Tefsirler'], ['gelenek', 'Gelenek'], ['karsi', 'Karşılaştırma'], ['yazma', 'Yazmalar'], ['masa', 'Araştırma masam']];
+/* vahiy++ — ayet ekranı: tüm mealler, suredeki yer şeridi (konu bölümleri), eser grupları için zaman çizelgesi + okuma paneli.
+   app.js içindeki ayah() iskeleti kurar ve en sonda ayetYeni()'yi çağırır. "Diğer katmanlar" bölümleri app.js'de (k2, kx) kalır. */
+const AY_SEK = [];
 const AY_MEAL = ['tz-tr.diyanet', 'tz-tr.yazir', 'tz-tr.ates', 'tz-tr.golpinarli', 'tz-tr.bulac', 'tz-tr.yildirim', 'tz-tr.vakfi', 'tz-tr.ozturk', 'tz-tr.yuksel', 'qp-13656', 'qp-13627', 'qc-210', 'qc-124', 'qc-112', 'qp-2004'];
 const AY_MEAL_AD = { 'tz-tr.diyanet': 'Diyanet İşleri', 'tz-tr.yazir': 'Elmalılı Hamdi Yazır', 'tz-tr.ates': 'Süleyman Ateş', 'tz-tr.golpinarli': 'Abdülbaki Gölpınarlı', 'tz-tr.bulac': 'Ali Bulaç', 'tz-tr.yildirim': 'Suat Yıldırım', 'tz-tr.vakfi': 'Diyanet Vakfı', 'tz-tr.ozturk': 'Yaşar Nuri Öztürk', 'tz-tr.yuksel': 'Edip Yüksel', 'qp-13656': 'Diyanet (Quranpedia)', 'qp-13627': 'Türkçe meal (Quranpedia)', 'qc-210': 'Dar al-Salam', 'qc-124': 'Muslim Shahin', 'qc-112': 'Shaban Britch', 'qp-2004': 'el-Muhtasar (Türkçe)' };
-const AY_TUR = { 'فعل ماضٍ': 'fiil · mâzî', 'فعل مضارع': 'fiil · muzâri', 'فعل أمر': 'fiil · emir', 'اسم': 'isim', 'حرف جر': 'harf-i cer', 'ضمير': 'zamir', 'اسم موصول': 'ism-i mevsûl', 'اسم إشارة': 'işaret ismi', 'ظرف مكان': 'zarf', 'ظرف زمان': 'zarf', 'حرف عطف': 'atıf harfi', 'حرف نفي': 'nefy harfi', 'اسم علم': 'özel isim', 'صفة': 'sıfat' };
-const AY_RENK = ['#9FB4C9', '#C9B48A', '#8FB8A8', '#B9A3C9', '#C9A3A3', '#A9C29A', '#C2B59A', '#9AB8C2'];
 const TM_ETIKET_RENK = { g: '#B08D35', m: '#9a5b12', n: '#1E3A5F' };
 const tmNorm = t => (t || '').replace(/[ً-ْٰـ]/g, '');
-/* hareke farkına aldırmayan vurgu: aranan ifadenin harfleri arasına isteğe bağlı hareke koyar */
+const tmKisa = (t, n) => { t = String(t || '').replace(/\s+/g, ' ').trim(); return t.length > n ? t.slice(0, n).replace(/\s+\S*$/, '') + '…' : t; };
 const tmVurgu = (html, ifade) => {
   if (!ifade) return html;
   const rx = new RegExp([...tmNorm(ifade)].map(c => c === ' ' ? '\\s+' : c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('[\\u064B-\\u0652\\u0670\\u0640]*'));
   return html.replace(rx, m => `<mark>${m}</mark>`);
 };
+const ayetIsaret = h => h.replace(/﴿([^﴾]{1,600})﴾/g, '<span class="ayt">﴿$1﴾</span>').replace(/\{([^}]{1,600})\}/g, '<span class="ayt">{$1}</span>');
+const paragraflar = (t, vurgu) => esc(t).split('\n').filter(l => l.trim()).map(l => `<p>${tmVurgu(ayetIsaret(l), vurgu)}</p>`).join('');
+const isArYazi = t => /[؀-ۿ]/.test(String(t || '').slice(0, 80));
 
 function ayetYeni(s, a, A, su, S, D, MI) {
-  const id = `${s}:${a}`;
-  /* ---- sekmeler ---- */
-  const sec = k => {
-    view.querySelectorAll('.ay-sek button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.p === k)));
-    view.querySelectorAll('.ay-pnl').forEach(p => { p.hidden = p.dataset.p !== k; });
-    store.set('aysek', k);
-    history.replaceState(null, '', `#/${s}/${a}${k === 'genel' ? '' : '/' + k}`);
-    const ilk = view.querySelector(`.ay-pnl[data-p="${k}"] details.sec`);
-    if (k !== 'tefsir' && ilk && !view.querySelector(`.ay-pnl[data-p="${k}"] details.sec[open]`)) ilk.open = true;
-    if (k === 'tefsir') tefsirMasa(s, a, A);
-  };
-  const git = (k, bolum) => { sec(k); const d = bolum && $(`#${bolum}`); if (d) { d.open = true; d.scrollIntoView({ behavior: 'smooth', block: 'start' }); } else $('.ay-sek').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
-  view.querySelector('.ay-sek').addEventListener('click', e => { const b = e.target.closest('button[data-p]'); if (b) sec(b.dataset.p); });
-  const ilkSek = location.hash.split('/')[3] || store.get('aysek', 'genel');
-  sec(AY_SEK.some(x => x[0] === ilkSek) ? ilkSek : 'genel');
-  const say = (k, t) => { const el = $(`#sk-${k}`); if (el) el.textContent = t ? ` ${t}` : ''; };
-  say('metin', A.kelimeler.length);
-
-  /* ---- suredeki yer şeridi: Corpus Coranicum bölümlerine göre renkli ---- */
-  const bol = D.ayetler.map(x => (x.cc_yapi && x.cc_yapi[0] ? x.cc_yapi[0].bolum : null));
-  const araliklar = []; bol.forEach((b, i) => { const L = araliklar[araliklar.length - 1]; if (L && L.b === b) L.son = i + 1; else araliklar.push({ b, bas: i + 1, son: i + 1 }); });
-  const renk = {}; let ri = 0; araliklar.forEach(r => { if (!(r.b in renk)) renk[r.b] = AY_RENK[ri++ % AY_RENK.length]; });
-  const n = D.ayetler.length, burada = araliklar.find(r => a >= r.bas && a <= r.son);
-  $('#aySerit').style.gap = n > 120 ? '0' : '1px';
-  $('#aySerit').innerHTML = D.ayetler.map((x, i) => `<a href="#/${s}/${i + 1}" title="${su.tr} ${i + 1}" style="height:${i + 1 === a ? 100 : 48 + ((i * 37) % 38)}%;background:${i + 1 === a ? 'var(--gold)' : renk[bol[i]] || 'var(--line)'}"${i + 1 === a ? ' aria-current="true"' : ''}></a>`).join('') + `<span class="mk" style="left:${((a - .5) / n * 100).toFixed(2)}%">${a}</span>`;
-  $('#aySl').innerHTML = burada && burada.b != null ? `Corpus Coranicum'a göre ${burada.b}. bölüm: ${su.tr} ${burada.bas}–${burada.son} ${chain([{ r: 'Bölümleme', t: 'Corpus Coranicum sure yapısı', k: 'cc' }])}` : '';
-
-  /* ---- konu çipleri ---- */
-  load(`/data/k1/${s}.json`).then(async K1 => {
-    const L = (K1.ayetler || {})[id] || {};
-    const parts = [];
-    if (L.ayni_bolum) { const x = L.ayni_bolum.ayetler; parts.push(`<span class="b">Bölüm · ${x[0].split(':')[1]}–${x[x.length - 1].split(':')[1]}</span>`); }
-    if (L.konu && L.konu.length) { const KK = (await load('/data/k1/konular.json')).konular; L.konu.slice(0, 4).forEach(t => { const k = KK[t]; if (k) parts.push(`<span lang="ar">${esc(k.ad.replace(/\s*\[.*?\]/g, ''))}</span>`); }); }
-    $('#ayCip').insertAdjacentHTML('beforeend', parts.join(''));
-    const nk = (L.benzer_ifade || []).length + (L.ortak_ifade_toplam || 0) + (L.konu || []).length;
-    say('kuran', nk || '');
-    kartKuran(L);
-  }).catch(() => {});
-
-  /* ---- genel bakış kartları ---- */
-  const G = $('#ayGenel');
-  const kart = (k, baslik, sayi, ic, hedef, bolum, genis) => `<section class="ay-kart${genis ? ' genis' : ''}" data-k="${k}"><div class="ak-bas"><h3>${baslik}</h3>${sayi ? `<span class="n">${sayi}</span>` : ''}${hedef ? `<button type="button" class="ak-git" data-p="${hedef}" data-b="${bolum || ''}">Tümü</button>` : ''}</div>${ic}</section>`;
-  const yer = k => `<section class="ay-kart yer" data-k="${k}"></section>`;
-  G.innerHTML = ['meal', 'kelime', 'kiraat', 'tefsir', 'selef', 'kuran', 'dinler', 'yazma', 'eser', 'lit', 'gorus'].map(yer).join('');
-  G.addEventListener('click', e => { const b = e.target.closest('.ak-git'); if (b) git(b.dataset.p, b.dataset.b); });
-  const koy = (k, html) => { const el = G.querySelector(`[data-k="${k}"]`); if (!el) return; if (!html) { el.remove(); return; } el.outerHTML = html; };
-
-  // Mealler
+  /* ---- tüm mealler ---- */
   load(`/data/meal/s/${s}.json`).then(M => {
     const L = AY_MEAL.filter(m => M.mealler[m] && M.mealler[m][a - 1]);
-    const satir = m => `<li><b>${esc(AY_MEAL_AD[m] || m)}</b><span>${esc(M.mealler[m][a - 1])}</span></li>`;
-    koy('meal', kart('meal', 'Mealler', L.length, `<ul class="ak-meal">${L.slice(0, 4).map(satir).join('')}</ul>${L.length > 4 ? `<details class="ak-daha"><summary>${L.length - 4} meal daha</summary><ul class="ak-meal">${L.slice(4).map(satir).join('')}</ul></details>` : ''}`));
-  }).catch(() => koy('meal', ''));
+    $('#a3Mealler').innerHTML = `<details class="a3-tum"><summary>Tüm mealler (${L.length})</summary><ul>${L.map(m => `<li><b>${esc(AY_MEAL_AD[m] || m)}</b><span>${esc(M.mealler[m][a - 1])}</span></li>`).join('')}</ul></details>`;
+  }).catch(() => {});
 
-  // Kelime kelime
-  const KW = A.kelimeler;
-  koy('kelime', kart('kelime', 'Kelime kelime', KW.length, `<table class="ak-tab"><thead><tr><th>Kelime</th><th>Okunuş</th><th>Kök</th><th>Tür</th><th>Anlam</th></tr></thead><tbody>${KW.slice(0, 7).map(w => `<tr><td class="a" lang="ar">${esc(w.ar)}</td><td>${esc(w.okunus || '')}</td><td class="a k" lang="ar">${esc(w.kok || '—')}</td><td>${esc(AY_TUR[w.tur] || (/^حرف/.test(w.tur || '') ? 'harf' : /^اسم/.test(w.tur || '') ? 'isim' : /^فعل/.test(w.tur || '') ? 'fiil' : /^ظرف/.test(w.tur || '') ? 'zarf' : w.tur || ''))}</td><td>${esc(w.tr || '')}</td></tr>`).join('')}</tbody></table>`, 'metin'));
+  /* ---- suredeki yer: konu bölümleri, sağdan sola ---- */
+  load('/data/k0/konu.json').then(K => {
+    const B = K.sureler[String(s)] || [[1, su.ayet, su.tr]];
+    const bu = B.find(([x, y]) => a >= x && a <= y);
+    $('#a3SureNot').innerHTML = bu ? `Bu ayet: <b>${bu[0] === bu[1] ? bu[0] : `${bu[0]}–${bu[1]}`} · ${esc(bu[2])}</b>` : '';
+    const el = $('#aySerit');
+    el.innerHTML = `<div class="ss-ic" dir="rtl">${B.map(([x, y, ad], i) => `<div class="ss-bol${bu && bu[0] === x ? ' bu' : ''}" style="--c:var(--k${i % 8});--n:${y - x + 1}"><div class="ss-ad" title="${esc(ad)}" dir="ltr"><b>${x === y ? x : `${x}–${y}`}</b> ${esc(ad)}</div><div class="ss-ay">${Array.from({ length: y - x + 1 }, (_, j) => x + j).map(n => `<a href="#/${s}/${n}"${n === a ? ' aria-current="true"' : ''} aria-label="${esc(su.tr)} ${n}">${n}</a>`).join('')}</div></div>`).join('')}</div><p class="ss-not">Konu bölümleri Claude tarafından klasik tefsirlerin pasaj taksimine bakılarak hazırlandı; tefsirlerle karşılaştırın. ${chain([{ r: 'Bölümleme', t: K.kaynak, k: 'claude' }])}</p>`;
+    const cur = el.querySelector('a[aria-current]');
+    if (cur) { const ic = el.querySelector('.ss-ic'); const r1 = cur.getBoundingClientRect(), r0 = ic.getBoundingClientRect(); ic.scrollLeft += (r1.left + r1.width / 2) - (r0.left + r0.width / 2); }
+  }).catch(() => {});
 
-  // Kıraat
-  load(`/data/k2/q/${s}.json`).then(Q => {
-    const q = Q.ayetler[id] || {}, qp = q.qp || [];
-    const nOk = A.cc_kiraat?.okuyus || 0;
-    if (!qp.length && !nOk) return koy('kiraat', '');
-    const gr = {}; qp.forEach(x => (gr[x.kelime] ||= []).push(x));
-    const kel = Object.keys(gr)[0];
-    const ic = kel ? `<p class="ak-ust">Farklı okunan kelime: <span lang="ar" class="ar">${esc(kel)}</span>${Object.keys(gr).length > 1 ? ` ve ${Object.keys(gr).length - 1} kelime daha` : ''}</p><div class="ak-kir">${gr[kel].slice(0, 2).map(x => `<div><span class="a" lang="ar">${esc(x.okuyus)}</span><small lang="ar">${x.raviler.slice(0, 6).map(r => esc(r[0])).join('، ')}${x.raviler.length > 6 ? '…' : ''}</small></div>`).join('')}</div>` : '<p class="ak-ust">Kıraat farklarının ayrıntısı Metin sekmesinde.</p>';
-    koy('kiraat', kart('kiraat', 'Kıraat', nOk ? `${nOk} okuyuş` : `${qp.length} kayıt`, ic, 'metin', 'kir'));
-  }).catch(() => koy('kiraat', ''));
-
-  // Tefsirler: zaman şeridi + üç alıntı
-  tmVeri(s, a).then(T => {
-    say('tefsir', T.W.length || '');
-    if (!T.W.length) return koy('tefsir', '');
-    const sec3 = [];
-    const ilk = T.W.find(x => x.metin), orta = T.W.find(x => x.metin && x.e.vefat >= 500 && x.e.vefat < 950 && x !== ilk), tr = T.W.find(x => x.metin && x.e.dil === 'tr');
-    [ilk, orta, tr || [...T.W].reverse().find(x => x.metin)].forEach(x => { if (x && !sec3.includes(x)) sec3.push(x); });
-    koy('tefsir', kart('tefsir', 'Tefsirler', `${T.W.length} eser`, `<p class="ak-ust">On dört asır boyunca bu ayet: her nokta bir tefsir, müellifin vefat yılına göre</p><svg class="tm-serit" data-mini="1"></svg><div class="ak-tef">${sec3.map(x => `<div><b>${esc(x.tr.muellif || x.e.muellif)}</b><small>${x.e.vefat ? 'ö. ' + x.e.vefat : 'çağdaş'} · ${esc(x.tr.ad || x.e.ad)}</small><p class="${x.e.dil === 'tr' ? '' : 'ar'}" dir="${x.e.dil === 'tr' ? 'ltr' : 'rtl'}" lang="${x.e.dil === 'tr' ? 'tr' : 'ar'}">${esc(tmKisa(x.metin, 170))}</p></div>`).join('')}</div>`, 'tefsir', '', true));
-    tmSerit(G.querySelector('.tm-serit'), T.W, null, null);
-  }).catch(() => koy('tefsir', ''));
-
-  // Kur'an içi (k1 yüklenince)
-  function kartKuran(L) {
-    const o = L.ortak_ifade || [], b = L.benzer_ifade || [];
-    if (!o.length && !b.length && !L.ayni_bolum) return koy('kuran', '');
-    const al = x => `<a href="#/${x.replace(':', '/')}">${x}</a>`;
-    koy('kuran', kart('kuran', "Kur'an içi bağlar", (L.ortak_ifade_toplam || 0) + b.length + (L.konu || []).length || '', `${b.slice(0, 2).map(g => `<div class="ak-ort"><span lang="ar">${esc(g.not)}</span><p>${g.ayetler.slice(0, 6).map(al).join('')}</p></div>`).join('')}${o.slice(0, 2).map(g => `<div class="ak-ort"><span lang="ar">${esc(g.ifade)}</span><p>${g.ayetler.slice(0, 6).map(al).join('')}</p></div>`).join('')}${L.ayni_bolum ? `<p class="ak-ust">Aynı bölüm: ${L.ayni_bolum.ayetler.length} ayet</p>` : ''}`, 'kuran'));
-  }
-
-  // x paketi: selef rivayetleri, eserlerde geçtiği yerler, görüşler
-  loadGz(`/data/x/${s}/${a}.json.gz`).then(b => {
-    if (b.k4.length) koy('selef', kart('selef', 'Selef rivayetleri', b.k4.length, b.k4.slice(0, 2).map(x => `<blockquote lang="ar" dir="rtl">${esc(tmKisa(x.metin, 200))}</blockquote>${x.tahric ? `<p class="ak-kay" lang="ar" dir="rtl">${esc(tmKisa(x.tahric.replace(/[١٢٣٤٥٦٧٨٩٠]+(?=[^\s])/, ''), 70))}</p>` : ''}`).join(''), 'gelenek', 'riv4'));
-    else koy('selef', '');
-    const AD = { tefsir: 'Tefsir', ulum: "Kur'an ilimleri", dil: 'Dil ve lügat', cagdas: 'Çağdaş', tarih: 'Tarih', hadis: 'Hadis', fikih: 'Fıkıh', kelam: 'Kelâm', tasavvuf: 'Tasavvuf' };
-    const E = Object.entries(b.k3).map(([k, v]) => [k, v.length]).filter(x => x[1]).sort((p, q) => q[1] - p[1]);
-    const top = E.reduce((t, x) => t + x[1], 0), mx = E[0]?.[1] || 1;
-    say('gelenek', top + b.k4.length || '');
-    if (E.length) koy('eser', kart('eser', 'Eserlerde geçtiği yerler', top, E.map(([k, v]) => `<div class="ak-bar"><span>${AD[k] || k}</span><b>${v}</b><i style="--w:${(v / mx * 100).toFixed(0)}%"></i></div>`).join(''), 'gelenek', 'hds'));
-    else koy('eser', '');
-    const ih = b.k7.ihtilaf, nt = b.notlar, fv = b.k7.fetva;
-    if (ih.length || nt.length || fv.length) koy('gorus', kart('gorus', 'Görüşler ve notlar', '', `<div class="ak-oz"><div><b>${ih.length}</b><span>ihtilaf kaydı</span></div><div><b>${nt.length}</b><span>tedebbür notu</span></div><div><b>${fv.length}</b><span>fetva</span></div></div>${ih[0] ? `<blockquote lang="ar" dir="rtl">${esc(tmKisa(ih[0][4], 180))}</blockquote>` : ''}`, 'gelenek', 'iht'));
-    else koy('gorus', '');
-  }).catch(() => ['selef', 'eser', 'gorus'].forEach(k => koy(k, '')));
-
-  // Dinler tarihi
-  Promise.all([load(`/data/k6/${s}.json`), load('/data/kutuphane/dinler.json')]).then(([K, R]) => {
-    const L = K.ayetler[id] || []; say('karsi', L.length || '');
-    if (!L.length) return koy('dinler', '');
-    const DM = {}; R.metinler.forEach(e => { DM[e.id] = e; });
-    koy('dinler', kart('dinler', 'Dinler tarihi', `${L.length} metin`, `<ul class="ak-lis">${L.slice(0, 4).map(x => { const e = DM[x.id] || {}; return `<li><a href="#/metin/${x.id}">${esc(e.ad || x.baslik)}</a><small>${esc([e.dil || x.dil, e.tarih || x.tarih].filter(Boolean).join(' · '))}</small></li>`; }).join('')}</ul>`, 'karsi', 'krs'));
-  }).catch(() => koy('dinler', ''));
-
-  // El yazmaları
-  Promise.all([load(`/data/k6/y/${s}.json`), load('/data/k6/yazma.json')]).then(([Y, R]) => {
-    const L = Y.ayetler[id] || []; const ids = [...new Set(L.map(x => x[0]))];
-    say('yazma', ids.length || '');
-    if (!ids.length) return koy('yazma', '');
-    const yil = t => parseInt(String(t || '').replace(/^-/, '')) || 9999;
-    const sec4 = ids.filter(m => R.nushalar[m]?.tarih).sort((x, y) => yil(R.nushalar[x].tarih) - yil(R.nushalar[y].tarih)).slice(0, 4);
-    const yaprak = m => L.find(x => x[0] === m)?.[1] || '';
-    koy('yazma', kart('yazma', 'El yazmaları', `${ids.length} nüsha`, `<div class="ak-yz">${sec4.map(m => { const nn = R.nushalar[m]; return `<a href="https://corpuscoranicum.de/de/manuscript/${m}" target="_blank" rel="noopener"><span class="yp">${esc(yaprak(m))}</span><b>${esc(nn.ad.replace(/\s*\(.*?\)/g, '').slice(0, 70))}</b><small>${esc(String(nn.tarih).replace(/^-/, '… '))}${nn.yazi ? ' · ' + esc(nn.yazi) : ''}</small></a>`; }).join('')}</div>`, 'yazma', 'yzm'));
-  }).catch(() => koy('yazma', ''));
-
-  // Akademik literatür
-  load(`/data/k8/${s}.json`).then(K => {
-    const ay = K.ayet[id] || [], L = [...ay, ...K.sure.filter(x => !ay.includes(x))].slice(0, 4);
-    if (!L.length) return koy('lit', '');
-    koy('lit', kart('lit', 'Akademik literatür', `${ay.length} + ${K.sure.length}`, `<ul class="ak-lis">${L.map(i => { const m = K.makale[i]; return `<li><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.title.split(' / ')[0])}</a><small>${esc((m.authors || '').split(',')[0])}${m.year ? ' · ' + m.year : ''} · ${ay.includes(i) ? 'bu ayet' : 'sure'}</small></li>`; }).join('')}</ul>`, 'karsi', 'lit'));
-  }).catch(() => koy('lit', ''));
+  /* ---- bloklar: görünür oldukça yüklenir ---- */
+  const BLOK = { tefsir: blokTefsir, esbab: blokEsbab, cagdas: blokCagdas, selef: blokSelef, hadis: blokHadis, dil: blokDil, fikih: blokFikih, kelam: blokKelam };
+  const calistir = el => { const k = el.id.slice(2); BLOK[k](s, a, A).then(items => zcKur(el, items, k, s, a)).catch(err => { el.querySelector('.zc-govde').innerHTML = `<p class="srcs">${esc(err.message)}</p>`; }); };
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { io.unobserve(e.target); calistir(e.target); } }), { rootMargin: '700px 0px' }) : null;
+  Object.keys(BLOK).forEach(k => { const el = $(`#b-${k}`); if (io) io.observe(el); else calistir(el); });
 }
 
-/* ---------------- Tefsir masası ---------------- */
-const tmKisa = (t, n) => { t = String(t || '').replace(/\s+/g, ' ').trim(); return t.length > n ? t.slice(0, n).replace(/\s+\S*$/, '') + '…' : t; };
+/* ================= veri sağlayıcılar ================= */
+const AYX = {};
+const ayX = (s, a) => (AYX[`${s}:${a}`] ||= Promise.all([loadGz(`/data/x/${s}/${a}.json.gz`), load('/data/x/kitaplar.json').then(d => d.kitaplar), load('/data/x/tr.json').catch(() => ({}))]));
 const TM = {};
-/* Bu ayetteki tefsir eserleri: k2 dizini + pasajlar + Türkçe künye (tefsir rafı) */
-async function tmVeri(s, a) {
+/* k2 dizini: bu ayetteki ayet ayet bölünmüş eserler (tefsir, esbâb, i'râb…) */
+async function k2Veri(s, a) {
   const key = `${s}:${a}`; if (TM[key]) return TM[key];
   const [E, I, P, R] = await Promise.all([load('/data/k2/eserler.json'), load(`/data/k2/i/${s}.json`), loadGz(`/data/k2/t/${s}/${a}.json.gz`), load('/data/kutuphane/tefsir.json')]);
   const tr = {}; R.eserler.forEach(e => e.k2.forEach(r => { tr[r] = e; }));
   const byW = {}; P.p.forEach(r => (byW[r[0]] ||= []).push(r));
   const W = (I.ayetler[key] || []).map(([w]) => ({ w, e: E.eserler[w], tr: tr[w] || {} }))
-    .filter(x => x.e && x.e.tur === 'tefsir' && ['ar', 'tr'].includes(x.e.dil || 'ar'))
+    .filter(x => x.e && ['ar', 'tr'].includes(x.e.dil || 'ar'))
     .map(x => { const rows = byW[x.w] || []; const r0 = rows.find(r => typeof r[3] === 'string'); return { ...x, rows, metin: r0 ? r0[3] : '', ortak: rows.length && !r0 ? rows[0][3].ref : '' }; })
     .sort((p, q) => (p.e.vefat || 9999) - (q.e.vefat || 9999));
-  /* aynı eserin birden çok dijital nüshası: metni olanı tut, ötekinin sayfalarını ona ekle */
   const tek = new Map();
-  W.forEach(x => { const k = x.tr.id || `${x.e.muellif}|${x.e.ad}`; const o = tek.get(k); if (!o) tek.set(k, x); else if (!o.metin && x.metin) { x.rows = [...x.rows, ...o.rows]; tek.set(k, x); } });
-  return (TM[key] = { W: [...tek.values()] });
+  W.forEach(x => { const k = x.tr.id || `${x.e.muellif}|${x.e.ad}|${x.e.tur}`; const o = tek.get(k); if (!o) tek.set(k, x); else if (!o.metin && x.metin) { x.rows = [...x.rows, ...o.rows]; tek.set(k, x); } });
+  return (TM[key] = [...tek.values()]);
 }
+const yerYaz = r => [r[1] && +r[1] ? `c. ${r[1]}` : '', r[2] ? `s. ${r[2]}` : ''].filter(Boolean).join(', ');
+async function k2Metin(x) {
+  const out = [];
+  for (const r of x.rows) {
+    let t = r[3];
+    if (typeof t !== 'string') { try { const [ts, ta] = t.ref.split(':'); const P = await loadGz(`/data/k2/t/${ts}/${ta}.json.gz`); const m = P.p.find(y => y[0] === r[0] && y[1] === r[1] && y[2] === r[2] && typeof y[3] === 'string'); t = m ? m[3] : ''; } catch { t = ''; } }
+    if (t) out.push([r, t]);
+  }
+  return out;
+}
+/* k2 eserini zaman çizelgesi öğesine çevir */
+const k2Oge = (x, s, a) => ({
+  k: x.w, yil: x.e.vefat || null, ad: x.tr.muellif || x.e.muellif || x.e.kisa || '—', arAd: !x.tr.muellif, eser: x.tr.ad || x.e.ad, tr: x.e.dil === 'tr',
+  kitap: x.tr.id ? `#/kitap/${x.tr.id}/${s}/${a}` : (x.w.startsWith('qp') ? qpUrl(x.w.slice(2)) : null), disKitap: !x.tr.id,
+  ozet: x.metin || x.ortak ? '1' : '',
+  yukle: async (vurgu) => { const P = await k2Metin(x); return { dil: x.e.dil === 'tr' ? 'tr' : 'ar', html: P.map(([r, t]) => `${yerYaz(r) ? `<span class="sy">${esc(yerYaz(r))}</span>` : ''}${paragraflar(t, vurgu)}`).join('') || '<p>Metin bulunamadı.</p>', yer: P[0] ? yerYaz(P[0][0]) : '' }; },
+  kunye: chain([{ r: 'Eser', t: `${x.e.muellif || ''}${x.e.vefat ? ` (ö. ${x.e.vefat})` : ''}, ${x.e.ad}`, u: x.w.startsWith('qp') ? qpUrl(x.w.slice(2)) : null }, { r: 'Veri', k: x.w.startsWith('qp') ? 'quranpedia' : 'qul' }, { r: 'İşleme', t: 'ayet ayet ayrıştırma:', b: 'k2' }])
+});
+/* k3: kitaplarda ayetin geçtiği yerler */
+const k3Oge = (nb, n, hits, K, TR, s, a) => {
+  const k = K[nb] || {}, t = TR[nb];
+  const loc = h => k.kaynak === 'OpenITI' ? (+h[0] ? `c. ${+h[0]}, s. ${h[1]}` : (h[1] !== '0' ? `s. ${h[1]}` : '')) : k.kaynak === 'Quranpedia PDF' ? `c. ${+h[0]}, PDF s. ${+h[1]}` : '';
+  const kitap = t ? (t[0][0] === 't' ? `#/kitap/${t[0]}/${s}/${a}` : `#/eser/${t[0]}`) : (k.kaynak === 'OpenITI' ? oiUrl(k.ref) : qpUrl(k.ref));
+  return {
+    k: 'k3' + nb, yil: k.vefat || null, ad: t ? t[2] : (k.muellif || '—').replace(/\s*\(المتوفى[^)]*\)/, ''), eser: t ? t[1] : k.ad, arAd: !t, say: n,
+    kitap, disKitap: !t, ozet: hits.some(h => h[4]) ? '1' : '',
+    yukle: async () => ({ dil: 'ar', html: hits.map(h => `${loc(h) ? `<span class="sy">${esc(loc(h))}</span>` : ''}${h[4] ? `<p>${ayetIsaret(esc(h[4]))}</p>` : '<p class="srcs">Bu yerin metin parçası kayıtlı değil; kitapta açın.</p>'}`).join('') + (n > hits.length ? `<p class="srcs">Bu eserde ${n - hits.length} yer daha var.</p>` : ''), yer: loc(hits[0] || []) }),
+    kunye: chain([{ r: 'Kitap', t: `${(k.muellif || '').replace(/\s*\(المتوفى[^)]*\)/, '')}${k.vefat ? ` (ö. ${k.vefat})` : ''}, ${k.ad}`, u: k.kaynak === 'OpenITI' ? oiUrl(k.ref) : qpUrl(k.ref) }, k.nesir && { r: 'Neşir', t: k.nesir }, { r: 'Veri', k: k.kaynak === 'OpenITI' ? 'openiti' : k.kaynak === 'Quranpedia PDF' ? 'quranpedia_pdf' : 'quranpedia' }, { r: 'Bağ', t: 'makine: ayet metni eşleşmesi ya da kaynağın kendi ayet bağı', b: 'k3,paket' }])
+  };
+};
+const k3Gruplar = async (s, a, gruplar) => {
+  const [b, K, TR] = await ayX(s, a);
+  return gruplar.flatMap(g => (b.k3[g] || []).map(([nb, n, hits]) => k3Oge(nb, n, hits, K, TR, s, a)));
+};
 
-/* zaman şeridi: secili = vurgulanan eser kümesi (Map w→renk), aktif = seçili eser */
-function tmSerit(svg, W, secili, aktif, tikla) {
-  if (!svg) return;
-  const Wd = svg.getBoundingClientRect().width || 600, dar = Wd < 520, H = dar ? 70 : 78;
-  svg.setAttribute('height', H); svg.setAttribute('viewBox', `0 0 ${Wd} ${H}`);
-  const x = y => 12 + (y - 60) / (1460 - 60) * (Wd - 24);
-  let h = `<line x1="${x(60)}" x2="${x(1460)}" y1="${H - 22}" y2="${H - 22}" stroke="var(--line)"/>`;
-  for (let y = 100; y <= 1400; y += 100) if (!dar || y % 200 === 0) h += `<text x="${x(y)}" y="${H - 6}" text-anchor="middle" font-size="10" fill="var(--muted)">${y}</text>`;
-  const st = {}, adim = dar ? 40 : 14;
-  W.forEach(o => {
-    const y = o.e.vefat || 1445, k = Math.round(y / adim); st[k] = (st[k] || 0) + 1;
-    const cy = H - 28 - (st[k] - 1) * (dar ? 7 : 8);
-    const renk = o.w === aktif ? 'var(--lapis)' : secili ? (secili.get(o.w) || 'var(--line)') : 'var(--gold)';
-    h += `<circle data-w="${esc(o.w)}" cx="${x(y)}" cy="${cy}" r="${o.w === aktif ? 6 : dar ? 3.4 : 4}" fill="${renk}"${o.w === aktif ? ' stroke="var(--sheet)" stroke-width="2"' : ''}><title>${esc((o.tr.muellif || o.e.muellif || '') + (o.e.vefat ? ' · ö. ' + o.e.vefat : ''))}</title></circle>`;
+async function blokTefsir(s, a) {
+  const [W, K9] = await Promise.all([k2Veri(s, a), load('/data/k9/index.json').then(I => I.sureler.includes(s) ? load(`/data/k9/${s}.json`) : { ayetler: {} }).catch(() => ({ ayetler: {} }))]);
+  const L = W.filter(x => x.e.tur === 'tefsir').map(x => k2Oge(x, s, a));
+  L.meseleler = (K9.ayetler || {})[`${s}:${a}`] || [];
+  return L;
+}
+async function blokEsbab(s, a) {
+  const W = (await k2Veri(s, a)).filter(x => ['esbab', 'nasih'].includes(x.e.tur)).map(x => k2Oge(x, s, a));
+  const { riv, books, K } = await esbParts(s, a);
+  const [, , TR] = await ayX(s, a);
+  const B = books.map(([nb, n, hits]) => k3Oge(nb, n, hits, K, TR, s, a));
+  const M = riv.length ? [{ k: 'mevsua-esb', yil: null, ad: "Mevsûatü't-tefsîri'l-me'sûr", eser: `Nüzul ve nesih rivayetleri (${riv.length})`, kitap: null, ozet: '1',
+    yukle: async () => ({ dil: 'ar', html: riv.map(x => `<div class="rv1"><span class="sy">${/النسخ/.test(x.tur) ? 'Nesih' : 'Nüzul'}${x.hukum ? ' · tahrîcte: ' + esc(x.hukum) : ''}</span><p>${ayetIsaret(esc(x.metin))}</p>${x.tahric ? `<p class="thr">${esc(x.tahric)}</p>` : ''}</div>`).join('') }),
+    kunye: chain([{ r: 'Eser', k: 'mevsua' }, { r: 'Veri', k: 'quranpedia' }]) }] : [];
+  return [...W, ...B, ...M];
+}
+async function blokCagdas(s, a) {
+  const L = await k3Gruplar(s, a, ['cagdas']);
+  const [b] = await ayX(s, a);
+  if (b.notlar.length) L.push({ k: 'notlar', yil: null, ad: 'Tedebbür notları', eser: `Quranpedia kullanıcı notları (${b.notlar.length})`, ozet: '1',
+    yukle: async () => ({ dil: 'ar', html: b.notlar.map(n => `<div class="rv1"><span class="sy">${esc(n.yazar || '—')}${n.kategori ? ' · ' + esc(n.kategori) : ''}</span><p>${esc(n.metin)}</p></div>`).join('') }), kunye: chain([{ r: 'Notlar', t: 'Quranpedia kullanıcı notları', k: 'quranpedia' }]) });
+  return L;
+}
+async function blokSelef(s, a) {
+  const [[b], R] = await Promise.all([ayX(s, a), load('/data/k4/raviler.json')]);
+  const RV = R.raviler;
+  return b.k4.map(x => {
+    const rv = x.raviler.map(r => RV[r]).filter(Boolean); const r0 = rv[rv.length - 1] || rv[0];
+    const yil = r0?.takrib?.vefat || null;
+    return { k: 'rv' + x.id, yil, ad: r0 ? r0.ad : (x.metin.match(/^(?:قال|عن)\s+([^:،,]{3,40})/)?.[1] || 'Rivayet'), arAd: true, eser: RTYPE(x.tur), ozet: '1', kitap: null,
+      yukle: async () => ({ dil: 'ar', html: `<p>${ayetIsaret(para(x.metin))}</p>${x.hukum ? `<p class="srcs">tahrîcte: ${esc(x.hukum)}</p>` : ''}${x.tahric ? `<p class="thr">${para(x.tahric)}</p>` : ''}${rv.length ? `<p class="srcs">Râviler: ${rv.map(r => `${esc(r.ad)}${r.takrib?.derece ? ` (${esc(GRADE_TR[r.takrib.derece] || r.takrib.derece)})` : ''}`).join(' · ')}</p>` : ''}` }),
+      kunye: chain([{ r: 'Rivayet', t: `Mevsûa kayıt no ${x.id}` }, { r: 'Eser', k: 'mevsua' }, { r: 'Veri', k: 'quranpedia' }, { r: 'Râvi dereceleri', t: "Takrîbü't-Tehzîb ile makine eşleştirmesi", b: 'k4_ravi' }]) };
   });
-  svg.innerHTML = h;
-  if (tikla) svg.onclick = e => { const c = e.target.closest('circle[data-w]'); if (c) tikla(c.dataset.w); };
 }
+async function blokHadis(s, a) {
+  const L = await k3Gruplar(s, a, ['hadis']);
+  const H = await load(`/data/k4/he/${s}.json`).catch(() => null);
+  const ids = H?.ayet?.[`${s}:${a}`] || [];
+  ids.forEach(i => { const h = H.hadis[i], t = h.tr || {}, ar = h.ar || {};
+    L.push({ k: 'he' + i, yil: null, ad: t.title || ar.title || 'Hadis', arAd: !t.title, eser: `Hadis Ansiklopedisi${t.grade || ar.grade ? ' · ' + (t.grade || ar.grade) : ''}`, tr: !!t.hadeeth, ozet: '1', kitap: h.url, disKitap: true,
+      yukle: async () => ({ dil: t.hadeeth ? 'tr' : 'ar', html: `${t.hadeeth ? `<p>${para(t.hadeeth)}</p>` : ''}<p class="ar" dir="rtl">${para(ar.hadeeth || '')}</p>${t.explanation ? `<details><summary>Açıklama</summary><p>${para(t.explanation)}</p></details>` : ''}${ar.reference ? `<p class="srcs" dir="rtl">${esc(ar.reference)}</p>` : ''}` }),
+      kunye: chain([{ r: 'Hadis', t: `HadeethEnc no ${i}`, u: h.url }, { r: 'Ayet bağı', t: 'makine: hadis metni ve şerhindeki ayet alıntısı', b: 'hadeethenc' }]) }); });
+  return L;
+}
+async function blokDil(s, a) {
+  const W = (await k2Veri(s, a)).filter(x => ['irab', 'garib', 'kiraat'].includes(x.e.tur)).map(x => k2Oge(x, s, a));
+  return [...W, ...(await k3Gruplar(s, a, ['dil', 'ulum']))];
+}
+async function blokFikih(s, a) {
+  const L = await k3Gruplar(s, a, ['fikih']);
+  const [b] = await ayX(s, a);
+  b.k7.fetva.forEach((f, i) => L.push({ k: 'fv' + i, yil: null, ad: f.muftu || 'Fetva', arAd: true, eser: 'Fetva', ozet: '1', kitap: null,
+    yukle: async () => ({ dil: 'ar', html: `<p><b>${esc(f.soru)}</b></p><p>${para(f.cevap)}</p>` }), kunye: chain([{ r: 'Fetva', t: `${f.muftu || ''}${f.kategori ? ' · ' + f.kategori : ''}` }, { r: 'Veri', k: 'quranpedia' }]) }));
+  return L;
+}
+const blokKelam = (s, a) => k3Gruplar(s, a, ['kelam', 'tasavvuf', 'tarih']);
 
-async function tefsirMasa(s, a, A) {
-  const kutu = $('#tefMasa'); if (!kutu || kutu.dataset.kuruldu) return; kutu.dataset.kuruldu = '1';
-  const [T, K9] = await Promise.all([tmVeri(s, a), load('/data/k9/index.json').then(I => I.sureler.includes(s) ? load(`/data/k9/${s}.json`) : { ayetler: {} }).catch(() => ({ ayetler: {} }))]);
-  const W = T.W; const MES = (K9.ayetler || {})[`${s}:${a}`] || [];
-  if (!W.length) { kutu.innerHTML = '<p class="srcs">Bu ayet için ayet ayet bölünmüş tefsir pasajı yok. Aşağıda diğer eserlerdeki alıntılara bakın.</p>'; return; }
-  const DON = [['', 'Tümü'], ['erken', 'Erken'], ['klasik', 'Klasik'], ['orta', 'Orta'], ['osmanli', 'Osmanlı'], ['modern', 'Modern']];
-  let sayfa = 30, mes = -1, don = '', dil = '', aktif = W.find(x => x.metin)?.w, pin = [];
-  kutu.innerHTML = `
-    ${MES.length ? `<h3 class="tm-h">Bu ayette tefsirlerin üzerinde durduğu meseleler</h3><div class="tm-mes" id="tmMes"></div><p class="tm-ip">Meseleler tefsir pasajları okunarak çıkarıldı; görüş etiketleri ve Türkçe özetler makine çalışmasıdır, Arapça metinden kontrol edin.</p>` : ''}
-    <div class="tm-serit-k"><div class="tm-sb"><span id="tmSay"></span><div class="tm-lej" id="tmLej"></div></div><svg class="tm-serit" id="tmSerit"></svg></div>
-    <div class="tm-arac" id="tmArac"></div>
-    <div class="tm-ana"><div class="tm-seyir" id="tmSeyir"></div><aside class="tm-oku" id="tmOku"></aside></div>
-    <div class="tm-kars" id="tmKars" hidden></div>`;
-  const etiketAd = (m, e) => (m.etiketler || {})[e] || e;
-  const liste = () => {
-    if (mes >= 0) { const M = MES[mes]; return M.eserler.map(m => ({ ...W.find(x => x.w === m.w), m })).filter(x => x.w && x.e); }
-    return W.filter(x => (!don || x.e.donem === don) && (!dil || (x.e.dil || 'ar') === dil));
+/* ================= zaman çizelgesi bileşeni ================= */
+/* vefat yılı hicrî; 1447'den büyükler ya "yaşıyor" işaretidir (1450 gibi) ya da yanlışlıkla milâdî girilmiştir */
+const hicri = y => !y ? null : y >= 1500 ? Math.round((y - 622) * 1.0307) : y > 1447 ? 'c' : y;
+const ASIR = y => y == null ? 'Tarihsiz' : y === 'c' ? 'Çağdaş' : `${Math.floor((y - 1) / 100) + 1}. asır`;
+const yilYaz = y => y == null ? '' : y === 'c' ? 'çağdaş' : 'ö. ' + y;
+function zcKur(el, items, tur, s, a) {
+  const govde = el.querySelector('.zc-govde'), sayEl = el.querySelector(`#b-${tur}-n`);
+  const MES = items.meseleler || [];
+  items = items.map(x => ({ ...x, yil: hicri(x.yil) })).sort((p, q) => (p.yil === 'c' ? 1448 : p.yil ?? 99999) - (q.yil === 'c' ? 1448 : q.yil ?? 99999));
+  if (!items.length) { govde.innerHTML = '<p class="zc-bos">Bu ayet için bu grupta kayıt yok.</p>'; el.classList.add('bos'); return; }
+  const yillar = items.map(x => x.yil).filter(y => typeof y === 'number');
+  if (sayEl) sayEl.textContent = `${items.length} eser${yillar.length ? ` · h. ${Math.min(...yillar)}–${Math.max(...yillar)}` : ''}`;
+  let mes = -1, aktif = (items.find(x => x.ozet) || items[0]).k, pin = [];
+  govde.innerHTML = `${MES.length ? '<div class="zc-mes"></div>' : ''}<div class="zc-serit" tabindex="0" aria-label="Eserler, tarihe göre"></div><div class="zc-arac"></div><div class="zc-oku" aria-live="polite"></div>`;
+  const serit = govde.querySelector('.zc-serit');
+  const meseleOf = k => mes >= 0 ? MES[mes].eserler.find(m => m.w === k) : null;
+  const cizSerit = () => {
+    const gr = []; items.forEach(x => { const as = ASIR(x.yil); const g = gr[gr.length - 1]; if (g && g.as === as) g.L.push(x); else gr.push({ as, L: [x] }); });
+    const sl = serit.scrollLeft;
+    serit.innerHTML = gr.map(g => `<div class="zc-asir"><div class="zc-as">${g.as}<small>${g.L.length}</small></div><div class="zc-kol">${g.L.map(x => { const m = meseleOf(x.k); const sonuk = mes >= 0 && !m; return `<button type="button" class="zc-k${x.k === aktif ? ' sec' : ''}${sonuk ? ' sonuk' : ''}${pin.includes(x.k) ? ' pin' : ''}" data-k="${esc(x.k)}"${m ? ` style="--c:${TM_ETIKET_RENK[m.e]}"` : ''}><span class="y">${yilYaz(x.yil) || '&nbsp;'}</span><b${x.arAd ? ' lang="ar"' : ''}>${esc(x.ad)}</b><small${isArYazi(x.eser) ? ' lang="ar"' : ''}>${esc(x.eser)}</small>${m ? `<i style="--c:${TM_ETIKET_RENK[m.e]}">${esc(MES[mes].etiketler?.[m.e] || '')}</i>` : x.tr ? '<i class="tr">Türkçe</i>' : ''}</button>`; }).join('')}</div></div>`).join('');
+    serit.scrollLeft = sl;
+    if (MES.length) govde.querySelector('.zc-mes').innerHTML = `<span>Meseleler</span>${MES.map((M, i) => `<button type="button" data-m="${i}" aria-pressed="${mes === i}">${esc(M.ad)} <small>${M.eserler.length}</small></button>`).join('')}${mes >= 0 ? '<button type="button" data-m="-1">Tüm eserler</button>' : ''}`;
+    govde.querySelector('.zc-arac').innerHTML = pin.length ? `<button type="button" class="zc-kars">Yan yana oku (${pin.length})</button><button type="button" class="zc-temiz">Karşılaştırmayı temizle</button>` : '';
   };
-  const ciz = () => {
-    if (MES.length) $('#tmMes').innerHTML = MES.map((M, i) => `<button type="button" data-i="${i}" aria-pressed="${mes === i}">${esc(M.ad)}<small>${M.eserler.length} tefsir · ${esc(M.alt || '')}</small></button>`).join('') + `<button type="button" data-i="-1" aria-pressed="${mes < 0}">Tüm tefsirler<small>${W.length} · tarihe göre</small></button>`;
-    const L = liste();
-    const secili = mes >= 0 ? new Map(L.map(x => [x.w, TM_ETIKET_RENK[x.m.e] || 'var(--gold)'])) : new Map(L.map(x => [x.w, 'var(--gold)']));
-    $('#tmSay').innerHTML = mes >= 0 ? `<b>${L.length} / ${W.length}</b> tefsir bu meseleye değiniyor` : `<b>${L.length}</b> tefsir, müellifin vefat yılına göre`;
-    $('#tmLej').innerHTML = mes >= 0 ? Object.entries(MES[mes].etiketler || {}).map(([k, v]) => `<span style="--c:${TM_ETIKET_RENK[k]}">${esc(v)}</span>`).join('') + '<span style="--c:var(--line)">değinmeyen</span>' : '';
-    tmSerit($('#tmSerit'), W, secili, aktif, w => { aktif = w; ciz(); oku(); document.querySelector(`.tm-d[data-w="${CSS.escape(w)}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }); });
-    $('#tmArac').innerHTML = mes >= 0 ? '' : `<div class="chips">${DON.map(([k, l]) => { const n = k ? W.filter(x => x.e.donem === k).length : W.length; return n ? `<button type="button" data-d="${k}" aria-selected="${don === k}">${l} <span>${n}</span></button>` : ''; }).join('')}${W.some(x => x.e.dil === 'tr') ? `<button type="button" data-l="tr" aria-selected="${dil === 'tr'}">Türkçe <span>${W.filter(x => x.e.dil === 'tr').length}</span></button>` : ''}</div>${pin.length ? `<button type="button" class="tm-kbtn" id="tmKb">Yan yana oku (${pin.length})</button>` : ''}`;
-    if (mes >= 0 && pin.length) $('#tmArac').innerHTML = `<button type="button" class="tm-kbtn" id="tmKb">Yan yana oku (${pin.length})</button>`;
-    const goster = mes >= 0 ? L : L.slice(0, sayfa);
-    $('#tmSeyir').innerHTML = goster.map(x => {
-      const m = x.m, tur = x.e.dil === 'tr';
-      const parca = m ? tmVurgu(esc(tmCumle(x.metin, m.vurgu)), m.vurgu) : esc(tmKisa(x.metin, 230));
-      return `<article class="tm-d${x.w === aktif ? ' sec' : ''}" data-w="${esc(x.w)}" style="--c:${m ? TM_ETIKET_RENK[m.e] : 'var(--gold)'}"><span class="y">${x.e.vefat ? 'ö. ' + x.e.vefat : 'çağdaş'}</span>
-        <div class="h"><b>${esc(x.tr.muellif || x.e.muellif || x.e.kisa)}</b><small>${esc(x.tr.ad || x.e.ad)}</small>${m ? `<span class="r" style="--c:${TM_ETIKET_RENK[m.e]}">${esc(etiketAd(MES[mes], m.e))}</span>` : tur ? '<span class="r tr">Türkçe</span>' : ''}</div>
-        ${m && m.ozet ? `<p class="oz">${esc(m.ozet)}</p>` : ''}
-        ${x.metin ? `<p class="${tur ? 'tx' : 'tx ar'}" dir="${tur ? 'ltr' : 'rtl'}" lang="${tur ? 'tr' : 'ar'}">${parca}</p>` : `<p class="tx bos">Bu sayfa ${esc(x.ortak)} ayetiyle ortak; okuma panelinde açılır.</p>`}
-        <div class="alt"><button type="button" data-ac="oku">Oku</button><button type="button" data-ac="pin" aria-pressed="${pin.includes(x.w)}">${pin.includes(x.w) ? 'Karşılaştırmada' : 'Karşılaştırmaya ekle'}</button>${x.tr.id ? `<a href="#/kitap/${x.tr.id}/${s}/${a}">Kitapta aç</a>` : ''}</div></article>`;
-    }).join('') + (goster.length < L.length ? `<button type="button" class="more tm-daha" id="tmDaha">Sonraki ${Math.min(30, L.length - goster.length)} tefsir (${L.length - goster.length} kaldı)</button>` : '') || '<p class="srcs">Bu süzgece uyan tefsir yok.</p>';
-    goster.filter(x => !x.metin && x.ortak).forEach(async x => { const P = await metinAl(x); const el = document.querySelector(`.tm-d[data-w="${CSS.escape(x.w)}"] .tx.bos`); if (el && P[0]) { el.className = x.e.dil === 'tr' ? 'tx' : 'tx ar'; el.dir = x.e.dil === 'tr' ? 'ltr' : 'rtl'; el.innerHTML = `${esc(tmKisa(P[0][1], 230))} <span class="ort">${esc(x.ortak)} ile ortak sayfa</span>`; } });
-  };
-  const yerYaz = r => [r[1] && +r[1] ? `c. ${r[1]}` : '', r[2] ? `s. ${r[2]}` : ''].filter(Boolean).join(', ');
-  const metinAl = async (x) => {
-    const out = [];
-    for (const r of x.rows) {
-      let t = r[3];
-      if (typeof t !== 'string') { try { const [ts, ta] = t.ref.split(':'); const P = await loadGz(`/data/k2/t/${ts}/${ta}.json.gz`); const m = P.p.find(y => y[0] === r[0] && y[1] === r[1] && y[2] === r[2] && typeof y[3] === 'string'); t = m ? m[3] : ''; } catch { t = ''; } }
-      if (t) out.push([r, t]);
-    }
-    return out;
-  };
+  const bas = x => `<div><b${x.arAd ? ' lang="ar"' : ''}>${esc(x.ad)}</b><small>${x.yil ? yilYaz(x.yil) + ' · ' : ''}<span${isArYazi(x.eser) ? ' lang="ar"' : ''}>${esc(x.eser)}</span></small></div>`;
   const oku = async () => {
-    const x = W.find(y => y.w === aktif); if (!x) return;
-    const box = $('#tmOku'); const m = mes >= 0 ? MES[mes].eserler.find(z => z.w === x.w) : null;
-    const tur = x.e.dil === 'tr';
-    box.innerHTML = `<div class="ob"><b>${esc(x.tr.ad || x.e.ad)}</b><small>${esc(x.tr.muellif || x.e.muellif || '')}${x.e.vefat ? ' · ö. ' + x.e.vefat : ''}</small></div><p class="durum">Yükleniyor…</p>`;
-    const P = await metinAl(x);
-    const ilk = P[0]?.[0];
-    box.innerHTML = `<div class="ob"><b>${esc(x.tr.ad || x.e.ad)}</b><small>${esc(x.tr.muellif || x.e.muellif || '')}${x.e.vefat ? ' · ö. ' + x.e.vefat : ''}</small></div>
-      <div class="od">${x.tr.id ? `<a href="#/kitap/${x.tr.id}/${s}/${a}">Kitapta aç${ilk && yerYaz(ilk) ? ' · ' + yerYaz(ilk) : ''}</a>` : ''}<button type="button" data-ac="pin">${pin.includes(x.w) ? 'Karşılaştırmada' : 'Karşılaştırmaya ekle'}</button><button type="button" data-ac="atif">Atıf ver</button></div>
-      <div class="ot${tur ? '' : ' ar'}" dir="${tur ? 'ltr' : 'rtl'}" lang="${tur ? 'tr' : 'ar'}">${P.map(([r, t]) => `${yerYaz(r) ? `<span class="sy">${esc(yerYaz(r))}</span>` : ''}${esc(t).split('\n').filter(l => l.trim()).map(l => `<p>${tmVurgu(l.replace(/﴿([^﴾]{1,600})﴾/g, '<span class="ayt">﴿$1﴾</span>'), m?.vurgu)}</p>`).join('')}`).join('') || '<p>Metin bulunamadı.</p>'}</div>
-      ${m && m.ozet ? `<div class="oz"><small>Türkçe özet · makine, metinden kontrol edin</small>${esc(m.ozet)}</div>` : ''}
-      <p class="srcs">${esc(x.e.kaynak || '')}${x.e.nesir?.yayinevi ? ' · ' + esc(x.e.nesir.yayinevi) : ''} ${chain([{ r: 'Eser', t: `${x.e.muellif || ''}${x.e.vefat ? ` (ö. ${x.e.vefat})` : ''}, ${x.e.ad}`, u: x.w.startsWith('qp') ? qpUrl(x.w.slice(2)) : null }, { r: 'Veri', k: x.w.startsWith('qp') ? 'quranpedia' : 'qul' }, m && { r: 'Mesele ve özet', t: 'makine: tefsir pasajı okunarak', k: 'claude' }, { r: 'İşleme', b: 'k2' }])}</p>`;
+    const x = items.find(y => y.k === aktif); if (!x) return;
+    const box = govde.querySelector('.zc-oku'), m = meseleOf(x.k);
+    box.innerHTML = `<div class="zo-bas">${bas(x)}</div><p class="durum">Yükleniyor…</p>`;
+    const r = await x.yukle(m?.vurgu);
+    if (aktif !== x.k) return;
+    box.innerHTML = `<div class="zo-bas">${bas(x)}
+      <div class="zo-dug">${x.kitap ? `<a href="${esc(x.kitap)}"${x.disKitap ? ' target="_blank" rel="noopener"' : ''}>Kitaba git${r.yer ? ' · ' + esc(r.yer) : ''}</a>` : ''}<button type="button" data-ac="pin" aria-pressed="${pin.includes(x.k)}">${pin.includes(x.k) ? 'Karşılaştırmada' : 'Karşılaştır'}</button><button type="button" data-ac="atif">Atıf ver</button></div></div>
+      ${m && m.ozet ? `<div class="zo-oz"><small>Türkçe özet · makine, metinden kontrol edin</small>${esc(m.ozet)}</div>` : ''}
+      <div class="zo-metin${r.dil === 'ar' ? ' ar' : ''}" dir="${r.dil === 'ar' ? 'rtl' : 'ltr'}" lang="${r.dil}">${r.html}</div>
+      <p class="srcs zo-k">${x.kunye || ''}</p>`;
     box.querySelector('[data-ac="atif"]').onclick = async ev => {
-      const t = `${x.tr.muellif || x.e.muellif}${x.e.vefat ? ` (ö. ${x.e.vefat})` : ''}, ${x.tr.ad || x.e.ad}${ilk && yerYaz(ilk) ? ', ' + yerYaz(ilk) : ''}. vahiy++: ${location.origin}/#/${s}/${a}/tefsir`;
+      const t = `${x.ad}${typeof x.yil === 'number' ? ` (ö. ${x.yil})` : ''}, ${x.eser}${r.yer ? ', ' + r.yer : ''}. vahiy++: ${location.origin}/#/${s}/${a}`;
       try { await navigator.clipboard.writeText(t); } catch { /* yok */ } ev.target.textContent = 'Kopyalandı';
     };
-    box.querySelector('[data-ac="pin"]').onclick = () => { pinle(x.w); oku(); };
   };
-  const pinle = w => { pin = pin.includes(w) ? pin.filter(y => y !== w) : [...pin, w].slice(-3); ciz(); };
   const kars = async () => {
-    const box = $('#tmKars'); box.hidden = false; kutu.querySelector('.tm-ana').hidden = true;
-    const L = pin.map(w => W.find(x => x.w === w));
-    box.innerHTML = `<div class="tk-bas"><b>Yan yana okuma</b><button type="button" id="tkKapat">Listeye dön</button></div><div class="tk-kol" style="--n:${L.length}">${L.map(x => `<section data-w="${esc(x.w)}"><div class="ob"><b>${esc(x.tr.muellif || x.e.muellif)}</b><small>${x.e.vefat ? 'ö. ' + x.e.vefat + ' · ' : ''}${esc(x.tr.ad || x.e.ad)}</small></div><div class="ot ar" dir="${x.e.dil === 'tr' ? 'ltr' : 'rtl'}">Yükleniyor…</div></section>`).join('')}</div>`;
-    $('#tkKapat').onclick = () => { box.hidden = true; kutu.querySelector('.tm-ana').hidden = false; };
-    for (const x of L) { const P = await metinAl(x); box.querySelector(`section[data-w="${CSS.escape(x.w)}"] .ot`).innerHTML = P.map(([r, t]) => `${yerYaz(r) ? `<span class="sy">${esc(yerYaz(r))}</span>` : ''}${esc(t).split('\n').filter(l => l.trim()).map(l => `<p>${l.replace(/﴿([^﴾]{1,600})﴾/g, '<span class="ayt">﴿$1﴾</span>')}</p>`).join('')}`).join(''); }
-    box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const L = pin.map(k => items.find(x => x.k === k)).filter(Boolean);
+    const box = govde.querySelector('.zc-oku');
+    box.innerHTML = `<div class="zk" style="--n:${L.length}">${L.map(x => `<section data-k="${esc(x.k)}"><div class="zo-bas">${bas(x)}</div><div class="zo-metin ar" dir="rtl">Yükleniyor…</div></section>`).join('')}</div>`;
+    for (const x of L) { const r = await x.yukle(meseleOf(x.k)?.vurgu); const c = box.querySelector(`section[data-k="${CSS.escape(x.k)}"] .zo-metin`); if (!c) return; c.className = `zo-metin${r.dil === 'ar' ? ' ar' : ''}`; c.dir = r.dil === 'ar' ? 'rtl' : 'ltr'; c.innerHTML = r.html; }
   };
-  kutu.addEventListener('click', e => {
-    const mb = e.target.closest('#tmMes button'); if (mb) { mes = +mb.dataset.i; if (mes >= 0) aktif = MES[mes].eserler[0].w; ciz(); oku(); return; }
-    const db = e.target.closest('#tmArac button[data-d]'); if (db) { don = db.dataset.d; sayfa = 30; ciz(); return; }
-    const lb = e.target.closest('#tmArac button[data-l]'); if (lb) { dil = dil ? '' : 'tr'; ciz(); return; }
-    if (e.target.closest('#tmKb')) { kars(); return; }
-    if (e.target.closest('#tmDaha')) { sayfa += 30; ciz(); return; }
-    const d = e.target.closest('.tm-d'); if (!d) return;
-    const ac = e.target.closest('[data-ac]')?.dataset.ac;
-    if (ac === 'pin') { pinle(d.dataset.w); return; }
-    if (e.target.closest('a')) return;
-    aktif = d.dataset.w; ciz(); oku();
-    if (matchMedia('(max-width: 900px)').matches) $('#tmOku').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  govde.addEventListener('click', e => {
+    const mb = e.target.closest('.zc-mes button'); if (mb) { mes = +mb.dataset.m; if (mes >= 0) { const w = MES[mes].eserler.find(m => items.some(x => x.k === m.w)); if (w) aktif = w.w; } cizSerit(); oku(); return; }
+    const k = e.target.closest('.zc-k'); if (k) { aktif = k.dataset.k; cizSerit(); oku(); return; }
+    if (e.target.closest('[data-ac="pin"]')) { pin = pin.includes(aktif) ? pin.filter(y => y !== aktif) : [...pin, aktif].slice(-3); cizSerit(); oku(); return; }
+    if (e.target.closest('.zc-kars')) { kars(); return; }
+    if (e.target.closest('.zc-temiz')) { pin = []; cizSerit(); oku(); }
   });
-  ciz(); oku();
-  addEventListener('resize', () => { if (document.body.contains(kutu)) tmSerit($('#tmSerit'), W, mes >= 0 ? new Map(liste().map(x => [x.w, TM_ETIKET_RENK[x.m.e]])) : new Map(liste().map(x => [x.w, 'var(--gold)'])), aktif); }, { passive: true });
-}
-/* vurgulanacak ifadenin bulunduğu cümleyi (yoksa baştan) kısaltarak al */
-function tmCumle(t, ifade) {
-  t = String(t || '').replace(/\s+/g, ' ');
-  if (ifade) { const n = tmNorm(t), i = n.indexOf(tmNorm(ifade).split(' ')[0]); if (i > 0) {
-    // harekeli metinde aynı konumu bul: normalize edilmiş indeksten geriye say
-    let k = 0, j = 0; while (j < t.length && k < i) { if (!/[ً-ْٰـ]/.test(t[j])) k++; j++; }
-    const bas = Math.max(0, t.lastIndexOf(' ', Math.max(0, j - 90)));
-    return (bas > 0 ? '… ' : '') + tmKisa(t.slice(bas), 320);
-  } }
-  return tmKisa(t, 260);
+  cizSerit(); oku();
 }

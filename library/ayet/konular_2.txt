@@ -1,0 +1,283 @@
+10|1-20|Vahiy, yaratılış ve inkârcıların tutumu
+10|21-56|Nimet ve nankörlük, Kur'an'ın meydan okuması
+10|57-70|Öğüt, şifa ve Allah'ın dostları
+10|71-93|Nûh ve Mûsâ kıssaları
+10|94-109|Yûnus kavmi ve son çağrı
+11|1-24|Kitap, tevhid ve iki grup
+11|25-49|Nûh kıssası
+11|50-60|Hûd kıssası
+11|61-68|Sâlih kıssası
+11|69-83|İbrahim ve Lût kıssası
+11|84-95|Şuayb kıssası
+11|96-123|Mûsâ ve kıssalardan alınacak ders
+12|1-6|Kıssaların en güzeli ve Yûsuf'un rüyası
+12|7-20|Kardeşlerin hilesi ve kuyu
+12|21-35|Azîz'in evi ve imtihan
+12|36-57|Zindan, rüyalar ve iktidar
+12|58-82|Kardeşlerin Mısır'a gelişi
+12|83-101|Yakup'un sabrı ve kavuşma
+12|102-111|Kıssanın ibreti
+13|1-18|Kudret delilleri ve hak-batıl misali
+13|19-43|Akıl sahipleri ve inkârcılar
+14|1-27|Peygamberler ve kavimleri, güzel söz misali
+14|28-34|Nimete nankörlük
+14|35-41|İbrahim'in duası
+14|42-52|Zalimlerin akıbeti
+15|1-25|Kur'an'ın korunması, kudret delilleri
+15|26-48|Âdem ve İblis
+15|49-84|İbrahim, Lût ve Hicr ehli
+15|85-99|Seb'u'l-mesânî ve teselli
+16|1-21|Kudret ve nimet delilleri
+16|22-50|Müşriklerin iddiaları ve akıbetleri
+16|51-74|Tevhid ve nimetler
+16|75-89|Misaller ve kıyamet
+16|90-105|Adalet, ahde vefa ve Kur'an
+16|106-128|İkrah, helal-haram, İbrahim ve davet usulü
+17|1-8|İsrâ ve İsrâiloğullarının iki fesadı
+17|9-22|Kur'an'ın hidayeti ve amel defteri
+17|23-39|Ahlâk emirleri
+17|40-60|Şirk, ahiret ve İsrâ'daki rüya
+17|61-72|Âdem, İblis ve insanın üstünlüğü
+17|73-100|Peygambere telkinler ve Kur'an'ın üstünlüğü
+17|101-111|Mûsâ ve Kur'an'ın indirilişi
+18|1-8|Kitap ve uyarı
+18|9-26|Ashâb-ı Kehf
+18|27-31|Sabır ve iki grubun akıbeti
+18|32-44|İki bahçe sahibi
+18|45-59|Dünya hayatı misali, İblis ve kıyamet
+18|60-82|Mûsâ ve Hızır
+18|83-102|Zülkarneyn
+18|103-110|Amelleri boşa gidenler ve Rabbe kavuşma
+19|1-15|Zekeriyyâ ve Yahyâ
+19|16-40|Meryem ve Îsâ
+19|41-50|İbrahim
+19|51-65|Mûsâ, İsmâil, İdrîs ve peygamberler
+19|66-98|Diriliş, şefaat ve çocuk edinme iddiası
+20|1-8|Kur'an'ın indiriliş amacı
+20|9-98|Mûsâ kıssası
+20|99-114|Kıyamet ve Kur'an
+20|115-127|Âdem ve şeytan
+20|128-135|Teselli ve sabır
+21|1-47|Gaflet, tevhid delilleri ve hesap
+21|48-77|Mûsâ, Hârûn ve İbrahim
+21|78-91|Dâvûd, Süleyman, Eyyûb ve diğer peygamberler
+21|92-112|Ümmetin birliği ve kıyamet
+22|1-24|Kıyametin dehşeti ve iki hasım
+22|25-37|Mescid-i Haram, hac ve kurban
+22|38-48|Savaş izni ve helak edilen kavimler
+22|49-78|Peygamberin görevi ve Allah'ın kudreti
+23|1-11|Kurtuluşa eren müminler
+23|12-22|İnsanın yaratılışı ve nimetler
+23|23-50|Peygamberler ve kavimleri
+23|51-77|Ümmetin bölünmesi ve müminlerin vasıfları
+23|78-118|Tevhid delilleri ve kıyamet
+24|1-10|Zina ve kazf
+24|11-26|İfk hadisesi
+24|27-34|Ev ziyareti, örtünme ve evlilik
+24|35-46|Nûr âyeti ve iki misal
+24|47-57|Münafıklar ve müminlere vaat
+24|58-64|İzin ve aile adabı
+25|1-20|Kur'an, risalet ve müşriklerin itirazları
+25|21-44|Kıyamet ve inkârcıların akıbeti
+25|45-62|Kudret delilleri
+25|63-77|Rahmân'ın kulları
+26|1-9|Kur'an ve inkârcılar
+26|10-68|Mûsâ ve Firavun
+26|69-104|İbrahim
+26|105-122|Nûh
+26|123-140|Hûd
+26|141-159|Sâlih
+26|160-175|Lût
+26|176-191|Şuayb
+26|192-227|Kur'an'ın indirilişi ve şairler
+27|1-14|Kur'an ve Mûsâ
+27|15-44|Süleyman, karınca, hüdhüd ve Sebe melikesi
+27|45-58|Sâlih ve Lût
+27|59-93|Tevhid delilleri ve kıyamet
+28|1-43|Mûsâ ve Firavun
+28|44-75|Kur'an, ehl-i kitap ve müşrikler
+28|76-84|Kârûn
+28|85-88|Peygambere teselli
+29|1-13|İmtihan
+29|14-44|Nûh, İbrahim, Lût ve diğer kavimler, örümcek misali
+29|45-55|Namaz, ehl-i kitapla mücadele ve Kur'an
+29|56-69|Hicret ve Allah yolunda gayret
+30|1-10|Rumların yenilgisi ve zaferi
+30|11-27|Kıyamet ve kudret âyetleri
+30|28-45|Fıtrat ve tevhid
+30|46-60|Rüzgâr, yağmur ve insanın evreleri
+31|1-11|Kur'an ve lehv-i hadîs
+31|12-19|Lokman'ın öğütleri
+31|20-34|Nimetler ve gaybın anahtarları
+32|1-14|Yaratılış ve inkârcıların pişmanlığı
+32|15-30|Müminlerin vasıfları ve Mûsâ
+33|1-8|Evlatlık ve Peygamberin müminlerle bağı
+33|9-27|Ahzâb ve Benî Kurayza
+33|28-40|Peygamberin hanımları ve Zeyd
+33|41-62|Zikir, Peygamberin evleri, örtünme
+33|63-73|Kıyamet ve emanet
+34|1-9|Allah'ın ilmi ve ahiret
+34|10-21|Dâvûd, Süleyman ve Sebe kavmi
+34|22-54|Tevhid tartışması ve inkârcıların akıbeti
+35|1-14|Yaratılış ve nimetler
+35|15-26|İnsanın Allah'a muhtaçlığı
+35|27-45|Kitap ve vârisleri, inkârcıların akıbeti
+36|1-12|Kur'an ve uyarı
+36|13-32|Şehir halkı ve elçiler
+36|33-50|Kudret âyetleri
+36|51-68|Diriliş ve iki grubun akıbeti
+36|69-83|Kur'an, şiir değil, ve diriliş
+37|1-74|Melekler, cinler ve inkârcıların akıbeti
+37|75-148|Nûh, İbrahim, Mûsâ, İlyâs, Lût ve Yûnus
+37|149-182|Melekler hakkındaki iddialar ve son söz
+38|1-16|Kur'an ve inkârcıların tutumu
+38|17-48|Dâvûd, Süleyman, Eyyûb ve diğer peygamberler
+38|49-64|Müttakîler ve azgınların akıbeti
+38|65-88|Âdem ve İblis
+39|1-21|İhlas ve tevhid
+39|22-52|Kur'an ve iki tür insan
+39|53-75|Tevbe kapısı ve kıyamet
+40|1-22|Allah'ın sıfatları ve inkârcıların akıbeti
+40|23-54|Mûsâ ve Firavun ailesinden mümin
+40|55-85|Sabır, dua ve kudret delilleri
+41|1-25|Kur'an, yaratılış, Âd ve Semûd
+41|26-44|Kur'an'a karşı tavır ve istikamet
+41|45-54|Ameller ve insanın tabiatı
+42|1-20|Vahiy ve dinde birlik
+42|21-43|Rızık ve müminlerin vasıfları
+42|44-53|Zalimlerin akıbeti ve vahyin yolları
+43|1-25|Kur'an ve atalar dini
+43|26-56|İbrahim, Mûsâ ve Firavun
+43|57-89|Îsâ ve kıyamet
+44|1-16|Mübarek gece ve duman
+44|17-42|Firavun kavmi
+44|43-59|Zakkum ağacı ve cennet
+45|1-21|Kudret âyetleri ve şeriat
+45|22-37|Ahireti inkâr edenler ve kıyamet
+46|1-14|Kur'an ve şirk
+46|15-20|Anne-baba ve iki tür evlat
+46|21-28|Âd kavmi
+46|29-35|Cinlerin Kur'an dinlemesi
+47|1-15|İnkârcılar, savaş ve cennet misali
+47|16-38|Münafıklar ve infak
+48|1-17|Fetih ve Hudeybiye
+48|18-29|Rıdvan biati ve sahabe
+49|1-13|Peygambere karşı edep ve kardeşlik
+49|14-18|İman ve İslam
+50|1-15|Diriliş delilleri
+50|16-35|Ölüm, hesap ve cennet
+50|36-45|Önceki kavimler ve sabır
+51|1-23|Yeminler ve ahiret
+51|24-46|İbrahim'in misafirleri ve helak edilen kavimler
+51|47-60|Yaratılışın gayesi
+52|1-28|Azap ve müttakîlerin nimetleri
+52|29-49|Peygambere teselli ve müşriklerin iddiaları
+53|1-18|Vahiy ve mi'rac
+53|19-32|Lât, Uzzâ ve Menât
+53|33-62|Amel ve ceza, önceki kavimler
+54|1-8|Ayın yarılması
+54|9-42|Nûh, Âd, Semûd, Lût ve Firavun
+54|43-55|İnkârcılara uyarı ve müttakîler
+55|1-25|Rahmân'ın nimetleri
+55|26-45|Fânilik ve hesap
+55|46-78|İki cennet
+56|1-56|Üç sınıf insan
+56|57-74|Kudret delilleri
+56|75-96|Kur'an ve ölüm anı
+57|1-6|Allah'ın sıfatları
+57|7-19|İman ve infak, münafıklar
+57|20-29|Dünya hayatı ve peygamberler
+58|1-6|Zıhar
+58|7-13|Gizli konuşma ve meclis adabı
+58|14-22|Münafıklar ve Allah'ın taraftarları
+59|1-17|Benî Nadîr ve fey
+59|18-24|Takvâ ve esmâ-i hüsnâ
+60|1-9|Düşmanları dost edinmek
+60|10-13|Muhacir kadınlar ve biat
+61|1-14|Söz ve amel, Allah'ın yardımcıları
+62|1-8|Ümmî peygamber ve kitap taşıyan merkep misali
+62|9-11|Cuma namazı
+63|1-11|Münafıklar ve infak
+64|1-10|Yaratılış ve teğâbün günü
+64|11-18|Musibet, aile ve infak
+65|1-7|Talak ve iddet
+65|8-12|Önceki kavimler ve yedi gök
+66|1-5|Peygamberin evi
+66|6-12|Aileyi korumak, tevbe ve iki misal
+67|1-14|Yaratılış ve inkârcıların pişmanlığı
+67|15-30|Rızık ve kudret delilleri
+68|1-16|Peygamberin ahlâkı
+68|17-33|Bahçe sahipleri
+68|34-52|Müttakîler ve Yûnus örneği
+69|1-12|Hâkka ve helak edilen kavimler
+69|13-37|Kıyamet ve iki grup
+69|38-52|Kur'an'ın hak oluşu
+70|1-18|Kıyamet günü
+70|19-35|İnsanın tabiatı ve namaz kılanlar
+70|36-44|İnkârcılar
+71|1-28|Nûh'un daveti ve duası
+72|1-15|Cinlerin Kur'an dinlemesi
+72|16-28|İstikamet ve gayb
+73|1-19|Gece namazı ve sabır
+73|20|Kolaylık
+74|1-10|Kalk ve uyar
+74|11-31|Velîd b. Muğîre ve Sekar
+74|32-56|Cehennem ehli
+75|1-15|Kıyamet ve nefs-i levvâme
+75|16-19|Vahyin ezberlenmesi
+75|20-40|Ahiret ve ölüm
+76|1-12|İnsanın yaratılışı ve iyiler
+76|13-22|Cennet nimetleri
+76|23-31|Peygambere öğüt
+77|1-28|Yeminler ve kıyamet
+77|29-50|İnkârcılar ve müttakîler
+78|1-16|Büyük haber ve kudret delilleri
+78|17-30|Kıyamet ve cehennem
+78|31-40|Müttakîler ve uyarı
+79|1-14|Yeminler ve kıyamet
+79|15-26|Mûsâ ve Firavun
+79|27-46|Yaratılış ve kıyamet
+80|1-16|Âmâ kıssası
+80|17-42|İnsana öğüt ve kıyamet
+81|1-14|Kıyamet alametleri
+81|15-29|Vahiy ve elçi
+82|1-19|Kıyamet ve amel defteri
+83|1-17|Ölçüde hile yapanlar ve siccîn
+83|18-36|İlliyyîn ve iyiler
+84|1-25|Kıyamet ve amel defterleri
+85|1-11|Ashâb-ı uhdûd
+85|12-22|Allah'ın kudreti ve Levh-i mahfûz
+86|1-10|Gece gelen ve insanın yaratılışı
+86|11-17|Kur'an'ın hak oluşu
+87|1-19|Tesbih, Kur'an ve arınma
+88|1-16|Gâşiye: iki grup
+88|17-26|Kudret delilleri ve öğüt
+89|1-14|Âd, Semûd ve Firavun
+89|15-30|İnsanın tabiatı ve itminana eren nefis
+90|1-20|İnsan ve sarp yokuş
+91|1-10|Yeminler ve nefsin arınması
+91|11-15|Semûd
+92|1-21|İki yol
+93|1-11|Duhâ: Peygambere teselli
+94|1-8|Göğsün açılması
+95|1-8|İnsanın en güzel kıvamda yaratılışı
+96|1-5|İlk vahiy
+96|6-19|Azgın insan ve secde
+97|1-5|Kadir gecesi
+98|1-8|Apaçık delil ve iki grup
+99|1-8|Zelzele ve amel
+100|1-11|Âdiyât ve insanın nankörlüğü
+101|1-11|Kâria ve teraziler
+102|1-8|Çokluk yarışı
+103|1-3|Asr: hüsrandan kurtuluş
+104|1-9|Hümeze
+105|1-5|Fil ashâbı
+106|1-4|Kureyş
+107|1-7|Mâûn
+108|1-3|Kevser
+109|1-6|Kâfirûn
+110|1-3|Nasr
+111|1-5|Ebû Leheb
+112|1-4|İhlas
+113|1-5|Felak
+114|1-6|Nâs
