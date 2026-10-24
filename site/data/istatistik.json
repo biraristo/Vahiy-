@@ -1,15 +1,15 @@
 {
  "tarih": "2026-10-24",
  "sayilar": {
-  "eser": 12239,
-  "eser_metinli": 12107,
-  "eser_metinsiz": 132,
+  "eser": 12207,
+  "eser_metinli": 12108,
+  "eser_metinsiz": 99,
   "dinler": 713,
   "alinti": 3711264,
   "alinti_eser": 10590,
   "alinti_ayet": 6236,
-  "tefsir": 577,
-  "tefsir_metinli": 445,
+  "tefsir": 551,
+  "tefsir_metinli": 452,
   "tefsir_ayet": 148,
   "rivayet": 80950,
   "ravi": 798,
@@ -22,7 +22,7 @@
   "meal": 15,
   "hadis": 485,
   "fihrist_konu": 8696,
-  "muellif": 5111,
+  "muellif": 5109,
   "en_cok": [
    [
     "1:2",
