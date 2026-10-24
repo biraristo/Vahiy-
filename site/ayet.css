@@ -274,3 +274,7 @@ body.se-acik { overflow: hidden; }
 .gk-bu { font: .86rem var(--sans); color: var(--muted); margin: 3px 0 4px; } .gk-bu b { color: var(--ink); } .gk-bu a, .gk-dig a { color: var(--firuze); text-decoration: none; }
 .gk-dig { font: .88rem/1.6 var(--sans); margin: 0; } .gk-dig span a:first-child { font-weight: 700; } .gk-tum { font: 600 .8rem var(--sans); border: 1px solid var(--firuze); color: var(--firuze); background: none; border-radius: 999px; padding: 1px 8px; cursor: pointer; }
 .gk-bos { font: .9rem var(--sans); color: var(--muted); }
+/* atıf taraması: kitaptaki yer */
+.k3y { padding: .5rem 0; border-bottom: 1px solid var(--line); }
+.k3y:last-of-type { border-bottom: 0; }
+.k3git { display: inline-block; margin-top: .25rem; font-size: .85rem; }

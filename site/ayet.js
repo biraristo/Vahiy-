@@ -119,26 +119,34 @@ const k2Oge = (x, s, a) => ({
   yukle: async (vurgu) => { const P = await k2Metin(x); return { dil: x.e.dil === 'tr' ? 'tr' : 'ar', html: P.map(([r, t]) => `${yerYaz(r) ? `<span class="sy">${esc(yerYaz(r))}</span>` : ''}${paragraflar(t, vurgu)}`).join('') || '<p>Metin bulunamadı.</p>', yer: P[0] ? yerYaz(P[0][0]) : '' }; },
   kunye: chain([{ r: 'Eser', t: `${x.e.muellif || ''}${x.e.vefat ? ` (ö. ${x.e.vefat})` : ''}, ${x.e.ad}`, u: x.w.startsWith('qp') ? qpUrl(x.w.slice(2)) : null }, { r: 'Veri', k: x.w.startsWith('qp') ? 'quranpedia' : 'qul' }, { r: 'İşleme', t: 'ayet ayet ayrıştırma:', b: 'k2' }])
 });
-/* k3: kitaplarda ayetin geçtiği yerler */
-const k3Oge = (nb, n, hits, K, TR, s, a) => {
-  const k = K[nb] || {}, t = TR[nb];
-  const loc = h => k.kaynak === 'OpenITI' ? (+h[0] ? `c. ${+h[0]}, s. ${h[1]}` : (h[1] !== '0' ? `s. ${h[1]}` : '')) : k.kaynak === 'Quranpedia PDF' ? `c. ${+h[0]}, PDF s. ${+h[1]}` : '';
-  const kitap = t ? (t[0][0] === 't' ? `#/kitap/${t[0]}/${s}/${a}` : `#/eser/${t[0]}`) : (k.kaynak === 'OpenITI' ? oiUrl(k.ref) : qpUrl(k.ref));
+/* k3: kütüphanemizdeki kitaplarda ayetin geçtiği yerler (atıf taraması, R2: atif/) */
+const ATF = {};
+const atif = (s, a) => (ATF[`${s}:${a}`] ||= Promise.all([atifOfs().then(O => O.ayet[`${s}:${a}`] ? rangeGz('atif/ayet.bin', O.ayet[`${s}:${a}`]) : { g: {} }).catch(() => ({ g: {} })), load('/data/y/k.json')]));
+const atifParca = (s, a) => atifOfs().then(O => O.parca[`${s}:${a}`] ? rangeGz('atif/parca.bin', O.parca[`${s}:${a}`]) : {}).catch(() => ({}));
+const k3Yer = h => [+h[0] ? `c. ${+h[0]}` : '', h[1] && h[1] !== '0' ? `s. ${h[1]}` : ''].filter(Boolean).join(', ');
+const k3Oge = ([id, n, hits], K, s, a) => {
+  const k = K[id] || ['', '', '', null, ''];
   return {
-    k: 'k3' + nb, yil: k.vefat || null, ad: t ? t[2] : (k.muellif || '—').replace(/\s*\(المتوفى[^)]*\)/, ''), eser: t ? t[1] : k.ad, arAd: !t, say: n,
-    kitap, disKitap: !t, ozet: hits.some(h => h[4]) ? '1' : '',
-    yukle: async () => ({ dil: 'ar', html: hits.map(h => `${loc(h) ? `<span class="sy">${esc(loc(h))}</span>` : ''}${h[4] ? `<p>${ayetIsaret(esc(h[4]))}</p>` : '<p class="srcs">Bu yerin metin parçası kayıtlı değil; kitapta açın.</p>'}`).join('') + (n > hits.length ? `<p class="srcs">Bu eserde ${n - hits.length} yer daha var.</p>` : ''), yer: loc(hits[0] || []) }),
-    kunye: chain([{ r: 'Kitap', t: `${(k.muellif || '').replace(/\s*\(المتوفى[^)]*\)/, '')}${k.vefat ? ` (ö. ${k.vefat})` : ''}, ${k.ad}`, u: k.kaynak === 'OpenITI' ? oiUrl(k.ref) : qpUrl(k.ref) }, k.nesir && { r: 'Neşir', t: k.nesir }, { r: 'Veri', k: k.kaynak === 'OpenITI' ? 'openiti' : k.kaynak === 'Quranpedia PDF' ? 'quranpedia_pdf' : 'quranpedia' }, { r: 'Bağ', t: 'makine: ayet metni eşleşmesi ya da kaynağın kendi ayet bağı', b: 'k3,paket' }])
+    k: 'k3' + id, yil: k[3] || null, ad: k[2] || '—', arAd: !/[a-zçğıöşüâîû]/i.test(k[2] || ''), eser: k[0] || k[1], say: n,
+    kitap: `#/eser/${id}/${hits[0] ? hits[0][2] : 0}`, disKitap: false, ozet: '1',
+    yukle: async () => {
+      const P = (await atifParca(s, a))[id] || [];
+      return { dil: 'ar', yer: k3Yer(hits[0] || []), html: hits.map((h, i) => `<div class="k3y"><span class="sy">${esc(k3Yer(h) || 'yer')}${h[3] ? ' · ayetin tamamı' : ''}</span>${P[i] ? `<p>${ayetIsaret(esc(P[i]))}</p>` : ''}<a class="k3git" href="#/eser/${id}/${h[2]}">Kitapta bu yeri aç</a></div>`).join('')
+        + (n > hits.length ? `<p class="srcs">Bu eserde ${n - hits.length} yer daha var.</p>` : '') };
+    },
+    kunye: chain([{ r: 'Kitap', t: `${k[2] || ''}${k[3] ? ` (ö. ${k[3]})` : ''}, ${k[0] || k[1]}`, u: `#/eser/${id}` }, { r: 'Veri', t: 'vahiy++ kütüphanesi' }, { r: 'Bağ', t: 'makine: ayet metni eşleşmesi (en az 6 kelime ya da ayetin tamamı)', b: 'kutup_tara' }])
   };
 };
-const k3Gruplar = async (s, a, gruplar) => {
-  const [b, K, TR] = await ayX(s, a);
-  return gruplar.flatMap(g => (b.k3[g] || []).map(([nb, n, hits]) => k3Oge(nb, n, hits, K, TR, s, a)));
+const k3Gruplar = async (s, a, gruplar, suz) => {
+  const [b, K] = await atif(s, a);
+  return gruplar.flatMap(g => (b.g[g] || []).filter(r => !suz || suz(r, K)).map(r => k3Oge(r, K, s, a)));
 };
 
 async function blokTefsir(s, a) {
   const [W, K9] = await Promise.all([k2Veri(s, a), load('/data/k9/index.json').then(I => I.sureler.includes(s) ? load(`/data/k9/${s}.json`) : { ayetler: {} }).catch(() => ({ ayetler: {} }))]);
   const L = W.filter(x => x.e.tur === 'tefsir').map(x => k2Oge(x, s, a));
+  const ayni = new Set(W.map(x => x.tr.tam || x.tr.id).filter(Boolean));
+  L.push(...(await k3Gruplar(s, a, ['tefsir'], r => !ayni.has(r[0]))));
   L.meseleler = [...((K9.ayetler || {})[`${s}:${a}`] || [])];
   /* ihtilaf kayıtları: tefsir pasajlarında "ihtilaf / iki görüş / vecihler" kalıbı geçen yerler */
   const [[b], OZ] = await Promise.all([ayX(s, a), load('/data/k7/ozet.json').catch(() => ({ ayetler: {} }))]);
@@ -152,9 +160,8 @@ async function blokTefsir(s, a) {
 }
 async function blokEsbab(s, a) {
   const W = (await k2Veri(s, a)).filter(x => ['esbab', 'nasih'].includes(x.e.tur)).map(x => k2Oge(x, s, a));
-  const { riv, books, K } = await esbParts(s, a);
-  const [, , TR] = await ayX(s, a);
-  const B = books.map(([nb, n, hits]) => k3Oge(nb, n, hits, K, TR, s, a));
+  const { riv } = await esbParts(s, a);
+  const B = await k3Gruplar(s, a, ['ulum', 'tefsir', 'hadis'], (r, K) => /نزول|ناسخ|منسوخ|نواسخ/.test((K[r[0]] || [])[1] || ''));
   const M = riv.length ? [{ k: 'mevsua-esb', yil: null, ad: "Mevsûatü't-tefsîri'l-me'sûr", eser: `Nüzul ve nesih rivayetleri (${riv.length})`, kitap: null, ozet: '1',
     yukle: async () => ({ dil: 'ar', html: riv.map(x => `<div class="rv1"><span class="sy">${/النسخ/.test(x.tur) ? 'Nesih' : 'Nüzul'}${x.hukum ? ' · tahrîcte: ' + esc(x.hukum) : ''}</span><p>${ayetIsaret(esc(x.metin))}</p>${x.tahric ? `<p class="thr">${esc(x.tahric)}</p>` : ''}</div>`).join('') }),
     kunye: chain([{ r: 'Eser', k: 'mevsua' }, { r: 'Veri', k: 'quranpedia' }]) }] : [];

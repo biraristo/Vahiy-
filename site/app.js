@@ -10,6 +10,12 @@ const loadGz = (p) => (cache[p] ||= fetch(p).then(async r => {
   if (buf[0] !== 0x1f || buf[1] !== 0x8b) return JSON.parse(new TextDecoder().decode(buf));
   return new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).json();
 }));
+/* R2 paketinden tek gzip üyesini Range ile çek (kitap/ ve atif/ .bin biçimi) */
+const rangeGz = (key, o) => (cache[key + '@' + o[0]] ||= fetch(`/r2/${key}`, { headers: { Range: `bytes=${o[0]}-${o[0] + o[1] - 1}` } }).then(async r => {
+  if (!r.ok && r.status !== 206) throw new Error(`${key} yüklenemedi (${r.status})`);
+  return new Response(new Blob([await r.arrayBuffer()]).stream().pipeThrough(new DecompressionStream('gzip'))).json();
+}));
+const atifOfs = () => load('/data/y/ofs.json');
 /* ---- Kaynak zinciri (veri isnadı) ---- */
 const REPO_URL = 'https://github.com/biraristo/Vahiy-/blob/main/';
 const kaynaklar = () => load('/data/kaynaklar.json');
