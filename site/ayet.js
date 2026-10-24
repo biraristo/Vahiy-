@@ -428,7 +428,7 @@ async function kelimePanel(s, a, A, i) {
   // Lügatler: kütüphanemizdeki madde başlıklı sözlükler (kök → madde bölümü) + ayrıştırılmış eski lügat metinleri (kütüphanede maddesi çıkarılamayanlar)
   Promise.all([load('/data/k0/lugat.json'), load('/data/k5/index.json').catch(() => null)]).then(async ([LG, I]) => {
     const L = kok ? LG.kok[kok] || [] : [];
-    const var_ = new Set(L.map(r => r[0])), KARS = { maqayis: 'sh21710', mufradat: 'sh23636', sihah: 'sh23235' };
+    const var_ = new Set(L.map(r => r[0])), KARS = { maqayis: 'sh21710', mufradat: 'sh23636', sihah: 'sh23235', lisan: 'sh1687', ayn2: 'sh1682', asas: 'sh21568', mukhtar: 'sh23193', misbah: 'sh12145' };
     let eski = [];
     const n = kok && I ? I.kokler[kok] : undefined;
     if (n !== undefined) {
@@ -436,13 +436,13 @@ async function kelimePanel(s, a, A, i) {
       if (d) eski = Object.keys(I.lugatler).filter(k => d.lugat[k] && !var_.has(KARS[k])).map(k => ({ ...I.lugatler[k], metin: d.lugat[k].metin }));
     }
     if (!L.length && !eski.length) return yaz('#kpLug', kok ? '<p class="srcs">Bu kök için lügat maddesi bulunamadı.</p>' : '<p class="srcs">Bu kelimenin kökü yok (edat ya da zamir).</p>');
-    const yeni = L.map(([id, b, t]) => { const e = LG.kitap[id]; return { v: e[2] || 9999, h: `<details class="kp-lx" data-id="${id}" data-b="${b}"><summary>${esc(e[0] || e[1])} <small>${e[2] ? 'ö. ' + e[2] : ''} · <bdi lang="ar">${esc(t)}</bdi></small></summary><div class="kp-lxm"><p class="srcs">Açılınca madde yüklenir.</p></div><a class="k3git" href="#/eser/${id}/${b}">Kitapta bu maddeyi aç</a></details>` }; });
+    const yeni = L.map(([id, b, t]) => { const e = LG.kitap[id]; return { v: e[2] || 9999, h: `<details class="kp-lx" data-id="${id}" data-b="${b}" data-t="${esc(t)}"><summary>${esc(e[0] || e[1])} <small>${e[2] ? 'ö. ' + e[2] : ''} · <bdi lang="ar">${esc(t)}</bdi></small></summary><div class="kp-lxm"><p class="srcs">Açılınca madde yüklenir.</p></div><a class="k3git" href="#/eser/${id}/${b}">Kitapta bu maddeyi aç</a></details>` }; });
     const ek = eski.map(x => ({ v: x.vefat || 9999, h: `<details class="kp-lx"><summary>${esc(x.ad)} <small>${esc(x.muellif)} · ö. ${x.vefat} · ayrıştırılmış metin</small></summary><p lang="ar" class="ar">${esc(tmKisa(x.metin, 900))}</p></details>` }));
     yaz('#kpLug', `<p class="srcs">${L.length} sözlükte madde başlığı olarak${eski.length ? `, ${eski.length} sözlükte ayrıştırılmış metin olarak` : ''}.</p>` + [...yeni, ...ek].sort((p, q) => p.v - q.v).map(x => x.h).join(''));
     box.querySelectorAll('#kpLug details[data-id]').forEach(dt => dt.addEventListener('toggle', async () => {
       if (!dt.open || dt.dataset.y) return; dt.dataset.y = 1;
       const m = dt.querySelector('.kp-lxm');
-      try { const D = (await dizinAl(dt.dataset.id)).b; const t = await bolumAl(dt.dataset.id, D[+dt.dataset.b]); m.innerHTML = `<p lang="ar" class="ar">${esc(tmKisa(t.replace(/\x01[^\x01]*\x01/g, ' ').replace(/\x04/g, ' '), 1400))}</p>`; }
+      try { const D = (await dizinAl(dt.dataset.id)).b; let t = (await bolumAl(dt.dataset.id, D[+dt.dataset.b])).replace(/\x01[^\x01]*\x01/g, ' ').replace(/\x04/g, ' '); const bas = dt.dataset.t; const j = bas ? t.search(new RegExp(`(^|\\n)\\s*${bas.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*:`)) : -1; if (j > 0) t = t.slice(j); m.innerHTML = `<p lang="ar" class="ar">${esc(tmKisa(t, 1400))}</p>`; }
       catch { m.innerHTML = '<p class="srcs">Madde indirilemedi.</p>'; }
     }));
   }).catch(() => yaz('#kpLug', ''));
