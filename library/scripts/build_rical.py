@@ -2,7 +2,7 @@
 1) Biyografik kitap: bölüm başlıklarının ≥%40'ı kişi adı biçiminde (X b. Y, Ebû X, İbn X) ve ≥100 madde.
 2) Başlık temizliği: harekeler, sayılar, ayraçlar, rumuzlar (ع، خ م د س gibi tek-iki harfli işaretler) atılır.
 3) Anahtar: "ism b. baba" (bileşik isimler: عبد/أبو + kelime tek isim sayılır) ilk üç birim; varsa dede dördüncü birim.
-4) Râviler (data/k4/raviler.json, Takrîb tam adı ya da kayıt adı) anahtarla aranır; bir kitapta 3'ten fazla aynı adlı madde
+4) Râviler (data/k4/raviler.json; elle verilmiş tam ad > Takrîb tam adı > kayıt adı) anahtarla aranır; künye/nisbe adları (أبو هريرة, عكرمة مولى ابن عباس) başlık başıyla; bir kitapta 3'ten fazla aynı adlı madde
    varsa dede ile daraltılır, yine çoksa o kitapta bağlanmaz (yanlış kişiye bağlamaktansa boş bırakmak).
 Çıktı: site/data/k4/rical.json = {"kitap": {id: [tr_ad, ar_ad, müellif, vefat]}, "ravi": {ravi_id: eser_sayısı}, "istatistik": {...}}
        site/data/k4/rc/{ravi_id}.json = [{"k": kitap, "m": [[bölüm, başlık]], "b": [diğer baskılar], "tur": biyografi|musned}]  ve /home/claude/lib/rical/adlar.json (tüm maddeler: anahtar → [[kitap, bölüm, başlık]])"""
@@ -41,15 +41,37 @@ for i, b in BIO.items():
         if not x[3]: continue
         k, dede = anahtar(x[1])
         if k: IDX[k].append((i, si, dede, re.sub(r'\s+', ' ', x[1])[:60]))
+# tek isim ya da künye ile kayıtlı, kimliği selef_tr.json'da belirlenmiş râvilerin tam adları (elle; Takrîb ve Tehzîb'deki madde adları)
+ELLE = {'211972': 'عائشة بنت أبي بكر الصديق', '212025': 'غزوان أبو مالك الغفاري', '211969': 'سعد بن مالك بن سنان', '212047': 'باذام أبو صالح',
+        '212051': 'سفيان بن سعيد بن مسروق', '211978': 'أبي بن كعب بن قيس', '211988': 'مقاتل بن سليمان', '212069': 'صدي بن عجلان',
+        '212024': 'عويمر بن زيد بن قيس', '212027': 'الحسن بن أبي الحسن', '9269': 'سليمان بن مهران', '212062': 'عبد الله بن قيس بن سليم',
+        '212075': 'جندب بن جنادة', '212091': 'علي بن أبي طالب', '212099': 'لاحق بن حميد', '211958': 'هند بنت أبي أمية',
+        '212019': 'عطية بن الحارث', '212052': 'معمر بن راشد', '212042': 'عبد الله بن وهب بن مسلم', '212370': 'خالد بن زيد بن كليب',
+        '211986': 'عبد الله بن زيد بن عمرو', '1632': 'عبد الله بن حبيب بن ربيعة', '212110': 'عبد الرحمن بن عمرو بن يحمد',
+        '704': 'إبراهيم بن يزيد بن شريك', '212015': 'عبد الله بن عثمان بن عامر', '212055': 'علقمة بن قيس بن عبد الله', '212016': 'رفيع بن مهران'}
+# künye/nisbe ile anılanlar için ön ek dizini: temiz başlığın ilk iki-üç kelimesi
+ONEK = collections.defaultdict(list)
+for i, b in BIO.items():
+    for si, x in enumerate(b):
+        if x[3]:
+            w = temiz(x[1])
+            for n in (2, 3):
+                if len(w) >= n: ONEK[' '.join(w[:n])].append((i, si, '', re.sub(r'\s+', ' ', x[1])[:60]))
 R = json.load(open(f'{SITE}/k4/raviler.json'))['raviler']
 OUT = collections.defaultdict(list); ist = collections.Counter()
 for rid, r in R.items():
-    ad = (r.get('takrib') or {}).get('metin') or r['ad']
+    ad = ELLE.get(rid) or (r.get('takrib') or {}).get('metin') or r['ad']
     k, dede = anahtar(ad)
     if not k: k, dede = anahtar(r['ad'])
-    if not k: ist['anahtar_yok'] += 1; continue
     by = collections.defaultdict(list)
-    for m in IDX.get(k, []): by[m[0]].append(m)
+    if k:
+        for m in IDX.get(k, []): by[m[0]].append(m)
+    else:
+        w = temiz(ad)[:3]
+        if len(w) < 2 or len(' '.join(w)) < 7: ist['anahtar_yok'] += 1; continue   # tek isim: belirsiz, bağlanmaz
+        for m in ONEK.get(' '.join(w), []): by[m[0]].append(m)
+        ist['onek'] += 1
+    if rid in ELLE: ist['elle'] += 1
     for i, ms in by.items():
         if len(ms) > 3 and dede: ms = [m for m in ms if m[2] == dede]
         if not ms or len(ms) > 3: ist['cok_aday'] += 1; continue
