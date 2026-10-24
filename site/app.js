@@ -451,17 +451,19 @@ const norm = s => String(s || '').normalize('NFKC').replace(/[ؐ-ًؚ-ٰٟۖ-ۭ�
 async function library() {
   setNav('kutuphane');
   view.innerHTML = '<p class="lede">Katalog yükleniyor…</p>';
-  const [sum, rows] = await Promise.all([load('/data/library-summary.json'), load('/data/catalog.json')]);
+  const [sum, rows, RL, V] = await Promise.all([load('/data/library-summary.json'), load('/data/catalog.json'), load('/data/kutuphane/raflar.json').catch(() => []), load('/data/vitrin.json').catch(() => ({ sayilar: {} }))]);
   const tbl = (obj, map = x => x) => `<table class="kv">${Object.entries(obj).map(([k, v]) => `<tr><td>${esc(map(k))}</td><td>${fmt(v)}</td></tr>`).join('')}</table>`;
+  const SY = V.sayilar || {};
+  /* güncel kütüphane: raflar (build_raflar.py) ve vitrin sayıları (build_sayilar.py); eski kaynak kataloğu aşağıda arama tablosu olarak durur */
   view.innerHTML = `
     <h1>Kütüphane</h1>
-    <p class="lede">Erişilebilen bütün kaynaklardaki eserlerin kataloğu. Katalogda olmak, metnin işlendiği anlamına gelmez; metin durumu sütunu neyin elde olduğunu gösterir.</p>
+    <p class="lede">Tam metniyle okunabilen eserler, ilim dallarına göre raflarda. Bir rafa dokunun, eserlerini görün ve okuyun.</p>
     <div class="stats">
-      <div><p class="total">${fmt(sum.kayit_toplam)}</p><p class="total-label">katalog kaydı · tahminen ${fmt(sum.tekil_eser_tahmini)} tekil eser<br>${fmt(sum.indirilen)} kaydın metni elde · ${esc(sum.tarih)}</p></div>
-      <div><h2>Kaynağa göre</h2>${tbl(sum.kaynaga_gore, k => SOURCE[k] || k)}</div>
-      <div><h2>Türe göre</h2>${tbl(sum.ture_gore, k => GENRE[k] || k)}</div>
-      <div><h2>Metin durumu</h2>${tbl(sum.metin_durumuna_gore, k => TEXT[k] || k)}</div>
+      <div><p class="total">${fmt(SY.kitap || RL.reduce((t, r) => t + r[3], 0))}</p><p class="total-label">eser, tam metniyle kütüphanede<br>${fmt(SY.tefsir || 0)} tefsir · ${fmt(SY.lugat || 0)} lügat · ${fmt(SY.yazma || 0)} el yazması nüsha</p></div>
+      <div><h2>Raflar</h2><table class="kv">${RL.map(r => `<tr><td><a href="#/kutuphane/${esc(r[0])}">${esc(r[1])}</a></td><td>${fmt(r[3])}</td></tr>`).join('')}<tr><td><a href="#/kutuphane/dinler">Dinler tarihi</a></td><td></td></tr></table></div>
     </div>
+    <h2 style="margin-top:2.2rem">Kaynak kataloğu</h2>
+    <p class="lede" style="font-size:1rem">Erişilen bütün kaynaklardaki kayıtlar (${fmt(sum.kayit_toplam)}); bir kısmının metni işlenmedi. Eser ya da müellif arayın.</p>
     <div class="filters">
       <input id="q" type="search" placeholder="Eser veya müellif ara (Arapça ya da Latin)" aria-label="Eser veya müellif ara">
       <select id="fg" aria-label="Tür"><option value="">Bütün türler</option>${Object.keys(sum.ture_gore).map(k => `<option value="${k}">${esc(GENRE[k] || k)}</option>`).join('')}</select>
