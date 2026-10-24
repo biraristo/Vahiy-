@@ -278,3 +278,11 @@ body.se-acik { overflow: hidden; }
 .k3y { padding: .5rem 0; border-bottom: 1px solid var(--line); }
 .k3y:last-of-type { border-bottom: 0; }
 .k3git { display: inline-block; margin-top: .25rem; font-size: .85rem; }
+/* râvi biyografileri */
+.rc { margin-top: 1rem; border-top: 1px solid var(--line); padding-top: .75rem; }
+.rc h5 { font: 600 .95rem var(--sans); margin: 0 0 .5rem; }
+.rc h5 small { color: var(--muted); font-weight: 400; }
+.rc-l { margin: 0; padding-left: 1.2rem; display: grid; gap: .35rem; font: .9rem var(--sans); }
+.rc-l small { color: var(--muted); }
+.rc-bas { display: block; color: var(--muted); font-size: .85rem; }
+.rc-m summary { cursor: pointer; font: .9rem var(--sans); margin: .5rem 0; }

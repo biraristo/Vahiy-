@@ -174,8 +174,16 @@ async function blokCagdas(s, a) {
     yukle: async () => ({ dil: 'ar', html: b.notlar.map(n => `<div class="rv1"><span class="sy">${esc(n.yazar || '—')}${n.kategori ? ' · ' + esc(n.kategori) : ''}</span><p>${esc(n.metin)}</p></div>`).join('') }), kunye: chain([{ r: 'Notlar', t: 'Quranpedia kullanıcı notları', k: 'quranpedia' }]) });
   return L;
 }
+/* Râvinin kütüphanedeki biyografileri (data/k4/rc/{id}.json; build_rical.py) */
+async function ricalHtml(k, RC) {
+  if (!RC.ravi[k]) return '';
+  const L = await load(`/data/k4/rc/${k}.json`).catch(() => []);
+  const sat = (x, tur) => { const e = RC.kitap[x.k] || ['', '', '', null]; return `<li><a href="#/eser/${x.k}/${x.m[0][0]}"><b>${esc(e[0] || e[1])}</b></a> <small>${esc(e[2] || '')}${e[3] ? ` · ö. ${e[3]}` : ''}${x.m.length > 1 ? ` · ${x.m.length} madde` : ''}${x.b.length ? ` · ${x.b.length + 1} baskı` : ''}</small><bdi class="rc-bas" lang="ar">${esc(x.m[0][1])}</bdi></li>`; };
+  const bio = L.filter(x => x.tur === 'biyografi'), mus = L.filter(x => x.tur === 'musned');
+  return `<div class="rc"><h5>Kütüphanedeki biyografileri <small>${bio.length} eser</small></h5><ol class="rc-l">${bio.map(sat).join('')}</ol>${mus.length ? `<details class="rc-m"><summary>Müsned ve mu'cemlerde rivayet babı (${mus.length})</summary><ol class="rc-l">${mus.map(sat).join('')}</ol></details>` : ''}<p class="srcs">Ad eşleşmesiyle bağlandı (ism, baba, gerekirse dede); aynı adı taşıyan üçten fazla madde olan kitaplarda bağ kurulmadı.</p></div>`;
+}
 async function blokSelef(s, a) {
-  const [[b], R, T] = await Promise.all([ayX(s, a), load('/data/k4/raviler.json'), load('/data/k4/selef_tr.json').catch(() => ({ raviler: {} }))]);
+  const [[b], R, T, RC] = await Promise.all([ayX(s, a), load('/data/k4/raviler.json'), load('/data/k4/selef_tr.json').catch(() => ({ raviler: {} })), load('/data/k4/rical.json').catch(() => ({ kitap: {}, ravi: {} }))]);
   const RV = R.raviler, TR = T.raviler;
   const TAB = { s: 'sahâbî', t: 'tâbiî', e: 'tebeu’t-tâbiîn' };
   /* sözün sahibi: rivayetteki râvilerden en eski olanı (Türkçe kaydı olanlar önce) */
@@ -199,9 +207,9 @@ async function blokSelef(s, a) {
       <span class="pr-cip"><i>${KUSAK[0]}${tab && kusak !== 's' ? ` · ${tab}. tabaka` : ''}</i>${vef ? `<i>ö. ${vef}</i>` : ''}${der ? `<i class="${derC}" lang="${kusak === 's' ? 'tr' : 'ar'}" title="İbn Hacer, Takrîbü't-Tehzîb">${esc(der)}</i>` : ''}</span>
       <span class="pr-say"><span><b>${X.length}</b><small>bu ayette</small></span>${rv ? `<span><b>${fmt(rv.rivayet)}</b><small>${fmt(rv.ayet)} ayette</small></span>` : ''}</span>
       <span class="pr-soz" lang="ar">${esc(sozKisa(X[0].metin))}</span>
-      <span class="pr-dug"><span class="a">${X.length} rivayet</span><span class="o">Biyografi · yakında</span></span></span>`;
+      <span class="pr-dug"><span class="a">${X.length} rivayet</span><span class="o">${RC.ravi[k] ? `${RC.ravi[k]} eserde biyografisi` : 'Biyografisi bağlanmadı'}</span></span></span>`;
     return { k: 'sl' + k, kart, renk: KUSAK[1], f: { kusak: KUSAK[0], hukum: derC === 'd' ? 'Cerhedilmiş' : derC === 's' ? 'Güvenilir' : 'Hükümsüz' }, yil: tr ? tr[1] : (rv?.takrib?.vefat || null), ad, arAd: !tr, eser: `${X.length} rivayet${tr ? ' · ' + TAB[tr[2]] : ''}${turler.length && !(turler.length === 1 && turler[0] === 'Tefsir') ? ' · ' + turler.join(', ') : ''}`, parca: sozKisa(X[0].metin), ozet: '1', kitap: null,
-      yukle: async () => ({ dil: 'ar', html: X.map(x => `<div class="rv1"><span class="sy">${esc(RTYPE(x.tur))}${x.hukum ? ' · tahrîcte: ' + esc(x.hukum) : ''}</span><p>${ayetIsaret(para(x.metin))}</p>${x.tahric ? `<details class="zo-cev"><summary>Tahrîc</summary><p class="thr">${para(x.tahric)}</p></details>` : ''}</div>`).join('') + (rv && rv.takrib ? `<p class="srcs" dir="ltr">Takrîbü't-Tehzîb: ${esc(GRADE_TR[rv.takrib.derece] || rv.takrib.derece || '—')}${rv.takrib.tabaka ? `, ${rv.takrib.tabaka}. tabaka` : ''}</p>` : '') }),
+      yukle: async () => ({ dil: 'ar', html: X.map(x => `<div class="rv1"><span class="sy">${esc(RTYPE(x.tur))}${x.hukum ? ' · tahrîcte: ' + esc(x.hukum) : ''}</span><p>${ayetIsaret(para(x.metin))}</p>${x.tahric ? `<details class="zo-cev"><summary>Tahrîc</summary><p class="thr">${para(x.tahric)}</p></details>` : ''}</div>`).join('') + (rv && rv.takrib ? `<p class="srcs" dir="ltr">Takrîbü't-Tehzîb: ${esc(GRADE_TR[rv.takrib.derece] || rv.takrib.derece || '—')}${rv.takrib.tabaka ? `, ${rv.takrib.tabaka}. tabaka` : ''}</p>` : '') + await ricalHtml(k, RC) }),
       kunye: chain([{ r: 'Rivayetler', t: `Mevsûa kayıt no ${X.map(x => x.id).join(', ')}` }, { r: 'Eser', k: 'mevsua' }, { r: 'Veri', k: 'quranpedia' }, tr && { r: 'Türkçe ad ve vefat', t: T.kaynak, k: 'claude' }]) };
   });
   L.birim = 'kişi'; L.onek = 'ö.'; L.suzgec = [['kusak', 'Kuşak'], ['hukum', 'Takrîb hükmü']];
