@@ -38,7 +38,7 @@ function ayetYeni(s, a, A, su, S, D, MI) {
         <div class="gk-uc"><span>1</span><span class="gk-ip">Çubukta gezdirin, bırakınca ayet açılır</span><span>${su.ayet}</span></div>
         <div class="gk-lej">${SIRA.map(k => `<button type="button" data-g="${k}" aria-pressed="false"><i style="background:${RENK[k]}"></i>${esc(GA[k])} <small>${say[k]}</small></button>`).join('')}${say.yok ? `<span class="gk-yok">${say.yok} ayet etiketsiz</span>` : ''}</div></div>
       <div class="gk-konu"></div>
-      <p class="ss-not">Etiketler: <a href="https://www.kuranfihristi.net/" target="_blank" rel="noopener">KuranFihristi.net</a> konu fihristi. Renkler (genel başlıklar) Claude'un bu etiketlerden yaptığı sınıflamadır. ${chain([{ r: 'Etiketler', t: ET.kaynak, u: ET.url }, { r: 'Genel başlıklar', t: GN.kaynak, k: 'claude' }, { r: 'İşleme', b: 'fihrist' }])}</p>`;
+      <p class="ss-not kaynak-not">Etiketler: <a href="https://www.kuranfihristi.net/" target="_blank" rel="noopener">KuranFihristi.net</a> konu fihristi. Renkler (genel başlıklar) Claude'un bu etiketlerden yaptığı sınıflamadır. ${chain([{ r: 'Etiketler', t: ET.kaynak, u: ET.url }, { r: 'Genel başlıklar', t: GN.kaynak, k: 'claude' }, { r: 'İşleme', b: 'fihrist' }])}</p>`;
     const cub = el.querySelector('.gk-cubuk'), imle = el.querySelector('.gk-imle'), ip = el.querySelector('.gk-ip'), ipVars = ip.textContent;
     const yerlestir = n => { const c = cub.children[n - 1]; if (!c) return; imle.style.left = `${c.offsetLeft + c.offsetWidth / 2}px`; imle.firstChild.textContent = n; };
     const nOf = x => { const r = cub.getBoundingClientRect(); return Math.max(1, Math.min(su.ayet, Math.floor((x - r.left) / r.width * su.ayet) + 1)); };
@@ -148,7 +148,7 @@ const k3Oge = ([id, n, hits], K, s, a) => {
     kunye: chain([{ r: 'Kitap', t: `${k[2] || ''}${k[3] ? ` (ö. ${k[3]})` : ''}, ${k[0] || k[1]}`, u: `#/eser/${id}` }, { r: 'Veri', t: 'vahiy++ kütüphanesi' }, { r: 'Bağ', t: 'makine: ayet metni eşleşmesi (en az 6 kelime ya da ayetin tamamı)', b: 'kutup_tara' }])
   };
 };
-const ATIF_ACIK = false; /* kullanıcı kararı (24.10.2026): kütüphane atıfları site genelinde şimdilik kapalı */
+const ATIF_ACIK = true; /* kütüphane atıfları açık (24.10.2026 22:23: kullanıcı yalnızca kaynak gösterimini istemedi) */
 const k3Gruplar = async (s, a, gruplar, suz) => {
   if (!ATIF_ACIK) return [];
   const [b, K] = await atif(s, a);
@@ -206,7 +206,7 @@ async function ricalHtml(k, RC) {
   const L = await load(`/data/k4/rc/${k}.json`).catch(() => []);
   const sat = x => { const e = RC.kitap[x.k] || ['', '', '', null]; return `<li>${x.m.map((m, j) => `<details data-kesit data-id="${x.k}" data-b="${m[0]}" data-t="${esc(m[1])}"><summary>${j ? '' : `<b>${esc(e[0] || e[1])}</b> <small>${esc(e[2] || '')}${e[3] ? ` · ö. ${e[3]}` : ''}${x.b.length ? ` · ${x.b.length + 1} baskı` : ''}</small>`}<bdi class="rc-bas" lang="ar">${esc(m[1])}</bdi></summary><div class="kesit"><p class="srcs">Yükleniyor…</p></div><a class="k3git" href="#/eser/${x.k}/${m[0]}">Kitapta aç</a></details>`).join('')}</li>`; };
   const bio = L.filter(x => x.tur === 'biyografi'), mus = L.filter(x => x.tur === 'musned');
-  return `<div class="rc"><h5>Kütüphanedeki biyografileri <small>${bio.length} eser</small></h5><ol class="rc-l">${bio.map(sat).join('')}</ol>${mus.length ? `<details class="rc-m"><summary>Müsned ve mu'cemlerde rivayet babı (${mus.length})</summary><ol class="rc-l">${mus.map(sat).join('')}</ol></details>` : ''}<p class="srcs">Ad eşleşmesiyle bağlandı (ism, baba, gerekirse dede); aynı adı taşıyan üçten fazla madde olan kitaplarda bağ kurulmadı.</p></div>`;
+  return `<div class="rc"><h5>Kütüphanedeki biyografileri <small>${bio.length} eser</small></h5><ol class="rc-l">${bio.map(sat).join('')}</ol>${mus.length ? `<details class="rc-m"><summary>Müsned ve mu'cemlerde rivayet babı (${mus.length})</summary><ol class="rc-l">${mus.map(sat).join('')}</ol></details>` : ''}<p class="srcs kaynak-not">Ad eşleşmesiyle bağlandı (ism, baba, gerekirse dede); aynı adı taşıyan üçten fazla madde olan kitaplarda bağ kurulmadı.</p></div>`;
 }
 /* isim tıklanınca kişi sayfası (kart bir <button> olduğundan bağlantı yerine yakalama) */
 const kisiGit = ev => { const t = ev.target.closest?.('[data-kisi]'); if (!t || (ev.type === 'keydown' && ev.key !== 'Enter')) return; const k = t.dataset.kisi; if (!/^\d+$/.test(k)) return; ev.preventDefault(); ev.stopPropagation(); location.hash = `#/kisi/${k}`; };
@@ -350,7 +350,7 @@ function zcKur(el, items, tur, s, a) {
     if (aktif !== x.k) return;
     if (x.sade) { box.innerHTML = `<div class="zo-bas"><div><b>${esc(x.ad)}</b></div></div><div class="zo-metin">${r.html}</div>`; return; }
     box.innerHTML = `<div class="zo-bas">${bas(x)}
-      <div class="zo-dug">${x.kitap ? `<a href="${esc(x.kitap)}"${x.disKitap ? ' target="_blank" rel="noopener"' : ''}>${esc(x.kitapAd || 'Kitaba git')}${r.yer ? ' · ' + esc(r.yer) : ''}</a>` : ''}<button type="button" data-ac="pin" aria-pressed="${pin.includes(x.k)}">${pin.includes(x.k) ? 'Karşılaştırmada' : 'Karşılaştır'}</button></div></div>
+      <div class="zo-dug">${x.kitap ? `<a href="${esc(x.kitap)}"${x.disKitap ? ' target="_blank" rel="noopener"' : ''}>${esc(x.kitapAd || 'Kitaba git')}${r.yer ? ' · ' + esc(r.yer) : ''}</a>` : ''}<button type="button" data-ac="pin" aria-pressed="${pin.includes(x.k)}">${pin.includes(x.k) ? 'Karşılaştırmada' : 'Karşılaştır'}</button><button type="button" data-ac="atif">Atıf ver</button></div></div>
       ${m && m.ozet ? `<div class="zo-oz"><small>Türkçe özet · makine, metinden kontrol edin</small>${esc(m.ozet)}</div>` : ''}
       <div class="zo-metin${r.dil === 'ar' ? ' ar' : ''}"${r.dil === 'x' ? '' : ` dir="${r.dil === 'ar' ? 'rtl' : 'ltr'}" lang="${r.dil}"`}>${r.html}</div>
       <p class="srcs zo-k">${x.kunye || ''}</p>`;
@@ -444,7 +444,7 @@ async function kelimePanel(s, a, A, i) {
     const qp = (q.qp || []).filter(x => nAr(x.kelime).includes(nw) || nw.includes(nAr(x.kelime)));
     const cc = (q.cc || []).filter(x => x.okuyus && x.okuyus[String(w.n)]);
     const tek = {}; cc.forEach(x => { const o = x.okuyus[String(w.n)]; (tek[o] ||= { o, ok: new Set(), es: [] }); x.okuyanlar.forEach(r => tek[o].ok.add(r)); tek[o].es.push(x.eser); });
-    yaz('#kpKir', (qp.length || cc.length) ? `${qp.length ? `<table class="kp-t">${qp.map(x => `<tr><td lang="ar">${esc(x.okuyus)}</td><td lang="ar">${x.raviler.map(r => esc(r[0])).join('، ')}</td></tr>`).join('')}</table>` : ''}${cc.length ? `<ul class="kp-l">${Object.values(tek).map(t => `<li><i>${esc(t.o)}</i> <span>${[...t.ok].slice(0, 6).map(esc).join(', ')}${t.ok.size > 6 ? '…' : ''}</span><small>${esc([...new Set(t.es)].slice(0, 2).join(' · '))}</small></li>`).join('')}</ul><p class="srcs">Okuyuşlar Corpus Coranicum transkripsiyonuyla.</p>` : ''}` : '<p class="srcs">Bu kelimede kayıtlı kıraat farkı yok.</p>');
+    yaz('#kpKir', (qp.length || cc.length) ? `${qp.length ? `<table class="kp-t">${qp.map(x => `<tr><td lang="ar">${esc(x.okuyus)}</td><td lang="ar">${x.raviler.map(r => esc(r[0])).join('، ')}</td></tr>`).join('')}</table>` : ''}${cc.length ? `<ul class="kp-l">${Object.values(tek).map(t => `<li><i>${esc(t.o)}</i> <span>${[...t.ok].slice(0, 6).map(esc).join(', ')}${t.ok.size > 6 ? '…' : ''}</span><small>${esc([...new Set(t.es)].slice(0, 2).join(' · '))}</small></li>`).join('')}</ul><p class="srcs kaynak-not">Okuyuşlar Corpus Coranicum transkripsiyonuyla.</p>` : ''}` : '<p class="srcs">Bu kelimede kayıtlı kıraat farkı yok.</p>');
   }).catch(() => yaz('#kpKir', '<p class="srcs">Kıraat verisi açılamadı.</p>'));
   // Garîb
   load(`/data/k2/g/${s}.json`).then(G => {

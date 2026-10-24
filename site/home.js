@@ -233,7 +233,7 @@ async function home() {
   requestAnimationFrame(() => { const sc = $('#siralar'); sc.scrollLeft = 0; kaydirIpucu(sc); });
 
   /* ---- A: sayaçlar ve şeritler ---- */
-  const SY = [...(sy.kitap ? [[sy.kitap, 'eser, tam metniyle kütüphanede', 'buyuk']] : []), [sy.rivayet, 'selef rivayeti, isnadıyla'], [sy.makale, 'akademik makale'], [sy.yazma, 'el yazması Kur\'an nüshası'], [sy.ravi, 'râvinin hayatı, ricâl kitaplarından'], [sy.lugat, 'klasik Arapça lügat']];
+  const SY = [...(sy.alinti ? [[sy.alinti, 'kez bir ayet, bir kitapta alıntılanmış', 'buyuk']] : []), ...(sy.kitap ? [[sy.kitap, 'eser, tam metniyle kütüphanede', sy.alinti ? '' : 'buyuk']] : []), [sy.rivayet, 'selef rivayeti, isnadıyla'], [sy.makale, 'akademik makale'], [sy.yazma, 'el yazması Kur\'an nüshası'], [sy.ravi, 'râvinin hayatı, ricâl kitaplarından'], [sy.lugat, 'klasik Arapça lügat']];
   $('#sayaclar').innerHTML = SY.map(s => `<div class="sayac${s[2] ? ' ' + s[2] : ''}"><b data-v="${s[0]}">${azHareket ? fmt(s[0]) : 0}</b><span>${s[1]}</span></div>`).join('');
   let sayildi = azHareket;
   const io = new IntersectionObserver(es => { if (es[0].isIntersecting && !sayildi) { sayildi = true; const st = performance.now(); (function f(tm) { const p = Math.min(1, (tm - st) / 1800), e = 1 - Math.pow(1 - p, 3); document.querySelectorAll('.sayac b').forEach(b => b.textContent = fmt(Math.round(b.dataset.v * e))); if (p < 1) requestAnimationFrame(f); })(st); } }, { threshold: .4 });
@@ -263,7 +263,7 @@ async function home() {
     });
     $('#eski').innerHTML = `<div class="ek-ust"><button type="button" class="ok" id="ekGeri" aria-label="Geriye kaydır">‹</button><span class="ek-ip">${fmt(L.length)} nüsha · eskiden yeniye · kaydırın</span><button type="button" class="ok" id="ekIleri" aria-label="İleriye kaydır">›</button></div>
       <div class="kap-s"><div class="ek-sahne" id="ekSahne" tabindex="0" aria-label="En eski yazmalar zaman çizelgesi; ok tuşlarıyla kaydırın"><div class="ek-iz" style="width:${x + KART}px"><div class="ek-cizgi"></div>${html}</div></div></div>
-      <p class="dkaynak">${esc(E.kaynak)} · ${fmt(E.toplam_tarihli)} tarihli nüshadan en eski ${L.length}'ı. ${esc(E.not)} ${chain([{ r: 'Kaynak', t: E.kaynak, u: 'https://corpuscoranicum.de/de/manuscripts', k: 'cc' }, { r: 'İşleme', t: 'En eski yazmalar listesi', b: 'eskiyazma' }])}</p>`;
+      <p class="dkaynak kaynak-not">${esc(E.kaynak)} · ${fmt(E.toplam_tarihli)} tarihli nüshadan en eski ${L.length}'ı. ${esc(E.not)} ${chain([{ r: 'Kaynak', t: E.kaynak, u: 'https://corpuscoranicum.de/de/manuscripts', k: 'cc' }, { r: 'İşleme', t: 'En eski yazmalar listesi', b: 'eskiyazma' }])}</p>`;
     const sh = $('#ekSahne'), kay = d => sh.scrollBy({ left: d * sh.clientWidth * .8, behavior: azHareket ? 'auto' : 'smooth' });
     const durum = () => { $('#ekGeri').disabled = sh.scrollLeft < 5; $('#ekIleri').disabled = sh.scrollLeft + sh.clientWidth > sh.scrollWidth - 5; };
     $('#ekGeri').onclick = () => kay(-1); $('#ekIleri').onclick = () => kay(1); sh.addEventListener('scroll', durum, { passive: true }); durum(); kaydirIpucu(sh);

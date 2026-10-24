@@ -273,5 +273,5 @@ table.t { width: 100%; border-collapse: collapse; font-family: var(--sans); font
 .tr-metin { margin-top: .6rem; padding: .8rem 1rem; border-left: 3px solid var(--zer, #B08D35); background: color-mix(in srgb, var(--zer, #B08D35) 7%, transparent); border-radius: 8px; font-size: 1.02rem; line-height: 1.7; direction: ltr; text-align: left; }
 .tr-metin p { margin: 0 0 .6rem; } .tr-not { display: block; font: .78rem var(--sans); color: var(--muted); margin-bottom: .5rem; } .tr-uyari { font: .9rem var(--sans); color: var(--muted); } .tr-g { font: .85rem var(--sans); }
 
-/* kullanıcı kararı 24.10.2026: atıf ver ve kaynak zinciri gizli */
-.atif-btn, #atifBtn, details.chain { display: none !important; }
+/* kullanıcı kararı 24.10.2026: kaynak zinciri (🔗) ve alt kısımdaki kaynak notları gizli; veriler ve sistemler açık */
+details.chain, .kaynak-not { display: none !important; }
