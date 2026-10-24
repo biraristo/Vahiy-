@@ -15,7 +15,7 @@ body.sakin { --zop: .045; --gop: .18; }
   background: color-mix(in srgb, var(--paper) 84%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent); }
 .bar .mark { display: flex; align-items: center; gap: .45rem; font-size: 1.3rem; }
-.bar .mark svg { width: 30px; height: 30px; color: var(--firuze); }
+.bar .mark svg { width: 30px; height: 30px; color: var(--lacivert); }
 .bar nav { display: none; }
 .araclar { margin-inline-start: auto; display: flex; align-items: center; gap: .5rem; }
 .dil { display: flex; border: 1px solid var(--line); border-radius: 999px; padding: 2px; background: var(--sheet); }
