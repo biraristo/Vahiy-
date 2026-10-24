@@ -276,7 +276,7 @@ async function home() {
   const RL = await load('/data/kutuphane/raflar.json').catch(() => []);
   const KD = [...RL.map(r => [r[1], `${fmt(r[3])} kitap`, ...(KG[r[0]] || ['#444', 'h']), r[0]]), ['Dinler tarihi', '713 metin', ...KG.dinler, 'dinler']];
   const motif = (tp, c, i) => {
-    const s = 'stroke="rgba(244,242,234,.32)" fill="none" stroke-width="1.2"', id = 'kp' + i;
+    const s = 'stroke="rgba(244,242,234,.1)" fill="none" stroke-width="1.2"', id = 'kp' + i;
     const P = { h: `<rect x="10" y="10" width="20" height="20" ${s}/><rect x="10" y="10" width="20" height="20" transform="rotate(45 20 20)" ${s}/>`, k: `<path d="M4 4h12v12H8v8h16V8h8v24H4z" ${s}/>`,
       g: `<path d="M0 26L15 0h30l15 26-15 26H15z M15 0l15 26L15 52 M45 0L30 26l15 26 M0 26h60" ${s}/>`, y: `<path d="M25 5l6 14 14 6-14 6-6 14-6-14-14-6 14-6z" ${s}/>` };
     if (tp === 'u') return `<rect width="100%" height="100%" fill="${c}"/><g transform="translate(170 40)" ${s}>${Array.from({ length: 12 }, (_, j) => `<ellipse rx="70" ry="20" transform="rotate(${j * 15})"/>`).join('')}</g>`;
