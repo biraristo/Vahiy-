@@ -158,3 +158,9 @@ a.dt-sat:hover .dt-ad, a.dt-sat:focus .dt-ad { color: var(--firuze); }
 .dt-duz p[dir="auto"] { text-align: start; unicode-bidi: plaintext; }
 .dt-duz.satir p { margin: 0 0 .25rem; }
 .ek-metin .metin p.dipnot { font-size: .86em; color: var(--muted); border-inline-start: 2px solid var(--line); padding-inline-start: .6rem; margin-bottom: .4rem; }
+.kapak .rozet.eksik { right: auto; left: 9%; background: rgba(230, 170, 150, .92); }
+.eksik-not { margin: .6rem 0; padding: .55rem .8rem; border-left: 3px solid #B5694F; background: color-mix(in srgb, #B5694F 10%, transparent); font-size: .9rem; }
+.kitap .ad[lang="ar"], .kitap .yazar[lang="ar"] { font-family: var(--ar, 'Amiri', serif); text-align: right; }
+.ek-alt-not { font-family: var(--sans); font-size: .85rem; opacity: .7; direction: ltr; text-align: left; }
+.ek-alt-liste { margin: .4rem 0 0; padding-inline-start: 1.6rem; line-height: 2; }
+.ek-alt-liste a { color: inherit; text-decoration: underline dotted; text-underline-offset: .25em; }

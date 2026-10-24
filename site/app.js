@@ -500,7 +500,7 @@ async function route() {
     else if (/^\/kutuphane\/[a-z]+$/.test(h)) await turRaf(h.split('/')[2]);
     else if (/^\/metin\/\d{1,5}$/.test(h)) await metinOku(h.split('/')[2]);
     else if (/^\/kitap\/t\d+(\/\d{1,3}\/\d{1,3})?$/.test(h)) { const p = h.split('/'); await kitapOku(p[2], +(p[3] || 1), +(p[4] || 1)); }
-    else if (/^\/eser\/[hfksrlqup]\d+(\/\d{1,6})?$/.test(h)) { const p = h.split('/'); await eserOku(p[2], p[3] === undefined ? undefined : +p[3]); }
+    else if (/^\/eser\/(?:[hfksrlqupt]\d+|sh\d+|oi[0-9a-f]{8})(\/\d{1,6})?$/.test(h)) { const p = h.split('/'); await eserOku(p[2], p[3] === undefined ? undefined : +p[3]); }
     else await home();
   } catch (e) {
     view.innerHTML = `<h1>Sayfa açılamadı</h1><p class="lede">${esc(e.message)}. Sayfayı yenileyin; sorun sürerse veri dosyası eksik olabilir.</p>`;

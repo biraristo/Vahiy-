@@ -18,12 +18,12 @@ async function turRaf(tur) {
   setNav('kutuphane');
   const R = await load(`/data/kutuphane/${tur}.json`);
   const [ss, sa] = sonAyet();
-  const T = TURLER.find(x => x[0] === tur) || [tur, tur, ''];
+  const T = R.ad ? [tur, R.ad, R.ad_ar] : (TURLER.find(x => x[0] === tur) || [tur, tur, '']);
   const tefsir = tur === 'tefsir';
-  const okunur = tefsir ? R.eserler.filter(e => e.k2.length).length : 0;
+  const okunur = tefsir ? R.eserler.filter(e => e.k2 && e.k2.length).length : 0;
   view.innerHTML = `<div class="raf-sayfa">
     <h1 class="raf-h1">${esc(T[1])} <span class="ar" lang="ar">${esc(T[2])}</span></h1>
-    <p class="raf-ozet">${tefsir ? `${fmt(R.eserler.length)} eser; ${fmt(okunur)} tanesi ayet ayet okunabilir, diğerlerinde ayetin geçtiği yerler gösterilir. Eserler müelliflerin vefat tarihine göre beş döneme ayrıldı. Bir kitaba dokunun, ${esc(D_ADI(ss))} ${ss}:${sa} ile açılsın.` : `${fmt(R.eserler.length)} eser, tam metinleriyle. Eserler müelliflerin vefat tarihine göre beş döneme ayrıldı. Bir kitaba dokunun, içindekilerle açılsın.`}</p>
+    <p class="raf-ozet">${tefsir ? `${fmt(R.eserler.length)} eser; ${fmt(okunur)} tanesi ayet ayet okunabilir, diğerleri tam metin olarak açılır. Eserler müelliflerin vefat tarihine göre beş döneme ayrıldı. Bir kitaba dokunun, ${esc(D_ADI(ss))} ${ss}:${sa} ile açılsın.` : `${fmt(R.eserler.length)} eser, tam metinleriyle. Eserler müelliflerin vefat tarihine göre beş döneme ayrıldı. Bir kitaba dokunun, içindekilerle açılsın.`}</p>
     <div class="raf-arac"><input id="rafAra" type="search" placeholder="Eser ya da müellif ara" aria-label="Eser ya da müellif ara">
       <select id="rafSira" aria-label="Sıralama"><option value="v">Vefat yılına göre</option><option value="a">Eser adına göre</option><option value="m">Müellife göre</option></select></div>
     <nav class="raf-altlar" id="rafAlt" aria-label="Alanlar" hidden></nav>
@@ -33,18 +33,21 @@ async function turRaf(tur) {
   </div>`;
   const ciz = () => {
     const q = $('#rafAra').value.trim().toLocaleLowerCase('tr'), sira = $('#rafSira').value, suz = '';
-    let L = R.eserler.filter(e => (!altSec || e.alt === altSec) && (!q || `${e.ad} ${e.muellif} ${e.ad_ar} ${e.muellif_ar || ''}`.toLocaleLowerCase('tr').includes(q)));
-    const cmp = { v: (x, y) => (x.vefat || 9999) - (y.vefat || 9999) || x.ad.localeCompare(y.ad, 'tr'), a: (x, y) => x.ad.replace(/^(el|er|es|et|en|ez|eş|ed)-/, '').localeCompare(y.ad.replace(/^(el|er|es|et|en|ez|eş|ed)-/, ''), 'tr'), m: (x, y) => x.muellif.localeCompare(y.muellif, 'tr') }[sira];
+    const qa = q && norm(q);
+    let L = R.eserler.filter(e => (!altSec || e.alt === altSec) && (!q || `${e.ad || ''} ${e.muellif || ''}`.toLocaleLowerCase('tr').includes(q) || norm(`${e.ad_ar} ${e.muellif_ar || ''}`).includes(qa)));
+    const ad = e => (e.ad || e.ad_ar).replace(/^(el|er|es|et|en|ez|eş|ed)-/, ''), mu = e => e.muellif || e.muellif_ar || '';
+    const cmp = { v: (x, y) => (x.vefat || 9999) - (y.vefat || 9999) || ad(x).localeCompare(ad(y), 'tr'), a: (x, y) => ad(x).localeCompare(ad(y), 'tr'), m: (x, y) => mu(x).localeCompare(mu(y), 'tr') }[sira];
     L = L.slice().sort(cmp);
     $('#rafDn').innerHTML = R.donemler.map(([k, ad]) => { const n = L.filter(e => e.donem === k).length; return n ? `<a href="#raf-${k}" data-d="${k}">${esc(ad)} <small>(${n})</small></a>` : ''; }).join('');
     $('#raflar').innerHTML = R.donemler.map(([k, ad, alt]) => {
       const B = L.filter(e => e.donem === k); if (!B.length) return '';
-      return `<section class="donem" id="raf-${k}"><div class="d-bas"><h2>${esc(ad)}</h2><span>${esc(alt)} · ${B.length} eser</span></div><div class="raf">${B.map((e, i) => `<a class="kitap" href="${tefsir ? `#/kitap/${e.id}/${ss}/${sa}` : `#/eser/${e.id}`}">
-        <div class="kapak">${kapakSvg(e, i)}<div class="cer"></div><div class="bas" lang="ar">${esc(e.ad_ar.length > 60 ? e.ad_ar.slice(0, 58) + '…' : e.ad_ar)}</div><div class="yil">${vefatYaz(e.vefat)}</div>${!tefsir || e.k2.length ? '' : '<span class="rozet">alıntılar</span>'}</div>
-        <span class="ad">${esc(e.ad)}</span><span class="yazar">${esc(e.muellif)}</span></a>`).join('')}</div></section>`;
+      return `<section class="donem" id="raf-${k}"><div class="d-bas"><h2>${esc(ad)}</h2><span>${esc(alt)} · ${B.length} eser</span></div><div class="raf">${B.slice(0, gos[k] || 120).map((e, i) => `<a class="kitap" href="${tefsir && e.k2 ? `#/kitap/${e.id}/${ss}/${sa}` : `#/eser/${e.id}`}">
+        <div class="kapak">${kapakSvg(e, i)}<div class="cer"></div><div class="bas" lang="ar">${esc(e.ad_ar.length > 60 ? e.ad_ar.slice(0, 58) + '…' : e.ad_ar)}</div><div class="yil">${vefatYaz(e.vefat)}</div>${!tefsir || !e.k2 || e.k2.length ? '' : '<span class="rozet">alıntılar</span>'}${e.eksik ? '<span class="rozet eksik">eksik</span>' : ''}</div>
+        ${e.ad ? `<span class="ad">${esc(e.ad)}</span>` : `<span class="ad" lang="ar" dir="rtl">${esc(e.ad_ar)}</span>`}${e.muellif ? `<span class="yazar">${esc(e.muellif)}</span>` : `<span class="yazar" lang="ar" dir="rtl">${esc(e.muellif_ar || '')}</span>`}</a>`).join('')}</div>${B.length > (gos[k] || 120) ? `<p class="devam"><button type="button" data-daha="${k}">${fmt(B.length - (gos[k] || 120))} eser daha göster</button></p>` : ''}</section>`;
     }).join('') || '<p class="raf-ozet">Aramanıza uyan eser yok. Arama kutusunu temizleyin.</p>';
   };
-  let altSec = '';
+  let altSec = ''; const gos = {};
+  $('#raflar').addEventListener('click', ev => { const b = ev.target.closest('[data-daha]'); if (!b) return; gos[b.dataset.daha] = (gos[b.dataset.daha] || 120) + 600; ciz(); });
   const AL = [...new Set(R.eserler.map(e => e.alt).filter(Boolean))];
   if (AL.length > 1) {
     const say = k => R.eserler.filter(e => e.alt === k).length;
@@ -65,6 +68,8 @@ async function kitapOku(id, s, a) {
   const [R, S, MI] = await Promise.all([load('/data/kutuphane/tefsir.json'), meta(), load('/data/meal/index.json')]);
   const e = R.eserler.find(x => x.id === id);
   if (!e) { view.innerHTML = '<h1>Böyle bir kitap yok</h1><p><a href="#/kutuphane/tefsir">Tefsir rafına dön</a></p>'; return; }
+  if (!e.k2) { location.replace(`#/eser/${id}`); return; }
+  e.k3 ||= [];
   const su = S.sureler[s - 1];
   if (!su || a < 1 || a > su.ayet) { location.replace(`#/kitap/${id}/1/1`); return; }
   store.set('son', `${s}:${a}`);
@@ -77,7 +82,7 @@ async function kitapOku(id, s, a) {
       <div class="kb-ad"><b>${esc(e.ad)}</b><span>${esc(e.muellif)} (${vefatYaz(e.vefat)}) · ${esc(don)}</span></div></div>
       <form class="secici" id="okSec"><select id="okSure" aria-label="Sure">${S.sureler.map(x => `<option value="${x.n}"${x.n === s ? ' selected' : ''}>${x.n}. ${esc(x.tr)} — ${esc(x.ar)}</option>`).join('')}</select>
         <div class="ay"><a href="${prev ? git(...prev) : '#'}" aria-label="Önceki ayet" ${prev ? '' : 'aria-disabled="true"'}>‹</a><input id="okAyet" type="number" min="1" max="${su.ayet}" value="${a}" inputmode="numeric" aria-label="Ayet"><a href="${next ? git(...next) : '#'}" aria-label="Sonraki ayet" ${next ? '' : 'aria-disabled="true"'}>›</a></div></form></div>
-    <div class="ok-ayet"><p class="q" lang="ar" id="okQ">…</p><p class="m" id="okM"></p><a class="ref" href="#/${s}/${a}">${esc(su.tr)} ${s}:${a} · ayet sayfası</a></div>
+    <div class="ok-ayet"><p class="q" lang="ar" id="okQ">…</p><p class="m" id="okM"></p><a class="ref" href="#/${s}/${a}">${esc(su.tr)} ${s}:${a} · ayet sayfası</a>${e.tam ? ` <a class="ref" href="#/eser/${e.tam}">Kitabın tamamını oku (Şâmile)</a>` : ''}</div>
     <div id="okIc"><p class="durum">Yükleniyor…</p></div>
     <div class="gecis">${prev ? `<a href="${git(...prev)}">‹ ${prev[0]}:${prev[1]}</a>` : '<span></span>'}${next ? `<a class="ana" href="${git(...next)}">${next[0]}:${next[1]} ›</a>` : '<span></span>'}</div>
     <details class="kunye"><summary>Künye ve kaynak</summary><dl>
@@ -198,23 +203,28 @@ const ALT_AD = { h: 'Hadis', f: 'Fıkıh', u: 'Usûl-i fıkıh', k: 'Kelâm', s:
 
 async function eserOku(id, n) {
   setNav('kutuphane');
-  const raf = RAF_ONEK[id[0]], T = TURLER.find(x => x[0] === raf) || [raf, raf, ''];
+  const DZ = await load('/data/kutuphane/dizin.json').catch(() => ({ r: {}, y: {} }));
+  if (DZ.y[id]) { location.replace(`#/eser/${DZ.y[id]}${n === undefined || isNaN(n) ? '' : '/' + n}`); return; }
+  const raf = DZ.r[id] || RAF_ONEK[id[0]];
   const R = await load(`/data/kutuphane/${raf}.json`);
-  const e = R.eserler.find(x => x.id === id);
+  const T = R.ad ? [raf, R.ad, R.ad_ar] : (TURLER.find(x => x[0] === raf) || [raf, raf, '']);
+  let e = R.eserler.find(x => x.id === id);
+  if (!e && raf === 'tefsir') { const t = R.eserler.find(x => x.tam === id); if (t) e = { ...t, id, kaynak: 'Şâmile', ref: id.slice(2), k2: undefined }; }
   if (!e) { view.innerHTML = `<h1>Böyle bir kitap yok</h1><p><a href="#/kutuphane/${raf}">${esc(T[1])} rafına dön</a></p>`; return; }
   const don = (R.donemler.find(d => d[0] === e.donem) || [, ''])[1];
   view.innerHTML = `<div class="okuma eser">
     <div class="kitapbas"><div class="kb-ic"><a class="geri" href="#/kutuphane/${raf}">‹ ${esc(T[1])}</a><div class="mini" style="--k1:${RAF_RENK[e.donem][0]};--k2:${RAF_RENK[e.donem][1]}"></div>
-      <div class="kb-ad"><b>${esc(e.ad)}</b><span>${esc(e.muellif)} (${vefatYaz(e.vefat)}) · ${esc(ALT_AD[e.alt] || don)}</span></div></div>
+      <div class="kb-ad"><b${e.ad ? '' : ' lang="ar"'}>${esc(e.ad || e.ad_ar)}</b><span><bdi${e.muellif ? '' : ' lang="ar"'}>${esc(e.muellif || e.muellif_ar || '')}</bdi> (${vefatYaz(e.vefat)}) · ${esc(ALT_AD[e.alt] || e.alt || don)}</span></div></div>
       <div id="ekUst"></div></div>
+    ${e.eksik ? `<p class="eksik-not">Bu eserin kaynak nüshası eksik: ${esc(e.eksik)}. Boş sayfalar kaynağın kendisinde boştur.</p>` : ''}
     <div id="ekIc"><p class="durum">Yükleniyor…</p></div>
     <details class="kunye"><summary>Künye ve kaynak</summary><dl>
-      <dt>Eser</dt><dd>${esc(e.ad)} <span lang="ar">(${esc(e.ad_ar)})</span></dd>
-      <dt>Müellif</dt><dd>${esc(e.muellif)}${e.muellif_ar ? ` <span lang="ar">(${esc(e.muellif_ar)})</span>` : ''}${e.vefat ? `, ö. ${e.vefat}` : ''}</dd>
-      <dt>Dönem</dt><dd>${esc(don)}</dd><dt>Alan</dt><dd>${esc(ALT_AD[e.alt] || '')}</dd>
+      <dt>Eser</dt><dd>${e.ad ? `${esc(e.ad)} ` : ''}<span lang="ar">${e.ad ? '(' : ''}${esc(e.ad_ar)}${e.ad ? ')' : ''}</span></dd>
+      <dt>Müellif</dt><dd>${esc(e.muellif || '')}${e.muellif_ar ? ` <span lang="ar">${e.muellif ? '(' : ''}${esc(e.muellif_ar)}${e.muellif ? ')' : ''}</span>` : ''}${e.vefat ? `, ö. ${e.vefat}` : ''}</dd>
+      <dt>Dönem</dt><dd>${esc(don)}</dd><dt>Alan</dt><dd>${esc(ALT_AD[e.alt] || e.alt || T[1])}</dd>
       ${e.nesir ? `<dt>Neşir</dt><dd lang="ar">${esc(e.nesir)}</dd>` : ''}
-      <dt>Veri</dt><dd>${e.kaynak === 'OpenITI' ? `OpenITI dijital nüshası · ${esc(e.ref)}` : `Quranpedia dijital nüshası · kitap ${esc(e.ref)}`}; ${fmt(e.b)} bölüm</dd>
-      <dt>Türkçe ad</dt><dd>Claude transkripsiyonu (TDV İslâm Ansiklopedisi yazımı esas alındı)</dd></dl></details>
+      <dt>Veri</dt><dd>${e.kaynak === 'Şâmile' ? `el-Mektebetü'ş-Şâmile · kitap ${esc(e.ref)}` : e.kaynak === 'OpenITI' ? `OpenITI dijital nüshası · ${esc(e.ref)}` : `Quranpedia dijital nüshası · kitap ${esc(e.ref)}`}${e.b ? `; ${fmt(e.b)} bölüm` : ''}</dd>
+      ${e.ad ? '<dt>Türkçe ad</dt><dd>Claude transkripsiyonu (TDV İslâm Ansiklopedisi yazımı esas alındı)</dd>' : ''}</dl></details>
   </div>`;
   let D;
   try { D = (await dizinAl(id)).b; } catch { $('#ekIc').innerHTML = '<div class="bos-ayet"><p>Bu kitabın metni şu an açılamadı. Sayfayı yenileyip tekrar deneyin.</p></div>'; return; }
@@ -261,12 +271,17 @@ function icindekiler(e, D, raf) {
   ciz();
 }
 
+/* metni olmayan üst başlık: alt başlıklarını bağlantı olarak listeler */
+function altBasliklar(D, n, git) {
+  const L = []; for (let j = n + 1; j < D.length && D[j][0] > D[n][0]; j++) if (D[j][0] === D[n + 1][0]) L.push(j);
+  return L.length ? `<p class="ek-alt-not">Bu başlık şu bölümlerden oluşuyor:</p><ol class="ek-alt-liste">${L.map(j => `<li><a href="${git(j)}">${esc(D[j][1])}</a></li>`).join('')}</ol>` : '';
+}
 async function bolumGoster(e, D, raf, n) {
   const b = D[n];
   const yol = []; let lv = b[0]; for (let j = n - 1; j >= 0 && lv > Math.min(...D.map(x => x[0])); j--) if (D[j][0] < lv) { yol.unshift(D[j][1]); lv = D[j][0]; }
   let p = n - 1; while (p >= 0 && !D[p][3]) p--; let s = n + 1; while (s < D.length && !D[s][3]) s++;
   const git = i => `#/eser/${e.id}/${i}`;
-  $('#ekUst').innerHTML = `<nav class="ek-yol" aria-label="Bölüm yolu"><a href="#/eser/${e.id}">İçindekiler</a>${yol.map(y => ` › <span lang="ar">${esc(y)}</span>`).join('')}</nav>`;
+  $('#ekUst').innerHTML = `<nav class="ek-yol" aria-label="Bölüm yolu"><a href="#/eser/${e.id}">İçindekiler</a>${yol.map(y => ` › <bdi lang="ar">${esc(y)}</bdi>`).join('')}</nav>`;
   const ic = $('#ekIc');
   ic.innerHTML = `<h2 class="ek-bas" lang="ar" dir="rtl">${ayetVurgu(b[1])}</h2><p class="durum">Yükleniyor…</p>`;
   let txt = '';
@@ -306,7 +321,7 @@ async function bolumGoster(e, D, raf, n) {
   const yerYaz = ilkYer && ilkYer.p ? `${ilkYer.c ? `Cilt ${ilkYer.c} · ` : ''}Sayfa ${ilkYer.p}` : 'Bölüm';
   ic.innerHTML = `<h2 class="ek-bas" lang="ar" dir="rtl">${ayetVurgu(b[1])}</h2>
     <article class="sayfa ek-metin" data-n="${n}"><div class="ust"><span lang="ar">${esc(e.ad_ar)}</span><b>${esc(yerYaz)}</b></div>
-    <div class="metin${hadis ? ' hd' : ''}" lang="ar" dir="rtl">${html || '<p>Bu başlığın altında metin yok.</p>'}</div></article>
+    <div class="metin${hadis ? ' hd' : ''}" lang="ar" dir="rtl">${/<p[ >]/.test(html) ? html : altBasliklar(D, n, git) || html || '<p>Bu başlığın altında metin yok.</p>'}</div></article>
     <div class="gecis">${p >= 0 ? `<a href="${git(p)}">‹ Önceki bölüm</a>` : '<span></span>'}${s < D.length ? `<a class="ana" href="${git(s)}">Sonraki bölüm ›</a>` : '<span></span>'}</div>
     <p class="atif-ip">Metinden bir bölüm seçin: kaynağıyla birlikte atıf hazırlanır.</p>`;
   scrollTo(0, 0);
@@ -329,10 +344,10 @@ function atifEser(e, yol, n) {
     const x = btn._x || secim(); if (!x) return;
     const yer = [x.c && +x.c && `c. ${x.c}`, x.p && `s. ${x.p}`].filter(Boolean).join(', ');
     const bolum = yol.join(' › ');
-    const atifTr = `${e.muellif}, ${e.ad}${yer ? `, ${yer}` : ''}.`;
+    const atifTr = `${e.muellif || e.muellif_ar || ''}, ${e.ad || e.ad_ar}${yer ? `, ${yer}` : ''}.`;
     const tarih = new Date().toISOString().slice(0, 10);
-    const zincir = [['Yer', `${yer ? yer + ' · ' : ''}${bolum}`], ['Eser', `${e.ad} (${e.ad_ar})`], ['Müellif', `${e.muellif}${e.vefat ? `, ö. ${e.vefat}` : ''}`], e.nesir && ['Neşir', e.nesir],
-      ['Veri', e.kaynak === 'OpenITI' ? `OpenITI · ${e.ref}` : `Quranpedia · kitap ${e.ref}`], ['İşleme', 'vahiy++ bölümleme (açık kaynak betikler)'], ['Erişim', `${location.origin}/#/eser/${e.id}/${n} · ${tarih}`]].filter(Boolean);
+    const zincir = [['Yer', `${yer ? yer + ' · ' : ''}${bolum}`], ['Eser', e.ad ? `${e.ad} (${e.ad_ar})` : e.ad_ar], ['Müellif', `${e.muellif || e.muellif_ar || ''}${e.vefat ? `, ö. ${e.vefat}` : ''}`], e.nesir && ['Neşir', e.nesir],
+      ['Veri', e.kaynak === 'Şâmile' ? `el-Mektebetü'ş-Şâmile · kitap ${e.ref}` : e.kaynak === 'OpenITI' ? `OpenITI · ${e.ref}` : `Quranpedia · kitap ${e.ref}`], ['İşleme', 'vahiy++ bölümleme (açık kaynak betikler)'], ['Erişim', `${location.origin}/#/eser/${e.id}/${n} · ${tarih}`]].filter(Boolean);
     const metinKopya = `${atifTr}\n\n${x.t}\n\nİsnad:\n${zincir.map(([k, v]) => `${k}: ${v}`).join('\n')}`;
     let m = $('#atifPanel'); if (!m) { m = document.createElement('div'); m.id = 'atifPanel'; m.className = 'atif-panel'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-label', 'Atıf'); document.body.appendChild(m); }
     m.innerHTML = `<div class="ap-ic"><h3>Atıf</h3><p class="ap-atif">${esc(atifTr)}</p><blockquote lang="ar" dir="rtl">${esc(x.t.slice(0, 600))}${x.t.length > 600 ? '…' : ''}</blockquote>

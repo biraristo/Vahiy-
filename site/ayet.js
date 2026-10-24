@@ -61,7 +61,7 @@ const TM = {};
 async function k2Veri(s, a) {
   const key = `${s}:${a}`; if (TM[key]) return TM[key];
   const [E, I, P, R] = await Promise.all([load('/data/k2/eserler.json'), load(`/data/k2/i/${s}.json`), loadGz(`/data/k2/t/${s}/${a}.json.gz`), load('/data/kutuphane/tefsir.json')]);
-  const tr = {}; R.eserler.forEach(e => e.k2.forEach(r => { tr[r] = e; }));
+  const tr = {}; R.eserler.forEach(e => (e.k2 || []).forEach(r => { tr[r] = e; }));
   const byW = {}; P.p.forEach(r => (byW[r[0]] ||= []).push(r));
   const W = (I.ayetler[key] || []).map(([w]) => ({ w, e: E.eserler[w], tr: tr[w] || {} }))
     .filter(x => x.e && ['ar', 'tr'].includes(x.e.dil || 'ar'))
