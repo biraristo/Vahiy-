@@ -233,7 +233,7 @@ async function home() {
   requestAnimationFrame(() => { const sc = $('#siralar'); sc.scrollLeft = 0; kaydirIpucu(sc); });
 
   /* ---- A: sayaçlar ve şeritler ---- */
-  const SY = [[sy.kitap, 'eser, tam metniyle kütüphanede', 'buyuk']];  /* kullanıcı kararı 24.10.2026: yalnız eser sayısı */
+  const SY = [[sy.kitap, 'eser, tam metniyle kütüphanede', 'buyuk'], [sy.alinti, `ayet alıntısı, ${fmt(sy.eser)} eserde`], [sy.rivayet, 'selef rivayeti, isnadıyla'], [sy.biyografi, `biyografi maddesi, ${fmt(sy.ricalKitap)} ricâl ve tabakat kitabında`], [sy.yazma, 'el yazması Kur\'an nüshası'], [sy.makale, 'akademik makale'], [sy.lugat, 'klasik Arapça lügat']].filter(x => x[0]);
   $('#sayaclar').innerHTML = SY.map(s => `<div class="sayac${s[2] ? ' ' + s[2] : ''}"><b data-v="${s[0]}">${azHareket ? fmt(s[0]) : 0}</b><span>${s[1]}</span></div>`).join('');
   let sayildi = azHareket;
   const io = new IntersectionObserver(es => { if (es[0].isIntersecting && !sayildi) { sayildi = true; const st = performance.now(); (function f(tm) { const p = Math.min(1, (tm - st) / 1800), e = 1 - Math.pow(1 - p, 3); document.querySelectorAll('.sayac b').forEach(b => b.textContent = fmt(Math.round(b.dataset.v * e))); if (p < 1) requestAnimationFrame(f); })(st); } }, { threshold: .4 });
