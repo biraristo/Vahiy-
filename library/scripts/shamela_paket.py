@@ -15,6 +15,7 @@ LUC = '/home/claude/lib/lucene'
 os.makedirs(TMP, exist_ok=True)
 
 
+ISTEK = set(open(os.environ['KITAPLAR']).read().split()) if os.environ.get('KITAPLAR') else None
 def ayir():
     """Lucene sayfa deposunu parça parça akıt, kitap kitap gzip dosyalarına yaz."""
     segs = [l.split()[0] for l in subprocess.run(['java', '-cp', f'{LUC}/lucene-core-10.4.0.jar:{LUC}', 'SegInfo', f'{SH}/store/page'], capture_output=True, text=True).stdout.split('\n') if l.strip()]
@@ -29,6 +30,7 @@ def ayir():
             m = re.match(r'\{"id":"(\d+)-', line)
             if not m: continue
             bid = m.group(1)
+            if ISTEK and bid not in ISTEK: continue
             if bid != cur:
                 if f: f.close()
                 sayac[bid] += 1
@@ -62,6 +64,12 @@ def kunye_oku():
         K[str(d.get('id'))] = k
     return K
 
+BASLIK_ADI = {}
+def baslik_yukle(ids):
+    p = '/home/claude/lib/shamela/baslik.jsonl'
+    for line in open(p, encoding='utf8', errors='replace'):
+        m = re.match(r'\{"id":"(\d+)-(\d+)","body":"(.*)"\}\s*$', line)
+        if m and m.group(1) in ids: BASLIK_ADI.setdefault(m.group(1), {})[int(m.group(2))] = json.loads('"' + m.group(3) + '"')
 def kitap_yap(bid, tek):
     """Bir kitabın sayfalarını bölümlere çevirir; (bölümler, denetim) döndürür."""
     db = sqlite3.connect(f'{SH}/book/{int(bid) % 1000:03d}/{bid}.db')
@@ -95,7 +103,7 @@ def kitap_yap(bid, tek):
         # satır içi başlıkları olmayan ama bu sayfada başlayan başlıklar sayfa başına eklenir
         icerde = set(int(x) for x in re.findall(r'id=["\']?toc-(\d+)', body))
         for t in sorted(bas_sayfa.get(pid, [])):
-            if t not in icerde and t not in goren: secs.append([derinlik(t), '—', []]); goren.add(t)
+            if t not in icerde and t not in goren: secs.append([derinlik(t), temiz(BASLIK_ADI.get(bid, {}).get(t, '')) or '—', []]); goren.add(t)
         konum = 0
         for m in TOC.finditer(body):
             once = body[konum:m.start()]
@@ -175,6 +183,7 @@ def paketle():
         mm = re.match(r'(\d+)\.(\d+)\.gz$', fn)
         if mm: dosyalar[mm.group(1)].append((int(mm.group(2)), f'{TMP}/{fn}'))
     kitaplar = list(m.execute('select book_id, book_name, book_category, book_date, main_author, printed, pdf_links from book'))
+    if os.path.exists('/home/claude/lib/shamela/baslik.jsonl'): baslik_yukle({str(k[0]) for k in kitaplar if not sadece or str(k[0]) in sadece})
     if '--ters' in sys.argv:
         kitaplar = [k for k in reversed(kitaplar) if str(k[0]) in dosyalar]
         # öbür süreçle buluşulan yerde dur: sayfa dosyası kalmamış kitap öbürünce yapılmıştır
@@ -187,6 +196,7 @@ def paketle():
         bid, ad, cat, date, main, printed, pdf = row; bid = str(bid)
         if sadece and bid not in sadece: return None
         if not sadece and bid in kat and kat[bid].get('yuklendi'): return None
+        if '--kalanlar' in sys.argv and not dosyalar.get(bid): return None
         if '--ters' in sys.argv and dosyalar.get(bid) and not all(os.path.exists(p) for _, p in dosyalar[bid]): return None
         an, ad_d = auth.get(main, (None, None))
         try: secs, den = kitap_yap(bid, [p for _, p in sorted(dosyalar.get(bid, []))])
@@ -199,7 +209,8 @@ def paketle():
             ok = put(f'kitap/sh{bid}.bin', b, 'application/octet-stream') and put(f'kitap/sh{bid}.json', gzip.compress(json.dumps({'v': 1, 'b': diz}, ensure_ascii=False).encode(), 9), 'application/json', 'gzip')
             kay['kb'] = len(b) >> 10; kay['yuklendi'] = ok
             if ok and '--sil' in sys.argv:
-                for _, fp in dosyalar.get(bid, []): os.remove(fp)
+                for _, fp in dosyalar.get(bid, []):
+                    if os.path.exists(fp): os.remove(fp)
         return bid, kay
     n = 0
     with cf.ThreadPoolExecutor(int(os.environ.get('IS', 12))) as ex:
