@@ -230,6 +230,9 @@ function zcKur(el, items, tur, s, a) {
       ${m && m.ozet ? `<div class="zo-oz"><small>Türkçe özet · makine, metinden kontrol edin</small>${esc(m.ozet)}</div>` : ''}
       <div class="zo-metin${r.dil === 'ar' ? ' ar' : ''}"${r.dil === 'x' ? '' : ` dir="${r.dil === 'ar' ? 'rtl' : 'ltr'}" lang="${r.dil}"`}>${r.html}</div>
       <p class="srcs zo-k">${x.kunye || ''}</p>`;
+    { const mt = box.querySelector('.zo-metin');  // uzun metin önce kısa açılır; tamamı için dokunulur
+      if (!x.k.startsWith('yz') && mt.scrollHeight > 340) { mt.classList.add('kisa'); mt.insertAdjacentHTML('afterend', '<button type="button" class="zo-devam">Tamamını oku</button>');
+        box.querySelector('.zo-devam').onclick = ev => { mt.classList.remove('kisa'); ev.target.remove(); }; } }
     box.querySelector('[data-ac="atif"]').onclick = async ev => {
       const t = `${x.ad}${typeof x.yil === 'number' ? ` (${yilYaz(x.yil)})` : ''}, ${x.eser}${r.yer ? ', ' + r.yer : ''}. vahiy++: ${location.origin}/#/${s}/${a}`;
       try { await navigator.clipboard.writeText(t); } catch { /* yok */ } ev.target.textContent = 'Kopyalandı';
@@ -416,9 +419,20 @@ async function blokYazma(s, a) {
   const L = Object.entries(by).map(([m, F]) => { const n = R.nushalar[m] || {};
     const t = String(n.tarih || ''); const yr = /^-/.test(t) ? +t.slice(1) - 50 : tarihYil(t);
     const ad = (n.ad || m).replace(/\s*\([^)]*[Ѐ-ӿ؀-ۿ][^)]*\)/g, '');
-    return { k: 'yz' + m, yil: yr || null, ad: ad.split(',')[0], eser: ad.split(',').slice(1).join(',').trim() || ad, rozet: [n.yazi, t.replace(/^-/, '… ')].filter(Boolean).join(' · '), ozet: '1', kitap: `https://corpuscoranicum.de/de/manuscript/${m}`, disKitap: true, kitapAd: 'Corpus Coranicum\'da aç',
-      yukle: async () => ({ dil: 'tr', html: `<dl class="zo-dl">${[['Nüsha', n.ad], ['Kurum', n.kurum], ['Numara', n.no], ['Tarih (miladi)', t.replace(/^-/, '… öncesi ')], ['Yazı', n.yazi], ['Malzeme', n.malzeme]].filter(x => x[1]).map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join('')}</dl>${n.ozet ? `<p>${esc(n.ozet)}</p>` : ''}<p class="zo-yap">Bu ayetin geçtiği yapraklar: ${F.map(([f, p]) => p ? `<a href="https://corpuscoranicum.de/de/manuscript/${m}/page/${p}" target="_blank" rel="noopener">${esc(f)} görüntüsü</a>` : esc(f)).join(' ')}</p>`, yer: F.map(x => x[0]).join(', ') }),
-      kunye: chain([{ r: 'Nüsha', t: n.ad, u: `https://corpuscoranicum.de/de/manuscript/${m}` }, { r: 'Veri', k: 'cc' }, { r: 'İşleme', t: 'TEI yaprak aralıkları ayetlere açıldı:', b: 'yazma' }]) }; });
+    const ilk = F[0][0], cc = f => `https://corpuscoranicum.de/de/manuscripts/${m}/page/${f}`;
+    return { k: 'yz' + m, yil: yr || null, ad: ad.split(',')[0], eser: ad.split(',').slice(1).join(',').trim() || ad, rozet: [n.yazi, t.replace(/^-/, '… '), `yaprak ${F.map(x => x[0]).join(', ')}`].filter(Boolean).join(' · '), ozet: '1', kitap: cc(ilk), disKitap: true, kitapAd: 'Corpus Coranicum\'da aç',
+      yukle: async () => {
+        const sayfalar = await Promise.all(F.slice(0, 4).map(([f]) => fetch(`https://api.corpuscoranicum.de/api/data/language/de/manuscripts/${m}/pages/${f}`).then(r => r.ok ? r.json() : null).catch(() => null)));
+        const yer = p => (p.passages || []).map(x => `${x.start.sura}:${x.start.verse}${x.end.sura !== x.start.sura || x.end.verse !== x.start.verse ? '–' + (x.end.sura !== x.start.sura ? x.end.sura + ':' : '') + x.end.verse : ''}`).join(', ');
+        const gor = sayfalar.map((d, i) => { const p = d && d.data, f = F[i][0];
+          if (!p || !(p.images || []).length) return `<figure class="yz-gor yok"><div>Bu yaprağın görüntüsü Corpus Coranicum'da yok.</div><figcaption>Yaprak ${esc(f)}</figcaption></figure>`;
+          const im = p.images[0];
+          return `<figure class="yz-gor"><a href="${cc(f)}" target="_blank" rel="noopener"><img src="${esc(im.image_url.replace(/&dw=\d+/, '&dw=900'))}" alt="${esc(ad)}, yaprak ${esc(f)}" loading="lazy"></a><figcaption>Yaprak ${esc(f)}${yer(p) ? ` · ${esc(yer(p))}` : ''}${im.image_source ? `<small>Görüntü: ${esc(im.image_source)}</small>` : ''}</figcaption></figure>`; }).join('');
+        const kunye = [['Kurum', n.kurum], ['Numara', n.no], ['Tarih (miladi)', t.replace(/^-/, '… öncesi ')], ['Yazı', n.yazi], ['Malzeme', n.malzeme]].filter(x => x[1]);
+        return { dil: 'tr', html: `<div class="yz-gorler">${gor}</div>${F.length > 4 ? `<p class="zo-yap">Diğer yapraklar: ${F.slice(4).map(([f]) => `<a href="${cc(f)}" target="_blank" rel="noopener">${esc(f)}</a>`).join(' ')}</p>` : ''}
+          <details class="yz-bilgi"><summary>Nüsha bilgisi</summary><dl class="zo-dl">${kunye.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join('')}</dl>${n.ozet ? `<p class="yz-ozet">${esc(n.ozet)}</p>` : ''}</details>`, yer: F.map(x => x[0]).join(', ') };
+      },
+      kunye: chain([{ r: 'Nüsha', t: n.ad, u: `https://corpuscoranicum.de/de/manuscripts/${m}` }, { r: 'Görüntü', t: 'Corpus Coranicum dijital kütüphanesi (BBAW)', u: cc(ilk) }, { r: 'Veri', k: 'cc' }, { r: 'İşleme', t: 'TEI yaprak aralıkları ayetlere açıldı:', b: 'yazma' }]) }; });
   L.takvim = 'm'; L.birim = 'nüsha';
   return L;
 }

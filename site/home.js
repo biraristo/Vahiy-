@@ -257,7 +257,7 @@ async function home() {
       const t = m.bas || m.son - 60;
       while (o < OLAY.length && t >= OLAY[o][0]) { x += KART - ADIM + 20; html += `<div class="ek-olay" style="left:${x}px"><b>${esc(OLAY[o][1])}</b><small>${esc(OLAY[o][2])}</small></div>`; x += 70; o++; }
       const [sehir, kurum] = kisa(m.ad), ust = i % 2 === 0;
-      html += `<i class="ek-nokta" style="left:${x}px"></i><a class="ek-kart ${ust ? 'ust' : 'alt'}" style="left:${x - 14}px;width:${KART}px" href="https://corpuscoranicum.de/de/manuscript/${esc(m.id)}" target="_blank" rel="noopener">
+      html += `<i class="ek-nokta" style="left:${x}px"></i><a class="ek-kart ${ust ? 'ust' : 'alt'}" style="left:${x - 14}px;width:${KART}px" href="https://corpuscoranicum.de/de/manuscripts/${esc(m.id)}" target="_blank" rel="noopener">
         <span class="ek-tar">${m.bas ? m.bas + '–' + m.son : 'en geç ' + m.son}${m.c14 ? ' <em>C14</em>' : ''}</span><b>${esc(sehir)}</b><span class="ek-kurum">${esc(kurum)}</span><span class="ek-yazi">${esc(m.yazi || '')}</span></a>`;
       x += ADIM;
     });

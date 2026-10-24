@@ -199,3 +199,11 @@ body.se-acik { overflow: hidden; }
 .a3-blok.bos .a3-h h2::before { background: var(--line); }
 .a3-blok.bos .zc-bos { margin-top: .3rem; }
 @media (max-width: 640px) { .a3-blok { padding: 12px 12px 14px; margin-inline: -4px; } }
+.yz-gorler { display: grid; gap: 1rem; }
+@media (min-width: 720px) { .yz-gorler { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); } }
+.yz-gor { margin: 0; } .yz-gor img { width: 100%; height: auto; display: block; border-radius: 8px; background: var(--line); }
+.yz-gor figcaption { font: .9rem var(--sans); color: var(--muted); margin-top: .4rem; } .yz-gor figcaption small { display: block; font-size: .78rem; opacity: .8; }
+.yz-gor.yok div { padding: 2rem 1rem; border: 1px dashed var(--line); border-radius: 8px; text-align: center; font: .9rem var(--sans); color: var(--muted); }
+.yz-bilgi { margin-top: 1rem; } .yz-bilgi summary { cursor: pointer; font: .95rem var(--sans); } .yz-ozet { font-size: .92rem; color: var(--muted); }
+.zo-metin.kisa { max-height: 15rem; overflow: hidden; -webkit-mask-image: linear-gradient(#000 65%, transparent); mask-image: linear-gradient(#000 65%, transparent); }
+.zo-devam { display: block; margin: .5rem auto 0; font: 600 .95rem var(--sans); color: var(--btx, var(--lapis)); background: none; border: 1px solid currentColor; border-radius: 999px; padding: .45rem 1.2rem; cursor: pointer; }
