@@ -1,0 +1,190 @@
+7772|U|Kur'an'da soru ve eğitime etkisi|Müellifi bilinmiyor
+7775|U|Ahlâku ehli'l-Kur'ân|Âcurrî|360
+7776|T|Envârü'l-hilâleyn fi't-teakkubât ale'l-Celâleyn|Muhammed b. Abdurrahman
+7777|q|el-Maksad (2)|Zekeriyyâ el-Ensârî|926
+7778|q|en-Nakt (2)|Ebû Amr ed-Dânî|444
+7780|U|Medyada Kur'an öğretim yöntemlerinin değerlendirilmesi|Müellifi bilinmiyor
+7781|U|Tahfîz okullarında öğretim yöntemlerinin değerlendirilmesi|Müellifi bilinmiyor
+7782|U|Hulefâ-i Râşidîn döneminde Kur'an'ın cem'i (3)|Abdülkayyûm es-Sindî
+7783|U|Kur'an'ın Peygamber'den olduğu iddiasının reddi|Müellifi bilinmiyor
+7785|U|Müslümanların i'câz vecihlerine ilgisi (2)|Müellifi bilinmiyor
+7786|U|Müslümanların Kur'an hizmetinde Arapçaya ilgisi (2)|Ahmed
+7787|q|Müslümanların Kur'an hizmetinde vakf ilmine ilgisi|Abdülvehhâb
+7788|U|Fezâilü'l-Kur'ân (4)|Muhammed b. Abdülvehhâb|1206
+7789|U|Mebâhis fî ulûmi'l-Kur'ân|Mennâ' el-Kattân|1420
+7791|U|el-Burhân fî ulûmi'l-Kur'ân (3)|Bedreddin ez-Zerkeşî|794
+7792|U|Esbâbü'n-nüzûl (4)|Vâhidî|468
+7793|U|es-Sahîhu'l-müsned min esbâbi'n-nüzûl|Mukbil b. Hâdî el-Vâdiî|1422
+7794|U|el-Aslân fî ulûmi'l-Kur'ân|Muhammed Abdülmün'im el-Kayıî
+7795|g|Kur'an'daki nahiv ve sarf meseleleri sözlüğü|Müellifi bilinmiyor
+7796|U|Dirâsât fî ulûmi'l-Kur'ân|Fehd er-Rûmî
+7798|U|Hz. Peygamber döneminde Kur'an'ın nüzulü ve korunması (2)|Müellifi bilinmiyor
+7799|U|Hz. Peygamber döneminde Kur'an'ın nüzulü ve korunması (3)|Müellifi bilinmiyor
+7803|U|et-Tefsîr ve'l-müfessirûn|Muhammed Hüseyin ez-Zehebî|1397
+7808|U|Kitâbü'l-Mesâhif (2)|İbn Ebû Dâvûd|316
+7809|U|Def'u îhâmi'l-ıztırâb|Muhammed el-Emîn eş-Şinkītî|1393
+7825|U|el-İntisâr li'l-Kur'ân (2)|Bâkıllânî|403
+7828|U|Allah'ın Kitabı ve yüce konumu|Abdülazîz b. Abdullah
+7829|U|Kur'anî ifadenin özellikleri ve belâğî vasıfları|Abdülazîm el-Mut'înî
+7830|U|Usûl fi't-tefsîr (2)|İbn Useymîn|1421
+7832|U|Esbâbü nüzûli'l-Kur'ân (5)|Vâhidî|468
+7835|U|el-Mürşidü'l-vecîz (2)|Ebû Şâme|665
+7837|U|Keşfü'l-meânî (2)|Bedreddin İbn Cemâa|733
+7839|g|Kur'an'da fasl ve vasl|Münîr Sultan
+7843|U|Ahlâkî ve teşriî değerlerin Kur'anî tasviri|Ali Sabh
+7851|U|Te'vîlü müşkili'l-Kur'ân (2)|İbn Kuteybe|276
+7853|U|İbn Teymiyye ve talebelerinde mecaz|Müellifi bilinmiyor
+7861|T|el-Fevâtihu'l-ilâhiyye|Nimetullah Nahcivânî|920
+7864|U|Mu'terekü'l-akrân (3)|Süyûtî|911
+7868|U|Mufhimâtü'l-akrân (3)|Süyûtî|911
+7870|x|Feyzü'l-muîn|Aliyyü'l-Kārî|1014
+7871|g|Delâilü'l-i'câz (4)|Abdülkāhir el-Cürcânî|471
+7874|g|Delâilü'l-i'câz (5)|Abdülkāhir el-Cürcânî|471
+7877|U|"Rahimlerdekini bilir" ayetinde i'câz|Mahmûd Garîb
+7879|U|Mebâhisü't-tefsîr|İbnü'l-Muhtâr er-Râzî|630
+7880|U|el-Kur'ân ve nakzu metâini'r-ruhbân|Salâh Abdülfettâh el-Hâlidî
+7882|g|Arapça üsluplar ve kullanımlar|Mahmûd el-Minyâvî
+7883|U|el-Erbaûnü'l-Kur'âniyye|Ahmed b. Abdürrezzâk el-Ankarî
+7888|U|Kur'an'ın en câmi' ayeti risalesi|Sâmî el-Kudûmî
+7894|q|Cemâlü'l-kurrâ (2)|Alemüddin es-Sehâvî|643
+7896|U|Cem'u'l-Kur'ân: rivayetlerin tahlili|Ekrem Abd Halîfe
+7897|U|Hâkim el-Cüşemî ve tefsir metodu|Adnân Zerzûr
+7898|U|Kur'anî ayetlerde beyân işaretleri|Sâlih el-Muğâmisî
+7900|U|en-Nâsih ve'l-mensûh (2)|Ebû Ubeyd Kāsım b. Sellâm|224
+7901|U|Kur'an mucizesi: kesin ilmî gerçekler|Ahmed Ömer Ebû Şûfe
+7902|U|el-Muvâfakāt'a göre Şâtıbî'de ulûmü'l-Kur'ân|Müellifi bilinmiyor
+7903|q|Kur'an okumanın fıkhı|Saîd Abdülcelîl Sahr
+7905|U|Tefsir ve ulûmü'l-Kur'ân'a giriş|Adnân Zerzûr
+7906|U|Kur'an'da aklî nazarın usulleri|Müellifi bilinmiyor
+7909|U|Kur'an'la ilişki için anahtarlar|Salâh Abdülfettâh el-Hâlidî
+7911|U|Min belâğati'l-Kur'ân|Ahmed Ahmed Bedevî
+7912|U|Min revâii'l-Kur'ân|Muhammed Saîd Ramazan el-Bûtî|1434
+7913|U|el-Menâr fî ulûmi'l-Kur'ân|Muhammed Ali el-Hasan
+7914|U|İbn Âşûr'un tefsir metodu|Nebîl Ahmed Sakr
+7915|U|Mevsûatü ulûmi'l-Kur'ân|Abdülkādir Mansûr
+7916|U|Fahreddin er-Râzî'de nesh|Mahmûd el-Hantûr
+7917|U|Kur'an sûresinin mimarisi|Mahmûd el-Bustânî
+7918|U|Kur'an'da 1000 soru-cevap|Kāsım Âşûr
+7920|U|Bazı ayetlerin anlaşılmasında düzeltmeler|Salâh Abdülfettâh el-Hâlidî
+7922|g|Kur'an'da nahvî tazmîn|Muhammed Nedîm Fâzıl
+7923|U|Dokuz kitaba göre esbâb-ı nüzûl|Hâlid el-Müzeynî
+7928|U|Münâsebâtü'l-âyât ve's-süver|Ahmed Hasan Ferhât
+7933|g|Kur'an'ın lügavî tefsiri|Müsâid et-Tayyâr
+7934|U|et-Teshîl mukaddimesi şerhi|Müsâid et-Tayyâr
+7935|U|el-Muharrer fî ulûmi'l-Kur'ân|Müsâid et-Tayyâr
+7936|U|İbn Teymiyye'nin usûl-i tefsir mukaddimesi şerhi|Müsâid et-Tayyâr
+7937|U|er-Risâletü'ş-şâfiye (2)|Abdülkāhir el-Cürcânî|471
+7941|U|el-İstîâb fî beyâni'l-esbâb|Selîm el-Hilâlî
+7947|U|Tefsir usulü ve eğilimleri|İmâd Ali Abdüssemî'
+7949|U|Tefsir, te'vil, istinbat ve tedebbür kavramları|Müellifi bilinmiyor
+7950|q|Nahivcilerin kurrâyı hatalı bulması|Yâsîn el-Muhaymîd
+7951|U|ed-Dahîl fi't-tefsîr|Medine Uluslararası Üniversitesi
+7952|U|Ulûmü'l-Kur'ân'da temel mukaddimeler|Abdullah el-Cüdey'
+7953|U|en-Nâsih ve'l-mensûh (3)|Ebû Ubeyd Kāsım b. Sellâm|224
+7954|U|Ulûmü'l-Kur'ân dersleri|Ğānim Kaddûrî el-Hamed
+7955|U|Tefsir ve ulûmü'l-Kur'ân'a giriş|Abdülcevvâd Halef
+7957|U|Nâsihu'l-Kur'ân ve mensûhuh (2)|İbnü'l-Cevzî|597
+7958|U|en-Nâsih ve'l-mensûh ve tenzîlü'l-Kur'ân|İbn Şihâb ez-Zührî|124
+7959|U|ez-Zâhiretü'l-Kur'âniyye|Mâlik b. Nebî|1393
+7960|U|el-Medhal li-dirâseti'l-Kur'ân|Muhammed Ebû Şehbe|1403
+7961|U|Fezâilü'l-Kur'ân ve tilâvetüh (3)|Ebü'l-Fazl er-Râzî|454
+7962|U|Ulûmü'l-Kur'âni'l-Kerîm|Nûreddin Itr|1441
+7963|q|Müteşâbihü'l-Kur'ân|Kisâî|189
+7965|U|Kur'an'da lügavî i'câz|Medine Uluslararası Üniversitesi
+7966|U|Kur'an'ın yeni astronomiyi desteklediği hususlar (2)|Mahmûd Şükrî el-Âlûsî|1342
+7969|q|Kur'an'ın yedi harf üzere nüzulü|Mennâ' el-Kattân|1420
+7972|U|Kur'an hakkında bir araştırma|Müellifi bilinmiyor
+7973|U|Kur'an'ın azameti ve nefislere etkisi|Müellifi bilinmiyor
+7979|U|Beyânü'n-nâsih ve'l-mensûh|Müellifi bilinmiyor
+7983|U|et-Tibyân fî âdâbi hameleti'l-Kur'ân (2)|Nevevî|676
+7985|U|Ulûmü'l-Kur'ân'da bâblar|Hâzım Hanfer
+7986|U|en-Nâsih ve'l-mensûh (2)|İbnü'l-Arabî|543
+7987|U|Tedebbürün kaideleri ve uygulamaları|Hâlid es-Sebt
+7990|U|Modern dönemde tefsir ve müfessirler|Fazl Hasan Abbâs|1432
+7993|U|Tefsirde şiir şâhidi (2)|Müellifi bilinmiyor
+7994|U|el-Ucâb fî beyâni'l-esbâb (2)|İbn Hacer el-Askalânî|852
+8000|U|Şezerâtü'z-zeheb: Kur'an belâğatı incelemesi|Mahmûd Tevfîk Muhammed Sa'd
+8002|U|Kur'an'da dört terim|Mevdûdî|1399
+8005|U|el-Azf alâ envâri'z-zikr|Mahmûd Tevfîk Muhammed Sa'd
+8008|U|Kur'an'da bir adam|Münîr Arafe
+8010|q|Tecvid öğretim yöntemleri|Müellifi bilinmiyor
+8011|U|Nâsihu'l-Kur'âni'l-azîz ve mensûhuh (2)|Hibetullah el-Bârizî|738
+8012|U|Ahmed Cemâl'e cevap öncesi itab (2)|Muhammed Atiyye Sâlim
+8019|U|Yûsuf ile Azîz'in karısı arasındaki "hemm" meselesi|Muhammed
+8023|U|Kur'an'la nasıl ilişki kurarız|Muhammed el-Gazzâlî|1416
+8024|U|Kur'an'ın faziletine dair kırk hadis|Ebû Muhammed el-Bikāî eş-Şâmî
+8026|U|İnsanî duygular ve Kur'an öğrenimiyle kontrolü|Müellifi bilinmiyor
+8027|U|Kur'an'da askerlik için akide eğitimi|Müellifi bilinmiyor
+8028|U|Lübâbü'n-nukūl (5)|Süyûtî|911
+8029|g|Kur'an'da harf ziyadesi|Ferîde Rahmân
+8030|U|Ğurerü't-tibyân (2)|Bedreddin İbn Cemâa|733
+8031|U|Kur'an derslerinde öğretim araçları|Hasan Bâhabeyş
+8033|U|İhlâs sûresinin faziletine dair kırk hadis|Müellifi bilinmiyor
+8037|U|Cem'u'l-Kur'ân: rivayetlerin tahlili (2)|Ekrem Abd Halîfe
+8039|g|Telhîsü'l-beyân fî mecâzâti'l-Kur'ân (2)|Şerîf er-Radî|406
+8042|U|Tefsir mukaddimesi şerhi|Sâlih Âl-i Şeyh
+8044|U|Muhammed b. Abdülvehhâb'ın tefsir metodu|Mes'ad el-Humeyd
+8045|U|Şüphe olmayan üç şey|Ahmed b. Ali Ebû İslâm
+8047|U|Yüz hadiste Kur'an (2)|Muhammed Zekî Muhammed Hıdr
+8048|U|Kur'an terimine dair dört araştırma|Hevvâriye Lûlâsî
+8050|U|İsrâ sûresinden çıkarılan hükümler ve âdâb|Ahmed Muhammed
+8051|U|el-Akvâl fi'l-Kur'ân (2)|Ahmed b. Ali Ebû İslâm
+8052|U|Kur'an'da lügavî ve beyânî i'câz|Ali b. Nâyif eş-Şühûd
+8053|U|Yûsuf kıssasında belâğî i'câz|Ali et-Tâhir Abdüsselâm
+8054|U|el-Burhân fî ulûmi'l-Kur'ân (4)|Bedreddin ez-Zerkeşî|794
+8056|U|Sâbûnî'nin tefsir muhtasarlarına karşı uyarı|Bekr Ebû Zeyd|1429
+8057|q|et-Teğannî bi'l-Kur'ân|Lebîb es-Saîd
+8058|U|Kur'an'a dil uzatanlara cevap (2)|Müellifi bilinmiyor
+8060|U|Kur'an'da kıssa: özellikleri ve delâletleri|İbrâhim
+8061|U|el-Mehâvirü'l-hamse li'l-Kur'ân|Muhammed el-Gazzâlî|1416
+8062|U|en-Nâsih ve'l-mensûh (2)|Hibetullah b. Selâme|410
+8066|U|Kalâidü'l-mercân'ın telhîs ve tehzîbi|Müellifi bilinmiyor
+8067|U|Hulefâ-i Râşidîn döneminde Kur'an'ın cem'i (4)|Abdülkayyûm es-Sindî
+8068|U|Mesâbîhu'd-dürer|Âdil
+8069|U|Esbâbü'n-nüzûl (6)|Vâhidî|468
+8072|g|Kur'an'daki dil problemlerinden|Abdülcelîl
+8073|U|el-Burhân fî ulûmi'l-Kur'ân (5)|Bedreddin ez-Zerkeşî|794
+8074|U|et-Tefsîr bi'r-re'y|Müsâid et-Tayyâr
+8075|U|et-Tefsîr ve'l-müfessirûn (2)|Muhammed Hüseyin ez-Zehebî|1397
+8076|U|Ulûmü'l-Kur'ân bahislerinde Şâtıbî (2)|Şâyi' el-Esmerî
+8077|U|Usûl-i tefsir mukaddimesi kolay şerhi (2)|Mihrân Mâhir Osman
+8081|U|el-Kavlü'l-münîr fî ilmi usûli't-tefsîr|İsmâîl
+8082|g|Te'nîs hâsı hakkında mecmua|Ahmed b. Abdülazîm el-Fâtımî
+8083|U|"Onun benzeri bir sûre getirin" ayetinde benzerlik|Müellifi bilinmiyor
+8086|U|Âyetü'l-Kürsî'nin faziletine dair el-Menhelü'l-kudsî|Ahmed Muhammed eş-Şerkāvî
+8087|U|Keşşâf ile el-Bahrü'l-muhît'in karşılaştırılması|Müellifi bilinmiyor
+8088|U|el-Mekkî ve'l-Medenî|Muhammed Şefâat Rabbânî
+8091|q|Kur'an'ın hizblere ayrılması ve selefin yolu|Muhammed ed-Düveyş
+8096|U|Mübârekfûrî'nin Kur'an çalışmalarındaki katkıları|Müellifi bilinmiyor
+8097|U|Bazı meallerin incelenmesi|Müellifi bilinmiyor
+8098|U|Def'u't-taassuf an ihveti Yûsuf|Süyûtî|911
+8099|q|Kur'an'ı Arap olmayan harflerle yazmanın haramlığı|Sâlih Ali el-Avd
+8101|U|Sebîlü'l-itkān fî müteşâbihi'l-Kur'ân|Muhammed Nasrüddin
+8103|U|Tefsir mukaddimesi şerhi (2)|İbn Useymîn|1421
+8107|U|İ'câzü'l-Kur'ân ve haç tapanların itirazlarının reddi|Vâil b. Ali
+8108|U|Tarihî aşamalarıyla Kur'an'ın cem'i (2)|Müellifi bilinmiyor
+8110|U|Kur'an'ı nasıl tefsir etmeliyiz (2)|Elbânî|1420
+8111|U|Ğānim Kaddûrî ile söyleşi|Tefsir Ağı
+8112|U|Lemahâtü'l-envâr (2)|Ğâfikī|619
+8113|U|en-Nâsih ve'l-mensûh (3)|Hibetullah b. Selâme|410
+8114|U|Mebâhis fî ulûmi'l-Kur'ân (2)|Mennâ' el-Kattân|1420
+8115|U|et-Tahrîr ve't-tenvîr'e giriş|Muhammed b. İbrâhim el-Hamd
+8117|q|Allah'ın Âdem'e indirdiği harfler meselesi|İbn Teymiyye|728
+8120|U|Mesâdirü't-tefsîr|Müsâid et-Tayyâr
+8121|U|Mefâtihu tedebbüri'l-Kur'ân|Hâlid el-Lâhim
+8122|U|Mefhûmü't-tefsîr|Müsâid et-Tayyâr
+8124|q|Tavzîhu'l-meâlim mukaddimesi|Fâiz
+8125|U|Ğuduv ve âsâl ifadesinin belâğatı (2)|Muhammed Muhammed
+8126|U|Alman oryantalistlerin meal metotları|Müellifi bilinmiyor
+8127|U|Menâhilü'l-irfân (2)|Zürkānî (Abdülazîm)|1367
+8128|U|Kurtubî'nin metodu|Âmir b. Îsâ el-Lehv
+8129|U|Konulu tefsire doğru|Muhammed el-Gazzâlî|1416
+8130|U|Kur'an'ın nüzulü ve tarihi (2)|Muhammed Ömer Havve
+8131|U|Kur'an manalarının başka dile aktarımı: tercüme mi tefsir mi|Müellifi bilinmiyor
+8132|U|Kur'an öğretiminin ferde etkileri|Hâlid b. Sâlih
+8133|U|Kur'an öğretiminin fert ve topluma etkileri|Müellifi bilinmiyor
+8134|U|Kur'an halkalarının toplum güvenliğine etkisi|Ali
+8135|U|Kur'an öğreniminin dil melekelerine etkisi|Müellifi bilinmiyor
+8136|U|Kur'an öğretiminin güvenliğe etkisi|Abdülkādir
+8137|U|Oryantalistlerin meal üslupları|Hasan
+8138|U|Kur'an'da Kur'an'ın isimleri|Muhammed Mahrûs el-A'zamî

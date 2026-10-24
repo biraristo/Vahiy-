@@ -1,0 +1,57 @@
+623|p|Resâil felsefiyye|Kindî|256
+6901|p|Siyâsetü'n-nefs|Kāsım er-Ressî|246
+3259|p|Siyâsetü'n-nefs'ten seçmeler|el-Hâdî ile'l-Hak Yahyâ|298
+3015|k|Hüseyin et-Taberî'nin sorularına cevaplar|el-Hâdî ile'l-Hak Yahyâ|298
+3014|p|Kitâbü'l-Fusûs|Fârâbî|339
+5451|p|er-Resâilü'l-felsefiyyetü's-suğrâ|Fârâbî|339
+227|p|Resâilü İhvâni's-safâ|İhvân-ı Safâ|375
+1288|p|es-Saâde ve'l-is'âd|Ebü'l-Hasan el-Âmirî|381
+1871|p|Mefâtîhu'l-ulûm|Ebû Abdullah el-Hârizmî|387
+5703|p|Tehzîbü'l-ahlâk|Miskeveyh|421
+1027|p|eş-Şifâ: el-İlâhiyyât|İbn Sînâ|428
+1088|p|en-Necât|İbn Sînâ|428
+1305|p|et-Ta'lîkāt|İbn Sînâ|428
+235|m|el-Hidâye fi'l-mantık|İbn Sînâ|428
+2949|p|Siyâset risalesi|İbn Sînâ|428
+4319|m|el-Mantık (Mantıku'l-meşrıkıyyîn)|İbn Sînâ|428
+6145|m|eş-Şifâ: el-Medhal|İbn Sînâ|428
+6185|p|el-İşârât ve't-tenbîhât|İbn Sînâ|428
+7289|p|Nefs-i nâtıkanın bilgisi risalesi|İbn Sînâ|428
+7436|m|eş-Şifâ'nın Medhal'i|Ebû Ubeyd el-Cûzcânî|438
+1351|m|et-Takrîb li-haddi'l-mantık|İbn Hazm|456
+1427|p|Makāsıdü'l-felâsife|Gazzâlî|505
+1986|m|Mihakkü'n-nazar|Gazzâlî|505
+5601|m|Mi'yârü'l-ilm|Gazzâlî|505
+5615|p|Tehâfütü'l-felâsife|Gazzâlî|505
+6621|p|el-Hadâik fi'l-metâlibi'l-âliye|Batalyevsî|521
+6250|p|Resâil felsefiyye|İbn Bâcce|533
+5275|m|el-Besâirü'n-Nasîriyye|İbn Sehlân es-Sâvî|540
+2210|p|Öklid'in Usûl'ü şerhi|Neyrîzî|310
+1183|m|Telhîsü'l-Hitâbe|İbn Rüşd (Hafîd)|595
+384|p|Şerhu Mâ ba'de't-tabîa|İbn Rüşd (Hafîd)|595
+6603|m|Telhîsu Kitâbi'ş-Şi'r|İbn Rüşd (Hafîd)|595
+6827|p|Faslü'l-makāl|İbn Rüşd (Hafîd)|595
+908|p|Tehâfütü't-Tehâfüt|İbn Rüşd (Hafîd)|595
+3292|p|Heyûlânî aklın faal akılla ittisali|İbn Rüşd (oğlu Abdullah)|625
+5401|p|Mâ ba'de't-tabîa|Abdüllatîf el-Bağdâdî|629
+2395|m|Tecrîdü'l-mantık|Nasîrüddin et-Tûsî|672
+5091|p|el-Cedîd fi'l-hikme|İbn Kemmûne|683
+4676|m|Levâmiu'l-esrâr (Şerhu Metâliı'l-envâr)|Kutbüddin er-Râzî|766
+4156|p|el-Hikmetü'l-müteâliye (el-Esfârü'l-erbaa)|Molla Sadrâ|1050
+6243|m|en-Nesîmü'l-muabbak|Abdüsselâm el-Kādirî|1110
+5878|p|Mebâdiü'l-felsefe|A. S. Rappoport (çev.)
+5556|p|Din ile felsefe arasında: İbn Rüşd|Muhammed Yûsuf Mûsâ|1383
+2188|p|Filozof İbn Rüşd|Muhammed Yûsuf Mûsâ|1383
+6051|p|İbn Rüşd|Abbâs Mahmûd el-Akkād|1383
+6159|p|Filozof İbn Sînâ|Bûlus Mes'ad
+1439|p|İbn Sînâ|Bernard Carra de Vaux (çev.)
+1319|p|İbn Rüşd'ün eserleri|George Kanavâtî|1414
+5465|p|Yunan felsefesinin hikâyesi|Zekî Necîb Mahmûd|1414
+5404|m|el-Muğâlatâtü'l-mantıkıyye|Âdil Mustafa
+5608|m|Sühreverdî'de işrâkî mantık|Mahmûd Muhammed Ali
+5130|p|İhvân-ı Safâ'nın yolu|Firâs es-Savvâh
+4964|p|Kıssatü'l-felsefeti'l-hadîse|Zekî Necîb Mahmûd|1414
+974|p|Târîhu felâsifeti'l-İslâm|Muhammed Lutfî Cum'a|1372
+5261|p|İslâm felsefesi tarihine giriş|Mustafa Abdürrâzık|1366
+1868|p|Mebâhis fî felsefeti'l-ahlâk|Muhammed Yûsuf Mûsâ|1383
+6207|p|el-Hikmetü'l-meşrikıyye|Muhammed Lutfî Cum'a|1372

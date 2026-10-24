@@ -16,8 +16,9 @@ ZN = {}
 for n in ZIP.namelist():
     ZN.setdefault(re.sub(r'\.(completed|mARkdown|inProgress)$', '', n), n)
 
-RAF = {'h': 'hadis', 'f': 'fikih', 'u': 'fikih', 'k': 'kelam', 's': 'tasavvuf', 't': 'tarih', 'y': 'tarih', 'c': 'tarih', 'r': 'tarih', 'l': 'lugat', 'n': 'lugat', 'q': 'kiraat'}
-ONEK = {'hadis': 'h', 'fikih': 'f', 'kelam': 'k', 'tasavvuf': 's', 'tarih': 'r', 'lugat': 'l', 'kiraat': 'q'}
+RAF = {'h': 'hadis', 'f': 'fikih', 'u': 'fikih', 'k': 'kelam', 's': 'tasavvuf', 't': 'tarih', 'y': 'tarih', 'c': 'tarih', 'r': 'tarih', 'l': 'lugat', 'n': 'lugat',
+       'q': 'ulum', 'U': 'ulum', 'a': 'ulum', 'g': 'ulum', 'p': 'felsefe', 'm': 'felsefe'}
+ONEK = {'hadis': 'h', 'fikih': 'f', 'kelam': 'k', 'tasavvuf': 's', 'tarih': 'r', 'lugat': 'l', 'ulum': 'u', 'felsefe': 'p'}
 ADLAR = {}
 for f in sorted(glob.glob('/home/claude/lib/raf/ad_*.txt')):
     for l in open(f, encoding='utf8'):
@@ -160,7 +161,7 @@ def main():
         if not raf or bid not in K: continue
         b = K[bid]
         anahtar = (raf, re.sub(r' \(\d\)$', '', ad), mu)
-        eid = ONEK[raf] + bid
+        eid = ('q' if kod == 'q' else ONEK[raf]) + bid
         if eid in done: secs_n, kb = done[eid]
         else:
             secs = openiti(b['ref']) if b.get('kaynak') == 'OpenITI' else qp(b.get('ref'))
