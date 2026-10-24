@@ -3,8 +3,8 @@
    app.js ve home.js'den sonra yüklenir. */
 const RAF_RENK = { erken: ['#1F5C5F', '#174649'], klasik: ['#1E3A5F', '#152B47'], orta: ['#5B3A2A', '#45291D'], osmanli: ['#6B2E2E', '#4F2121'], modern: ['#2F4A3A', '#22382B'] };
 const TURLER = [['tefsir', 'Tefsir', 'التفسير'], ['hadis', 'Hadis', 'الحديث'], ['fikih', 'Fıkıh ve usûl', 'الفقه وأصوله'], ['kelam', 'Kelâm', 'العقيدة والكلام'], ['tasavvuf', 'Tasavvuf', 'التصوف والزهد'],
-  ['tarih', 'Tarih ve ricâl', 'التاريخ والرجال'], ['lugat', 'Lügatler', 'اللغة'], ['kiraat', 'Kıraat', 'القراءات']];
-const RAF_ONEK = { h: 'hadis', f: 'fikih', k: 'kelam', s: 'tasavvuf', r: 'tarih', l: 'lugat', q: 'kiraat' };
+  ['tarih', 'Tarih ve ricâl', 'التاريخ والرجال'], ['lugat', 'Lügatler', 'اللغة'], ['ulum', "Ulûmü'l-Kur'ân", 'علوم القرآن'], ['felsefe', 'Felsefe ve mantık', 'الفلسفة والمنطق']];
+const RAF_ONEK = { h: 'hadis', f: 'fikih', k: 'kelam', s: 'tasavvuf', r: 'tarih', l: 'lugat', q: 'ulum', u: 'ulum', p: 'felsefe' };
 const kapakSvg = (e, i) => {
   const k = e.donem, s = 'stroke="rgba(232,207,140,.22)" fill="none" stroke-width="1"', id = `kp${e.id}`;
   const P = [`<rect x="8" y="8" width="16" height="16" ${s}/><rect x="8" y="8" width="16" height="16" transform="rotate(45 16 16)" ${s}/>`, `<path d="M16 3l3.5 9 9 3.5-9 3.5-3.5 9-3.5-9-9-3.5 9-3.5z" ${s}/>`, `<path d="M0 16L8 2h16l8 14-8 14H8z M8 2l8 14-8 14 M24 2l-8 14 8 14" ${s}/>`];
@@ -26,13 +26,14 @@ async function turRaf(tur) {
     <p class="raf-ozet">${tefsir ? `${fmt(R.eserler.length)} eser; ${fmt(okunur)} tanesi ayet ayet okunabilir, diğerlerinde ayetin geçtiği yerler gösterilir. Eserler müelliflerin vefat tarihine göre beş döneme ayrıldı. Bir kitaba dokunun, ${esc(D_ADI(ss))} ${ss}:${sa} ile açılsın.` : `${fmt(R.eserler.length)} eser, tam metinleriyle. Eserler müelliflerin vefat tarihine göre beş döneme ayrıldı. Bir kitaba dokunun, içindekilerle açılsın.`}</p>
     <div class="raf-arac"><input id="rafAra" type="search" placeholder="Eser ya da müellif ara" aria-label="Eser ya da müellif ara">
       <select id="rafSira" aria-label="Sıralama"><option value="v">Vefat yılına göre</option><option value="a">Eser adına göre</option><option value="m">Müellife göre</option></select></div>
+    <nav class="raf-altlar" id="rafAlt" aria-label="Alanlar" hidden></nav>
     <nav class="raf-donemler" id="rafDn" aria-label="Dönemler"></nav>
     <div id="raflar"></div>
     <p class="raf-not">${esc(R.not)} ${chain([{ r: 'Liste', t: `${T[1]} rafı`, b: 'raf' }, { r: 'Türkçe adlar', t: 'Claude transkripsiyonu', b: 'raf' }])}</p>
   </div>`;
   const ciz = () => {
     const q = $('#rafAra').value.trim().toLocaleLowerCase('tr'), sira = $('#rafSira').value, suz = '';
-    let L = R.eserler.filter(e => (!q || `${e.ad} ${e.muellif} ${e.ad_ar} ${e.muellif_ar || ''}`.toLocaleLowerCase('tr').includes(q)));
+    let L = R.eserler.filter(e => (!altSec || e.alt === altSec) && (!q || `${e.ad} ${e.muellif} ${e.ad_ar} ${e.muellif_ar || ''}`.toLocaleLowerCase('tr').includes(q)));
     const cmp = { v: (x, y) => (x.vefat || 9999) - (y.vefat || 9999) || x.ad.localeCompare(y.ad, 'tr'), a: (x, y) => x.ad.replace(/^(el|er|es|et|en|ez|eş|ed)-/, '').localeCompare(y.ad.replace(/^(el|er|es|et|en|ez|eş|ed)-/, ''), 'tr'), m: (x, y) => x.muellif.localeCompare(y.muellif, 'tr') }[sira];
     L = L.slice().sort(cmp);
     $('#rafDn').innerHTML = R.donemler.map(([k, ad]) => { const n = L.filter(e => e.donem === k).length; return n ? `<a href="#raf-${k}" data-d="${k}">${esc(ad)} <small>(${n})</small></a>` : ''; }).join('');
@@ -43,6 +44,15 @@ async function turRaf(tur) {
         <span class="ad">${esc(e.ad)}</span><span class="yazar">${esc(e.muellif)}</span></a>`).join('')}</div></section>`;
     }).join('') || '<p class="raf-ozet">Aramanıza uyan eser yok. Arama kutusunu temizleyin.</p>';
   };
+  let altSec = '';
+  const AL = [...new Set(R.eserler.map(e => e.alt).filter(Boolean))];
+  if (AL.length > 1) {
+    const say = k => R.eserler.filter(e => e.alt === k).length;
+    AL.sort((x, y) => say(y) - say(x));
+    $('#rafAlt').hidden = false;
+    $('#rafAlt').innerHTML = `<button type="button" data-a="" aria-pressed="true">Tümü <small>(${fmt(R.eserler.length)})</small></button>` + AL.map(k => `<button type="button" data-a="${k}" aria-pressed="false">${esc(ALT_AD[k] || k)} <small>(${fmt(say(k))})</small></button>`).join('');
+    $('#rafAlt').onclick = ev => { const b = ev.target.closest('button'); if (!b) return; altSec = b.dataset.a; $('#rafAlt').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); ciz(); };
+  }
   $('#rafDn').addEventListener('click', e => { const a = e.target.closest('a[data-d]'); if (!a) return; e.preventDefault(); document.getElementById('raf-' + a.dataset.d)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
   ['input', 'change'].forEach(ev => { $('#rafAra').addEventListener(ev, ciz); }); $('#rafSira').addEventListener('change', ciz);
   ciz();
@@ -183,7 +193,8 @@ async function bolumAl(id, b) {
   const ds = new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'));
   return await new Response(ds).text();
 }
-const ALT_AD = { h: 'Hadis', f: 'Fıkıh', u: 'Usûl-i fıkıh', k: 'Kelâm', s: 'Tasavvuf ve zühd', t: 'Tarih', y: 'Siyer', c: 'Coğrafya ve rıhle', r: 'Ricâl ve tabakāt', l: 'Lügat', n: 'Nahiv, sarf, belâgat', q: 'Kıraat ve tecvid' };
+const ALT_AD = { h: 'Hadis', f: 'Fıkıh', u: 'Usûl-i fıkıh', k: 'Kelâm', s: 'Tasavvuf ve zühd', t: 'Tarih', y: 'Siyer', c: 'Coğrafya ve rıhle', r: 'Ricâl ve tabakāt', l: 'Lügat', n: 'Nahiv, sarf, belâgat', q: 'Kıraat ve tecvid',
+  U: "Ulûmü'l-Kur'ân", a: "Ahkâmü'l-Kur'ân", g: "Garîb ve i'râb", p: 'Felsefe', m: 'Mantık' };
 
 async function eserOku(id, n) {
   setNav('kutuphane');

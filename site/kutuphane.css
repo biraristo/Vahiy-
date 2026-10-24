@@ -109,3 +109,7 @@ a.ek-sat:not(.bos):hover .bt, a.ek-sat:not(.bos):focus .bt { color: var(--firuze
 .ek-metin .hd .hno { display: inline-block; font: 600 .78rem var(--sans); color: var(--zer); margin-inline-end: .5rem; direction: ltr; }
 .ek-metin .hd .isn { color: var(--muted); font-size: .95em; }
 .ek-metin .hd .mtn { font-size: 1.08em; }
+.raf-altlar { display: flex; gap: .45rem; overflow-x: auto; padding-bottom: .3rem; margin-bottom: .6rem; font-family: var(--sans); }
+.raf-altlar button { flex: none; font: 500 .9rem var(--sans); color: var(--ink); border: 1px solid var(--line); background: var(--sheet); border-radius: 999px; padding: .35rem .85rem; cursor: pointer; }
+.raf-altlar button small { color: var(--muted); }
+.raf-altlar button[aria-pressed="true"] { background: var(--btn); color: var(--btn-ink); border-color: var(--btn); } .raf-altlar button[aria-pressed="true"] small { color: inherit; opacity: .8; }
