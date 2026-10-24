@@ -16,7 +16,7 @@ const azHareket = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const ARAYUZ_DIL = {
   tr: {},
   en: { 'nav.atlas': "Qur'an atlas", 'nav.kutuphane': 'Library', 'h1': 'From text to meaning, from meaning to history.',
-    'alt': 'Read a verse alongside {tefsir} tafsirs, {rivayet} early reports, {lugat} lexicons and its traces in {eser} books. Every item is linked to its source.',
+    'alt': 'Read a verse alongside {tefsir} tafsirs, {rivayet} early reports and {lugat} lexicons. Every item is linked to its source.',
     'gir': 'Go to verse', 'ipucu': 'Turn the outer ring to choose a surah and the inner ring to choose a verse.', 'ayet': 'Verse',
     'atlas': 'Order of revelation', 'atlas.not': 'From the Companions’ codices to today: how scholars ordered the surahs. Choose an ordering; the surahs move and the colours show that source’s own Meccan–Medinan division.',
     'A.b': 'Khizānat al-kutub', 'A.n': 'Our library: works, quotations, reports and manuscripts linked to the verses. Every number was counted separately.',
@@ -25,7 +25,7 @@ const ARAYUZ_DIL = {
     'I.b': 'Map of disagreement', 'I.n': 'Where the exegetes disagreed most. Darker means more disagreement per verse. Choose a surah to see it verse by verse.', 'N.b': 'Occasions of revelation', 'N.n': 'Surahs in order of revelation (Egyptian standard); each column is the number of reports on why its verses were revealed. The line marks the Hijra.', 'E.b': 'The oldest manuscripts', 'E.n': 'The oldest surviving Qur’an codices with their estimated dating (CE). Tap a bar to open the manuscript.', 'K.b': 'World of sources', 'K.n': 'Books linked to the verses, by discipline.', 'Z.b': 'Every piece of information has an isnad', 'Z.n': 'Every record on the site comes with its source chain: work and author, edition and editor, volume and page, data source and processing method.',
     'son': 'vahiy++ is a personal research project. Every record carries its source chain.' },
   ar: { 'nav.atlas': 'أطلس القرآن', 'nav.kutuphane': 'المكتبة', 'h1': 'من النصّ إلى المعنى، ومن المعنى إلى التاريخ.',
-    'alt': 'اقرأ الآية مع {tefsir} تفسيرًا و{rivayet} رواية عن السلف و{lugat} معجمًا، وآثارها في {eser} كتابًا؛ كلّ معلومة موصولة بمصدرها.',
+    'alt': 'اقرأ الآية مع {tefsir} تفسيرًا و{rivayet} رواية عن السلف و{lugat} معجمًا؛ كلّ معلومة موصولة بمصدرها.',
     'gir': 'اذهب إلى الآية', 'ipucu': 'أدِر الحلقة الخارجية لاختيار السورة، والداخلية لاختيار الآية.', 'ayet': 'الآية',
     'atlas': 'مخطط النزول', 'atlas.not': 'من مصاحف الصحابة إلى اليوم: كيف رتّب العلماء السور. اختر ترتيبًا فتنتقل السور، وتدلّ الألوان على تقسيم ذلك المصدر للمكي والمدني.',
     'A.b': 'خزانة الكتب', 'A.n': 'مكتبتنا: الكتب والاقتباسات والروايات والمخطوطات المرتبطة بالآيات، وكل رقم معدود على حدة.', 'B.b': 'المكتبة حول آية', 'C.b': 'حوار خمسة عشر قرنًا',
@@ -87,7 +87,7 @@ async function home() {
   view.innerHTML = `<div class="ana">
   <section class="hero"><div>
     <h1 data-t="h1">Metinden manaya, manadan tarihe.</h1>
-    <p class="alt" data-t="alt" data-tr="Bir ayeti {tefsir} tefsir, {rivayet} selef rivayeti, {lugat} lügat ve {eser} kitaptaki izleriyle birlikte okuyun. Her bilgi kaynağına bağlı."></p>
+    <p class="alt" data-t="alt" data-tr="Bir ayeti {tefsir} tefsir, {rivayet} selef rivayeti ve {lugat} lügatle birlikte okuyun. Her bilgi kaynağına bağlı."></p>
     <div class="usturlap">
       <div class="cark">
       <svg id="ust" viewBox="-292 -318 584 614" role="group" aria-label="Sure ve ayet seçici; sağ ve sol ok tuşları sureyi, yukarı ve aşağı ok tuşları ayeti değiştirir" tabindex="0">
