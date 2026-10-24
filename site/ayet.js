@@ -350,7 +350,7 @@ function zcKur(el, items, tur, s, a) {
     if (aktif !== x.k) return;
     if (x.sade) { box.innerHTML = `<div class="zo-bas"><div><b>${esc(x.ad)}</b></div></div><div class="zo-metin">${r.html}</div>`; return; }
     box.innerHTML = `<div class="zo-bas">${bas(x)}
-      <div class="zo-dug">${x.kitap ? `<a href="${esc(x.kitap)}"${x.disKitap ? ' target="_blank" rel="noopener"' : ''}>${esc(x.kitapAd || 'Kitaba git')}${r.yer ? ' · ' + esc(r.yer) : ''}</a>` : ''}<button type="button" data-ac="pin" aria-pressed="${pin.includes(x.k)}">${pin.includes(x.k) ? 'Karşılaştırmada' : 'Karşılaştır'}</button><button type="button" data-ac="atif">Atıf ver</button></div></div>
+      <div class="zo-dug">${x.kitap ? `<a href="${esc(x.kitap)}"${x.disKitap ? ' target="_blank" rel="noopener"' : ''}>${esc(x.kitapAd || 'Kitaba git')}${r.yer ? ' · ' + esc(r.yer) : ''}</a>` : ''}<button type="button" data-ac="pin" aria-pressed="${pin.includes(x.k)}">${pin.includes(x.k) ? 'Karşılaştırmada' : 'Karşılaştır'}</button></div></div>
       ${m && m.ozet ? `<div class="zo-oz"><small>Türkçe özet · makine, metinden kontrol edin</small>${esc(m.ozet)}</div>` : ''}
       <div class="zo-metin${r.dil === 'ar' ? ' ar' : ''}"${r.dil === 'x' ? '' : ` dir="${r.dil === 'ar' ? 'rtl' : 'ltr'}" lang="${r.dil}"`}>${r.html}</div>
       <p class="srcs zo-k">${x.kunye || ''}</p>`;
@@ -358,7 +358,7 @@ function zcKur(el, items, tur, s, a) {
     { const mt = box.querySelector('.zo-metin');  // uzun metin önce kısa açılır; tamamı için dokunulur
       if (!x.k.startsWith('yz') && mt.scrollHeight > 340) { mt.classList.add('kisa'); mt.insertAdjacentHTML('afterend', '<button type="button" class="zo-devam">Tamamını oku</button>');
         box.querySelector('.zo-devam').onclick = ev => { mt.classList.remove('kisa'); ev.target.remove(); }; } }
-    box.querySelector('[data-ac="atif"]').onclick = async ev => {
+    if (box.querySelector('[data-ac="atif"]')) box.querySelector('[data-ac="atif"]').onclick = async ev => {
       const t = `${x.ad}${typeof x.yil === 'number' ? ` (${yilYaz(x.yil)})` : ''}, ${x.eser}${r.yer ? ', ' + r.yer : ''}. vahiy++: ${location.origin}/#/${s}/${a}`;
       try { await navigator.clipboard.writeText(t); } catch { /* yok */ } ev.target.textContent = 'Kopyalandı';
     };

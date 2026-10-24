@@ -22,7 +22,9 @@ const kaynaklar = () => load('/data/kaynaklar.json');
 const oiUrl = ref => { const m = /^(\d{4})([^.]+)\.([^.]+)/.exec(ref || ''); if (!m) return null; const blk = String(Math.ceil(Math.max(+m[1], 1) / 25) * 25).padStart(4, '0') + 'AH'; const au = m[1] + m[2]; return `https://github.com/OpenITI/${blk}/tree/master/data/${au}/${au}.${m[3]}`; };
 const qpUrl = id => `https://quranpedia.net/book/${id}`;
 const pv = (v, p) => +v || +p ? `PageV${String(+v || 1).padStart(2, '0')}P${String(+p || 0).padStart(3, '0')}` : '';
+const KAYNAK_ACIK = false; /* kullanıcı kararı (24.10.2026 22:04): 🔗 kaynak zinciri site genelinde gizli */
 function chain(items) {
+  if (!KAYNAK_ACIK) return '';
   return `<details class="chain"><summary title="Kaynak zinciri" aria-label="Bu bilginin kaynak zinciri">🔗</summary><ol>${items.filter(Boolean).map(i => `<li${i.k ? ` data-k="${i.k}"` : ''}${i.b ? ` data-b="${i.b}"` : ''}><span class="cr">${esc(i.r)}</span> ${i.u ? `<a href="${esc(i.u)}" target="_blank" rel="noopener">${esc(i.t || i.u)}</a>` : esc(i.t || '')}</li>`).join('')}</ol></details>`;
 }
 document.addEventListener('toggle', async e => {
