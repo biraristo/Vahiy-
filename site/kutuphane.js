@@ -282,9 +282,10 @@ async function bolumGoster(e, D, raf, n) {
   const hadis = raf === 'hadis';
   let html = '';
   const paragraf = (t, c, sy) => {
+    const dip = t.startsWith('\x04'); if (dip) t = t.slice(1);
     let h = ayetVurgu(t);
     if (hadis) { const m = /^(\d{1,5}) (.*)$/s.exec(t); if (m) { const [i0, ...r] = m[2].split(' * '); h = `<span class="hno">${m[1]}</span>` + (r.length ? `<span class="isn">${ayetVurgu(i0)}</span> <span class="mtn">${ayetVurgu(r.join(' * '))}</span>` : ayetVurgu(m[2])); } }
-    return `<p data-c="${c || ''}" data-p="${sy || ''}">${h}</p>`;
+    return `<p${dip ? ' class="dipnot"' : ''} data-c="${c || ''}" data-p="${sy || ''}">${h}</p>`;
   };
   let buf = '', pc = null;
   for (const x of seg) {

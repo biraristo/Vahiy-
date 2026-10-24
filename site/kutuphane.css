@@ -157,3 +157,4 @@ a.dt-sat:hover .dt-ad, a.dt-sat:focus .dt-ad { color: var(--firuze); }
 .dt-oku .gecis a { max-width: 48%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dt-duz p[dir="auto"] { text-align: start; unicode-bidi: plaintext; }
 .dt-duz.satir p { margin: 0 0 .25rem; }
+.ek-metin .metin p.dipnot { font-size: .86em; color: var(--muted); border-inline-start: 2px solid var(--line); padding-inline-start: .6rem; margin-bottom: .4rem; }
