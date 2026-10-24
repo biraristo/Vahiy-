@@ -1,4 +1,4 @@
-// vahiy++ — /r2/<anahtar> isteklerini R2 kovasından (vahiy) sunar; geri kalan her şey statik dosyalardır.
+// vahiy++ — /r2/<anahtar> isteklerini R2 kovasından (vahiy) sunar (kitap/ ve atif/); geri kalan her şey statik dosyalardır.
 // Kitap metinleri tek dosyada ardışık gzip bölümleridir; okuyucu yalnız açtığı bölümü Range ile ister.
 // /api/cevir: Arapça pasajın Türkçe makine çevirisi (Workers AI, yalnız ücretsiz günlük kota içinde).
 // Her çeviri bir kez yapılır ve R2'de (ceviri/) saklanır; günlük sınır dolunca 429 döner, sayfa Google Çeviri bağlantısı gösterir.
@@ -39,7 +39,7 @@ export default {
     const key = decodeURIComponent(url.pathname.slice(4));
     if (!key || key.includes('..')) return new Response('Geçersiz anahtar', { status: 400 });
     // yalnız yayımlanan kitaplar dışarı açılır; ham arşiv (ham/) ve diğer anahtarlar kapalıdır
-    if (!/^kitap\//.test(key)) return new Response('Bulunamadı', { status: 404 });
+    if (!/^(kitap|atif)\//.test(key)) return new Response('Bulunamadı', { status: 404 });
     const rh = req.headers.get('range');
     const m = rh && /^bytes=(\d+)-(\d+)$/.exec(rh);
     const range = m ? { offset: +m[1], length: +m[2] - +m[1] + 1 } : undefined;
