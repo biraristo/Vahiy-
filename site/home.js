@@ -275,6 +275,7 @@ async function home() {
   /* ---- kaynak dünyası ---- */
   const KD = [['Tefsir', '357 eser', '#1F7A80', 'y'], ['Hadis', '1.561 kitap', '#1E3A5F', 'h'], ['Fıkıh ve usûl', '921 kitap', '#5B4A2A', 'k'], ['Kelâm', '446 kitap', '#2F5D50', 'g'], ['Tasavvuf', '307 kitap', '#6B3A3A', 'u'],
     ['Lügatler', '12 lügat', '#3E4E6B', 'k'], ['Tarih ve ricâl', '777 kitap', '#4A5A3A', 'h'], ['Kıraat', '210 kitap', '#1F6070', 'y'], ['Paralel metinler', '713 metin', '#4B3F5E', 'g'], ['Makaleler', fmt(sy.makale) + ' makale', '#2E4A55', 'u']];
+  const KDL = { 'Tefsir': 'tefsir', 'Hadis': 'hadis', 'Fıkıh ve usûl': 'fikih', 'Kelâm': 'kelam', 'Tasavvuf': 'tasavvuf', 'Lügatler': 'lugat', 'Tarih ve ricâl': 'tarih', 'Kıraat': 'kiraat' };
   const motif = (tp, c, i) => {
     const s = 'stroke="rgba(244,242,234,.32)" fill="none" stroke-width="1.2"', id = 'kp' + i;
     const P = { h: `<rect x="10" y="10" width="20" height="20" ${s}/><rect x="10" y="10" width="20" height="20" transform="rotate(45 20 20)" ${s}/>`, k: `<path d="M4 4h12v12H8v8h16V8h8v24H4z" ${s}/>`,
@@ -283,7 +284,7 @@ async function home() {
     const w = { h: 40, k: 36, g: 60, y: 50 }[tp], h = tp === 'g' ? 52 : w;
     return `<defs><pattern id="${id}" width="${w}" height="${h}" patternUnits="userSpaceOnUse">${P[tp]}</pattern></defs><rect width="100%" height="100%" fill="${c}"/><rect width="100%" height="100%" fill="url(#${id})"/>`;
   };
-  $('#kaynaklar').innerHTML = KD.map((k, i) => `<a class="kay" href="${k[0] === 'Tefsir' ? '#/kutuphane/tefsir' : '#/kutuphane'}"><svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 220 150" aria-hidden="true">${motif(k[3], k[2], i)}</svg><b>${k[0]}</b><span>${k[1]}</span></a>`).join('');
+  $('#kaynaklar').innerHTML = KD.map((k, i) => `<a class="kay" href="${KDL[k[0]] ? '#/kutuphane/' + KDL[k[0]] : '#/kutuphane'}"><svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 220 150" aria-hidden="true">${motif(k[3], k[2], i)}</svg><b>${k[0]}</b><span>${k[1]}</span></a>`).join('');
 }
 
 /* yatay kaydırılan alanlar için hareketli ipucu; kullanıcı kaydırınca kaybolur */
