@@ -252,3 +252,25 @@ body.se-acik { overflow: hidden; }
 .zc-sz button { flex: none; font: 500 .86rem var(--sans); color: var(--ink); background: var(--sheet); border: 1px solid var(--line); border-radius: 999px; padding: .32rem .75rem; cursor: pointer; white-space: nowrap; }
 .zc-sz button small { color: var(--muted); font-size: .76em; } .zc-sz button[aria-pressed="true"] { background: var(--bt, var(--firuze)); border-color: var(--bt, var(--firuze)); color: #fff; } .zc-sz button[aria-pressed="true"] small { color: rgba(255,255,255,.8); }
 .fh-bb { position: sticky; inset-inline-start: 4px; }
+/* Ayet fihristi: genel konu çubuğu */
+.gk { position: relative; padding-top: 30px; }
+.gk-imle { position: absolute; top: 0; transform: translateX(-50%); pointer-events: none; transition: left .12s; text-align: center; }
+.gk-imle b { display: block; font: 700 .95rem var(--sans); color: var(--ink); background: var(--sheet); border: 2px solid var(--firuze); border-radius: 999px; padding: 0 .5rem; line-height: 1.5; }
+.gk-cubuk { display: flex; align-items: flex-end; gap: 1px; height: 64px; touch-action: none; cursor: pointer; padding: 4px 0; }
+.gk-cubuk i { flex: 1; min-width: 0; height: 70%; background: var(--c); border-radius: 2px; opacity: .9; }
+.gk-cubuk i[data-g="yok"] { background: var(--line); opacity: .6; }
+.gk-cubuk i:nth-child(odd) { height: 78%; }
+.gk-cubuk i.bu { height: 100%; opacity: 1; box-shadow: 0 0 0 2px var(--firuze); }
+.gk-cubuk i.on { height: 100%; opacity: 1; filter: brightness(1.15); }
+.gk-cubuk.suz i:not(.sec):not(.bu) { opacity: .15; }
+.gk-uc { display: flex; justify-content: space-between; gap: 8px; font: .78rem var(--sans); color: var(--muted); margin-top: 4px; } .gk-ip { text-align: center; color: var(--ink); } .gk-ip b { color: var(--firuze); }
+.gk-lej { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; align-items: center; }
+.gk-lej button { display: inline-flex; align-items: center; gap: 6px; font: 500 .86rem var(--sans); color: var(--ink); background: var(--sheet); border: 1px solid var(--line); border-radius: 10px; padding: .35rem .65rem; cursor: pointer; }
+.gk-lej button i { width: 11px; height: 11px; border-radius: 50%; } .gk-lej button small { color: var(--muted); } .gk-lej button[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.gk-yok { font: .78rem var(--sans); color: var(--muted); }
+.gk-konu { margin-top: 18px; } .gk-konu h3 { font: 700 1.05rem var(--serif); margin: 0 0 8px; }
+.gk-k { border: 1px solid var(--line); border-left: 4px solid var(--c); background: var(--sheet); border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; }
+.gk-ku { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; } .gk-ku b { font: 700 1.02rem var(--serif); } .gk-ku span { font: 600 .8rem var(--sans); color: var(--firuze); white-space: nowrap; }
+.gk-bu { font: .86rem var(--sans); color: var(--muted); margin: 3px 0 4px; } .gk-bu b { color: var(--ink); } .gk-bu a, .gk-dig a { color: var(--firuze); text-decoration: none; }
+.gk-dig { font: .88rem/1.6 var(--sans); margin: 0; } .gk-dig span a:first-child { font-weight: 700; } .gk-tum { font: 600 .8rem var(--sans); border: 1px solid var(--firuze); color: var(--firuze); background: none; border-radius: 999px; padding: 1px 8px; cursor: pointer; }
+.gk-bos { font: .9rem var(--sans); color: var(--muted); }

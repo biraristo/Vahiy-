@@ -24,50 +24,46 @@ function ayetYeni(s, a, A, su, S, D, MI) {
     $('#a3Mealler').innerHTML = `<details class="a3-tum"><summary>Tüm mealler (${L.length})</summary><ul>${L.map(m => `<li><b>${esc(AY_MEAL_AD[m] || m)}</b><span>${esc(M.mealler[m][a - 1])}</span></li>`).join('')}</ul></details>`;
   }).catch(() => {});
 
-  /* ---- ayet fihristi: surenin bütün ayetleri sağdan sola bir şeritte, her ayette konu etiketleri (KuranFihristi.net) ---- */
-  Promise.all([load('/data/k0/konu.json'), load(`/data/fh/${s}.json`), load('/data/fh/etiket.json'), load('/data/k0/ilk.json').catch(() => ({}))]).then(([K, F, ET, IL]) => {
-    const B = K.sureler[String(s)] || [[1, su.ayet, su.tr]], E = ET.etiketler, ilkK = IL[String(s)] || [];
-    const bi = n => B.findIndex(([x, y]) => n >= x && n <= y);
+  /* ---- ayet fihristi: surenin genel konu çubuğu (her ayet bir çubuk) + seçili ayetin konuları (KuranFihristi.net) ---- */
+  Promise.all([load(`/data/fh/${s}.json`), load('/data/fh/etiket.json'), load('/data/fh/genel.json'), meta()]).then(([F, ET, GN, SM]) => {
+    const E = ET.etiketler, GA = GN.adlar, GL = GN.sureler[String(s)] || [], TRS = n => SM.sureler[n - 1]?.tr || n;
+    const RENK = { kissa: '#C9A13B', iman: '#2F8C8F', ahiret: '#B85C4E', hukum: '#7E5AA6', ahlak: '#5E8C4A', diger: '#9AA3AE' };
     const et = n => F.ayetler[String(n)] || [];
     const el = $('#aySerit');
-    $('#a3SureNot').innerHTML = `${su.ayet} ayet · ${B.length} bölüm`;
-    const kutu = n => { const T = et(n); return `<div class="fh-ay${n === a ? ' bu' : ''}" data-a="${n}" role="link" tabindex="0" aria-label="${n}. ayet"><span class="no">${n}</span><span class="q" lang="ar">${esc((ilkK[n - 1] || '').replace(/ …$/, ''))}</span>${T.slice(0, 3).map(i => `<button type="button" class="t" data-e="${i}">${esc(E[i][0])}</button>`).join('')}${T.length > 3 ? `<span class="t d">+${T.length - 3}</span>` : ''}</div>`; };
-    const surEt = {}; for (let n = 1; n <= su.ayet; n++) et(n).forEach(i => { surEt[i] = (surEt[i] || 0) + 1; });
-    const etSira = Object.keys(surEt).map(Number).sort((p, q) => surEt[q] - surEt[p] || E[p][0].localeCompare(E[q][0], 'tr'));
-    el.innerHTML = `<div class="fh-suz"><label><span>Bölüm</span><select data-fs="b">${B.map(([x, y, ad], j) => `<option value="${x}"${bi(a) === j ? ' selected' : ''}>${x === y ? x : `${x}–${y}`} · ${esc(ad)}</option>`).join('')}</select></label>
-      <label><span>Ayet</span><select data-fs="a">${Array.from({ length: su.ayet }, (_, k) => `<option value="${k + 1}"${k + 1 === a ? ' selected' : ''}>${k + 1}${et(k + 1).length ? ' · ' + esc(et(k + 1).slice(0, 2).map(i => E[i][0]).join(', ')) : ''}</option>`).join('')}</select></label>
-      <label><span>Etiket</span><select data-fs="e"><option value="">Bu suredeki ${etSira.length} etiket</option>${etSira.map(i => `<option value="${i}">${esc(E[i][0])} (${surEt[i]})</option>`).join('')}</select></label></div>
-      <div class="fh-serit" dir="rtl" tabindex="0" aria-label="Surenin ayetleri">${B.map(([x, y, ad], j) => `<div class="fh-bol" style="--c:var(--k${j % 8})"><span class="fh-bb" dir="ltr">${x === y ? x : `${x}–${y}`} · ${esc(ad)}</span><div class="fh-kol">${Array.from({ length: y - x + 1 }, (_, k) => kutu(x + k)).join('')}</div></div>`).join('')}</div>
-      <div class="fh-harita" dir="rtl" aria-hidden="true">${Array.from({ length: su.ayet }, (_, k) => `<i data-a="${k + 1}" class="${k + 1 === a ? 'bu' : ''}" style="--c:var(--k${bi(k + 1) % 8})"></i>`).join('')}</div>
-      <div class="fh-harita-alt"><span>${su.ayet}</span><span>şeridi kaydırın ya da haritaya dokunun</span><span>1</span></div>
-      <div class="fh-ilgili" aria-live="polite"></div>
-      <p class="ss-not">Etiketler: <a href="https://www.kuranfihristi.net/" target="_blank" rel="noopener">KuranFihristi.net</a> konu fihristi (${fmt(E.length)} konu). Bölümler Claude tarafından klasik tefsirlerin pasaj taksimine bakılarak hazırlandı. ${chain([{ r: 'Etiketler', t: ET.kaynak, u: ET.url }, { r: 'Bölümler', t: K.kaynak, k: 'claude' }, { r: 'İşleme', b: 'fihrist' }])}</p>`;
-    const ser = el.querySelector('.fh-serit');
-    const goster = n => { const t = ser.querySelector(`.fh-ay[data-a="${n}"]`); if (!t) return; const r1 = t.getBoundingClientRect(), r0 = ser.getBoundingClientRect(); ser.scrollLeft += (r1.left + r1.width / 2) - (r0.left + r0.width / 2); };
-    const ilgili = i => {
-      const [ad, L] = E[i]; const dig = L.filter(r => r !== `${s}:${a}`);
-      el.querySelector('.fh-ilgili').innerHTML = `<p><b>${esc(ad)}</b> etiketi ${L.length} ayette${L.includes(`${s}:${a}`) ? `; bu ayet dışında ${dig.length}` : ''}:</p><div class="fh-yer">${dig.slice(0, 40).map(r => `<a href="#/${r.replace(':', '/')}">${r}</a>`).join('')}${dig.length > 40 ? `<button type="button" class="fh-tum">+${dig.length - 40} ayet daha</button>` : ''}</div>`;
-      el.querySelector('.fh-tum')?.addEventListener('click', ev => { ev.target.outerHTML = dig.slice(40).map(r => `<a href="#/${r.replace(':', '/')}">${r}</a>`).join(''); });
-      el.querySelectorAll('.fh-ay .t[data-e]').forEach(b => b.classList.toggle('sec', +b.dataset.e === i));
-    };
-    ser.addEventListener('click', ev => {
-      const t = ev.target.closest('.t[data-e]'); if (t) { ev.stopPropagation(); ilgili(+t.dataset.e); return; }
-      const k = ev.target.closest('.fh-ay'); if (k && +k.dataset.a !== a) location.hash = `#/${s}/${k.dataset.a}`;
-    });
-    ser.addEventListener('keydown', ev => { const k = ev.target.closest('.fh-ay'); if (k && ev.key === 'Enter') location.hash = `#/${s}/${k.dataset.a}`; });
-    el.querySelector('.fh-suz').addEventListener('change', ev => {
-      const t = ev.target, v = t.value;
-      if (t.dataset.fs === 'b') goster(+v);
-      else if (t.dataset.fs === 'a') location.hash = `#/${s}/${v}`;
-      else if (t.dataset.fs === 'e') {
-        ser.querySelectorAll('.fh-ay').forEach(k => k.classList.toggle('isk', !!v && et(+k.dataset.a).includes(+v)));
-        el.querySelectorAll('.fh-harita i').forEach(k => k.classList.toggle('isk', !!v && et(+k.dataset.a).includes(+v)));
-        if (v) { ilgili(+v); const ilk = ser.querySelector('.fh-ay.isk'); if (ilk) goster(+ilk.dataset.a); }
-      }
-    });
-    el.querySelector('.fh-harita').addEventListener('click', ev => { const i = ev.target.closest('i'); if (i) goster(+i.dataset.a); });
-    requestAnimationFrame(() => goster(a));
-    if (et(a).length) ilgili(et(a)[0]); else el.querySelector('.fh-ilgili').innerHTML = '<p>Bu ayet için fihristte etiket yok.</p>';
+    $('#a3SureNot').innerHTML = `${esc(su.tr)} · ${su.ayet} ayet`;
+    const say = {}; GL.forEach(g => { const k = g || 'yok'; say[k] = (say[k] || 0) + 1; });
+    const SIRA = ['kissa', 'iman', 'ahiret', 'hukum', 'ahlak', 'diger'].filter(k => say[k]);
+    el.innerHTML = `<div class="gk"><div class="gk-imle" aria-hidden="true"><b>${a}</b></div>
+        <div class="gk-cubuk" role="slider" tabindex="0" aria-label="Surede ayet seçin" aria-valuemin="1" aria-valuemax="${su.ayet}" aria-valuenow="${a}">${GL.map((g, i) => `<i data-a="${i + 1}" data-g="${g || 'yok'}" class="${i + 1 === a ? 'bu' : ''}" style="--c:${g ? RENK[g] : 'transparent'}"></i>`).join('')}</div>
+        <div class="gk-uc"><span>1</span><span class="gk-ip">Çubukta gezdirin, bırakınca ayet açılır</span><span>${su.ayet}</span></div>
+        <div class="gk-lej">${SIRA.map(k => `<button type="button" data-g="${k}" aria-pressed="false"><i style="background:${RENK[k]}"></i>${esc(GA[k])} <small>${say[k]}</small></button>`).join('')}${say.yok ? `<span class="gk-yok">${say.yok} ayet etiketsiz</span>` : ''}</div></div>
+      <div class="gk-konu"></div>
+      <p class="ss-not">Etiketler: <a href="https://www.kuranfihristi.net/" target="_blank" rel="noopener">KuranFihristi.net</a> konu fihristi. Renkler (genel başlıklar) Claude'un bu etiketlerden yaptığı sınıflamadır. ${chain([{ r: 'Etiketler', t: ET.kaynak, u: ET.url }, { r: 'Genel başlıklar', t: GN.kaynak, k: 'claude' }, { r: 'İşleme', b: 'fihrist' }])}</p>`;
+    const cub = el.querySelector('.gk-cubuk'), imle = el.querySelector('.gk-imle'), ip = el.querySelector('.gk-ip'), ipVars = ip.textContent;
+    const yerlestir = n => { const c = cub.children[n - 1]; if (!c) return; imle.style.left = `${c.offsetLeft + c.offsetWidth / 2}px`; imle.firstChild.textContent = n; };
+    const nOf = x => { const r = cub.getBoundingClientRect(); return Math.max(1, Math.min(su.ayet, Math.floor((x - r.left) / r.width * su.ayet) + 1)); };
+    let surukle = false, hedef = a;
+    const goster = n => { hedef = n; yerlestir(n); cub.querySelectorAll('i.on').forEach(x => x.classList.remove('on')); cub.children[n - 1].classList.add('on'); const g = GL[n - 1]; ip.innerHTML = `<b>${s}:${n}</b> · ${g ? esc(GA[g]) : 'etiketsiz'}${et(n).length ? ' · ' + esc(et(n).slice(0, 3).map(i => E[i][0]).join(', ')) : ''}`; };
+    cub.addEventListener('pointerdown', e => { surukle = true; cub.setPointerCapture(e.pointerId); goster(nOf(e.clientX)); });
+    cub.addEventListener('pointermove', e => { if (surukle || e.pointerType === 'mouse') goster(nOf(e.clientX)); });
+    cub.addEventListener('pointerup', e => { if (!surukle) return; surukle = false; const n = nOf(e.clientX); if (n !== a) location.hash = `#/${s}/${n}`; });
+    cub.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && !surukle) { yerlestir(a); ip.textContent = ipVars; cub.querySelectorAll('i.on').forEach(x => x.classList.remove('on')); } });
+    cub.addEventListener('keydown', e => { const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (d) { e.preventDefault(); goster(Math.max(1, Math.min(su.ayet, hedef + d))); } if (e.key === 'Enter' && hedef !== a) location.hash = `#/${s}/${hedef}`; });
+    el.querySelector('.gk-lej').addEventListener('click', e => { const b = e.target.closest('button[data-g]'); if (!b) return; const on = b.getAttribute('aria-pressed') !== 'true';
+      el.querySelectorAll('.gk-lej button').forEach(x => x.setAttribute('aria-pressed', String(on && x === b))); cub.classList.toggle('suz', on); cub.querySelectorAll('i').forEach(x => x.classList.toggle('sec', on && x.dataset.g === b.dataset.g)); });
+    requestAnimationFrame(() => yerlestir(a)); addEventListener('resize', () => yerlestir(a));
+    /* seçili ayetin konuları: her konu kartında bu suredeki ve Kur'an'daki diğer yerleri */
+    const aralik = L => L.reduce((R, n) => { const r = R[R.length - 1]; if (r && n === r[1] + 1) r[1] = n; else R.push([n, n]); return R; }, []);
+    const T = et(a).slice().sort((p, q) => E[p][1].length - E[q][1].length);
+    const kart = i => { const [ad, L] = E[i]; const bu = L.filter(r => r.startsWith(s + ':')).map(r => +r.split(':')[1]); const dig = {}; L.forEach(r => { const [x, y] = r.split(':').map(Number); if (x !== s) (dig[x] ||= []).push(y); });
+      const ds = Object.keys(dig).map(Number); const g = GN.etiket_genel[i];
+      return `<div class="gk-k" style="--c:${RENK[g] || RENK.diger}"><div class="gk-ku"><b>${esc(ad)}</b><span>${L.length} ayet</span></div>
+        <p class="gk-bu">Bu surede: ${aralik(bu).map(([x, y]) => x === y ? (x === a ? `<b>${x}</b>` : `<a href="#/${s}/${x}">${x}</a>`) : `<a href="#/${s}/${x}">${x}</a>–<a href="#/${s}/${y}">${y}</a>`).join(', ')}</p>
+        ${ds.length ? `<p class="gk-dig">${ds.slice(0, 8).map(x => `<span><a href="#/${x}/${dig[x][0]}">${esc(TRS(x))}</a> ${dig[x].slice(0, 6).map(y => `<a href="#/${x}/${y}">${y}</a>`).join(', ')}${dig[x].length > 6 ? '…' : ''}</span>`).join(' · ')}${ds.length > 8 ? ` <button type="button" class="gk-tum" data-i="${i}">+${ds.length - 8} sure</button>` : ''}</p>` : '<p class="gk-dig">Başka surede geçmiyor.</p>'}</div>`; };
+    const kk = el.querySelector('.gk-konu');
+    kk.innerHTML = T.length ? `<h3>${a}. ayetin konuları</h3>${T.map(kart).join('')}` : '<p class="gk-bos">Bu ayet fihristte etiketlenmemiş.</p>';
+    kk.addEventListener('click', e => { const b = e.target.closest('.gk-tum'); if (!b) return; const i = +b.dataset.i, dig = {}; E[i][1].forEach(r => { const [x, y] = r.split(':').map(Number); if (x !== s) (dig[x] ||= []).push(y); });
+      b.outerHTML = Object.keys(dig).slice(8).map(x => ` · <span><a href="#/${x}/${dig[x][0]}">${esc(TRS(+x))}</a> ${dig[x].map(y => `<a href="#/${x}/${y}">${y}</a>`).join(', ')}</span>`).join(''); });
   }).catch(() => {});
 
   /* ---- kelimeler: ayet metnindeki kelimeye dokununca bilgi paneli ---- */
