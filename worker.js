@@ -1,3 +1,4 @@
+import { mcp } from './mcp.js';
 // vahiy++ — /r2/<anahtar> isteklerini R2 kovasından (vahiy) sunar (kitap/ ve atif/); geri kalan her şey statik dosyalardır.
 // Kitap metinleri tek dosyada ardışık gzip bölümleridir; okuyucu yalnız açtığı bölümü Range ile ister.
 // /api/cevir: Arapça pasajın Türkçe makine çevirisi (Workers AI, yalnız ücretsiz günlük kota içinde).
@@ -34,6 +35,7 @@ export default {
   async fetch(req, env) {
     const url = new URL(req.url);
     if (url.pathname === '/api/cevir') return cevir(req, env);
+    if (url.pathname === '/mcp') return mcp(req, env);
     if (!url.pathname.startsWith('/r2/')) return env.ASSETS.fetch(req);
     if (req.method !== 'GET' && req.method !== 'HEAD') return new Response('Yalnızca GET', { status: 405 });
     const key = decodeURIComponent(url.pathname.slice(4));
